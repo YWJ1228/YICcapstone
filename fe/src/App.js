@@ -9,6 +9,7 @@ import LoginPage from './Page/LoginPage';
 import RegisterPage from './Page/RegisterPage';
 import MyPage from './Page/MyPage';
 import ChangeInfoPage from './Page/ChangeInfoPage';
+import HomePage from './Page/HomePage';
 // npm install -g react-scripts
 // npm install react-bootstrap bootstrap
 
@@ -18,7 +19,7 @@ function App() {
       <NavigationBar img_src="" />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<div>Home</div>}/>
+          <Route path="/" element={<HomePage/>}/>
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/register" element={<RegisterPage/>}/>
           <Route path="/mypage" element={<MyPage/>}/>

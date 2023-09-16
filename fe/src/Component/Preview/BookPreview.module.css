@@ -1,0 +1,26 @@
+.image {
+    width: 10rem;
+    display : block;
+    margin : auto;
+}
+
+.title {
+    margin: auto;
+    font-weight: bold;
+}
+
+.sub-title {
+    margin: auto;
+    color: gray;
+
+    font-size: 0.5rem;
+}
+
+.more {
+    color: gray;
+    font-size: 0.7rem;
+}
+
+.more:link {
+    text-decoration: none;
+}
