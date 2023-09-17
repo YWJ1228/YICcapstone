@@ -1,0 +1,41 @@
+.wrapper{
+    width : 50rem;
+    margin : auto;
+    background-color: rgb(250, 233, 236);
+
+    border-radius: 3rem;
+}
+.title{
+    margin : auto;
+    margin-top : 1rem;
+    font-size : 2rem;
+}
+.description{
+    margin : auto;
+    margin-top : 1rem;
+    font-size : 1rem;
+    color : gray;
+}
+.price{
+    margin : auto;
+    margin-top : 1rem;
+    width : 8rem;
+    background-color : white;
+    color : black;
+
+    border-color : yellow;
+    border-width : 3cap;
+    border-radius: 2rem;
+}
+.price:hover{
+    background-color : yellow;
+    color : black;
+
+    border-color : yellow;
+}
+.sale{
+    margin : auto;
+    margin-left : 1rem;
+    margin-top : 2.3rem;
+    font-size : 0.1rem;
+}

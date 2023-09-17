@@ -1,24 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+
+import 'bootstrap/dist/css/bootstrap.css';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
+import NavigationBar from './Component/NavigationBar/NavigationBar';
+import LoginPage from './Page/LoginPage';
+import RegisterPage from './Page/RegisterPage';
+import MyPage from './Page/MyPage';
+import ChangeInfoPage from './Page/ChangeInfoPage';
+import HomePage from './Page/HomePage';
+// npm install -g react-scripts
+// npm install react-bootstrap bootstrap
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavigationBar img_src="" />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage/>}/>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/register" element={<RegisterPage/>}/>
+          <Route path="/mypage" element={<MyPage/>}/>
+          <Route path="/changeinfo" element={<ChangeInfoPage/>}/>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 
