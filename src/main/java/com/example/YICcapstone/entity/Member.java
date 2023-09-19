@@ -2,11 +2,8 @@ package com.example.YICcapstone.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDateTime;
 
 @Table(name = "MEMBER")
 @Getter
@@ -30,6 +27,12 @@ public class Member extends BaseTimeEntity{
 
     @Column(length = 255, nullable = false)
     private String nickname;
+
+    @Column(nullable = false)
+    private String birth;
+
+    @Column(nullable = false)
+    private Integer sex;
 
     @Enumerated(EnumType.STRING)
     private Role role;

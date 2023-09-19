@@ -24,7 +24,8 @@ class MemberRepositoryTest {
     @Test
     public void 회원저장_성공() throws Exception {
         //given
-        Member member = Member.builder().email("test1@test.com").password("1234").name("testName").nickname("testNick").role(Role.USER).build();
+        Member member = Member.builder().email("test1@test.com").password("1234")
+                .name("testName").nickname("testNick").birth("19990101").sex(1).role(Role.USER).build();
 
         //when
         Member saveMember = memberRepository.save(member);
@@ -38,7 +39,8 @@ class MemberRepositoryTest {
     @Test
     public void 회원가입시_아이디_겸_이메일이_없으면_실패() throws Exception {
         //given
-        Member member = Member.builder().password("1234").name("testName").nickname("testNick").role(Role.USER).build();
+        Member member = Member.builder().password("1234").name("testName").nickname("testNick")
+                .birth("19990101").sex(1).role(Role.USER).build();
 
         //when, then
         assertThrows(Exception.class, () -> memberRepository.save(member));
@@ -46,7 +48,8 @@ class MemberRepositoryTest {
     @Test
     public void 회원가입시_이름이_없으면_실패() throws Exception {
         //given
-        Member member = Member.builder().email("test1@test.com").password("1234").nickname("testNick").role(Role.USER).build();
+        Member member = Member.builder().email("test1@test.com").password("1234")
+                .birth("19990101").sex(1).nickname("testNick").role(Role.USER).build();
 
         //when, then
         assertThrows(Exception.class, () -> memberRepository.save(member));
@@ -54,7 +57,8 @@ class MemberRepositoryTest {
     @Test
     public void 회원가입시_닉네임이_없으면_실패() throws Exception {
         //given
-        Member member = Member.builder().email("test1@test.com").password("1234").role(Role.USER).build();
+        Member member = Member.builder().email("test1@test.com").password("1234")
+                .birth("19990101").sex(1).role(Role.USER).build();
 
         //when, then
         assertThrows(Exception.class, () -> memberRepository.save(member));
@@ -62,8 +66,10 @@ class MemberRepositoryTest {
     @Test
     public void 회원가입시_중복아이디_존재하면_실패() throws Exception {
         //given
-        Member member1 = Member.builder().email("same@test.com").password("1234").name("test1").nickname("testNick1").role(Role.USER).build();
-        Member member2 = Member.builder().email("same@test.com").password("5678").name("test2").nickname("testNick1").role(Role.USER).build();
+        Member member1 = Member.builder().email("same@test.com").password("1234")
+                .birth("19990101").sex(1).name("test1").nickname("testNick1").role(Role.USER).build();
+        Member member2 = Member.builder().email("same@test.com").password("5678")
+                .birth("19990101").sex(1).name("test2").nickname("testNick1").role(Role.USER).build();
 
         memberRepository.save(member1);
 
@@ -73,7 +79,8 @@ class MemberRepositoryTest {
     @Test
     public void 회원수정_성공() throws Exception {
         //given
-        Member member1 = Member.builder().email("test@test.com").password("1234").name("test1").nickname("testnick1").role(Role.USER).build();
+        Member member1 = Member.builder().email("test@test.com").password("1234")
+                .birth("19990101").sex(1).name("test1").nickname("testnick1").role(Role.USER).build();
         memberRepository.save(member1);
 
         String updatePW = "updatepw";
@@ -95,7 +102,8 @@ class MemberRepositoryTest {
     @Test
     public void 회원삭제_성공() throws Exception {
         //given
-        Member member1 = Member.builder().email("test1@test.com").password("1234").name("test1").nickname("testNick1").role(Role.USER).build();
+        Member member1 = Member.builder().email("test1@test.com").password("1234")
+                .birth("19990101").sex(1).name("test1").nickname("testNick1").role(Role.USER).build();
         memberRepository.save(member1);
 
         //when
@@ -108,7 +116,8 @@ class MemberRepositoryTest {
     public void existByEmail_아이디중복확인_작동() throws Exception {
         //given
         String existEmail = "test@test.com";
-        Member member1 = Member.builder().email(existEmail).password("1234").name("test1").nickname("testNick1").role(Role.USER).build();
+        Member member1 = Member.builder().email(existEmail).password("1234")
+                .birth("19990101").sex(1).name("test1").nickname("testNick1").role(Role.USER).build();
         memberRepository.save(member1);
 
         //when, then
@@ -119,7 +128,8 @@ class MemberRepositoryTest {
     public void findByEmail_아이디_이용하여_찾기_작동() throws Exception {
         //given
         String existEmail = "test@test.com";
-        Member member1 = Member.builder().email(existEmail).password("1234").name("test1").nickname("testNick1").role(Role.USER).build();
+        Member member1 = Member.builder().email(existEmail).password("1234")
+                .birth("19990101").sex(1).name("test1").nickname("testNick1").role(Role.USER).build();
         memberRepository.save(member1);
 
         //when, then
@@ -133,15 +143,16 @@ class MemberRepositoryTest {
     @Test
     public void 회원가입시_생성시간_등록_정상() throws Exception {
         //given
-        Member member1 = Member.builder().email("test1.test.com").password("1234").name("test1").nickname("testNick1").role(Role.USER).build();
+        Member member1 = Member.builder().email("test1.test.com").password("1234")
+                .birth("19990101").sex(1).name("test1").nickname("testNick1").role(Role.USER).build();
         memberRepository.save(member1);
 
         //when
         Member findMember = memberRepository.findById(member1.getId()).orElseThrow(() -> new Exception());
 
         //then
-        assertThat(findMember.getCreatedDate()).isNotNull();
-        assertThat(findMember.getLastModifiedDate()).isNotNull();
+        assertThat(findMember.getCreated_at()).isNotNull();
+        /*assertThat(findMember.getUpdated_at()).isNotNull();*/
     }
 
     @AfterEach
