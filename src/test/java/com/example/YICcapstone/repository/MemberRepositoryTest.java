@@ -77,6 +77,19 @@ class MemberRepositoryTest {
         assertThrows(Exception.class, () -> memberRepository.save(member2));
     }
     @Test
+    public void 회원가입시_중복닉네임이면_실패() throws Exception {
+        //given
+        Member member1 = Member.builder().email("test1@test.com").password("1234")
+                .birth("19990101").sex(1).name("test1").nickname("sameNick").role(Role.USER).build();
+        Member member2 = Member.builder().email("test2@test.com").password("1234")
+                .birth("19990101").sex(1).name("test2").nickname("sameNick").role(Role.USER).build();
+
+        memberRepository.save(member1);
+
+        //when, then
+        assertThrows(Exception.class, () -> memberRepository.save(member2));
+    }
+    @Test
     public void 회원수정_성공() throws Exception {
         //given
         Member member1 = Member.builder().email("test@test.com").password("1234")
@@ -85,18 +98,20 @@ class MemberRepositoryTest {
 
         String updatePW = "updatepw";
         String updateNick = "updatenickname";
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        //BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
         //when
         Member findMember = memberRepository.findById(member1.getId()).orElseThrow(() -> new Exception());
-        findMember.updatePassword(passwordEncoder, updatePW);
+        //findMember.updatePassword(passwordEncoder, updatePW);
+        findMember.updatePassword(updatePW);
         findMember.updateNickname(updateNick);
 
         //then
         Member findUpdateMember = memberRepository.findById(findMember.getId()).orElseThrow(() -> new Exception());
 
         assertThat(findUpdateMember).isSameAs(findMember);
-        assertThat(passwordEncoder.matches(updatePW, findUpdateMember.getPassword())).isTrue();
+        //assertThat(passwordEncoder.matches(updatePW, findUpdateMember.getPassword())).isTrue();
+        assertThat(findUpdateMember.getPassword()).isEqualTo(updatePW);
         assertThat(findUpdateMember.getNickname()).isEqualTo(updateNick);
     }
     @Test
