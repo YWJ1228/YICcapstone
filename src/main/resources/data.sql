@@ -1,0 +1,1 @@
+INSERT INTO Member(email, password, name, nickname, sex, role) VALUES('master@test.com', '1234', 'YIC', 'YIC', 1, 1);
