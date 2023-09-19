@@ -14,7 +14,15 @@ public enum ErrorCode {
     INVALID_INPUT_VALUE(400, "C003", "입력값이 잘못되었습니다."),
     METHOD_NOT_ALLOWED(405, "C004", "요청된 메소드가 잘못되었습니다."),
     HANDLE_ACCESS_DENIED(403, "C005", "권한이 없습니다."),
-    ENTITY_NOT_FOUND(400, "C006", "해당 엔티티를 찾을 수 없습니다.");
+    ENTITY_NOT_FOUND(400, "C006", "해당 엔티티를 찾을 수 없습니다."),
+
+    // Ebook
+    EBOOK_NOT_FOUND(400, "E001", "해당 Ebook을 찾을 수 없습니다."),
+    EBOOK_CATEGORY_NOT_FOUND(400, "E002", "해당 EbookCategory를 찾을 수 없습니다."),
+
+    // VoiceModel
+    VOICE_MODEL_NOT_FOUND(400, "V001", "해당 VoiceModel을 찾을 수 없습니다."),
+    VOICE_MODEL_CATEGORY_NOT_FOUND(400, "V002", "해당 VoiceModelCategory를 찾을 수 없습니다.");
 
     private final int status;
     private final String code;

@@ -1,15 +1,23 @@
 package com.example.YICcapstone.domain.ebook.domain;
 
+import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
-
+@Setter
+@Getter
 public class Ebook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "ebook_category_id")
+    private EbookCategory ebookCategory;
 
     @Column
     private String ebookName;
@@ -25,15 +33,27 @@ public class Ebook {
     private int rating = 0;
     private LocalDateTime uploadedAt = LocalDateTime.now();
 
-    public Ebook(String ebookName, String author, int pages, String publisher, int price, String imageUrl, String comment, String content) {
-        this.ebookName = ebookName;
-        this.author = author;
-        this.pages = pages;
-        this.publisher = publisher;
-        this.price = price;
-        this.imageUrl = imageUrl;
-        this.comment = comment;
-        this.content = content;
+
+    public Ebook(EbookCreationRequest ebookCreationRequest) {
+        this.ebookName = ebookCreationRequest.getEbookName();
+        this.author = ebookCreationRequest.getAuthor();
+        this.pages = ebookCreationRequest.getPages();
+        this.publisher = ebookCreationRequest.getPublisher();
+        this.price = ebookCreationRequest.getPrice();
+        this.imageUrl = ebookCreationRequest.getImageUrl();
+        this.comment = ebookCreationRequest.getComment();
+        this.content = ebookCreationRequest.getContent();
+    }
+
+    public void update(EbookCreationRequest ebookCreationRequest) {
+        this.ebookName = ebookCreationRequest.getEbookName();
+        this.author = ebookCreationRequest.getAuthor();
+        this.pages = ebookCreationRequest.getPages();
+        this.publisher = ebookCreationRequest.getPublisher();
+        this.price = ebookCreationRequest.getPrice();
+        this.imageUrl = ebookCreationRequest.getImageUrl();
+        this.comment = ebookCreationRequest.getComment();
+        this.content = ebookCreationRequest.getContent();
     }
 
 }
