@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
-    void signUp(MemberSignUpDto memberSignUpDto) throws Exception {
+    public void signUp(MemberSignUpDto memberSignUpDto) throws Exception {
         Member member = memberSignUpDto.toEntity();
         member.addRole();
         if(memberRepository.findByEmail(memberSignUpDto.email()).isPresent()){
@@ -25,7 +25,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
-    void update(String email, MemberUpdateDto memberUpdateDto) throws Exception {
+    public void update(String email, MemberUpdateDto memberUpdateDto) throws Exception {
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new Exception("회원이 존재하지 않습니다"));
 
         if(memberUpdateDto.password() != "") {
@@ -39,7 +39,7 @@ public class MemberService {
         //memberUpdateDto.password().ifPresent(member::updatePassword);
     }
 
-    void withdraw(String email, String checkPW) throws Exception {
+    public void withdraw(String email, String checkPW) throws Exception {
         Member member = memberRepository.findByEmail(email).orElseThrow(() -> new Exception("회원이 존재하지 않습니다"));
 
         if(member.getPassword() != checkPW) {
