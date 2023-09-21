@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class MemberInfoDto {
 
-    private final String username;
+    private final String email;
     private final String name;
     private final String nickname;
     private final String birth;
@@ -15,7 +15,7 @@ public class MemberInfoDto {
 
     @Builder
     public MemberInfoDto(Member member) {
-        this.username = member.getUsername();
+        this.email = member.getEmail();
         this.name = member.getName();
         this.nickname = member.getNickname();
         this.birth = member.getBirth();

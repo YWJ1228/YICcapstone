@@ -18,7 +18,7 @@ public class Member extends BaseTimeEntity {
     private Long id;
 
     @Column(length = 255, nullable = false, unique = true)
-    private String username; // 우준 : 아이디는 중복 될 수 없게 설정 unique = true
+    private String email; // 우준 : 아이디는 중복 될 수 없게 설정 unique = true
 
     private String password;
 
@@ -37,20 +37,8 @@ public class Member extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @Column(length = 10000)
-    private String refreshToken;
-
-    public void updateRefreshToken(String refreshToken){
-        this.refreshToken = refreshToken;
-    }
-    public void destroyRefreshToken(){
-        this.refreshToken = null;
-    }
-
-
     // 우준 : 정보 수정(비밀번호, 닉네임만)
-    public void updatePassword(PasswordEncoder passwordEncoder, String password){
-        this.password = passwordEncoder.encode(password);
+    public void updatePassword(String password){this.password = password;
     }
     public void updateNickname(String nickname){
         this.nickname = nickname;
@@ -58,9 +46,5 @@ public class Member extends BaseTimeEntity {
 
     public void addRole() {
         this.role = Role.USER;
-    }
-
-    public void encodePassword(PasswordEncoder passwordEncoder){
-        this.password = passwordEncoder.encode(password);
     }
 }

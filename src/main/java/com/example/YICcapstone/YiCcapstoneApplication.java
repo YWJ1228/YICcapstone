@@ -6,13 +6,11 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-//@EnableCaching
 @EnableJpaAuditing // 우준 : 엔티티가 생성시각, 수정시각, 생성자, 수정자를 기록해주는 Auditing 기능 제공 (BaseTimeEntity에 존재)
-@SpringBootApplication//(exclude = SecurityAutoConfiguration.class)//(scanBasePackages = {"org.springframework.web.filter.CorsFilter"})
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class YiCcapstoneApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(YiCcapstoneApplication.class, args);
 	}
 
 }
-//(scanBasePackages = {"com.example.YICcapstone.global.jwt.JwtService"})
