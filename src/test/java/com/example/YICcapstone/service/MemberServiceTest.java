@@ -1,5 +1,6 @@
 package com.example.YICcapstone.service;
 
+import com.example.YICcapstone.dto.MemberLoginDto;
 import com.example.YICcapstone.dto.MemberSignUpDto;
 import com.example.YICcapstone.dto.MemberUpdateDto;
 import com.example.YICcapstone.entity.Member;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -152,6 +154,22 @@ class MemberServiceTest {
                 () -> memberService.withdraw(memberSignUpDto.email(), "different_pw")).getMessage())
                 .isEqualTo("비밀번호가 일치하지 않습니다.");
     }
+
+    // 테스트용 로그인
+    @Test
+    public void 회원가입_후_로그인_성공() throws Exception {
+        MemberSignUpDto memberSignUpDto = new MemberSignUpDto("test@test.com", "1234",
+                "test", "testNick", "19990101", 1);
+        memberService.signUp(memberSignUpDto);
+
+        MemberLoginDto memberLoginDto = new MemberLoginDto("test@test.com", "1234");
+        Member member = memberRepository.findByEmail(memberLoginDto.email()).orElseThrow(() -> new Exception("회원이 없습니다"));
+
+        Member login_member = memberService.login(memberLoginDto);
+
+        assertEquals(member, login_member);
+    }
+
 
     @AfterEach
     private void after(){

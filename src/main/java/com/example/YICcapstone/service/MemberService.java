@@ -1,17 +1,21 @@
 package com.example.YICcapstone.service;
 
 import com.example.YICcapstone.dto.MemberInfoDto;
+import com.example.YICcapstone.dto.MemberLoginDto;
 import com.example.YICcapstone.dto.MemberSignUpDto;
 import com.example.YICcapstone.dto.MemberUpdateDto;
 import com.example.YICcapstone.entity.Member;
 import com.example.YICcapstone.repository.MemberRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
+
     public void signUp(MemberSignUpDto memberSignUpDto) throws Exception {
         Member member = memberSignUpDto.toEntity();
         member.addRole();
@@ -23,6 +27,15 @@ public class MemberService {
         }
 
         memberRepository.save(member);
+    }
+
+    // 로그인용 테스트
+    public Member login(MemberLoginDto memberLoginDto) throws Exception {
+        Member findMember = memberRepository.findByEmail(memberLoginDto.email()).orElseThrow(() -> new Exception("회원이 없습니다"));
+        if(!findMember.getPassword().equals(memberLoginDto.password())) {
+            throw new Exception("비밀번호가 다릅니다!");
+        }
+        return findMember;
     }
 
     public void update(String email, MemberUpdateDto memberUpdateDto) throws Exception {
@@ -56,7 +69,7 @@ public class MemberService {
         Member findMember = memberRepository.findById(id).orElseThrow(() -> new Exception("회원이 없습니다"));
         return new MemberInfoDto(findMember);
     }
-
+    /*
     //
     MemberInfoDto getMyInfo() throws Exception {
         Member findMember = memberRepository.findByUsername(SecurityUtil.getLoginUsername()).orElseThrow(() -> new Exception("회원이 없습니다"));
