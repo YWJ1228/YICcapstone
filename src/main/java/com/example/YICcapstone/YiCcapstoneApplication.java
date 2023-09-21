@@ -15,3 +15,4 @@ public class YiCcapstoneApplication {
 	}
 
 }
+//(scanBasePackages = {"com.example.YICcapstone.global.jwt.JwtService"})

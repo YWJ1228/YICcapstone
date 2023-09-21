@@ -158,7 +158,7 @@ public class LoginTest {
     public void 오류_로그인_HTTP_METHOD_PUT이면_NOTFOUND() throws Exception {
         //given
         Map<String, String> map = getUsernamePasswordMap(USERNAME, PASSWORD);
-        
+
         //when
         mockMvc.perform(MockMvcRequestBuilders
                         .put(LOGIN_RUL)
