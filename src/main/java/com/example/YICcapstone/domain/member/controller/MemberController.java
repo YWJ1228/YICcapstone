@@ -16,11 +16,21 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
+    // 회원 가입 시, 아이디 중복 여부 체크
+    @GetMapping("/login/{nickname}")
+    public ResponseEntity<Member> check(@PathVariable String nickname) {
+        Member member = memberService.check(nickname);
+        return (member != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(member) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
     // 테스트용 회원가입
     @PostMapping("/sign-up")
     public ResponseEntity<Member> signup(@RequestBody MemberSignUpDto memberSignUpDto) throws Exception {
-        memberService.signUp(memberSignUpDto);
-        return ResponseEntity.status(HttpStatus.OK).body(null);
+        Member member = memberService.signUp(memberSignUpDto);
+        return (member != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(member) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
     // 테스트용 로그인

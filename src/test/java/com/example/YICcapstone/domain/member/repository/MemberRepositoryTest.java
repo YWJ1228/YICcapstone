@@ -170,7 +170,7 @@ class MemberRepositoryTest {
     }
 
     @AfterEach
-    private void after(){
+    void after(){
         em.clear();
     }
 }

@@ -17,17 +17,22 @@ public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public void signUp(MemberSignUpDto memberSignUpDto) throws Exception {
+    public Member check(String nickname) {
+        Member member = memberRepository.findByNickname(nickname).orElse(null);
+        return member;
+    }
+
+    public Member signUp(MemberSignUpDto memberSignUpDto) throws Exception {
         Member member = memberSignUpDto.toEntity();
-        member.addRole();
-        if(memberRepository.findByEmail(memberSignUpDto.email()).isPresent()){
-            throw new Exception("이미 존재하는 아이디입니다.");
+
+        memberRepository.findByEmail(memberSignUpDto.email())
+                .orElseThrow(() -> new IllegalArgumentException("이미 존재하는 아이디입니다."));
         }
         if(memberRepository.findByNickname(memberSignUpDto.email()).isPresent()){
             throw new Exception("이미 존재하는 닉네임입니다.");
         }
-
-        memberRepository.save(member);
+        member.addRole();
+        return memberRepository.save(member);
     }
 
     // 로그인용 테스트
