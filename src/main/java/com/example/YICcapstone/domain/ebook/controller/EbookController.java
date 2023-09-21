@@ -1,7 +1,9 @@
 package com.example.YICcapstone.domain.ebook.controller;
 
 import com.example.YICcapstone.domain.ebook.domain.Ebook;
+import com.example.YICcapstone.domain.ebook.domain.EbookCategory;
 import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
+import com.example.YICcapstone.domain.ebook.repository.EbookCategoryRepository;
 import com.example.YICcapstone.domain.ebook.service.EbookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 public class EbookController {
     @Autowired
     private EbookService ebookService;
+    @Autowired
+    private EbookCategoryRepository ebookCategoryRepository;
 
     @GetMapping("/{ebookId}")
     public Ebook getEbook(@PathVariable Long ebookId) {
@@ -32,19 +36,18 @@ public class EbookController {
     @PostMapping
     public ResponseEntity<String> createEbook(@RequestBody EbookCreationRequest ebookCreationRequest) {
         ebookService.createEbook(ebookCreationRequest);
-        return ResponseEntity.ok("Ebook created successfully");
+        return ResponseEntity.status(200).body("Ebook created successfully");
     }
 
     @PutMapping("/{ebookId}")
     public ResponseEntity<String> updateEbook(@PathVariable Long ebookId, @RequestBody EbookCreationRequest ebookCreationRequest) {
         ebookService.updateEbook(ebookId, ebookCreationRequest);
-        return ResponseEntity.ok("Ebook updated successfully");
+        return ResponseEntity.status(200).body("Ebook updated successfully");
     }
 
     @DeleteMapping("/{ebookId}")
     public ResponseEntity<String> deleteEbook(@PathVariable Long ebookId) {
         ebookService.deleteEbook(ebookId);
-        return ResponseEntity.ok("Ebook deleted successfully");
+        return ResponseEntity.status(200).body("Ebook deleted successfully");
     }
-
 }

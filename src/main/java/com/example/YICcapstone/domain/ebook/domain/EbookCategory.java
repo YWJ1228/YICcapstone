@@ -3,7 +3,9 @@ package com.example.YICcapstone.domain.ebook.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Entity
 @Getter
 public class EbookCategory {

@@ -3,10 +3,12 @@ package com.example.YICcapstone.domain.voicemodel.domain;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@NoArgsConstructor
 @Entity
 @Setter
 @Getter

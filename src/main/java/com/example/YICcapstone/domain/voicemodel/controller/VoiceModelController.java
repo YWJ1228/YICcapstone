@@ -32,19 +32,19 @@ public class VoiceModelController {
     @PostMapping
     public ResponseEntity<String> createVoiceModel(@RequestBody VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.createVoiceModel(voiceModelCreationRequest);
-        return ResponseEntity.ok("VoiceModel created successfully");
+        return ResponseEntity.status(200).body("VoiceModel created successfully");
     }
 
     @PutMapping("/{voiceModelId}")
     public ResponseEntity<String> updateVoiceModel(@PathVariable Long voiceModelId, @RequestBody VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.updateVoiceModel(voiceModelId, voiceModelCreationRequest);
-        return ResponseEntity.ok("VoiceModel updated successfully");
+        return ResponseEntity.status(200).body("VoiceModel updated successfully");
     }
 
     @DeleteMapping("/{voiceModelId}")
     public ResponseEntity<String> deleteVoiceModel(@PathVariable Long voiceModelId) {
         voiceModelService.deleteVoiceModel(voiceModelId);
-        return ResponseEntity.ok("VoiceModel deleted successfully");
+        return ResponseEntity.status(200).body("VoiceModel deleted successfully");
     }
 
 
