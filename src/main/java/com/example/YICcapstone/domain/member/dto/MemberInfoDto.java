@@ -1,13 +1,13 @@
-package com.example.YICcapstone.dto;
+package com.example.YICcapstone.domain.member.dto;
 
-import com.example.YICcapstone.entity.Member;
+import com.example.YICcapstone.domain.member.Member;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 public class MemberInfoDto {
 
-    private final String email;
+    private final String username;
     private final String name;
     private final String nickname;
     private final String birth;
@@ -15,7 +15,7 @@ public class MemberInfoDto {
 
     @Builder
     public MemberInfoDto(Member member) {
-        this.email = member.getEmail();
+        this.username = member.getUsername();
         this.name = member.getName();
         this.nickname = member.getNickname();
         this.birth = member.getBirth();

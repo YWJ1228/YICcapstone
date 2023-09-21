@@ -1,4 +1,4 @@
-package com.example.YICcapstone.entity;
+package com.example.YICcapstone.domain.member;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
