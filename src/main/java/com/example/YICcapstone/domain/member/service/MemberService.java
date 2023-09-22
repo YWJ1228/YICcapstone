@@ -1,14 +1,16 @@
 package com.example.YICcapstone.domain.member.service;
 
-import com.example.YICcapstone.domain.member.dto.MemberLoginDto;
-import com.example.YICcapstone.domain.member.dto.MemberSignUpDto;
-import com.example.YICcapstone.domain.member.dto.MemberUpdateDto;
+import com.example.YICcapstone.domain.member.dto.*;
 import com.example.YICcapstone.domain.member.Member;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,69 +19,84 @@ public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
-    public Member check(String nickname) {
-        Member member = memberRepository.findByNickname(nickname).orElse(null);
-        return member;
-    }
+    public Boolean signUp(MemberSignUpDto memberSignUpDto) { // 회원가입 서비스
+        Member target = memberRepository.findByEmail(memberSignUpDto.email());
+        if(target != null) return false;
+        target = memberRepository.findByNickname(memberSignUpDto.nickname());
+        if(target != null) return false;
 
-    public Member signUp(MemberSignUpDto memberSignUpDto) throws Exception {
         Member member = memberSignUpDto.toEntity();
-
-        memberRepository.findByEmail(memberSignUpDto.email())
-                .orElseThrow(() -> new IllegalArgumentException("이미 존재하는 아이디입니다."));
-        }
-        if(memberRepository.findByNickname(memberSignUpDto.email()).isPresent()){
-            throw new Exception("이미 존재하는 닉네임입니다.");
-        }
         member.addRole();
-        return memberRepository.save(member);
+        memberRepository.save(member);
+
+        return true;
     }
 
-    // 로그인용 테스트
-    public Member login(MemberLoginDto memberLoginDto) throws Exception {
-        Member findMember = memberRepository.findByEmail(memberLoginDto.email()).orElseThrow(() -> new Exception("회원이 없습니다"));
-        if(!findMember.getPassword().equals(memberLoginDto.password())) {
-            throw new Exception("비밀번호가 다릅니다!");
-        }
+    public Boolean dupNickname(String nickname) { // 회원가입 시, 아이디 중복 확인 서비스
+        return memberRepository.existsByNickname(nickname);
+    }
+
+    public Member logIn(MemberLogInDto memberLoginDto) { // 로그인 서비스
+        String email = memberLoginDto.email();
+        String password = memberLoginDto.password();
+
+        Member findMember = memberRepository.findByEmail(email);
+        if(findMember != null && !findMember.getPassword().equals(password)) return null;
+
         return findMember;
     }
 
-    public void update(String email, MemberUpdateDto memberUpdateDto) throws Exception {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new Exception("회원이 존재하지 않습니다"));
+    public String findId(MemberFindIdDto memberFindIdDto) { // 아이디 찾기 서비스
+        String name = memberFindIdDto.name();
+        String birth = memberFindIdDto.birth();
 
-        if(memberUpdateDto.password() != "") {
-            member.updatePassword(memberUpdateDto.password());
-        }
-        if(memberUpdateDto.nickname() != "") {
-            member.updateNickname(memberUpdateDto.nickname());
-        }
-
-        //memberUpdateDto.nickname().ifPresent(member::updateNickname);
-        //memberUpdateDto.password().ifPresent(member::updatePassword);
-    }
-
-    public void withdraw(String email, String checkPW) throws Exception {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new Exception("회원이 존재하지 않습니다"));
-
-        if(member.getPassword() != checkPW) {
-            throw new Exception("비밀번호가 일치하지 않습니다.");
+        List<Member> userList = memberRepository.findByName(name);
+        for(int i = 0; i < userList.size(); i++) {
+            Member member = userList.get(i);
+            if(member.getBirth().equals(birth)) {
+                return member.getEmail();
+            }
         }
 
-        memberRepository.delete(member);
+        return null;
     }
 
-    /*
+    public Boolean findPw(MemberFindPwDto memberFindPwDto) { // 비밀번호 찾기 서비스
+        String name = memberFindPwDto.name();
+        String email = memberFindPwDto.email();
 
-    // id를 받아와서 해당 회원의 정보를 조회하는 메서드
-    MemberInfoDto getInfo(Long id) throws Exception {
-        Member findMember = memberRepository.findById(id).orElseThrow(() -> new Exception("회원이 없습니다"));
-        return new MemberInfoDto(findMember);
+        Member target = memberRepository.findByEmail(email);
+        if(target == null) return false;
+        if(!target.getName().equals(name)) return false;
+
+        return true;
     }
-    /*
-    //
-    MemberInfoDto getMyInfo() throws Exception {
-        Member findMember = memberRepository.findByUsername(SecurityUtil.getLoginUsername()).orElseThrow(() -> new Exception("회원이 없습니다"));
-        return new MemberInfoDto(findMember);
+
+    public Member updateNickname(Long id, UpdateNickname updateNickname) { // 닉네임 변경 서비스
+        Member target = memberRepository.findById(id).orElse(null);
+
+        if(target == null) { return null; }
+
+        target.updateNickname(updateNickname.nickname());
+        Member updated = memberRepository.save(target);
+        return updated;
     }
-    */
+
+    public Member updatePassword(Long id, UpdatePassword updatePassword) { // 비밀번호 변경 서비스
+        Member target = memberRepository.findById(id).orElse(null);
+
+        if(target == null) { return null; }
+
+        target.updatePassword(updatePassword.password());
+        Member updated = memberRepository.save(target);
+        return updated;
+    }
+
+    public Member deteleMember(Long id) { // 회원 삭제 서비스
+        Member target = memberRepository.findById(id).orElse(null);
+        if(target == null) return null;
+
+        memberRepository.delete(target);
+        return target;
+    }
 }

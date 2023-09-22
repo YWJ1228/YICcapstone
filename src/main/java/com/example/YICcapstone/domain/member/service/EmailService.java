@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
-@PropertySource("classpath:application.properties")
+@Service
 @Slf4j
 @RequiredArgsConstructor
-@Service
+@PropertySource("classpath:application.properties")
 public class EmailService {
 
     private final JavaMailSender javaMailSender;
@@ -34,7 +34,7 @@ public class EmailService {
         MimeMessage message = javaMailSender.createMimeMessage();
 
         message.addRecipients(MimeMessage.RecipientType.TO, to); // to 보내는 대상
-        message.setSubject("회원가입 인증 코드: "); //메일 제목
+        message.setSubject("YIC 인증 코드: "); //메일 제목
 
         // 메일 내용 메일의 subtype을 html로 지정하여 html문법 사용 가능
         String msg="";
@@ -52,11 +52,22 @@ public class EmailService {
 
     // 인증코드 만들기
     public static String createKey() {
-        StringBuffer key = new StringBuffer();
+        /*StringBuffer key = new StringBuffer();
         Random rnd = new Random();
 
         for (int i = 0; i < 6; i++) { // 인증코드 6자리
             key.append((rnd.nextInt(10)));
+        }
+        return key.toString();
+         */
+        char[] charSet = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F',
+                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+
+        StringBuffer key = new StringBuffer();
+        Random random = new Random();
+
+        for (int i = 0; i < 6; i++) {
+            key.append(charSet[random.nextInt(charSet.length)]);
         }
         return key.toString();
     }
