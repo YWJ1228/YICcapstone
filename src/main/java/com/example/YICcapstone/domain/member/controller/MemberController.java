@@ -1,13 +1,12 @@
 package com.example.YICcapstone.domain.member.controller;
 
-import com.example.YICcapstone.domain.member.Member;
+import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.member.dto.*;
 import com.example.YICcapstone.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

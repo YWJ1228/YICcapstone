@@ -1,7 +1,7 @@
 package com.example.YICcapstone.domain.member.service;
 
 import com.example.YICcapstone.domain.member.dto.*;
-import com.example.YICcapstone.domain.member.Member;
+import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +9,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
 public class MemberService {
+    private final MemberRepository memberRepository;
+
     @Autowired
-    private MemberRepository memberRepository;
+    public MemberService(MemberRepository repository) {
+        this.memberRepository = repository;
+    }
+    public Optional<Member> findOne(String email) {
+        return memberRepository.findByEmail(email);
+    }
 
     public Boolean signUp(MemberSignUpDto memberSignUpDto) { // 회원가입 서비스
-        Member target = memberRepository.findByEmail(memberSignUpDto.email());
+        Member target = memberRepository.findByEmail(memberSignUpDto.email()).orElse(null);
         if(target != null) return false;
         target = memberRepository.findByNickname(memberSignUpDto.nickname());
         if(target != null) return false;
@@ -38,7 +45,7 @@ public class MemberService {
         String email = memberLoginDto.email();
         String password = memberLoginDto.password();
 
-        Member findMember = memberRepository.findByEmail(email);
+        Member findMember = memberRepository.findByEmail(email).orElse(null);
         if(findMember != null && !findMember.getPassword().equals(password)) return null;
 
         return findMember;
@@ -63,7 +70,7 @@ public class MemberService {
         String name = memberFindPwDto.name();
         String email = memberFindPwDto.email();
 
-        Member target = memberRepository.findByEmail(email);
+        Member target = memberRepository.findByEmail(email).orElse(null);
         if(target == null) return false;
         if(!target.getName().equals(name)) return false;
 

@@ -1,8 +1,7 @@
 package com.example.YICcapstone.domain.member.dto;
 
-import com.example.YICcapstone.domain.member.Member;
-import com.example.YICcapstone.domain.member.Role;
-import com.example.YICcapstone.domain.member.Sex;
+import com.example.YICcapstone.domain.member.entity.Member;
+import com.example.YICcapstone.domain.member.entity.Sex;
 import jakarta.validation.constraints.*;
 
 public record MemberSignUpDto (@Email(message = "이메일 형식을 확인해주세요.")

@@ -1,7 +1,6 @@
 package com.example.YICcapstone.domain.member.controller;
 
-import com.example.YICcapstone.domain.member.Member;
-import com.example.YICcapstone.domain.member.dto.MemberFindPwDto;
+import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.domain.member.service.EmailService;
 import com.example.YICcapstone.domain.member.service.MemberService;
@@ -35,7 +34,7 @@ public class EmailController {
         String code = emailService.sendSimpleMessage(email);
         log.info("인증코드 : " + code);
 
-        Member target = memberRepository.findByEmail(email);
+        Member target = memberRepository.findByEmail(email).orElse(null);
         if(target == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원정보가 존재하지 않습니다.");
         }
