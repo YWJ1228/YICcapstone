@@ -14,7 +14,7 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @PostMapping(value = "/api/member/sign-up") // 회원가입 요청(email,password,name,nickname,birth,sex)
+    @PostMapping(value = "/api/member/sign-up") // 회원가입 요청(username,password,name,nickname,birth,sex)
     public ResponseEntity<String> signUp(@RequestBody @Valid MemberSignUpDto dto) {
         Boolean signup = memberService.signUp(dto);
 
@@ -31,7 +31,7 @@ public class MemberController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 사용중인 닉네임입니다.");
     }
 
-    @PostMapping("/api/member/log-in") // 로그인 요청(email,password)
+    @PostMapping("/api/member/log-in") // 로그인 요청(username,password)
     public ResponseEntity<Member> logIn(@RequestBody MemberLogInDto dto) {
         Member member = memberService.logIn(dto);
 
@@ -42,14 +42,14 @@ public class MemberController {
 
     @PostMapping("/api/member/log-in/id") // 아이디 찾기 인증 요청(name,birth)
     public ResponseEntity<String> findId(@RequestBody MemberFindIdDto dto) {
-        String email = memberService.findId(dto);
+        String username = memberService.findId(dto);
 
-        return (email != null) ?
-                ResponseEntity.status(HttpStatus.OK).body(email) :
+        return (username != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(username) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("등록된 회원 정보가 없습니다.");
     }
 
-    @PostMapping("/api/member/log-in/password") // 비밀번호 찾기 전, 인증 요청(name, email)
+    @PostMapping("/api/member/log-in/password") // 비밀번호 찾기 전, 인증 요청(name, username)
     public ResponseEntity<String> mailUpdatePw(@RequestBody MemberFindPwDto memberFindPwDto) {
         Boolean result = memberService.findPw(memberFindPwDto);
 

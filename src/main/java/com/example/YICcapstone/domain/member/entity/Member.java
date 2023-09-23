@@ -2,6 +2,7 @@ package com.example.YICcapstone.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Entity
@@ -16,7 +17,7 @@ public class Member extends BaseTimeEntity {
     private Long id;
 
     @Column(length = 255, nullable = false, unique = true)
-    private String email;
+    private String username;
 
     private String password;
 
@@ -36,6 +37,24 @@ public class Member extends BaseTimeEntity {
     private Role role;
 
     public void updateNickname(String nickname) { this.nickname = nickname; }
-    public void updatePassword(String password) { this.password = password; }
+    public void updatePassword(String password) { this.password = password; } // 삭제 필요
     public void addRole() { this.role = Role.USER; }
+
+    // 아래의 코드들은 옮겨온 것 확인 후 수정 필요!
+    public void updatePassword(PasswordEncoder passwordEncoder, String password){
+        this.password = passwordEncoder.encode(password);
+    }
+
+    public void updateName(String name){
+        this.name = name;
+    }
+
+    public void updateNickName(String nickName){
+        this.nickname = nickName;
+    }
+
+    //== 패스워드 암호화 ==//
+    public void encodePassword(PasswordEncoder passwordEncoder){
+        this.password = passwordEncoder.encode(password);
+    }
 }

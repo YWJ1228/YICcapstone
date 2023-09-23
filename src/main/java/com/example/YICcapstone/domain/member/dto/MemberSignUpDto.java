@@ -5,7 +5,7 @@ import com.example.YICcapstone.domain.member.entity.Sex;
 import jakarta.validation.constraints.*;
 
 public record MemberSignUpDto (@Email(message = "이메일 형식을 확인해주세요.")
-                               String email,
+                               String username,
                                @NotBlank(message = "비밀번호를 입력해주세요.(8~20 자릿수)")
                                @Size(min = 8, max = 20, message = "아이디는 8~20자 내외로 입력해주세요.")
                                @Pattern(regexp = "(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}",
@@ -23,6 +23,6 @@ public record MemberSignUpDto (@Email(message = "이메일 형식을 확인해�
                                Sex sex) {
     public Member toEntity() {
         return Member.builder().
-                email(email).password(password).name(name).nickname(nickname).birth(birth).sex(sex).build();
+                username(username).password(password).name(name).nickname(nickname).birth(birth).sex(sex).build();
     }
 }

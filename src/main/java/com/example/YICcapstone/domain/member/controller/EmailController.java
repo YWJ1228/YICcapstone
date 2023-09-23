@@ -22,19 +22,19 @@ public class EmailController {
     @Autowired
     private MemberRepository memberRepository;
 
-    @PostMapping("/api/email/sign-up/request") // 회원 가입 시, 이메일 인증 코드 발송
-    public ResponseEntity<String> mailConfirmSignUp(@RequestParam String email) throws Exception {
-        String code = emailService.sendSimpleMessage(email);
+    @PostMapping("/api/username/sign-up/request") // 회원 가입 시, 이메일 인증 코드 발송
+    public ResponseEntity<String> mailConfirmSignUp(@RequestParam String username) throws Exception {
+        String code = emailService.sendSimpleMessage(username);
         log.info("인증코드 : " + code);
         return ResponseEntity.status(HttpStatus.OK).body(code);
     }
 
-    @PostMapping("/api/email/password/request/{email}") // 변경된 예비 비밀번호 정보 이메일 발송
-    public ResponseEntity<String> mailUpdatePw(@RequestParam String email) throws Exception {
-        String code = emailService.sendSimpleMessage(email);
+    @PostMapping("/api/username/password/request/{username}") // 변경된 예비 비밀번호 정보 이메일 발송
+    public ResponseEntity<String> mailUpdatePw(@RequestParam String username) throws Exception {
+        String code = emailService.sendSimpleMessage(username);
         log.info("인증코드 : " + code);
 
-        Member target = memberRepository.findByEmail(email).orElse(null);
+        Member target = memberRepository.findByUsername(username).orElse(null);
         if(target == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원정보가 존재하지 않습니다.");
         }
