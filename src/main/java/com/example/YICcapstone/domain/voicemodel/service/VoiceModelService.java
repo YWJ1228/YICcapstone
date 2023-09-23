@@ -71,6 +71,9 @@ public class VoiceModelService {
         return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByUploadedAtDesc(job, PageRequest.of(page, 10));
     }
 
-    // 인기순위 -> 조회수 + 좋아요 개발 후 추가
+    @Transactional(readOnly = true)
+    public Page<VoiceModel> getVoiceModelListByPopularity(int page){
+        return voiceModelRepository.findAllByOrderByScoreDesc(PageRequest.of(page,10));
+    }
 
 }

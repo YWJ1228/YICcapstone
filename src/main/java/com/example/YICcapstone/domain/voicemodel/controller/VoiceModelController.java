@@ -31,6 +31,11 @@ public class VoiceModelController {
         return voiceModelService.getVoiceModelListByCategory(job, page);
     }
 
+    @GetMapping("/list/popularity")
+    public Page<VoiceModel> getVoiceModelListByPopularity(@RequestParam int page) {
+        return voiceModelService.getVoiceModelListByPopularity(page);
+    }
+
     @PostMapping
     public ResponseEntity<String> createVoiceModel(@RequestBody @Valid VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.createVoiceModel(voiceModelCreationRequest);

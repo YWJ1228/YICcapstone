@@ -70,5 +70,8 @@ public class EbookService {
         return ebookRepository.findAllByEbookCategory_ClassificationOrderByUploadedAtDesc(classification, PageRequest.of(page, 10));
     }
 
-    // 인기순위 -> 조회수 + 좋아요 개발 후 추가
+    @Transactional(readOnly = true)
+    public Page<Ebook> getEbookListByPopularity(int page){
+        return ebookRepository.findAllByOrderByScoreDesc(PageRequest.of(page, 10));
+    }
 }

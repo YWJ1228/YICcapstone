@@ -35,6 +35,11 @@ public class EbookController {
         return ebookService.getEbookListByCategory(classification, page);
     }
 
+    @GetMapping("/list/popularity")
+    public Page<Ebook> getEbookListByPopularity(@RequestParam int page) {
+        return ebookService.getEbookListByPopularity(page);
+    }
+
     @PostMapping
     public ResponseEntity<String> createEbook(@RequestBody @Valid EbookCreationRequest ebookCreationRequest) {
         ebookService.createEbook(ebookCreationRequest);

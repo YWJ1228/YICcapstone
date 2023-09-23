@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EbookRepository extends JpaRepository<Ebook, Long> {
     Page<Ebook> findAllByOrderByUploadedAtDesc(Pageable pageable);
-
+    Page<Ebook> findAllByOrderByScoreDesc(Pageable pageable);
     Page<Ebook> findAllByEbookCategory_ClassificationOrderByUploadedAtDesc(String classification, Pageable pageable);
 }
