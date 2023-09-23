@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/ebook")
 public class EbookController {
@@ -34,13 +36,13 @@ public class EbookController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createEbook(@RequestBody EbookCreationRequest ebookCreationRequest) {
+    public ResponseEntity<String> createEbook(@RequestBody @Valid EbookCreationRequest ebookCreationRequest) {
         ebookService.createEbook(ebookCreationRequest);
         return ResponseEntity.status(200).body("Ebook created successfully");
     }
 
     @PutMapping("/{ebookId}")
-    public ResponseEntity<String> updateEbook(@PathVariable Long ebookId, @RequestBody EbookCreationRequest ebookCreationRequest) {
+    public ResponseEntity<String> updateEbook(@PathVariable Long ebookId, @RequestBody @Valid EbookCreationRequest ebookCreationRequest) {
         ebookService.updateEbook(ebookId, ebookCreationRequest);
         return ResponseEntity.status(200).body("Ebook updated successfully");
     }

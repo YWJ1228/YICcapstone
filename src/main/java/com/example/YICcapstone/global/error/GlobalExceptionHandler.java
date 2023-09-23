@@ -2,6 +2,8 @@ package com.example.YICcapstone.global.error;
 
 import com.example.YICcapstone.global.error.exception.BusinessException;
 import com.example.YICcapstone.global.error.exception.ErrorCode;
+import com.example.YICcapstone.global.error.exception.ErrorResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -51,9 +53,13 @@ class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorCode> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
-        ErrorCode errorResponse = ErrorCode.INVALID_INPUT_VALUE;
-        return ResponseEntity.status(errorResponse.getStatus()).body(errorResponse);
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                ErrorCode.INVALID_INPUT_VALUE.getCode(),
+                ErrorCode.INVALID_INPUT_VALUE.getMessage(),
+                e.getBindingResult().getFieldError().getDefaultMessage()
+        );
+        return new ResponseEntity<ErrorResponse>(errorResponse,HttpStatus.BAD_REQUEST);
     }
 
 }

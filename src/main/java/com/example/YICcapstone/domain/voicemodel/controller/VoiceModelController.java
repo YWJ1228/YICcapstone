@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RequestMapping("/voice-model")
 @RestController
 public class VoiceModelController {
@@ -30,13 +32,13 @@ public class VoiceModelController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createVoiceModel(@RequestBody VoiceModelCreationRequest voiceModelCreationRequest) {
+    public ResponseEntity<String> createVoiceModel(@RequestBody @Valid VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.createVoiceModel(voiceModelCreationRequest);
         return ResponseEntity.status(200).body("VoiceModel created successfully");
     }
 
     @PutMapping("/{voiceModelId}")
-    public ResponseEntity<String> updateVoiceModel(@PathVariable Long voiceModelId, @RequestBody VoiceModelCreationRequest voiceModelCreationRequest) {
+    public ResponseEntity<String> updateVoiceModel(@PathVariable Long voiceModelId, @RequestBody @Valid VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.updateVoiceModel(voiceModelId, voiceModelCreationRequest);
         return ResponseEntity.status(200).body("VoiceModel updated successfully");
     }
