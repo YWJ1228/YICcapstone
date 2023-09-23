@@ -3,9 +3,11 @@ package com.example.YICcapstone.domain.member.controller;
 import com.example.YICcapstone.domain.member.Member;
 import com.example.YICcapstone.domain.member.dto.*;
 import com.example.YICcapstone.domain.member.service.MemberService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,7 +16,7 @@ public class MemberController {
     private MemberService memberService;
 
     @PostMapping(value = "/api/member/sign-up") // 회원가입 요청(email,password,name,nickname,birth,sex)
-    public ResponseEntity<String> signUp(@RequestBody MemberSignUpDto dto) {
+    public ResponseEntity<String> signUp(@RequestBody @Valid MemberSignUpDto dto) {
         Boolean signup = memberService.signUp(dto);
 
         return (signup) ?

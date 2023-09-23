@@ -3,12 +3,10 @@ package com.example.YICcapstone.domain.member.service;
 import com.example.YICcapstone.domain.member.dto.*;
 import com.example.YICcapstone.domain.member.Member;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
