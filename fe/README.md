@@ -1,3 +1,13 @@
+# npm start가 안된다면
+ 'react-scripts'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는 배치파일이 아닙니다.
+
+### npm install -g react-scripts 실행
+
+# react not found error
+
+### npm i react react-dom 실행
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
