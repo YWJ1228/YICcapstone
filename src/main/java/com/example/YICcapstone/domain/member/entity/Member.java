@@ -30,27 +30,34 @@ public class Member extends BaseTimeEntity {
     @Column(nullable = false)
     private String birth;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Sex sex;
 
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Column(length = 1000)
+    private String refreshToken;
 
     public void updateNickname(String nickname) { this.nickname = nickname; }
     public void updatePassword(String password) { this.password = password; } // 삭제 필요
     public void addRole() { this.role = Role.USER; }
+    public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword){
+        return passwordEncoder.matches(checkPassword, getPassword());
+    }
 
-    // 아래의 코드들은 옮겨온 것 확인 후 수정 필요!
     public void updatePassword(PasswordEncoder passwordEncoder, String password){
         this.password = passwordEncoder.encode(password);
     }
 
-    public void updateName(String name){
-        this.name = name;
+    public void updateRefreshToken(String refreshToken){
+        this.refreshToken = refreshToken;
     }
 
-    public void updateNickName(String nickName){
-        this.nickname = nickName;
+    public void destroyRefreshToken(){
+        this.refreshToken = null;
     }
 
     //== 패스워드 암호화 ==//

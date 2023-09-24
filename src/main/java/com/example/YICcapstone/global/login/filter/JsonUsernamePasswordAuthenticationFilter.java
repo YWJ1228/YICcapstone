@@ -1,4 +1,4 @@
-package com.example.YICcapstone.global.config;
+package com.example.YICcapstone.global.login.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
@@ -20,7 +20,7 @@ public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthentica
     // 인증과 관련한 AbstractAuthenticationProcessingFilter에서 formLogin이 아닌, josn 데이터를 통한 인증 로직이므로 설정 필요
     // 해당 필터의 성공 처리와 실패 처리를 제공할 Handler는 global 내 동일 경로에 생성해 둠.
 
-    private static final String DEFAULT_LOGIN_REQUEST_URL = "/api/member/log-in";  // /api/member/log-in/oauth2/ + ????? 로 오는 요청을 처리
+    private static final String DEFAULT_LOGIN_REQUEST_URL = "/api/log-in";  // /api/member/log-in/oauth2/ + ????? 로 오는 요청을 처리
 
     private static final String HTTP_METHOD = "POST";    //HTTP 메서드의 방식은 POST로 지정 (이 경우 GET으로 로그인 인증 X)
 

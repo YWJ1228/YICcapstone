@@ -1,4 +1,4 @@
-package com.example.YICcapstone.global.handler.login;
+package com.example.YICcapstone.global.login;
 
 import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.member.entity.Role;
