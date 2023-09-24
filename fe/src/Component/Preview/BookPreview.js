@@ -7,17 +7,19 @@ import classes from './BookPreview.module.css';
 
 
 export default function BookPreview(props) {
-    const imageArr = (props.images).map((image) => {
-        return <Col><img src = {image} className = {classes.image}/></Col>;
+    const imageArr = (props.images).map((img) => {
+        return (
+            <Col key={img.id}>
+                <Row><a href = {img.link}><img src={img.image} className={classes.image} /></a></Row>
+                <Row className={classes.name}><div>{img.name}</div></Row>
+            </Col>);
     });
     return (
         <Container>
-            <Row className={classes.title}>이달의 책</Row>
+            <Row className={classes.title}>{props.title}</Row>
             <Row>
-                <Col className={classes['sub-title']}>
-                    이 달의 가장 인기있는 책을 만나보세요
-                </Col>
-                <Col xs={1}>
+                <Col className={classes['sub-title']}>{props.subtitle}</Col>
+                <Col xs={1} className={classes['more-wrapper']}>
                     <a href={props.link} className={classes.more}>&lt;더보기</a>
                 </Col>
             </Row>

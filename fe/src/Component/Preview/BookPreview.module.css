@@ -3,6 +3,10 @@
     display : block;
     margin : auto;
 }
+.name{
+    text-align: center;
+    font-weight: bold;
+}
 
 .title {
     margin: auto;
@@ -12,10 +16,11 @@
 .sub-title {
     margin: auto;
     color: gray;
-
     font-size: 0.5rem;
 }
-
+.more-wrapper{
+    width : 5rem;
+}
 .more {
     color: gray;
     font-size: 0.7rem;
@@ -24,3 +29,4 @@
 .more:link {
     text-decoration: none;
 }
+

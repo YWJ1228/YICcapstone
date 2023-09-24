@@ -24,16 +24,16 @@ function NavigationBar(props) {
             </Container>
             <Nav>
                 <Nav.Item>
-                    <Nav.Link href="/books" className={classes.menu}>책</Nav.Link>
+                    <Nav.Link href="/bookShop" className={classes.menu}>책</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link href="/voiceshop" className={classes.menu}>음성모델</Nav.Link>
+                    <Nav.Link href="/voiceShop" className={classes.menu}>음성모델</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
                     <Nav.Link href="/mypage" className={classes.menu}>내 서재</Nav.Link>
                 </Nav.Item>
             </Nav>
-            <Button href="/login" className={classes['login-button']}>로그인</Button>
+            <Button href="/login" className={classes['login-button']}><div className = {classes.menu}>로그인</div></Button>
         </Navbar>
         <div className = {classes.divider}/>
         </>
