@@ -3,6 +3,11 @@
     display : block;
     margin : auto;
 }
+.image-wrapper{
+    width : 10rem;
+    display : block;
+    margin : auto;
+}
 .name{
     text-align: center;
     font-weight: bold;

@@ -20,13 +20,14 @@ import VoiceShopPage from './Page/Shop/VoiceShopPage';
 // For test
 import Test from './Test';
 import BookDetailPage from './Page/Detail/BookDetailPage';
+import VoiceDetailPage from './Page/Detail/VoiceDetailPage';
 
 
 function App() {
 
   return (
     <>
-      <NavigationBar img_src="" />
+      <NavigationBar img_src="logo.png" />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -39,6 +40,7 @@ function App() {
           <Route path="/bookShop" element={<BookShopPage/>}/>
           <Route path="/voiceShop" element={<VoiceShopPage/>}/>
           <Route path="/bookDetail" element={<BookDetailPage/>}/>
+          <Route path="/voiceDetail" element={<VoiceDetailPage/>}/>
           {/* 테스트를 위한 주소 */}
           <Route path="/test" element={<Test />} />
         </Routes>

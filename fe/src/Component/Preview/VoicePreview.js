@@ -14,11 +14,25 @@ import classes from './VoicePreview.module.css';
  * 5. link : 더보기 링크 경로
  */
 
+/**
+ * Redirect 구현 필요해보임
+ * API로 해당 img에 대한 api를 쏴서
+ * VoiceDetailPage에 해당 이미지의 제품 상세페이지라 랜더링 되도록
+ * 코드를 짜야함.
+ * 
+ * 일단은 더미코드로 작동하게 구현할 예정
+ * 
+ * 백엔드와의 연동 필요!!
+ * 
+ */
+
 export default function VoicePreview(props) {
     const voiceArr = (props.voices).map((voice) => {
         return (
             <Col key={voice.id}>
-                <Row><img src={voice.image} className={classes.image} /></Row>
+                <a href="/voiceDetail">
+                    <Row><img src={voice.image} className={classes.image} /></Row>
+                </a>
                 <Row className={classes.name}><div>{voice.name}</div></Row>
                 <Row className={classes.job}><div>{voice.job}</div></Row>
                 <Row className={classes.description}><div>{voice.description}</div></Row>
