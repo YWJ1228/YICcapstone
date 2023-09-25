@@ -25,22 +25,8 @@
 
     background-color : #7B8EF5;
 }
-.option-wrapper{
-    margin : auto;
-    margin-top : 1rem;
-    width : 30rem;
-    text-align: center;
-
-    border : none;
-
-    color :gray;
-}
-.option{
-    color : gray;
-}
-.option:link{
-    text-decoration:   none;
-}
-.option:hover{
+.login_btn:hover{
+    background-color : white;
     color : #7B8EF5;
+    border-color : #7B8EF5;
 }

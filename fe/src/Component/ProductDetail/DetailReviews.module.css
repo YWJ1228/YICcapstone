@@ -1,0 +1,38 @@
+.title {
+    margin: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+
+    font-size: 2rem;
+}
+
+.userid {
+    margin: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.review {
+    margin: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom : 0rem;
+    color: gray;
+}
+
+.upload-date {
+    margin :0.5rem;
+    margin-top : 0rem;
+    color: gray;
+    float : right;
+
+    font-size : 0.7rem;
+}
+
+.review-wrapper {
+    margin: 1rem;
+
+    border: 3px solid #c6cdff;
+    border-radius: 1rem;
+    
+}
