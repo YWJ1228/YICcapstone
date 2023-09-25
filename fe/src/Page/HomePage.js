@@ -10,11 +10,18 @@ import VoicePreview from '../Component/Preview/VoicePreview';
 
 export default function HomePage() {
     const dummyVoice = [
-        {image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"},
-        {image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"},
-        {image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"},
-        {image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"},
-        {image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"}      
+        {id : 1 ,image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"},
+        {id : 2 ,image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"},
+        {id : 3 ,image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"},
+        {id : 4 ,image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"},
+        {id : 5 ,image : "./logo192.png", name : "김채원", job : "가수", description : "르세라핌"}      
+    ];
+    const dummyBook = [
+        {id : 1 ,image : "./logo192.png", name : "어린왕자" ,link : "./bookDetail"},
+        {id : 2 ,image : "./logo192.png", name : "어린왕자",link : "./bookDetail"},
+        {id : 3 ,image : "./logo192.png", name : "어린왕자",link : "./bookDetail"},
+        {id : 4 ,image : "./logo192.png", name : "어린왕자",link : "./bookDetail"},
+        {id : 5 ,image : "./logo192.png", name : "어린왕자",link : "./bookDetail"},
     ];
     return (
         <>
@@ -30,7 +37,9 @@ export default function HomePage() {
             </div>
             <div className={classes['book-preview']}>
                 <BookPreview
-                    images={["./logo192.png", "./logo192.png", "./logo192.png", "./logo192.png", "./logo192.png"]}
+                    title = "이달의 책"
+                    subtitle = "이달의 가장 인기 잇는 책을 만나보세요"
+                    images={dummyBook}
                     link={"./"}
                 />
             </div>

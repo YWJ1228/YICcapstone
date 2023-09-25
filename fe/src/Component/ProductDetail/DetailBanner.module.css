@@ -1,0 +1,53 @@
+.image {
+    width: 10rem;
+    display: block;
+    margin: auto;
+}
+
+.title {
+    padding-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.detail {
+    color: gray;
+    padding: 0.2rem;
+}
+
+.price-button {
+    width: 8rem;
+    background-color: white;
+    color: black;
+
+    border-color: rgb(192, 192, 21);
+    border-width: 3px;
+    border-radius: 2rem;
+}
+
+.price-button:hover {
+    background-color: rgb(231, 231, 33);
+    color: black;
+    border-color: rgb(192, 192, 21);
+}
+
+.demo-button {
+    width: 6rem;
+    background-color: #7B8EF5;
+    border-color: #7B8EF5;
+}
+
+.demo-button:hover {
+    background-color: white;
+    border-color: #7B8EF5;
+    color: #7B8EF5;
+}
+
+.price-wrapper {
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+
+.demo-wrapper {
+    margin-top : 1rem;
+}

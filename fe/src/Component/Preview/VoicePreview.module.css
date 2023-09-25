@@ -28,7 +28,9 @@
 
     font-size: 0.5rem;
 }
-
+.more-wrapper{
+    width : 5rem;
+}
 .more {
     color: gray;
     font-size: 0.7rem;
