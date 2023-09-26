@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Validated
+@CrossOrigin(origins = "*")
 @RestController
 public class MemberController {
     @Autowired

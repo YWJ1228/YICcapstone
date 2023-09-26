@@ -53,7 +53,7 @@ export default function RegisterPage() {
         event.preventDefault();
         // info 를 json으로 만들어서 보내면 됨
         const info = {
-            email: event.target.email.value,
+            username: event.target.email.value,
             password: event.target.password.value,
             name: event.target.name.value,
             nickname: event.target.nickname.value,
@@ -63,11 +63,11 @@ export default function RegisterPage() {
         console.log(info);
         // api로 데이터 전송
         axios.post("http://localhost:8080/api/sign-up",info).then(function(response){
-
+            console.log(response);
         }).catch(function(error){
-
+            console.log(error);
         }).then(function(){
-
+            console.log("finish");
         });
     }
 
