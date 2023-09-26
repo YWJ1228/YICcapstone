@@ -8,6 +8,8 @@ import Row from 'react-bootstrap/Row';
 import classes from './RegisterPage.module.css';
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 
+import axios from 'axios';
+
 export default function RegisterPage() {
     // 비밀번호 규칙 확인을 위한 state
     const [pwd, setPwd] = useState();
@@ -20,17 +22,17 @@ export default function RegisterPage() {
         // 비밀번호 state 설정
         setPwd(event.target.value.trim());
         // 비밀번호 규칙 확인
-        const intRule = /[0-9]+/;
-        const charRule = /[a-zA-Z]+/;
+
+        const regex = /(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}/;
         const pwdString = event.target.value.trim();
 
         if (pwdString.length === 0) {
             setValidPwd('숫자와 알파벳을 섞어서 8~12자로 작성해주세요');
         }
-        else if (pwdString.length > 16 || pwdString.length < 8) {
-            setValidPwd("비밀번호 길이는 8~12자입니다");
+        else if (pwdString.length > 20 || pwdString.length < 8) {
+            setValidPwd("비밀번호 길이는 8~20자입니다");
         }
-        else if (!(intRule.test(pwdString) && charRule.test(pwdString))) {
+        else if (!(regex.test(pwdString))) {
             setValidPwd("숫자와 알파벳을 혼합하여 작성해주세요");
         }
         else {
@@ -55,10 +57,20 @@ export default function RegisterPage() {
             password: event.target.password.value,
             name: event.target.name.value,
             nickname: event.target.nickname.value,
-            birth: event.target.birth.value
+            birth: event.target.birth.value,
+            sex : 0
         };
         console.log(info);
+        // api로 데이터 전송
+        axios.post("http://localhost:8080/api/sign-up",info).then(function(response){
+
+        }).catch(function(error){
+
+        }).then(function(){
+
+        });
     }
+
     return (
         <div className={classes.wrapper}>
             <Form onSubmit={submitHandler}>
@@ -75,7 +87,7 @@ export default function RegisterPage() {
                             <Form.Control type="text" />
                         </Col>
                         <Col >
-                            <Button className={classes['verify-button']}>
+                            <Button className={classes['verify-button']} type = "button">
                                 중복확인
                             </Button>
                         </Col>
@@ -105,7 +117,7 @@ export default function RegisterPage() {
                             <Form.Control type="text" name="nickname" />
                         </Col>
                         <Col>
-                            <Button className={classes['verify-button']}>
+                            <Button className={classes['verify-button']} type = "button">
                                 중복확인
                             </Button>
                         </Col>
