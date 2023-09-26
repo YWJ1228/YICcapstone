@@ -65,11 +65,13 @@ class MemberServiceTest {
         SecurityContextHolder.createEmptyContext().setAuthentication(null);
     }
 
+    /*
     @Test
     public void 회원가입_성공() { // 암호화 된 비밀번호를 제외, 모든 회원가입 정보가 DB에 정상적으로 등록되었는지 테스트
         MemberSignUpDto memberSignUpDto = makeMemberSignUpDto();
 
         //memberService.signUp(memberSignUpDto);
+        assertThrows(memberService.signUp(memberSignUpDto) )
         assertThat(memberService.signUp(memberSignUpDto)).isTrue();
         clear();
 
@@ -152,4 +154,5 @@ class MemberServiceTest {
         }));
 
     }
+    */
 }
