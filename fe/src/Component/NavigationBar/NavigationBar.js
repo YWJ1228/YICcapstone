@@ -33,7 +33,9 @@ function NavigationBar(props) {
                     <Nav.Link href="/mypage" className={classes.menu}>내 서재</Nav.Link>
                 </Nav.Item>
             </Nav>
-            <Button href="/login" className={classes['login-button']}><div className = {classes.menu}>로그인</div></Button>
+            {!props.isLogged && <Button href="/login" className={classes['login-button']}><div className = {classes.menu}>로그인</div></Button>}
+            {props.isLogged && <Button href="/" className={classes['login-button']}><div className = {classes.menu}>내정보</div></Button>}
+            
         </Navbar>
         <div className = {classes.divider}/>
         </>

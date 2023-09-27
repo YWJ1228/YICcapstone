@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -25,6 +26,9 @@ export default function RegisterPage() {
         validPwd: '숫자와 알파벳을 섞어서 8~12자로 작성해주세요',
         equalPwd: ''
     });
+
+    const navigate = useNavigate();
+
     /** ###############################################
      *  ###인증 완료 유무 여기서 일단 수동으로 처리 요망###
      *  ################################################
@@ -110,14 +114,16 @@ export default function RegisterPage() {
         console.log(userForm);
         // api로 데이터 전송
         if (validForm.verifyNumber && validForm.verifyNickname && validForm.verifyPwd && validForm.verifyEqualPwd) {
+
             axios.post("http://localhost:8080/api/sign-up", userForm)
                 .then(function (response) {
                     console.log(response);
                 }).catch(function (error) {
                     console.log(error);
                 }).then(function () {
-                    console.log("finish");
+                    navigate('/login');
                 });
+                
         }
         else if (!validForm.verifyNumber) {
             console.log('이메일에서 받은 인증코드를 입력해주세요');

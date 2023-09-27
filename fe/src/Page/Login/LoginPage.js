@@ -1,4 +1,6 @@
-import {useState} from 'react';
+import { useState } from 'react';
+import {Navigate, useNavigate} from 'react-router-dom';
+
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -12,25 +14,26 @@ import axios from 'axios';
 
 import classes from './LoginPage.module.css';
 
-export default function LoginPage() {
+export default function LoginPage(props) {
+    const navigateHome = useNavigate();
     // 로그인 json 형식
     const [loginForm, setLoginForm] = useState({
-        username : 'defaultUser',
-        password : 'defaultPassword'
+        username: 'defaultUser',
+        password: 'defaultPassword'
     });
 
-    function formChangeHandler(event){
-        const {value, name : inputValue} = event.target;
+    function formChangeHandler(event) {
+        const { value, name: inputValue } = event.target;
         setLoginForm({
             ...loginForm,
-            [inputValue] : event.target.value.trim()
+            [inputValue]: event.target.value.trim()
         });
     };
-    
-    function submitHandler(event){
+
+    function submitHandler(event) {
         event.preventDefault();
         // api로 데이터 전송
-        if (loginForm.password != '') {
+        if (loginForm.password !== '') {
             console.log(loginForm);
             axios.get("http://localhost:8080/api/log-in", loginForm)
                 .then(function (response) {
@@ -38,10 +41,13 @@ export default function LoginPage() {
                 }).catch(function (error) {
                     console.log(error);
                 }).then(function () {
-                    console.log("finish");
+                    // 로그인 상태로 변경
+                    props.changeLoginHandler(true);
+                    navigateHome('/');
                 });
+            
         }
-        else if (loginForm.password == '') {
+        else if (loginForm.password === '') {
             console.log('비밀번호를 입력해주세요');
         }
     }
@@ -53,12 +59,12 @@ export default function LoginPage() {
                     <Form onSubmit={submitHandler}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>아이디</Form.Label>
-                            <Form.Control type="text" placeholder="아이디" name = "username" onChange = {formChangeHandler}/>
+                            <Form.Control type="text" placeholder="아이디" name="username" onChange={formChangeHandler} />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>비밀번호</Form.Label>
-                            <Form.Control type="password" placeholder="비밀번호" name = "password" onChange = {formChangeHandler}/>
+                            <Form.Control type="password" placeholder="비밀번호" name="password" onChange={formChangeHandler} />
                         </Form.Group>
                         <Button className={classes['login_btn']} variant="primary" type="submit">로그인</Button>
                     </Form>
