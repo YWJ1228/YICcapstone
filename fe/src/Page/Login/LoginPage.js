@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 import Card from 'react-bootstrap/Card';
@@ -19,7 +19,8 @@ export default function LoginPage(props) {
     // 로그인 json 형식
     const [loginForm, setLoginForm] = useState({
         username: 'defaultUser',
-        password: 'defaultPassword'
+        password: 'defaultPassword',
+        loginSuccess : true
     });
 
     function formChangeHandler(event) {
@@ -38,12 +39,11 @@ export default function LoginPage(props) {
             axios.get("http://localhost:8080/api/log-in", loginForm)
                 .then(function (response) {
                     console.log(response);
-                }).catch(function (error) {
-                    console.log(error);
-                }).then(function () {
-                    // 로그인 상태로 변경
                     props.changeLoginHandler(true);
                     navigateHome('/');
+                }).catch(function (error) {
+                    console.log(error);
+                    setLoginForm({...loginForm, loginSuccess : false});
                 });
             
         }
@@ -65,7 +65,9 @@ export default function LoginPage(props) {
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>비밀번호</Form.Label>
                             <Form.Control type="password" placeholder="비밀번호" name="password" onChange={formChangeHandler} />
+                            {!loginForm.loginSuccess &&<div className = {classes['login-guide']}>일치하는 회원정보가 없습니다</div>}
                         </Form.Group>
+                        
                         <Button className={classes['login_btn']} variant="primary" type="submit">로그인</Button>
                     </Form>
                 </Card.Body>

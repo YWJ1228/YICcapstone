@@ -22,3 +22,6 @@
     color :#7B8EF5;
     border-color: #7B8EF5;
 }
+.inputBox:focus{
+    box-shadow: none;
+}

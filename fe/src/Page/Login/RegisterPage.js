@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Button from 'react-bootstrap/Button';
@@ -10,9 +10,21 @@ import classes from './RegisterPage.module.css';
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 
 import axios from 'axios';
+import SexBtn from '../../Component/Button/SexBtn';
+import StyleChangeRef from '../../Ref/StyleChangeRef';
+/**
+ * #####################################
+ * # 1. useState 선언                 
+ * # 2. changeHandler              
+ * # 3. valid check function
+ * # 4. Form submit handler
+ * ######################################
+ */
 
 export default function RegisterPage() {
-    // 폼 데이터 형식
+    const myRef = useRef([]);
+
+    // 백엔드로 보내는 json 형식
     const [userForm, setUserForm] = useState({
         username: 'defaultUser',
         password: 'defaultPassword',
@@ -34,13 +46,13 @@ export default function RegisterPage() {
      *  ################################################
      */
     const [validForm, setValidForm] = useState({
-        verifyNumber: true,
+        verifyText: false,
         verifyNickname: true,
         verifyEqualPwd: false,
-        verifyPwd : false
+        verifyPwd: false
     });
 
-
+    // Form change Handler for form events
     function formChangeHandler(event) {
         const { value, name: inputValue } = event.target;
         setUserForm({
@@ -48,14 +60,17 @@ export default function RegisterPage() {
             [inputValue]: event.target.value.trim()
         });
     }
+    // Check validation of email 
     function validEmailHandler() {
         axios.get("http://localhost:8080/api/sign-up/username/" + userForm.username)
             .then(function (response) {
-                console.log(response);
+                // 응답 데이터 콘솔 출력
+                console.log(response.data);
+
+                // 정답 인증번호 저장
+                setValidForm({ ...validForm, verifyText: response.data });
             }).catch(function (error) {
                 console.log(error);
-            }).then(function () {
-                console.log("finish");
             });
     }
     function validNicknameHandler() {
@@ -80,7 +95,7 @@ export default function RegisterPage() {
         // 비밀번호 규칙 확인
         const regex = /(?=.*[0-9])(?=.*[a-zA-Z]).{8,20}/;
         const pwdString = event.target.value.trim();
-        setValidForm({...validForm,verifyPwd : false});
+        setValidForm({ ...validForm, verifyPwd: false });
         if (pwdString.length === 0) {
             setValidMessage({ ...validMessage, validPwd: '숫자와 알파벳을 섞어서 8~12자로 작성해주세요' });
         }
@@ -92,18 +107,18 @@ export default function RegisterPage() {
         }
         else {
             setValidMessage({ ...validMessage, validPwd: "확인" });
-            setValidForm({...validForm,verifyPwd : true});
+            setValidForm({ ...validForm, verifyPwd: true });
         }
     }
     // 비밀번호 확인 
     function equalPwdChangeHandler(event) {
         if (userForm.password === event.target.value.trim()) {
             setValidMessage({ ...validMessage, equalPwd: "일치합니다" });
-            setValidForm({...validForm,verifyEqualPwd : true});
+            setValidForm({ ...validForm, verifyEqualPwd: true });
         }
         else {
             setValidMessage({ ...validMessage, equalPwd: "비밀번호가 다릅니다" });
-            setValidForm({...validForm,verifyEqualPwd : false});
+            setValidForm({ ...validForm, verifyEqualPwd: false });
         }
     }
 
@@ -112,83 +127,87 @@ export default function RegisterPage() {
         event.preventDefault();
         // info 를 json으로 만들어서 보내면 됨
         console.log(userForm);
+
         // api로 데이터 전송
         if (validForm.verifyNumber && validForm.verifyNickname && validForm.verifyPwd && validForm.verifyEqualPwd) {
 
             axios.post("http://localhost:8080/api/sign-up", userForm)
                 .then(function (response) {
                     console.log(response);
+                    navigate('/login');
                 }).catch(function (error) {
                     console.log(error);
                 }).then(function () {
-                    navigate('/login');
+                    
                 });
-                
+
         }
-        else if (!validForm.verifyNumber) {
-            console.log('이메일에서 받은 인증코드를 입력해주세요');
-        }
-        else if (!validForm.verifyPwd) {
-            console.log('비밀번호를 규칙에 맞게 설정해주세요');
-        }
-        else if(!validForm.verifyEqualPwd){
-            console.log('비밀번호가 일치하지 않습니다');
-        }
-        else {
-            console.log('닉네임 중복확인을 해주세요');
-        }
+        // 이메일 유효성 검사
+        const conditions = [
+            event.target.username.value !== '', // 이메일
+            validForm.verifyText === event.target.verifyText, // 인증번호
+            validForm.verifyPwd, // 비밀번호
+            validForm.verifyEqualPwd, // 비밀번호 확인
+            event.target.name.value !== '',  // 이름
+            validForm.verifyNickname, // 닉네임
+            event.target.birth.value !== '' // 생년월일
+        ];
+        conditions.map((cond,index)=>{
+            StyleChangeRef(myRef, index, cond);
+        })
     }
 
     return (
         <div className={classes.wrapper}>
             <Form onSubmit={submitHandler}>
                 <Form.Group className="mb-3" controlId="formGridCheckEmail">
-                    <Form.Label >이메일</Form.Label>
-                    <Form.Control type="email" name="username" onChange={formChangeHandler} />
+                    <Form.Label >아이디 생성</Form.Label>
+                    <Form.Control type="email" name="username" onChange={formChangeHandler} placeholder='이메일' className={classes.inputBox}
+                        ref={el => myRef.current[0] = el} />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formVerify">
                     <Row className="mb-3">
-                        <Form.Label>인증번호</Form.Label>
-                        <Col lg={10}><Form.Control type="text" /></Col>
-                        <Col ><Button className={classes['verify-button']} type="button" name="verifyNumber" onClick={validEmailHandler}>이메일발송</Button></Col>
+                        <Col lg={10}><Form.Control type="text" placeholder='인증번호' className={classes.inputBox} ref={el => myRef.current[1] = el} /></Col>
+                        <Col><Button className={classes['verify-button']} type="button" name="verifyText" onClick={validEmailHandler} >이메일발송</Button></Col>
                     </Row>
                 </Form.Group>
 
 
                 <Form.Group className="mb-3" controlId="formPwd">
-                    <Form.Label>비밀번호</Form.Label>
-                    <Form.Control type="password" name="password" onChange={pwdChangeHanlder} />
+                    <Form.Control type="password" name="password" onChange={pwdChangeHanlder} placeholder='비밀번호' className={classes.inputBox} ref={el => myRef.current[2] = el} />
                     <Form.Text>{validMessage.validPwd}</Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCheckPwd">
-                    <Form.Label>비밀번호 확인</Form.Label>
-                    <Form.Control type="password" onChange={equalPwdChangeHandler} />
+                    <Form.Control type="password" onChange={equalPwdChangeHandler} placeholder='비밀번호 확인' className={classes.inputBox} ref={el => myRef.current[3] = el} />
                     <Form.Text>{validMessage.equalPwd}</Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formGridName">
-                    <Form.Label>이름</Form.Label>
-                    <Form.Control name="name" onChange={formChangeHandler} />
+                    <Row>
+                        <Form.Label>개인정보</Form.Label>
+                        <Col><Form.Control name="name" onChange={formChangeHandler} placeholder='성명' className={classes.inputBox} ref={el => myRef.current[4] = el} /></Col>
+                        <Col><Button className={classes['verify-button']} type="button" name="verifyNickname" onChange={validNicknameHandler}>성별</Button></Col>
+                    </Row>
+
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGridNickname" >
                     <Row>
-                        <Form.Label >닉네임</Form.Label>
-                        <Col lg={10}><Form.Control type="text" name="nickname" onChange={formChangeHandler} /></Col>
+                        <Col lg={10}><Form.Control type="text" name="nickname" onChange={formChangeHandler} placeholder='닉네임' className={classes.inputBox} ref={el => myRef.current[5] = el} /></Col>
                         <Col><Button className={classes['verify-button']} type="button" name="verifyNickname" onChange={validNicknameHandler}>중복확인</Button></Col>
                     </Row>
                 </Form.Group>
                 <FormGroup>
                     <Row className="mb-3">
                         <Form.Group as={Col} controlId="formBirth">
-                            <Form.Label>생년월일</Form.Label>
-                            <Form.Control type="number" name="birth" onChange={formChangeHandler} />
+                            <Form.Control type="number" name="birth" onChange={formChangeHandler} placeholder='생년월일' className={classes.inputBox} ref={el => myRef.current[6] = el} />
                         </Form.Group>
                     </Row>
                 </FormGroup>
 
                 <Button type="submit" className={classes['submit']} >회원가입 완료</Button>
             </Form>
+            {/* <SexBtn/> */}
         </div>
     );
 };
