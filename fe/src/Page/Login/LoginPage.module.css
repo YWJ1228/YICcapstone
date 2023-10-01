@@ -16,6 +16,11 @@
 
     border-color :  #7B8EF5;
 }
+.login-guide{
+    color : red;
+    font-size : 0.8rem;
+    margin-left : 0.2rem;
+}
 .login_btn {
     width: 30rem;
     margin : auto;

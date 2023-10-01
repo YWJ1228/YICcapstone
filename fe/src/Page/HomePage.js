@@ -1,12 +1,11 @@
+
 import Carousel from 'react-bootstrap/Carousel';
 
-
 import BannerCard from "../Component/Card/BannerCard";
-
-import classes from './HomePage.module.css';
 import BookPreview from '../Component/Preview/BookPreview';
 import VoicePreview from '../Component/Preview/VoicePreview';
 
+import classes from './HomePage.module.css';
 
 export default function HomePage() {
     const dummyVoice = [
