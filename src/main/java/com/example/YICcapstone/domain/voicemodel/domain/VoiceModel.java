@@ -51,7 +51,4 @@ public class VoiceModel {
         this.comment = voiceModelCreationRequest.getComment();
         this.sampleUrl = voiceModelCreationRequest.getSampleUrl();
     }
-    public int getScore(){
-        return viewCount + (preferenceCount * 5) + (purchaseCount * 10);
-    }
 }

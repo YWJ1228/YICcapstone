@@ -59,9 +59,4 @@ public class Ebook {
         this.comment = ebookCreationRequest.getComment();
         this.content = ebookCreationRequest.getContent();
     }
-
-    public int getScore(){
-        return viewCount + (purchaseCount * 10);
-    }
-
 }
