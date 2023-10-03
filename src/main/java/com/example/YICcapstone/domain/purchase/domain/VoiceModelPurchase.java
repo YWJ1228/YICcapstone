@@ -29,4 +29,9 @@ public class VoiceModelPurchase {
 
     @Column
     private LocalDateTime purchaseAt = LocalDateTime.now();
+
+    public VoiceModelPurchase(VoiceModel voiceModel, Member member) {
+        this.voiceModel = voiceModel;
+        this.member = member;
+    }
 }

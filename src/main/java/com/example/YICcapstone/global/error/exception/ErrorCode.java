@@ -22,7 +22,17 @@ public enum ErrorCode {
 
     // VoiceModel
     VOICE_MODEL_NOT_FOUND(400, "V001", "해당 VoiceModel을 찾을 수 없습니다."),
-    VOICE_MODEL_CATEGORY_NOT_FOUND(400, "V002", "해당 VoiceModelCategory를 찾을 수 없습니다.");
+    VOICE_MODEL_CATEGORY_NOT_FOUND(400, "V002", "해당 VoiceModelCategory를 찾을 수 없습니다."),
+
+    // Purchase
+    PURCHASE_NOT_FOUND(400, "P001", "유효한 구매내역이 없습니다."),
+    PURCHASE_ALREADY_EXIST(400, "P002", "이미 구매한 상품입니다."),
+    PURCHASE_NOT_EXIST(400, "P003", "구매하지 않은 상품입니다."),
+    PURCHASE_NOT_MATCH(400, "P004", "구매한 상품과 일치하지 않습니다."),
+
+    // Review
+    REVIEW_NOT_FOUND(400, "R001", "해당 Review를 찾을 수 없습니다."),
+    REVIEW_ALREADY_EXIST(400, "R002", "이미 리뷰를 작성한 상품입니다.");
 
     private final int status;
     private final String code;
