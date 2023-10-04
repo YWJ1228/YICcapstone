@@ -60,16 +60,24 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body("사용 가능한 닉네임입니다!");
     }
 
-    /*
     @PatchMapping("/api/user/nickname") // 로그인 중, 닉네임 수정 요청
-    public ResponseEntity<String> updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto) {
-        String updated = memberService.updateNickname(updateNicknameDto);
+    public ResponseEntity<String> updateNickname(@RequestBody UpdateNicknameDto updateNicknameDto) throws Exception {
+        memberService.updateNickname(updateNicknameDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body("닉네임 변경 완료!");
+    }
+/*
+    @PatchMapping("/api/member/{id}/password") // 로그인 중, 비밀번호 수정 요청
+    public ResponseEntity<Member> updatePassword(@PathVariable Long id, @RequestBody UpdatePassword dto) {
+        Member updated = memberService.updatePassword(id, dto);
 
         return (updated != null) ?
-                ResponseEntity.status(HttpStatus.OK).body(updated + ", 닉네임 변경 완료!") :
+                ResponseEntity.status(HttpStatus.OK).body(updated) :
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+ */
+/*
     @PostMapping("/api/member/log-in/id") // 아이디 찾기 인증 요청(name,birth)
     public ResponseEntity<String> findId(@RequestBody MemberFindIdDto dto) {
         String username = memberService.findId(dto);
@@ -88,14 +96,6 @@ public class MemberController {
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).body("회원정보가 존재하지 않습니다.");
     }
 
-    @PatchMapping("/api/member/{id}/password") // 로그인 중, 비밀번호 수정 요청
-    public ResponseEntity<Member> updatePassword(@PathVariable Long id, @RequestBody UpdatePassword dto) {
-        Member updated = memberService.updatePassword(id, dto);
-
-        return (updated != null) ?
-                ResponseEntity.status(HttpStatus.OK).body(updated) :
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    }
 
     @DeleteMapping("/api/member/{id}") // 로그인 중, 회원 탈퇴 요청
     public ResponseEntity<Member> deleteMember(@PathVariable Long id) {

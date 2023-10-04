@@ -61,7 +61,7 @@ public class JwtFilterAuthenticationTest {
     private static String USERNAME = "username";
     private static String PASSWORD = "123456789";
 
-    private static String LOGIN_RUL = "/api/member/log-in";
+    private static String LOGIN_RUL = "/api/log-in";
 
 
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
@@ -139,7 +139,7 @@ public class JwtFilterAuthenticationTest {
 
         //when, then
         mockMvc.perform(get(LOGIN_RUL+"123").header(accessHeader,BEARER+ accessToken))//login이 아닌 다른 임의의 주소
-                .andExpectAll(status().isNotFound());//없는 주소로 보냈으므로 NotFound
+                .andExpectAll(status().isNotFound()); //없는 주소로 보냈으므로 NotFound
 
     }
 
@@ -156,7 +156,7 @@ public class JwtFilterAuthenticationTest {
 
         //when, then
         mockMvc.perform(get(LOGIN_RUL+"123").header(accessHeader,accessToken+"1"))//login이 아닌 다른 임의의 주소
-                .andExpectAll(status().isForbidden());//없는 주소로 보냈으므로 NotFound
+                .andExpectAll(status().isForbidden()); //없는 주소로 보냈으므로 NotFound
     }
 
 

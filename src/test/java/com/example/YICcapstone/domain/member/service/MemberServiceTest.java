@@ -5,6 +5,7 @@ import com.example.YICcapstone.domain.member.dto.UpdateNicknameDto;
 import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.member.entity.Role;
 import com.example.YICcapstone.domain.member.entity.Sex;
+import com.example.YICcapstone.domain.member.exception.MemberUsernameDuplicatedException;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.global.util.security.SecurityUtil;
 import jakarta.persistence.EntityManager;
@@ -65,14 +66,12 @@ class MemberServiceTest {
         SecurityContextHolder.createEmptyContext().setAuthentication(null);
     }
 
-    /*
     @Test
     public void 회원가입_성공() { // 암호화 된 비밀번호를 제외, 모든 회원가입 정보가 DB에 정상적으로 등록되었는지 테스트
         MemberSignUpDto memberSignUpDto = makeMemberSignUpDto();
 
         //memberService.signUp(memberSignUpDto);
-        assertThrows(memberService.signUp(memberSignUpDto) )
-        assertThat(memberService.signUp(memberSignUpDto)).isTrue();
+        memberService.signUp(memberSignUpDto);
         clear();
 
         Member member = memberRepository.findByUsername(memberSignUpDto.username()).orElse(null);
@@ -83,7 +82,6 @@ class MemberServiceTest {
         assertThat(member.getBirth()).isEqualTo(memberSignUpDto.birth());
         assertThat(member.getSex()).isEqualTo(memberSignUpDto.sex());
         assertThat(member.getRole()).isSameAs(Role.USER);
-        assertThat(memberService.signUp(memberSignUpDto)).isFalse();
     }
 
     @Test
@@ -93,11 +91,10 @@ class MemberServiceTest {
         MemberSignUpDto memberSignUpDto2 =
                 new MemberSignUpDto("test@test.com", "test1234@^^", "YIC", "YIC2", "990101", Sex.MAN);
 
-        //memberService.signUp(memberSignUpDto);
-        assertThat(memberService.signUp(memberSignUpDto1)).isTrue();
+        memberService.signUp(memberSignUpDto1);
         clear();
 
-        assertThat(memberService.signUp(memberSignUpDto2)).isFalse();
+        assertThat(assertThrows(Exception.class, () -> memberService.signUp(memberSignUpDto2)));
     }
 
     @Test
@@ -107,14 +104,13 @@ class MemberServiceTest {
         MemberSignUpDto memberSignUpDto2 =
                 new MemberSignUpDto("test2@test.com", "test1234@^^", "YIC", "YIC", "990101", Sex.MAN);
 
-        //memberService.signUp(memberSignUpDto);
-        assertThat(memberService.signUp(memberSignUpDto1)).isTrue();
+        memberService.signUp(memberSignUpDto1);
         clear();
 
-        assertThat(memberService.signUp(memberSignUpDto2)).isFalse();
+        assertThat(assertThrows(Exception.class, () -> memberService.signUp(memberSignUpDto2)));
     }
 
-    @Test void 화원가입_입력누락된정보_실패() throws Exception { // 회원가입 요청 시, 입력되지 않은 정보가 있다면 회원가입 X
+    @Test void 화원가입_입력누락된정보_실패() { // 회원가입 요청 시, 입력되지 않은 정보가 있다면 회원가입 X
         MemberSignUpDto memberSignUpDto0 =
                 new MemberSignUpDto("test0@test.com", "test1234@^^", "YIC0", "YIC0", "990101", Sex.WOMAN);
         MemberSignUpDto memberSignUpDto1 =
@@ -130,7 +126,14 @@ class MemberServiceTest {
         MemberSignUpDto memberSignUpDto6 =
                 new MemberSignUpDto("test6@test.com", "test1234@^^", "YIC", "YIC6", "990101", null);
 
-        assertThat(memberService.signUp(memberSignUpDto0)).isTrue(); em.clear();
+        memberService.signUp(memberSignUpDto0); em.clear();
+        assertThrows(Exception.class, () -> memberService.signUp(memberSignUpDto1)); em.clear();
+        assertThrows(Exception.class, () -> memberService.signUp(memberSignUpDto2)); em.clear();
+        assertThrows(Exception.class, () -> memberService.signUp(memberSignUpDto3)); em.clear();
+        assertThrows(Exception.class, () -> memberService.signUp(memberSignUpDto4)); em.clear();
+        assertThrows(Exception.class, () -> memberService.signUp(memberSignUpDto5)); em.clear();
+        assertThrows(Exception.class, () -> memberService.signUp(memberSignUpDto6));
+        /*
         assertThrows(DataIntegrityViolationException.class, () -> memberService.signUp(memberSignUpDto1)); em.clear();
         assertThrows(IllegalArgumentException.class, () -> memberService.signUp(memberSignUpDto2)); em.clear();
         assertThrows(DataIntegrityViolationException.class, () -> memberService.signUp(memberSignUpDto3)); em.clear();
@@ -139,20 +142,49 @@ class MemberServiceTest {
         assertThrows(DataIntegrityViolationException.class, () -> memberService.signUp(memberSignUpDto6));
         // DataIntegrityViolationException는 hibernate exception으로 Entity Manager은 해당 exception 발생 시,
         // 세션을 초기화해주지 않음. 따라서 clear() 수동 호출 필요
+        */
     }
 
     @Test
     public void 회원수정_닉네임수정_성공() throws Exception {
-        MemberSignUpDto memberSignUpDto = setMember(); // setMember()를 통해 회원가입, 인증 null로 설정
+        MemberSignUpDto memberSignUpDto = setMember(); // setMember()를 통해 회원가입, 인증 통과 설정
 
-        String updateNickName = "변경된닉네임";
+        String updateNickName = "닉네임변경";
         memberService.updateNickname(new UpdateNicknameDto(Optional.of(updateNickName)));
         clear();
 
-        memberRepository.findByUsername(memberSignUpDto.username()).ifPresent((member -> {
-            assertThat(member.getNickname()).isEqualTo(updateNickName);
-        }));
-
+        memberRepository.findByUsername(memberSignUpDto.username())
+                .ifPresent((member -> {assertThat(member.getNickname()).isEqualTo(updateNickName);}));
     }
-    */
+
+    @Test
+    public void 회원수정_비밀번호수정_성공() throws Exception {
+        MemberSignUpDto memberSignUpDto = setMember();
+
+        String changePassword = "test5678@^^";
+        memberService.updatePassword("test1234@^^", changePassword);
+        clear();
+
+        Member findMember = memberRepository.findByUsername(memberSignUpDto.username()).orElseThrow(() -> new Exception());
+        assertThat(findMember.matchPassword(passwordEncoder, changePassword)).isTrue();
+    }
+
+    @Test
+    public void 회원탈퇴() throws Exception {
+        MemberSignUpDto memberSignUpDto = setMember();
+
+        memberService.withdraw("test1234@^^");
+
+        assertThat(assertThrows(Exception.class, ()-> memberRepository.findByUsername(memberSignUpDto.username()).orElseThrow(() -> new Exception("회원이 없습니다!")))
+                .getMessage()).isEqualTo("회원이 없습니다!");
+    }
+
+    @Test
+    public void 회원탈퇴_비밀번호_일치하지않음_실패() throws Exception {
+        MemberSignUpDto memberSignUpDto = setMember();
+
+        assertThat(assertThrows(Exception.class,
+                () -> memberService.withdraw("test1234@^^"+"1"))
+                .getMessage()).isEqualTo("비밀번호가 일치하지 않습니다!");
+    }
 }

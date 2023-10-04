@@ -100,7 +100,7 @@ public class JwtServiceTest {
         clear();
 
         //then
-        assertThrows(Exception.class, () -> memberRepository.findByRefreshToken(refreshToken).get());//
+        assertThrows(Exception.class, () -> memberRepository.findByRefreshToken(refreshToken).get());
         assertThat(memberRepository.findByRefreshToken(reIssuedRefreshToken).get().getUsername()).isEqualTo(username);
     }
 

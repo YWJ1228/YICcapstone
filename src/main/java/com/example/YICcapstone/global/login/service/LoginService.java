@@ -1,4 +1,4 @@
-package com.example.YICcapstone.domain.member.service;
+package com.example.YICcapstone.global.login.service;
 
 import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
@@ -12,9 +12,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class LoginService implements UserDetailsService {
-    //해당 클래스는 UserDetailsService에서 만든  User객체로, 해당 객체의 password와
-    // JsonUsernamePasswordAuthenticationFilter(원 명칭 AbstractAuthenticationProcessingFilter의 DaoAuthenticationProvider)에서
-    // request 정보를 통해 전달해준 UsernamePasswordAuthenticationToken(원 명칭 Authentication)의 Credentals를 비교하게 됨
+
    private final MemberRepository memberRepository;
 
     @Override
@@ -29,3 +27,7 @@ public class LoginService implements UserDetailsService {
                 .build();
     }
 }
+/*
+  DaoAuthenticationProvider에서 전달해 준 Authentication 객체의 credentials(로그인 요청으로 온 비밀번호 정보를 암호화한 것)와
+  DB에 존재하는 회원의 password의 일치여부를 UserDetailsService에서 제공하는 UserDetatils의 loadUserByUsername을 이용하여 비교
+*/

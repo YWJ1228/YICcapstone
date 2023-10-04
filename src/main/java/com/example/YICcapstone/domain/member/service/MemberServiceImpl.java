@@ -1,5 +1,6 @@
 package com.example.YICcapstone.domain.member.service;
 
+import com.example.YICcapstone.domain.member.dto.MemberInfoDto;
 import com.example.YICcapstone.domain.member.dto.MemberSignUpDto;
 import com.example.YICcapstone.domain.member.dto.UpdateNicknameDto;
 import com.example.YICcapstone.domain.member.entity.Member;
@@ -13,13 +14,15 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
-    private EmailService emailService;
+    //private EmailService emailService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
@@ -52,20 +55,43 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
-    /*
     @Override
-    public String updateNickname(UpdateNicknameDto updateNicknameDto) { // 닉네임 변경 서비스
-        Member member = memberRepository.findByUsername(SecurityUtil.getLoginUsername()).orElse(null); // 접속중인 사용자의 DB 불러옴
-
-        if(member == null) { // 사용자가 DB에 존재하지 않으면 null 리턴
-            return null;
-        }
+    public void updateNickname(UpdateNicknameDto updateNicknameDto) throws Exception{ // 로그인 중, 닉네임 변경 서비스
+        Member member = memberRepository.findByUsername(SecurityUtil.getLoginUsername())
+                .orElseThrow(() -> new Exception("회원이 존재하지 않습니다!"));
 
         updateNicknameDto.nickname().ifPresent(member::updateNickname);
-
-        return updateNicknameDto.nickname().orElse(null); // 닉네임 변경 성공 시, 바뀐 닉네임 리턴
     }
 
+    @Override
+    public void updatePassword(String checkPassword, String ChangePassword) throws Exception { // 로그인 중, 비밀번호 변경 서비스
+        Member member = memberRepository.findByUsername(SecurityUtil.getLoginUsername())
+                .orElseThrow(() -> new Exception("회원이 존재하지 않습니다!"));
+
+        if(!member.matchPassword(passwordEncoder, checkPassword)) {
+            throw new Exception("비밀번호가 일치하지 않습니다!");
+        }
+
+        member.updatePassword(passwordEncoder, ChangePassword);
+    }
+
+    public void withdraw(String checkPassword) throws Exception { // 로그인 중, 회원 탈퇴 서비스
+        Member member = memberRepository.findByUsername(SecurityUtil.getLoginUsername())
+                .orElseThrow(() -> new Exception("회원이 존재하지 않습니다!"));
+
+        if(!member.matchPassword(passwordEncoder, checkPassword)) {
+            throw new Exception("비밀번호가 일치하지 않습니다!");
+        }
+
+        memberRepository.delete(member);
+    }
+
+    public List<Member> index() { // 회원가입 되어 있는 모든 사용자 불러오기
+        return memberRepository.findAll();
+    }
+
+
+    /*
     public String findId(MemberFindIdDto memberFindIdDto) { // 아이디 찾기 서비스
         String name = memberFindIdDto.name();
         String birth = memberFindIdDto.birth();
@@ -101,13 +127,5 @@ public class MemberServiceImpl implements MemberService {
         Member updated = memberRepository.save(target);
         return updated;
     }
-
-    public Member deteleMember(Long id) { // 회원 삭제 서비스
-        Member target = memberRepository.findById(id).orElse(null);
-        if(target == null) return null;
-
-        memberRepository.delete(target);
-        return target;
-    }
-     */
+*/
 }

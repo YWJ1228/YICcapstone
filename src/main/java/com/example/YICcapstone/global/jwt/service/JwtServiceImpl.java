@@ -26,7 +26,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Setter(value = AccessLevel.PRIVATE)
 @Slf4j
-public class JwtServiceImpl implements JwtService{
+public class JwtServiceImpl implements JwtService {
     @Value("${jwt.secret}")
     private String secret;
     @Value("${jwt.access.expiration}")
@@ -53,7 +53,7 @@ public class JwtServiceImpl implements JwtService{
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenValidityInSeconds * 1000))
                 .withClaim(USERNAME_CLAIM, username)
                 .sign(Algorithm.HMAC512(secret));
-    }
+    } // accessTokenValidityInSeconds를 80으로 설정하였기에 토큰발급시각 + 80초가 지나면 Access Token 만료로 설정
 
     @Override
     public String createRefreshToken() {
@@ -61,7 +61,7 @@ public class JwtServiceImpl implements JwtService{
                 .withSubject(REFRESH_TOKEN_SUBJECT)
                 .withExpiresAt(new Date(System.currentTimeMillis() + refreshTokenValidityInSeconds * 1000))
                 .sign(Algorithm.HMAC512(secret));
-    }
+    } // refreshTokenValidityInSeconds를 90으로 설정하였기에 토큰발급시각 + 90초가 지나면 Refresh Token 만료로 설정
 
     @Override
     public void updateRefreshToken(String username, String refreshToken) {
@@ -71,8 +71,6 @@ public class JwtServiceImpl implements JwtService{
                         () -> new Exception("회원이 없습니다")
                 );
     }
-
-
 
     @Override
     public void destroyRefreshToken(String username) {
@@ -90,7 +88,6 @@ public class JwtServiceImpl implements JwtService{
         setAccessTokenHeader(response, accessToken);
         setRefreshTokenHeader(response, refreshToken);
 
-
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put(ACCESS_TOKEN_SUBJECT, accessToken);
         tokenMap.put(REFRESH_TOKEN_SUBJECT, refreshToken);
@@ -103,12 +100,9 @@ public class JwtServiceImpl implements JwtService{
 
         setAccessTokenHeader(response, accessToken);
 
-
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put(ACCESS_TOKEN_SUBJECT, accessToken);
     }
-
-
 
     @Override
     public Optional<String> extractAccessToken(HttpServletRequest request) {
