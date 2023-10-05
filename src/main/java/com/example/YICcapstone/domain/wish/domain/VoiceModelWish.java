@@ -29,4 +29,8 @@ public class VoiceModelWish {
     @Column
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    public VoiceModelWish(Member member, VoiceModel voiceModel){
+        this.member = member;
+        this.voiceModel = voiceModel;
+    }
 }
