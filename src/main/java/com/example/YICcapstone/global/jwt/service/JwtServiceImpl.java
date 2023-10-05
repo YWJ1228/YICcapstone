@@ -53,7 +53,7 @@ public class JwtServiceImpl implements JwtService {
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenValidityInSeconds * 1000))
                 .withClaim(USERNAME_CLAIM, username)
                 .sign(Algorithm.HMAC512(secret));
-    } // accessTokenValidityInSeconds를 80으로 설정하였기에 토큰발급시각 + 80초가 지나면 Access Token 만료로 설정
+    } // accessTokenValidityInSeconds를 1800으로 설정하였기에 토큰발급시각 + 1800초(30분)가 지나면 Access Token 만료로 설정
 
     @Override
     public String createRefreshToken() {
@@ -61,7 +61,7 @@ public class JwtServiceImpl implements JwtService {
                 .withSubject(REFRESH_TOKEN_SUBJECT)
                 .withExpiresAt(new Date(System.currentTimeMillis() + refreshTokenValidityInSeconds * 1000))
                 .sign(Algorithm.HMAC512(secret));
-    } // refreshTokenValidityInSeconds를 90으로 설정하였기에 토큰발급시각 + 90초가 지나면 Refresh Token 만료로 설정
+    } // refreshTokenValidityInSeconds를 1209600으로 설정하였기에 토큰발급시각 + 1209600초(14일)가 지나면 Refresh Token 만료로 설정
 
     @Override
     public void updateRefreshToken(String username, String refreshToken) {

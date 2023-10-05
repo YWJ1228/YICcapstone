@@ -59,7 +59,7 @@ public class JwtFilterAuthenticationTest {
     private static String KEY_USERNAME = "username";
     private static String KEY_PASSWORD = "password";
     private static String USERNAME = "username";
-    private static String PASSWORD = "123456789";
+    private static String PASSWORD = "test1234@^^";
 
     private static String LOGIN_RUL = "/api/log-in";
 

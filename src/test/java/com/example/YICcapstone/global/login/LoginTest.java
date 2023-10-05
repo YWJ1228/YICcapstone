@@ -32,12 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 public class LoginTest {
-    //로그인 성공 - 200에 성공 메세지 반환
-    //로그인 실패 - 아이디 틀림 - 200에 실패 메세지
-    //로그인 실패 - 비밀번호 틀림 -200에 실패 메세지
-    //로그인 주소가 틀리면 403 Forbidden
-    //로그인 데이터형식이 Json이 아니면 200에 실패 메세지 (로그인 실패와 동일)
-    //로그인 Http Method가 Post가 아니면 404 NotFound
     @Autowired
     MockMvc mockMvc;
 
@@ -56,7 +50,7 @@ public class LoginTest {
     static String USERNAME = "test@test.com";
     static String PASSWORD = "12345678@A";
 
-    static String LOGIN_RUL = "/api/member/log-in";
+    static String LOGIN_RUL = "/api/log-in";
 
 
     void clear() {
@@ -115,7 +109,7 @@ public class LoginTest {
         //when
         MvcResult result = perform(LOGIN_RUL, APPLICATION_JSON, map)
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andReturn();
     }
 
@@ -129,7 +123,7 @@ public class LoginTest {
         //when
         MvcResult result = perform(LOGIN_RUL, APPLICATION_JSON, map)
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andReturn();
     }
 
@@ -149,14 +143,14 @@ public class LoginTest {
 
 
     @Test
-    public void 로그인_데이터형식_JSON이_아니면_200() throws Exception {
+    public void 로그인_데이터형식_JSON이_아니면_400() throws Exception {
         //given
         Map<String, String> map = getUsernamePasswordMap(USERNAME, PASSWORD);
 
         //when, then
         perform(LOGIN_RUL, APPLICATION_FORM_URLENCODED, map)
                 .andDo(print())
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andReturn();
     }
 

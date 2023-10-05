@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/user/**").hasRole("USER") // /api/user/ 로 시작하는 모든 URL은 "USER" 권한만 요청 가능
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // /api/admin/ 로 시작하는 모든 URL은 "ADMIN" 권한만 요청 가능
-                        .requestMatchers("/", "/api/sign-up/**", "/api/log-in/**").permitAll() // 모든 사용자가 시큐리티를 사용하지 않아도 허용하는 부분
+                        .requestMatchers("/", "/api/sign-up/**", "/api/log-in/**", "/api/find/**").permitAll() // 모든 사용자가 시큐리티를 사용하지 않아도 허용하는 부분
                         .anyRequest().authenticated() // 위의 .requestMatchers를 제외한 나머지 URL 시큐리티 적용 X
                 ) // .permitAll() , .hasRole("ADMIN") , .hasRole("USER") , .access("hasRole('ADMIN') or hasRole('USER')") : ADMIN과 USER는 enum 클래스로 사용자가 직접 설정한 역할
                 .addFilterAfter(jsonUsernamePasswordLoginFilter(), LogoutFilter.class) // 로그아웃 상태 이후에 로그인 필터 동작

@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByUsername(String username);
-    //Optional<Member> findByNickname(String nickname);
-    List<Member> findByName(String name);
+    List<Member> findByNameAndBirth(String name, String birth);
+    Member findByUsernameAndName(String username, String name);
 
     boolean existsByUsername(String username);
     boolean existsByNickname(String nickname);

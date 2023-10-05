@@ -150,7 +150,7 @@ class MemberServiceTest {
         MemberSignUpDto memberSignUpDto = setMember(); // setMember()를 통해 회원가입, 인증 통과 설정
 
         String updateNickName = "닉네임변경";
-        memberService.updateNickname(new UpdateNicknameDto(Optional.of(updateNickName)));
+        memberService.updateNickname(new UpdateNicknameDto(updateNickName));
         clear();
 
         memberRepository.findByUsername(memberSignUpDto.username())
@@ -183,8 +183,6 @@ class MemberServiceTest {
     public void 회원탈퇴_비밀번호_일치하지않음_실패() throws Exception {
         MemberSignUpDto memberSignUpDto = setMember();
 
-        assertThat(assertThrows(Exception.class,
-                () -> memberService.withdraw("test1234@^^"+"1"))
-                .getMessage()).isEqualTo("비밀번호가 일치하지 않습니다!");
+        assertThrows(Exception.class, () -> memberService.withdraw("test1234@^^"+"1"));
     }
 }

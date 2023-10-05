@@ -3,7 +3,7 @@ package com.example.YICcapstone.domain.member.controller;
 import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.domain.member.service.EmailService;
-import com.example.YICcapstone.domain.member.service.MemberServiceImpl;
+import com.example.YICcapstone.domain.member.service.MemberService;
 import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class EmailController {
 
     private final EmailService emailService;
     @Autowired
-    private MemberServiceImpl memberService;
+    private MemberService memberService;
     @Autowired
     private MemberRepository memberRepository;
 
