@@ -29,4 +29,8 @@ public class EbookPurchase {
     @Column
     private LocalDateTime purchaseAt = LocalDateTime.now();
 
+    public EbookPurchase(Ebook ebook, Member member) {
+        this.ebook = ebook;
+        this.member = member;
+    }
 }
