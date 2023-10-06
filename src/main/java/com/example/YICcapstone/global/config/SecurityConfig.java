@@ -20,6 +20,11 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -32,23 +37,37 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable(); // 외부 POST 요청(리액트)을 받기 때문에 disable
+        httpSecurity.httpBasic().disable(); // http 기반 인증이 아닌, JWT 토큰 인증을 사용하기에 disable
+        httpSecurity.cors().configurationSource(corsConfigurationSource()); // 리액트와 통신하기 때문에 포트번호가 다르므로 설정필요
+        httpSecurity.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // 세션 사용 X, JWT 사용
         httpSecurity
-                .csrf().disable()
-                //.cors().disable() // 리액트 통신할 때 able하고 처리 과정 필요 -> 후에 찾아보기
-                //.httpBasic().disable() //httpBasic 인증방법 비활성화(특정 리소스에 접근할 때 username과 password 물어봄) -> 컨트롤러 일단 수정 후에 사용
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .securityMatcher("/api/**") // /api/ 로 시작하는 모든 URL은 시큐리티 적용.
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("/api/user/**").hasRole("USER") // /api/user/ 로 시작하는 모든 URL은 "USER" 권한만 요청 가능
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // /api/admin/ 로 시작하는 모든 URL은 "ADMIN" 권한만 요청 가능
                         .requestMatchers("/", "/api/sign-up/**", "/api/log-in/**", "/api/find/**").permitAll() // 모든 사용자가 시큐리티를 사용하지 않아도 허용하는 부분
-                        .anyRequest().authenticated() // 위의 .requestMatchers를 제외한 나머지 URL 시큐리티 적용 X
-                ) // .permitAll() , .hasRole("ADMIN") , .hasRole("USER") , .access("hasRole('ADMIN') or hasRole('USER')") : ADMIN과 USER는 enum 클래스로 사용자가 직접 설정한 역할
+                        .anyRequest().authenticated()
+                )
                 .addFilterAfter(jsonUsernamePasswordLoginFilter(), LogoutFilter.class) // 로그아웃 상태 이후에 로그인 필터 동작
                 .addFilterBefore(jwtAuthenticationProcessingFilter(), JsonUsernamePasswordAuthenticationFilter.class); // Json 로그인 필터 전에 JWT 인증 필터 먼저 동작
 
         return httpSecurity.build();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.setAllowCredentials(true);
+        config.setAllowedOrigins(List.of("http://localhost:3000"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setExposedHeaders(List.of("*"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
     /*
     * jsonUsernamePasswordLoginFilter() 필터란? + 수행할 역할은?

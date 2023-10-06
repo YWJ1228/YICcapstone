@@ -51,7 +51,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void dupNickname(String nickname) { // 회원가입 중, 닉네임 중복 체크 서비스
-        if(memberRepository.existsByNickname(nickname)) { // 아이디(이메일) 중복 시, 409 conflict 에러
+        if(memberRepository.existsByNickname(nickname)) { // 닉네임 중복 시, 409 conflict 에러
             throw new MemberNicknameDuplicatedException();
         }
     }
@@ -60,6 +60,10 @@ public class MemberServiceImpl implements MemberService {
     public void updateNickname(UpdateNicknameDto updateNicknameDto) { // 로그인 중, 닉네임 변경 서비스
         Member member = memberRepository.findByUsername(SecurityUtil.getLoginUsername())
                 .orElseThrow(() -> new MemberNotExistException());
+
+        if(memberRepository.existsByNickname(updateNicknameDto.nickname())) { // 닉네임 중복 시, 409 conflict 에러
+            throw new MemberNicknameDuplicatedException();
+        }
 
         member.updateNickname(updateNicknameDto.nickname());
     }

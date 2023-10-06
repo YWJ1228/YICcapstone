@@ -26,6 +26,7 @@ import java.util.List;
 @Validated
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class MemberController {
     @Autowired
@@ -103,4 +104,6 @@ public class MemberController {
 
         return ResponseEntity.status(HttpStatus.OK).body("비밀번호 변경 완료!");
     }
+
+
 }
