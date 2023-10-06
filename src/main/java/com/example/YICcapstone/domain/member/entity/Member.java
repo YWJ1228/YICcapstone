@@ -2,8 +2,8 @@ package com.example.YICcapstone.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

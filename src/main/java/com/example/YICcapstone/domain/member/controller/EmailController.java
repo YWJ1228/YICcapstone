@@ -25,14 +25,14 @@ public class EmailController {
     @Autowired
     private MemberRepository memberRepository;
 
-
+    /*
     @GetMapping("/api/sign-up/confirm/{username}") // 회원 가입 시, 이메일 인증 코드 발송
     public ResponseEntity<String> mailConfirmSignUp(@Email @PathVariable String username) throws Exception {
         String code = emailService.sendSimpleMessage(username);
         log.info("인증코드 : " + code);
         return ResponseEntity.status(HttpStatus.OK).body(code);
     }
-
+    */
 
     /*
     @PostMapping("/api/username/password/request/{username}") // 변경된 예비 비밀번호 정보 이메일 발송

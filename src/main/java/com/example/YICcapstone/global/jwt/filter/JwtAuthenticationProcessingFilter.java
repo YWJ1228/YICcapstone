@@ -27,10 +27,9 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
 
     private GrantedAuthoritiesMapper authoritiesMapper = new NullAuthoritiesMapper();
     private final String NO_CHECK_URL = "/api/log-in";
-
     /*
-      - Refresh Token이 요청으로 온 경우 -> 유효하면 Access Token 재 발급 후, 필터 진행 X(인증된 요청으로 간주하기 때문)
-      - Refresh Token이 없고 AccessToken만 있는 경우 -> 인증이 필요한 요청이므로 유저 정보 저장 후에 필터를 계속 진행하게 구현
+        Refresh Token이 요청으로 온 경우 -> 유효하면 Access Token 재 발급 후, 필터 진행 X(인증된 요청으로 간주하기 때문)
+        Refresh Token이 없고 AccessToken만 있는 경우 -> 인증이 필요한 요청이므로 유저 정보 저장 후에 필터를 계속 진행하게 구현
     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -38,14 +37,13 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return; // 로그인 요청의 URL인 경우, 토큰을 발급하는 로그인 필터를 진행하도록 넘김
         }
-
         // 이후 코드는 로그인 중, 클라이언트가 토큰을 통해 어떠한 요청을 한 경우 동작
 
         String refreshToken = jwtService
                 .extractRefreshToken(request)
                 .filter(jwtService::isTokenValid)
                 .orElse(null);
-        // RefreshToken이 없거나 유효하지 않다면 null
+        // RefreshToken이 만료되었으면 null
 
         if(refreshToken != null){ // 유효한 RefreshToken이 요청으로 온 것이라면, 관련 유저를 찾아오고 존재하면 Access Token 재발급
             checkRefreshTokenAndReIssueAccessToken(response, refreshToken);
@@ -69,7 +67,6 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
                         )
                 )
         );
-
         filterChain.doFilter(request,response);
     }
 
@@ -88,7 +85,6 @@ public class JwtAuthenticationProcessingFilter extends OncePerRequestFilter {
     }
 
     private void checkRefreshTokenAndReIssueAccessToken(HttpServletResponse response, String refreshToken) {
-
         memberRepository.findByRefreshToken(refreshToken).ifPresent(
                 member -> jwtService.sendAccessToken(response, jwtService.createAccessToken(member.getUsername()))
         );

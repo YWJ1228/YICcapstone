@@ -23,11 +23,12 @@ public class LoginService implements UserDetailsService {
                 .username(member.getUsername())
                 .password(member.getPassword())
                 .roles(member.getRole().name())
-                //.roles(String.valueOf(member.getRole()))
                 .build();
     }
 }
 /*
-  DaoAuthenticationProvider에서 전달해 준 Authentication 객체의 credentials(로그인 요청으로 온 비밀번호 정보를 암호화한 것)와
-  DB에 존재하는 회원의 password의 일치여부를 UserDetailsService에서 제공하는 UserDetatils의 loadUserByUsername을 이용하여 비교
+  JsonUsernamePasswordAuthenticationFilter 과정 중, 로그인 요청으로 만들어진 Authentication 객체의 credentials(password)와
+  DB에 존재하는 회원의 password 일치여부를 DaoAuthenticationProvider에서 진행해 줌
+  따라서 우리는 DB의 회원정보를 username을 매핑하여 가져오는 loadUserByUsername 사용 (UserDetailsService에서 User객체로 지원해줌)
+  DaoAuthenticationProvider는 이것으로 비밀번호 일치여부를 판단하고, 결과에 따라 핸들러가 작동하게 됨.
 */

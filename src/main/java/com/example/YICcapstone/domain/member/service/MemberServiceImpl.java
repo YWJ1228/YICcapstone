@@ -69,8 +69,8 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updatePassword(String checkPassword, String changePassword) { // 로그인 중, 비밀번호 변경 서비스
-        Member member = memberRepository.findByUsername(SecurityUtil.getLoginUsername())
+    public void updatePassword(String checkPassword, String changePassword, String username) { // 로그인 중, 비밀번호 변경 서비스
+        Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new MemberNotExistException());
 
         if(!member.matchPassword(passwordEncoder, checkPassword)) {
@@ -80,8 +80,8 @@ public class MemberServiceImpl implements MemberService {
         member.updatePassword(passwordEncoder, changePassword);
     }
 
-    public void withdraw(String checkPassword) { // 로그인 중, 회원 탈퇴 서비스
-        Member member = memberRepository.findByUsername(SecurityUtil.getLoginUsername())
+    public void withdraw(String checkPassword, String username) { // 로그인 중, 회원 탈퇴 서비스
+        Member member = memberRepository.findByUsername(username)
                 .orElseThrow(() -> new MemberNotExistException());
 
         if(!member.matchPassword(passwordEncoder, checkPassword)) {

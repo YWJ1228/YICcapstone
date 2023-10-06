@@ -3,8 +3,6 @@ package com.example.YICcapstone.global.jwt.service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
@@ -43,7 +41,6 @@ public class JwtServiceImpl implements JwtService {
     private static final String USERNAME_CLAIM = "username";
     private static final String BEARER = "Bearer ";
 
-
     private final MemberRepository memberRepository;
 
     @Override
@@ -53,7 +50,7 @@ public class JwtServiceImpl implements JwtService {
                 .withExpiresAt(new Date(System.currentTimeMillis() + accessTokenValidityInSeconds * 1000))
                 .withClaim(USERNAME_CLAIM, username)
                 .sign(Algorithm.HMAC512(secret));
-    } // accessTokenValidityInSeconds를 1800으로 설정하였기에 토큰발급시각 + 1800초(30분)가 지나면 Access Token 만료로 설정
+    } // accessTokenValidityInSeconds를 3600으로 설정하였기에 토큰발급시각 + 3600초(1시간)가 지나면 Access Token 만료로 설정
 
     @Override
     public String createRefreshToken() {
@@ -91,7 +88,6 @@ public class JwtServiceImpl implements JwtService {
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put(ACCESS_TOKEN_SUBJECT, accessToken);
         tokenMap.put(REFRESH_TOKEN_SUBJECT, refreshToken);
-
     }
 
     @Override

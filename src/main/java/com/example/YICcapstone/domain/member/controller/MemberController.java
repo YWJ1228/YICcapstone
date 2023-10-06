@@ -26,7 +26,6 @@ import java.util.List;
 @Validated
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
-//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class MemberController {
     @Autowired
@@ -41,8 +40,8 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body("회원가입 완료!");
     }
 
-    //@PostMapping("/api/log-in") // 로그인 요청(username,password)
-    //해당 요청은 스프링 시큐리티로 구현되었으므로 해당 컨트롤러에 존재 X
+    // @PostMapping("/api/log-in") // 로그인 요청(username,password)
+    // 해당 요청은 스프링 시큐리티로 구현되었으므로 해당 컨트롤러에 존재 X
 
     @GetMapping("/api/sign-up/username/{username}") // 회원가입 진행 중, 아이디(이메일) 중복 체크 하고 중복 없으면 인증코드 발송
     public ResponseEntity<String> dupUsername(@Email @PathVariable String username) throws Exception {
@@ -71,14 +70,14 @@ public class MemberController {
 
     @PatchMapping("/api/user/password") // 로그인 중, 비밀번호 변경 요청 (checkPassword, changePassword)
     public ResponseEntity<String> updatePassword(@Valid @RequestBody UpdatePasswordDto updatePasswordDto) {
-        memberService.updatePassword(updatePasswordDto.checkPassword(), updatePasswordDto.changePassword());
+        memberService.updatePassword(updatePasswordDto.checkPassword(), updatePasswordDto.changePassword(), SecurityUtil.getLoginUsername());
 
         return ResponseEntity.status(HttpStatus.OK).body("비밀번호 변경 완료!");
     }
 
     @DeleteMapping("/api/user") // 로그인 중, 회원 탈퇴 요청 (checkPassword)
     public ResponseEntity<String> withdraw(@Valid @RequestBody MemberWithdrawDto memberWithdrawDto) {
-        memberService.withdraw(memberWithdrawDto.checkPassword());
+        memberService.withdraw(memberWithdrawDto.checkPassword(), SecurityUtil.getLoginUsername());
 
         return ResponseEntity.status(HttpStatus.OK).body("회원 탈퇴 완료!");
     }

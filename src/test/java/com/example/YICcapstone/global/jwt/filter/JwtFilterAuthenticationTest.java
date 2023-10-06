@@ -36,18 +36,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class JwtFilterAuthenticationTest {
     @Autowired
     MockMvc mockMvc;
-
     @Autowired
     MemberRepository memberRepository;
-
     @Autowired
     EntityManager em;
-
     @Autowired
     JwtService jwtService;
-
     PasswordEncoder delegatingPasswordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-
 
     @Value("${jwt.secret}")
     private String secret;
@@ -60,23 +55,17 @@ public class JwtFilterAuthenticationTest {
     private static String KEY_PASSWORD = "password";
     private static String USERNAME = "username";
     private static String PASSWORD = "test1234@^^";
-
     private static String LOGIN_RUL = "/api/log-in";
-
 
     private static final String ACCESS_TOKEN_SUBJECT = "AccessToken";
     private static final String BEARER = "Bearer ";
 
-
     private ObjectMapper objectMapper = new ObjectMapper();
-
-
 
     private void clear(){
         em.flush();
         em.clear();
     }
-
 
     @BeforeEach
     void init(){
@@ -86,15 +75,12 @@ public class JwtFilterAuthenticationTest {
         clear();
     }
 
-
-
     private Map getUsernamePasswordMap(String username, String password){
         Map<String, String> map = new HashMap<>();
         map.put(KEY_USERNAME, username);
         map.put(KEY_PASSWORD, password);
         return map;
     }
-
 
     private Map getAccessAndRefreshToken() throws Exception {
 
@@ -133,16 +119,13 @@ public class JwtFilterAuthenticationTest {
      */
     @Test
     public void AccessToken만_보내서_인증() throws Exception {
-        //given
+
         Map accessAndRefreshToken = getAccessAndRefreshToken();
         String accessToken= (String) accessAndRefreshToken.get(accessHeader);
 
-        //when, then
         mockMvc.perform(get(LOGIN_RUL+"123").header(accessHeader,BEARER+ accessToken))//login이 아닌 다른 임의의 주소
                 .andExpectAll(status().isNotFound()); //없는 주소로 보냈으므로 NotFound
-
     }
-
 
     /**
      * AccessToken : 유효하지 않음,
@@ -180,8 +163,6 @@ public class JwtFilterAuthenticationTest {
         assertThat(subject).isEqualTo(ACCESS_TOKEN_SUBJECT);
     }
 
-
-
     /**
      * AccessToken : 존재하지 않음
      * RefreshToken : 유효하지 않음
@@ -199,8 +180,6 @@ public class JwtFilterAuthenticationTest {
         mockMvc.perform(get(LOGIN_RUL + "123").header(refreshHeader, BEARER+refreshToken+"1"))//유효하지 않은 토큰
                 .andExpect(status().isForbidden());
     }
-
-
 
     /**
      * AccessToken : 유효
@@ -229,10 +208,6 @@ public class JwtFilterAuthenticationTest {
         assertThat(responseRefreshToken).isNull();//refreshToken은 재발급되지 않음
     }
 
-
-
-
-
     /**
      * AccessToken : 유효하지 않음
      * RefreshToken : 유효
@@ -260,7 +235,6 @@ public class JwtFilterAuthenticationTest {
         assertThat(responseRefreshToken).isNull();//refreshToken은 재발급되지 않음
     }
 
-
     /**
      * AccessToken : 유효
      * RefreshToken : 유효하지 않음
@@ -286,8 +260,6 @@ public class JwtFilterAuthenticationTest {
         assertThat(responseAccessToken).isNull();//accessToken은 재발급되지 않음
         assertThat(responseRefreshToken).isNull();//refreshToken은 재발급되지 않음
     }
-
-
 
     /**
      * AccessToken : 유효하지 않음

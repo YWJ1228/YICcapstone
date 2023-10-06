@@ -162,7 +162,7 @@ class MemberServiceTest {
         MemberSignUpDto memberSignUpDto = setMember();
 
         String changePassword = "test5678@^^";
-        memberService.updatePassword("test1234@^^", changePassword);
+        memberService.updatePassword("test1234@^^", changePassword, memberSignUpDto.username());
         clear();
 
         Member findMember = memberRepository.findByUsername(memberSignUpDto.username()).orElseThrow(() -> new Exception());
@@ -173,7 +173,7 @@ class MemberServiceTest {
     public void 회원탈퇴() throws Exception {
         MemberSignUpDto memberSignUpDto = setMember();
 
-        memberService.withdraw("test1234@^^");
+        memberService.withdraw("test1234@^^", memberSignUpDto.username());
 
         assertThat(assertThrows(Exception.class, ()-> memberRepository.findByUsername(memberSignUpDto.username()).orElseThrow(() -> new Exception("회원이 없습니다!")))
                 .getMessage()).isEqualTo("회원이 없습니다!");
@@ -183,6 +183,6 @@ class MemberServiceTest {
     public void 회원탈퇴_비밀번호_일치하지않음_실패() throws Exception {
         MemberSignUpDto memberSignUpDto = setMember();
 
-        assertThrows(Exception.class, () -> memberService.withdraw("test1234@^^"+"1"));
+        assertThrows(Exception.class, () -> memberService.withdraw("test1234@^^"+"1", memberSignUpDto.username()));
     }
 }
