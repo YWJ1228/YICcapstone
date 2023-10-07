@@ -162,7 +162,7 @@ class MemberServiceTest {
         MemberSignUpDto memberSignUpDto = setMember();
 
         String changePassword = "test5678@^^";
-        memberService.updatePassword("test1234@^^", changePassword, memberSignUpDto.username());
+        memberService.updatePassword("test1234@^^", changePassword);
         clear();
 
         Member findMember = memberRepository.findByUsername(memberSignUpDto.username()).orElseThrow(() -> new Exception());

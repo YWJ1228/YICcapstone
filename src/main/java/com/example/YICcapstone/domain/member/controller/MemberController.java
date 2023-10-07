@@ -70,7 +70,7 @@ public class MemberController {
 
     @PatchMapping("/api/user/password") // 로그인 중, 비밀번호 변경 요청 (checkPassword, changePassword)
     public ResponseEntity<String> updatePassword(@Valid @RequestBody UpdatePasswordDto updatePasswordDto) {
-        memberService.updatePassword(updatePasswordDto.checkPassword(), updatePasswordDto.changePassword(), SecurityUtil.getLoginUsername());
+        memberService.updatePassword(updatePasswordDto.checkPassword(), updatePasswordDto.changePassword());
 
         return ResponseEntity.status(HttpStatus.OK).body("비밀번호 변경 완료!");
     }
