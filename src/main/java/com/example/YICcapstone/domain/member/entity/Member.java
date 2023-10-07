@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -41,27 +40,23 @@ public class Member extends BaseTimeEntity {
     @Column(length = 1000)
     private String refreshToken;
 
-    public void updateNickname(String nickname) { this.nickname = nickname; }
-    public void updatePassword(String password) { this.password = password; } // 삭제 필요
-    public void addRole() { this.role = Role.USER; }
-    public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword){
-        return passwordEncoder.matches(checkPassword, getPassword());
-    }
-
-    public void updatePassword(PasswordEncoder passwordEncoder, String password){
+    public void addRole() { this.role = Role.USER; } // 회원 가입 시, 자동으로 USER 등급의 권한 부여하도록 설정
+    public void encodePassword(PasswordEncoder passwordEncoder){ // 회원 가입 시, 비밀번호는 DB에 암호화하여 저장
         this.password = passwordEncoder.encode(password);
     }
 
     public void updateRefreshToken(String refreshToken){
         this.refreshToken = refreshToken;
     }
-
     public void destroyRefreshToken(){
         this.refreshToken = null;
     }
 
-    //== 패스워드 암호화 ==//
-    public void encodePassword(PasswordEncoder passwordEncoder){
+    public void updateNickname(String nickname) { this.nickname = nickname; } // 닉네임 변경
+    public void updatePassword(PasswordEncoder passwordEncoder, String password){ // 비밀번호 변경
         this.password = passwordEncoder.encode(password);
+    }
+    public boolean matchPassword(PasswordEncoder passwordEncoder, String checkPassword){ // 비밀번호 변경 시, 현재 비밀번호 정상 입력 확인
+        return passwordEncoder.matches(checkPassword, getPassword());
     }
 }
