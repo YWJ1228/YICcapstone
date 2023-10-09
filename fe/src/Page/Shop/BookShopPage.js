@@ -20,7 +20,7 @@ import classes from './BookShopPage.module.css';
 export default function () {
     const dummyBook = [
         { id: 1, image: "./logo192.png", name: "어린왕자" },
-        { id: 2, image: "./logo192.png", name: "어린왕자" },
+        { id: 2, image: "./logo192.png", name: "메밀꽃 필 무렵" },
         { id: 3, image: "./logo192.png", name: "어린왕자" },
         { id: 4, image: "./logo192.png", name: "어린왕자" },
         { id: 5, image: "./logo192.png", name: "어린왕자" },

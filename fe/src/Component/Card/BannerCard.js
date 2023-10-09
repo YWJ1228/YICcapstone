@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 
 import Button from 'react-bootstrap/Button';
 import classes from './BannerCard.module.css';
-
+// 홈페이지 Carousel에 들어가는 배너 카드
 export default function BannerCard(props) {
     return (
         <Container className={classes.wrapper}>

@@ -1,16 +1,24 @@
 .image {
     width: 10rem;
-    display : block;
-    margin : auto;
+    display: block;
+    margin: auto;
 }
-.image-wrapper{
-    width : 10rem;
-    display : block;
-    margin : auto;
+
+.image-wrapper {
+    width: 10rem;
+    display: block;
+    margin: auto;
 }
-.name{
+
+.name {
     text-align: center;
     font-weight: bold;
+}
+.author{
+    text-align: center;
+    color : gray;
+    font-size : 0.3rem;
+
 }
 
 .title {
@@ -23,9 +31,11 @@
     color: gray;
     font-size: 0.5rem;
 }
-.more-wrapper{
-    width : 5rem;
+
+.more-wrapper {
+    width: 5rem;
 }
+
 .more {
     color: gray;
     font-size: 0.7rem;
@@ -34,4 +44,3 @@
 .more:link {
     text-decoration: none;
 }
-

@@ -36,10 +36,10 @@ export default function LoginPage(props) {
         // api로 데이터 전송
         if (loginForm.password !== '') {
             console.log(loginForm);
-            axios.get("http://localhost:8080/api/log-in", loginForm)
+            axios.post("http://localhost:8080/api/log-in", loginForm)
                 .then(function (response) {
                     console.log(response);
-                    props.changeLoginHandler(true);
+                    props.changeLoginHandler(true); // 로그인 유무 확인해서 App.js에 보내는 function
                     navigateHome('/');
                 }).catch(function (error) {
                     console.log(error);

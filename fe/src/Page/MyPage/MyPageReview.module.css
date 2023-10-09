@@ -1,0 +1,38 @@
+.image{
+    margin : 2ren;
+}
+.title{
+    margin : 0.5rem;
+    font-weight: bold;
+    font-size : 1.5rem;
+}
+.author{
+    margin : 0.5rem;
+    color : gray;
+    font-size : 0.8rem;
+}
+.review-text{
+    width : 100%;
+    margin : 0.5rem;
+    margin-left : 1rem;
+    align-items: center;
+ 
+    border : 2px solid #7B8EF5;
+    border-radius : 1rem;
+
+    resize : none;
+}
+.review-text:focus{
+    outline : none;
+}
+.review-btn{
+    margin : 1rem;
+    width : 5rem;
+    background-color: #7B8EF5;
+    border-color: white;
+}
+.review-btn:hover{
+    color: #7B8EF5;
+    background-color: white;
+    border-color:#7B8EF5;
+}
