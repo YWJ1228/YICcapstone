@@ -30,26 +30,26 @@ function App() {
 
   return (
     <>
-      <NavigationBar img_src="logo.png" isLogged={isLoggedIn}/>
+      <NavigationBar img_src="logo.png" isLogged={isLoggedIn} />
       {/* padblock */}
-      <div style={{width : '100%', height : '6rem'}}/>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage changeLoginHandler={setIsLoggedIn} />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/changeinfo" element={<ChangeInfoPage />} />
-          <Route path="/search-pwd" element={<SearchPwd />} />
-          <Route path="/search-id" element={<SearchID />} />
-          <Route path="/bookShop" element={<BookShopPage />} />
-          <Route path="/voiceShop" element={<VoiceShopPage />} />
-          <Route path="/bookDetail" element={<BookDetailPage />} />
-          <Route path="/voiceDetail" element={<VoiceDetailPage />} />
-          {/* 테스트를 위한 주소 */}
-          <Route path="/test" element={<Test />} />
-        </Routes>
-      </BrowserRouter>
+      <div style={{ width: '100%', height: '6rem' }} />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage changeLoginHandler={setIsLoggedIn} />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="/changeinfo" element={<ChangeInfoPage />} />
+            <Route path="/search-pwd" element={<SearchPwd />} />
+            <Route path="/search-id" element={<SearchID />} />
+            <Route path="/bookShop" element={<BookShopPage />} />
+            <Route path="/voiceShop" element={<VoiceShopPage />} />
+            <Route path="/bookDetail" element={<BookDetailPage />} />
+            <Route path="/voiceDetail" element={<VoiceDetailPage />} />
+            {/* 테스트를 위한 주소 */}
+            <Route path="/test" element={<Test />} />
+          </Routes>
+        </BrowserRouter>
     </>
   );
 }

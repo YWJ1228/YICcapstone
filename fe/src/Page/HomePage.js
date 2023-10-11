@@ -9,12 +9,9 @@ import VoicePreview from '../Component/Preview/VoicePreview';
 import classes from './HomePage.module.css';
 
 import axios from 'axios';
-// import Footer from '../Component/Footer/Footer';
 
-// 헷갈려서 description으로 바꾸는거 제안
-
-
-
+const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0";
+const getBestVoiceAPI = "http://localhost:8080/voice-model/list?page=0";
 
 export default function HomePage() {
     const [bestSellerBook, setBestSellerBook] = useState([{
@@ -23,24 +20,16 @@ export default function HomePage() {
         name: "default",
         author: "default",
     }]);
-
-    const dummyVoice = [
-        { id: 1, image: "./logo192.png", name: "김채원", job: "가수", description: "르세라핌" },
-        { id: 2, image: "./logo192.png", name: "김채원", job: "가수", description: "르세라핌" },
-        { id: 3, image: "./logo192.png", name: "김채원", job: "가수", description: "르세라핌" },
-        { id: 4, image: "./logo192.png", name: "김채원", job: "가수", description: "르세라핌" },
-        { id: 5, image: "./logo192.png", name: "김채원", job: "가수", description: "르세라핌" }
-    ];
-    const dummyBook = [
-        { id: 1, image: "./logo192.png", name: "어린왕자", author: "생텍쥐페리", link: "./bookDetail" },
-        { id: 2, image: "./logo192.png", name: "어린왕자", author: "생텍쥐페리", link: "./bookDetail" },
-        { id: 3, image: "./logo192.png", name: "어린왕자", author: "생텍쥐페리", link: "./bookDetail" },
-        { id: 4, image: "./logo192.png", name: "어린왕자", author: "생텍쥐페리", link: "./bookDetail" },
-        { id: 5, image: "./logo192.png", name: "어린왕자", author: "생텍쥐페리", link: "./bookDetail" },
-    ];
+    const [bestSellerVoice, setBestSellerVoice] = useState([{
+        id : "default",
+        image : "default",
+        name : "default",
+        job : "default",
+        description : "default"
+    }]);
 
     useEffect(() => {
-        axios.get("http://localhost:8080/ebook/list?page=0")
+        axios.get(getBestEbookListAPI)
         .then(function (response) {
             // 응답 데이터 콘솔 출력
             console.log(response);
@@ -54,7 +43,24 @@ export default function HomePage() {
             console.log(resData);
         }).catch(function (error) {
             console.log(error);
-        })},[]
+        });
+        axios.get(getBestVoiceAPI)
+        .then(function (response) {
+            // 응답 데이터 콘솔 출력
+            console.log(response);
+            const resData = (response.data.content).map((voice) => ({
+                id : voice.id,
+                image : voice.imageUrl,
+                name : voice.celebrityName,
+                job : voice.job,
+                description : voice.comment
+            }));
+            setBestSellerVoice(resData);
+        }).catch(function (error) {
+            console.log(error);
+        })
+        
+    },[]
     );
     return (
         <>
@@ -79,7 +85,7 @@ export default function HomePage() {
                 <VoicePreview
                     title="이달의 TTS"
                     subtitle="이달의 가장 인기 있는 TTS를 만나보세요"
-                    voices={dummyVoice}
+                    voices={bestSellerVoice}
                     link={"./voiceShop"} />
             </div>
             {/* 구현 시간남으면 할 예정 */}

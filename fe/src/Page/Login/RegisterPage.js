@@ -12,20 +12,24 @@ import FormGroup from 'react-bootstrap/esm/FormGroup';
 import axios from 'axios';
 import SexBtn from '../../Component/Button/SexBtn';
 import StyleChangeRef from '../../Ref/StyleChangeRef';
-/**
- * #####################################
- * # 1. useState 선언                 
- * # 2. changeHandler              
- * # 3. valid check function
- * # 4. Form submit handler
- * ######################################
- */
+
+// #####################  API URL  ##########################
+
+const getNicknameAPI = "http://localhost:8080/api/sign-up/nickname/";
+const getEmailVerifyNumberAPI = "http://localhost:8080/api/sign-up/username/";
+const postRegisterFormAPI = "http://localhost:8080/api/sign-up";
+
+// ############################################################
 
 export default function RegisterPage() {
-    const myRef = useRef([]);
+    const myRef = useRef([]); // css의 변경을 위한 코드
+    const navigate = useNavigate(); // 로그인 성공 후에 넘어갈 navigate를 위한 코드
 
-    // 백엔드로 보내는 json 형식
-    const [userForm, setUserForm] = useState({
+    // ######################################################
+    // ################ 데이터를 저장한 State ################
+    // ######################################################
+
+    const [userForm, setUserForm] = useState({// 서버로 보내는 데이터
         username: 'defaultUser',
         password: 'defaultPassword',
         name: 'defaultName',
@@ -33,71 +37,86 @@ export default function RegisterPage() {
         birth: 'defaultBirth',
         sex: 0
     });
-    // 가이드 문구 출력 state
-    const [validMessage, setValidMessage] = useState({
+    const [validMessage, setValidMessage] = useState({// 가이드 문구
         validPwd: '숫자와 알파벳을 섞어서 8~12자로 작성해주세요',
         equalPwd: ''
     });
 
-    const navigate = useNavigate();
-
-    /** ##############################################
-     *  ### 일단 일정 규칙이 안맞아도 페이지 넘기려면 ###
-     *  ### 해당 아래 코드에서 false를 true로 변경   ###
-     *  ### 인증번호는 제대로 입력해주어야함          ###
-     *  ##############################################
-     */
-    const [validForm, setValidForm] = useState({
+    const [validForm, setValidForm] = useState({// 회원가입 유효성 판단
         verifyText: false,      // 서버로부터 받은 인증번호를 저장할 state
         verifyNickname: false,  // 닉네임 인증 여부
         verifyEqualPwd: false, // 비밀번호 일치 여부
         verifyPwd: false       // 비밀번호 규칙 적합 여부
     });
 
-    // Form change Handler for form events
-    function formChangeHandler(event) {
+    function formChangeHandler(event) { // 회원가입 폼의 값이 바뀔 때마다 update
         const { value, name: inputValue } = event.target;
         setUserForm({
             ...userForm,
             [inputValue]: event.target.value.trim()
         });
     }
-    // Check validation of email 
-    function validEmailHandler() {
-        axios.get("http://localhost:8080/api/sign-up/username/" + userForm.username)
-            .then(function (response) {
-                // 응답 데이터 콘솔 출력
-                console.log(response);
 
-                // 정답 인증번호 저장
-                setValidForm({ ...validForm, verifyText: response.data });
+    // ######################################################
+    // ################### API 연동 #########################
+    // ######################################################
+
+    function validEmailHandler() { // 인증번호 확인 & 이메일 보내기 api 호출
+        axios.get(getEmailVerifyNumberAPI + userForm.username)
+            .then(function (response) {
+                setValidForm({ ...validForm, verifyText: response.data }); // 정답 인증번호 저장
             }).catch(function (error) {
                 console.log(error);
             });
     }
-    function validNicknameHandler() {
-        axios.get("http://localhost:8080/api/sign-up/nickname/" + userForm.nickname)
+    function validNicknameHandler() { // 닉네임 중복확인 api 호출
+        axios.get(getNicknameAPI + userForm.nickname)
             .then(function (response) {
                 console.log('valid nickname');
-                if(response.data === '사용 가능한 닉네임입니다!'){
-                    setValidForm({...validForm, verifyNickname : true});
-                    console.log(validForm);
+                if (response.data === '사용 가능한 닉네임입니다!') { // 서버에서도 확인가능한 닉네임인지 확인
+                    setValidForm({ ...validForm, verifyNickname: true });
                 }
+                else { console.log("서버에서 부적절한 결과 받음"); }
             }).catch(function (error) {
                 console.log(error);
             });
-        }
+    }
 
-    // 비밀번호 규칙 확인
-    function pwdChangeHanlder(event) {
-        // 비밀번호 state 설정
-        setUserForm({
+    // form submit handler
+    function submitHandler(event) {
+        event.preventDefault();
+        // 회원가입 요청 유효성 검사
+        if (validForm.verifyText === (event.target.verifyText.value) && validForm.verifyNickname && validForm.verifyPwd && validForm.verifyEqualPwd) {
+            console.log('Login Succeeded');
+            axios.post(postRegisterFormAPI, userForm)
+                .then(function (response) { // 로그인 성공
+                    navigate('/login');
+                }).catch(function (error) {
+                    console.log(error);
+                });
+        }
+        const conditions = [
+            event.target.username.value !== '', // 이메일
+            validForm.verifyText === event.target.verifyText.value, // 인증번호
+            validForm.verifyPwd, // 비밀번호
+            validForm.verifyEqualPwd, // 비밀번호 확인
+            event.target.name.value !== '',  // 이름
+            validForm.verifyNickname, // 닉네임
+            event.target.birth.value !== '' // 생년월일
+        ];
+        conditions.map((cond, index) => { // 유효성 검사 후 invalid field는 디자인 변경
+            StyleChangeRef(myRef, index, cond);
+        })
+    }
+    
+    function pwdChangeHanlder(event) { // 비밀번호 규칙 확인
+        setUserForm({// 비밀번호 state 설정
             ...userForm,
             password: event.target.value.trim()
         });
 
         // 비밀번호 규칙 확인
-        const regex = /(?=.*[0-9])(?=.*[a-zA-Z]).{8,20}/;
+        const regex = /(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}/;
         const pwdString = event.target.value.trim();
         setValidForm({ ...validForm, verifyPwd: false });
         if (pwdString.length === 0) {
@@ -126,37 +145,7 @@ export default function RegisterPage() {
         }
     }
 
-    // form submit handler
-    function submitHandler(event) {
-        event.preventDefault();
 
-        // api로 데이터 전송
-        if (validForm.verifyText===(event.target.verifyText.value) && validForm.verifyNickname && validForm.verifyPwd && validForm.verifyEqualPwd) {
-            console.log('Login Succeeded');
-            axios.post("http://localhost:8080/api/sign-up", userForm)
-                .then(function (response) {
-                    console.log(response);
-                    navigate('/login');
-                }).catch(function (error) {
-                    console.log(error);
-                    console.log("API 보내는 도중에 error 발생");
-                })
-
-        }
-        // 이메일 유효성 검사
-        const conditions = [
-            event.target.username.value !== '', // 이메일
-            validForm.verifyText === event.target.verifyText.value, // 인증번호
-            validForm.verifyPwd, // 비밀번호
-            validForm.verifyEqualPwd, // 비밀번호 확인
-            event.target.name.value !== '',  // 이름
-            validForm.verifyNickname, // 닉네임
-            event.target.birth.value !== '' // 생년월일
-        ];
-        conditions.map((cond,index)=>{
-            StyleChangeRef(myRef, index, cond);
-        })
-    }
 
     return (
         <div className={classes.wrapper}>
@@ -170,7 +159,7 @@ export default function RegisterPage() {
                 <Form.Group className="mb-3" controlId="formVerify">
                     <Row className="mb-3">
                         <Col lg={10}><Form.Control type="text" placeholder='인증번호' name="verifyText" className={classes.inputBox} ref={el => myRef.current[1] = el} /></Col>
-                        <Col><Button className={classes['verify-button']} type="button"  onClick={validEmailHandler} >이메일발송</Button></Col>
+                        <Col><Button className={classes['verify-button']} type="button" onClick={validEmailHandler} >이메일발송</Button></Col>
                     </Row>
                 </Form.Group>
 
@@ -180,7 +169,7 @@ export default function RegisterPage() {
                     <Form.Text>{validMessage.validPwd}</Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCheckPwd">
-                    <Form.Control type="password" name = "checkPassword" onChange={equalPwdChangeHandler} placeholder='비밀번호 확인' className={classes.inputBox} ref={el => myRef.current[3] = el} />
+                    <Form.Control type="password" name="checkPassword" onChange={equalPwdChangeHandler} placeholder='비밀번호 확인' className={classes.inputBox} ref={el => myRef.current[3] = el} />
                     <Form.Text>{validMessage.equalPwd}</Form.Text>
                 </Form.Group>
 
@@ -188,7 +177,7 @@ export default function RegisterPage() {
                     <Row>
                         <Form.Label>개인정보</Form.Label>
                         <Col><Form.Control name="name" onChange={formChangeHandler} placeholder='성명' className={classes.inputBox} ref={el => myRef.current[4] = el} /></Col>
-                        <Col><Button className={classes['verify-button']} type="button"  onChange={validNicknameHandler}>성별</Button></Col>
+                        <Col><Button className={classes['verify-button']} type="button" onChange={validNicknameHandler}>성별</Button></Col>
                     </Row>
 
                 </Form.Group>
