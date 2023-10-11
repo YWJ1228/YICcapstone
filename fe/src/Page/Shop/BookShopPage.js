@@ -11,7 +11,7 @@ import classes from './BookShopPage.module.css';
 // #######################  API로 해당하는 리스트 가져오기 ##########################
 const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0";
 const getOnSaleEbookListAPI = "http://localhost:8080/ebook/list?page=0";
-const getUpdateEbbokListAPI = "http://localhost:8080/ebook/list?page=0";
+const getUpdateEbookListAPI = "http://localhost:8080/ebook/list?page=0";
 
 export default function () {
     const [bestSellerBook, setBestSellerBook] = useState([{
@@ -39,7 +39,7 @@ export default function () {
     ];
     // API를 통해서 데이터 가져오기
     useEffect(() => {
-        axios.all([axios.get(getBestEbookListAPI), axios.get(getOnSaleEbookListAPI), axios.get(getUpdateEbbokListAPI)])
+        axios.all([axios.get(getBestEbookListAPI), axios.get(getOnSaleEbookListAPI), axios.get(getUpdateEbookListAPI)])
             .then(axios.spread((res1, res2,res3) => {
                 const resData1 = (res1.data.content).map((book)=>({
                     id: book.id,

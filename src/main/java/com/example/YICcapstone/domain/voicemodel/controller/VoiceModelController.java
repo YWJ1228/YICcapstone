@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RequestMapping("/voice-model")
+@CrossOrigin(origins = "*")
 @RestController
 public class VoiceModelController {
     @Autowired

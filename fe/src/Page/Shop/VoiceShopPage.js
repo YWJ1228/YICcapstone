@@ -9,8 +9,8 @@ import VoicePreview from '../../Component/Preview/VoicePreview';
 import classes from './VoiceShopPage.module.css';
 
 const getBestVoiceListAPI = "http://localhost:8080/voice-model/list?page=0";
-const getOnSaleVoiceListAPI = "http://localhost:8080/ebook/list?page=0";
-const getUpdateVoiceListAPI = "http://localhost:8080/ebook/list?page=0";
+const getOnSaleVoiceListAPI = "http://localhost:8080/voice-model/list?page=0";
+const getUpdateVoiceListAPI = "http://localhost:8080/voice-model/list?page=0";
 
 export default function () {
     const [bestSellerVoice, setBestSellerVoice] = useState([{
