@@ -10,8 +10,11 @@ import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelNotFoundExc
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelRepository;
 import com.example.YICcapstone.domain.wish.domain.EbookWish;
 import com.example.YICcapstone.domain.wish.domain.VoiceModelWish;
+import com.example.YICcapstone.domain.wish.dto.response.EbookWishResponse;
+import com.example.YICcapstone.domain.wish.dto.response.VoiceModelWishResponse;
 import com.example.YICcapstone.domain.wish.repository.EbookWishRepository;
 import com.example.YICcapstone.domain.wish.repository.VoiceModelWishRepository;
+import com.example.YICcapstone.global.util.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -33,9 +36,7 @@ public class WishService {
 
     @Transactional
     public void wishEbook(Long ebookId) {
-        //TODO: 유저 검증
-        Member member = memberRepository.findById(1L) //임의값 설정 나중에 변경 필요
-                .orElseThrow();
+        Member member = verifyMember();
         Ebook savedEbook = ebookRepository.findById(ebookId)
                 .orElseThrow(EbookNotFoundException::new);
         EbookWish savedEbookWish = ebookWishRepository.findByMemberIdAndEbookId(member, savedEbook)
@@ -50,9 +51,7 @@ public class WishService {
 
     @Transactional
     public void wishVoiceModel(Long voiceModelId) {
-        //TODO: 유저 검증
-        Member member = memberRepository.findById(1L) //임의값 설정 나중에 변경 필요
-                .orElseThrow();
+        Member member = verifyMember();
         VoiceModel savedVoiceModel = voiceModelRepository.findById(voiceModelId)
                 .orElseThrow(VoiceModelNotFoundException::new);
         VoiceModelWish savedVoiceModelWish = voiceModelWishRepository.findByMemberIdAndVoiceModelId(member, savedVoiceModel)
@@ -66,28 +65,35 @@ public class WishService {
     }
 
     @Transactional(readOnly = true)
-    public Page<EbookWish> getEbookWishList(int page) {
-        Member member = memberRepository.findById(1L) //임의값 설정 나중에 변경 필요
-                .orElseThrow();
-        return ebookWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, 10));
+    public Page<EbookWishResponse> getEbookWishList(int page) {
+        Member member = verifyMember();
+        Page<EbookWish> savedEbookWishList = ebookWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, 10));
+        return savedEbookWishList.map(
+                ebookWish -> new EbookWishResponse(ebookWish.getId(), ebookWish.getEbook())
+        );
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModelWish> getVoiceModelWishList(int page) {
-        Member member = memberRepository.findById(1L) //임의값 설정 나중에 변경 필요
-                .orElseThrow();
-        return voiceModelWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, 10));
+    public Page<VoiceModelWishResponse> getVoiceModelWishList(int page) {
+        Member member = verifyMember();
+        Page<VoiceModelWish> savedVoiceModelList = voiceModelWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, 10));
+        return savedVoiceModelList.map(
+                voiceModelWish -> new VoiceModelWishResponse(voiceModelWish.getId(), voiceModelWish.getVoiceModel())
+        );
     }
 
     public Boolean ebookWishVerify(Long ebookId) {
-        Member member = memberRepository.findById(1L) //임의값 설정 나중에 변경 필요
-                .orElseThrow();
+        Member member = verifyMember();
         return ebookWishRepository.existsByMemberIdAndEbookId(member, ebookId);
     }
 
     public Boolean voiceModelWishVerify(Long voiceModelId) {
-        Member member = memberRepository.findById(1L) //임의값 설정 나중에 변경 필요
-                .orElseThrow();
+        Member member = verifyMember();
         return voiceModelWishRepository.existsByMemberIdAndVoiceModelId(member, voiceModelId);
+    }
+
+    public Member verifyMember() {
+        return memberRepository.findByUsername(SecurityUtil.getLoginUsername())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다.")); //TODO: MemberNotExistsException 변경
     }
 }

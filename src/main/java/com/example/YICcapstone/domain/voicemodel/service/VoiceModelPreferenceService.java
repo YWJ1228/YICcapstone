@@ -7,6 +7,7 @@ import com.example.YICcapstone.domain.voicemodel.domain.VoiceModelPreference;
 import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelNotFoundException;
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelPreferenceRepository;
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelRepository;
+import com.example.YICcapstone.global.util.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +23,7 @@ public class VoiceModelPreferenceService {
 
     @Transactional
     public Integer preferVoiceModel(Long voiceModelId) {
-        //TODO: 유저 검증
-        Member member = memberRepository.findById(1L) //임의값 설정 나중에 변경 필요
-                .orElseThrow();
+        Member member = verifyMember();
         VoiceModel savedVoiceModel = voiceModelRepository.findById(voiceModelId)
                 .orElseThrow(VoiceModelNotFoundException::new);
         VoiceModelPreference preference = preferenceRepository.findByMemberIdAndVoiceModelId(member, savedVoiceModel)
@@ -41,9 +40,13 @@ public class VoiceModelPreferenceService {
         return savedVoiceModel.getPreferenceCount();
     }
 
-    public Boolean preferenceVerify(Long voiceModelId){
-        Member member = memberRepository.findById(1L) //임의값 설정 나중에 변경 필요
-                .orElseThrow();
+    public Boolean preferenceVerify(Long voiceModelId) {
+        Member member = verifyMember();
         return preferenceRepository.existsByMemberIdAndVoiceModelId(member, voiceModelId);
+    }
+
+    public Member verifyMember() {
+        return memberRepository.findByUsername(SecurityUtil.getLoginUsername())
+                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다.")); //TODO: MemberNotExistsException 변경
     }
 }
