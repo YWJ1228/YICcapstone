@@ -8,8 +8,8 @@ import BannerCard from "../../Component/Card/BannerCard";
 import VoicePreview from '../../Component/Preview/VoicePreview';
 import classes from './VoiceShopPage.module.css';
 
-const getBestVoiceListAPI = "http://localhost:8080/voice-model/list?page=0";
-const getOnSaleVoiceListAPI = "http://localhost:8080/voice-model/list?page=0";
+const getBestVoiceListAPI = "http://localhost:8080/voice-model/list/popularity?page=0";
+const getOnSaleVoiceListAPI = "http://localhost:8080/voice-model/list/category?page=0&job=singer";
 const getUpdateVoiceListAPI = "http://localhost:8080/voice-model/list?page=0";
 
 export default function () {

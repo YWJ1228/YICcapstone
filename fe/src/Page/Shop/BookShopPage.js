@@ -9,8 +9,8 @@ import axios from 'axios';
 import classes from './BookShopPage.module.css';
 
 // #######################  API로 해당하는 리스트 가져오기 ##########################
-const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0";
-const getOnSaleEbookListAPI = "http://localhost:8080/ebook/list?page=0";
+const getBestEbookListAPI = "http://localhost:8080/ebook/list/popularity?page=0";
+const getOnSaleEbookListAPI = "http://localhost:8080/ebook/list/category?page=0&classification=poem";
 const getUpdateEbookListAPI = "http://localhost:8080/ebook/list?page=0";
 
 export default function () {
