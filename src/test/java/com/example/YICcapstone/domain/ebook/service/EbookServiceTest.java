@@ -158,11 +158,11 @@ class EbookServiceTest {
         ebookService.createEbook(ebookCreationRequest2);
         ebookService.createEbook(ebookCreationRequest3);
         // 3. 비교 및 검증
-        assertEquals(3, ebookService.getEbookList(0).getTotalElements());
-        assertEquals(3, ebookService.getEbookList(0).getContent().size());
-        assertEquals("title3", ebookService.getEbookList(0).getContent().get(0).getEbookName());
-        assertEquals("title2", ebookService.getEbookList(0).getContent().get(1).getEbookName());
-        assertEquals("title", ebookService.getEbookList(0).getContent().get(2).getEbookName());
+        assertEquals(3, ebookService.getEbookList(0, 10).getTotalElements());
+        assertEquals(3, ebookService.getEbookList(0, 10).getContent().size());
+        assertEquals("title3", ebookService.getEbookList(0, 10).getContent().get(0).getEbookName());
+        assertEquals("title2", ebookService.getEbookList(0, 10).getContent().get(1).getEbookName());
+        assertEquals("title", ebookService.getEbookList(0, 10).getContent().get(2).getEbookName());
     }
 
     @Test
@@ -189,14 +189,14 @@ class EbookServiceTest {
         ebookService.createEbook(ebookCreationRequest2);
         ebookService.createEbook(ebookCreationRequest3);
         // 3. 비교 및 검증
-        assertEquals(1, ebookService.getEbookListByCategory("novel", 0).getTotalElements());
-        assertEquals(1, ebookService.getEbookListByCategory("novel", 0).getContent().size());
-        assertEquals("title", ebookService.getEbookListByCategory("novel", 0).getContent().get(0).getEbookName());
-        assertEquals(1, ebookService.getEbookListByCategory("essay", 0).getTotalElements());
-        assertEquals(1, ebookService.getEbookListByCategory("essay", 0).getContent().size());
-        assertEquals("title2", ebookService.getEbookListByCategory("essay", 0).getContent().get(0).getEbookName());
-        assertEquals(1, ebookService.getEbookListByCategory("poem", 0).getTotalElements());
-        assertEquals(1, ebookService.getEbookListByCategory("poem", 0).getContent().size());
-        assertEquals("title3", ebookService.getEbookListByCategory("poem", 0).getContent().get(0).getEbookName());
+        assertEquals(1, ebookService.getEbookListByCategory("novel", 0, 10).getTotalElements());
+        assertEquals(1, ebookService.getEbookListByCategory("novel", 0, 10).getContent().size());
+        assertEquals("title", ebookService.getEbookListByCategory("novel", 0, 10).getContent().get(0).getEbookName());
+        assertEquals(1, ebookService.getEbookListByCategory("essay", 0, 10).getTotalElements());
+        assertEquals(1, ebookService.getEbookListByCategory("essay", 0, 10).getContent().size());
+        assertEquals("title2", ebookService.getEbookListByCategory("essay", 0, 10).getContent().get(0).getEbookName());
+        assertEquals(1, ebookService.getEbookListByCategory("poem", 0, 10).getTotalElements());
+        assertEquals(1, ebookService.getEbookListByCategory("poem", 0, 10).getContent().size());
+        assertEquals("title3", ebookService.getEbookListByCategory("poem", 0, 10).getContent().get(0).getEbookName());
     }
 }

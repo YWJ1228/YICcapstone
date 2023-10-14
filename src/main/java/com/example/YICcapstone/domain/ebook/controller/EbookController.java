@@ -27,19 +27,30 @@ public class EbookController {
     }
 
     @GetMapping("/list")
-    public Page<Ebook> getEbookList(@RequestParam int page) {
-        return ebookService.getEbookList(page);
+    public Page<Ebook> getEbookList(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookList(page, size);
     }
 
     @GetMapping("/list/category")
-    public Page<Ebook> getEbookListByCategory(@RequestParam String classification, @RequestParam int page) {
-        return ebookService.getEbookListByCategory(classification, page);
+    public Page<Ebook> getEbookListByCategory(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByCategory(classification, page, size);
     }
 
     @GetMapping("/list/popularity")
-    public Page<Ebook> getEbookListByPopularity(@RequestParam int page) {
-        return ebookService.getEbookListByPopularity(page);
+    public Page<Ebook> getEbookListByPopularity(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByPopularity(page, size);
     }
+
+    @GetMapping("/list/price/desc")
+    public Page<Ebook> getEbookListByPriceDesc(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByPriceDesc(page, size);
+    }
+
+    @GetMapping("/list/price/asc")
+    public Page<Ebook> getEbookListByPriceAsc(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByPriceAsc(page, size);
+    }
+
 
     @PostMapping
     public ResponseEntity<String> createEbook(@RequestBody @Valid EbookCreationRequest ebookCreationRequest) {

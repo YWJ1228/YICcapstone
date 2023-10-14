@@ -13,4 +13,6 @@ public interface EbookRepository extends JpaRepository<Ebook, Long> {
     @Query("SELECT e FROM Ebook e ORDER BY e.viewCount + (e.purchaseCount * 10) DESC, e.uploadedAt DESC")
     Page<Ebook> findAllByOrderByScoreAndUploadedAtDesc(Pageable pageable);
     Page<Ebook> findAllByEbookCategory_ClassificationOrderByUploadedAtDesc(String classification, Pageable pageable);
+    Page<Ebook> findAllByOrderByPriceDesc(Pageable pageable);
+    Page<Ebook> findAllByOrderByPriceAsc(Pageable pageable);
 }

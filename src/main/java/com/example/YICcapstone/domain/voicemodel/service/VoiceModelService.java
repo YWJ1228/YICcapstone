@@ -62,18 +62,27 @@ public class VoiceModelService {
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModel> getVoiceModelList(int page) {
-        return voiceModelRepository.findAllByOrderByUploadedAtDesc(PageRequest.of(page, 10));
+    public Page<VoiceModel> getVoiceModelList(int page, int size) {
+        return voiceModelRepository.findAllByOrderByUploadedAtDesc(PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModel> getVoiceModelListByCategory(String job, int page) {
-        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByUploadedAtDesc(job, PageRequest.of(page, 10));
+    public Page<VoiceModel> getVoiceModelListByCategory(String job, int page, int size) {
+        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByUploadedAtDesc(job, PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModel> getVoiceModelListByPopularity(int page){
-        return voiceModelRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page,10));
+    public Page<VoiceModel> getVoiceModelListByPopularity(int page, int size){
+        return voiceModelRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page,size));
     }
 
+    @Transactional(readOnly = true)
+    public Page<VoiceModel> getVoiceModelListByPriceDesc(int page, int size){
+        return voiceModelRepository.findAllByOrderByPriceDesc(PageRequest.of(page, size));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<VoiceModel> getVoiceModelListByPriceAsc(int page, int size){
+        return voiceModelRepository.findAllByOrderByPriceAsc(PageRequest.of(page, size));
+    }
 }
