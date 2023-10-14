@@ -9,8 +9,8 @@ import VoicePreview from '../../Component/Preview/VoicePreview';
 import classes from './VoiceShopPage.module.css';
 
 const getBannerVoiceListAPI = "http:localhost:8080/voice-model/list?page=0"; // 배너에 올릴 TTS api
-const getBestVoiceListAPI = "http://localhost:8080/voice-model/list?page=0"; // 이달의  TTS
-const getOnSaleVoiceListAPI = "http://localhost:8080/voice-model/list?page=0"; // 인기 TTS
+const getBestVoiceListAPI = "http://localhost:8080/voice-model/list/popularity?page=0"; // 이달의  TTS
+const getOnSaleVoiceListAPI = "http://localhost:8080/voice-model/list/category?page=0&job=singer"; // 인기 TTS
 const getUpdateVoiceListAPI = "http://localhost:8080/voice-model/list?page=0"; // 업데이트 된 TTS
 
 export default function () {

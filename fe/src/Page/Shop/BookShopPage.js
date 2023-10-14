@@ -10,11 +10,11 @@ import classes from './BookShopPage.module.css';
 
 
 // #######################  API로 해당하는 리스트 가져오기 ##########################
+
 const getBannerEbookListAPI = "http://localhost:8080/ebook/list?page=0" // 배너에 올릴 책
 const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0"; // 이달의 책
 const getOnSaleEbookListAPI = "http://localhost:8080/ebook/list?page=0"; // 할인 중인 책
 const getUpdateEbookListAPI = "http://localhost:8080/ebook/list?page=0"; // 업데이트 된 책
-
 
 
 export default function () {
