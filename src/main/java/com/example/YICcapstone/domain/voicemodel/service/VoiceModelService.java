@@ -76,4 +76,13 @@ public class VoiceModelService {
         return voiceModelRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page,size));
     }
 
+    @Transactional(readOnly = true)
+    public Page<VoiceModel> getVoiceModelListByPriceDesc(int page, int size){
+        return voiceModelRepository.findAllByOrderByPriceDesc(PageRequest.of(page, size));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<VoiceModel> getVoiceModelListByPriceAsc(int page, int size){
+        return voiceModelRepository.findAllByOrderByPriceAsc(PageRequest.of(page, size));
+    }
 }

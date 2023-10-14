@@ -74,4 +74,14 @@ public class EbookService {
     public Page<Ebook> getEbookListByPopularity(int page, int size){
         return ebookRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page, size));
     }
+
+    @Transactional(readOnly = true)
+    public Page<Ebook> getEbookListByPriceDesc(int page, int size){
+        return ebookRepository.findAllByOrderByPriceDesc(PageRequest.of(page, size));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Ebook> getEbookListByPriceAsc(int page, int size){
+        return ebookRepository.findAllByOrderByPriceAsc(PageRequest.of(page, size));
+    }
 }

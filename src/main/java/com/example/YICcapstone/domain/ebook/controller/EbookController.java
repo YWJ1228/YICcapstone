@@ -41,6 +41,17 @@ public class EbookController {
         return ebookService.getEbookListByPopularity(page, size);
     }
 
+    @GetMapping("/list/price/desc")
+    public Page<Ebook> getEbookListByPriceDesc(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByPriceDesc(page, size);
+    }
+
+    @GetMapping("/list/price/asc")
+    public Page<Ebook> getEbookListByPriceAsc(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByPriceAsc(page, size);
+    }
+
+
     @PostMapping
     public ResponseEntity<String> createEbook(@RequestBody @Valid EbookCreationRequest ebookCreationRequest) {
         ebookService.createEbook(ebookCreationRequest);

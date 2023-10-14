@@ -37,6 +37,16 @@ public class VoiceModelController {
         return voiceModelService.getVoiceModelListByPopularity(page, size);
     }
 
+    @GetMapping("/list/price/desc")
+    public Page<VoiceModel> getVoiceModelListByPriceDesc(@RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByPriceDesc(page, size);
+    }
+
+    @GetMapping("/list/price/asc")
+    public Page<VoiceModel> getVoiceModelListByPriceAsc(@RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByPriceAsc(page, size);
+    }
+
     @PostMapping
     public ResponseEntity<String> createVoiceModel(@RequestBody @Valid VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.createVoiceModel(voiceModelCreationRequest);
