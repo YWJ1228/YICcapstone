@@ -5,12 +5,13 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
 import classes from './RegisterPage.module.css';
 import FormGroup from 'react-bootstrap/esm/FormGroup';
 
 import axios from 'axios';
-import SexBtn from '../../Component/Button/SexBtn';
 import StyleChangeRef from '../../Ref/StyleChangeRef';
 
 // #####################  API URL  ##########################
@@ -49,11 +50,18 @@ export default function RegisterPage() {
         verifyPwd: false       // 비밀번호 규칙 적합 여부
     });
 
+
     function formChangeHandler(event) { // 회원가입 폼의 값이 바뀔 때마다 update
         const { value, name: inputValue } = event.target;
         setUserForm({
             ...userForm,
             [inputValue]: event.target.value.trim()
+        });
+    }
+    function genderClickHandler(value) {
+        setUserForm({
+            ...userForm,
+            sex: value
         });
     }
 
@@ -108,7 +116,7 @@ export default function RegisterPage() {
             StyleChangeRef(myRef, index, cond);
         })
     }
-    
+
     function pwdChangeHanlder(event) { // 비밀번호 규칙 확인
         setUserForm({// 비밀번호 state 설정
             ...userForm,
@@ -158,8 +166,8 @@ export default function RegisterPage() {
 
                 <Form.Group className="mb-3" controlId="formVerify">
                     <Row className="mb-3">
-                        <Col lg={10}><Form.Control type="text" placeholder='인증번호' name="verifyText" className={classes.inputBox} ref={el => myRef.current[1] = el} /></Col>
-                        <Col><Button className={classes['verify-button']} type="button" onClick={validEmailHandler} >이메일발송</Button></Col>
+                        <Col><Form.Control type="text" placeholder='인증번호' name="verifyText" className={classes.inputBox} ref={el => myRef.current[1] = el} /></Col>
+                        <Col xs={3} className={classes['input-wrapper']}><Button className={classes['verify-button']} type="button" onClick={validEmailHandler} >이메일발송</Button></Col>
                     </Row>
                 </Form.Group>
 
@@ -177,14 +185,25 @@ export default function RegisterPage() {
                     <Row>
                         <Form.Label>개인정보</Form.Label>
                         <Col><Form.Control name="name" onChange={formChangeHandler} placeholder='성명' className={classes.inputBox} ref={el => myRef.current[4] = el} /></Col>
-                        <Col><Button className={classes['verify-button']} type="button" onChange={validNicknameHandler}>성별</Button></Col>
+
+                        <Col xs={3} className={classes['input-wrapper']}>
+                            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+
+                                <ToggleButton className={userForm.sex ? classes.gender : classes["gender-focus"]} id="tbg-radio-1" value={1} onClick={() => genderClickHandler(0)}>
+                                    남성
+                                </ToggleButton>
+                                <ToggleButton className={userForm.sex ? classes["gender-focus"] : classes.gender} id="tbg-radio-2" value={2} onClick={() => genderClickHandler(1)}>
+                                    여성
+                                </ToggleButton>
+                            </ToggleButtonGroup>
+                        </Col>
                     </Row>
 
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGridNickname" >
                     <Row>
-                        <Col lg={10}><Form.Control type="text" name="nickname" onChange={formChangeHandler} placeholder='닉네임' className={classes.inputBox} ref={el => myRef.current[5] = el} /></Col>
-                        <Col><Button className={classes['verify-button']} type="button" name="verifyNickname" onClick={validNicknameHandler}>중복확인</Button></Col>
+                        <Col ><Form.Control type="text" name="nickname" onChange={formChangeHandler} placeholder='닉네임' className={classes.inputBox} ref={el => myRef.current[5] = el} /></Col>
+                        <Col xs={3} className={classes['input-wrapper']}><Button className={classes['verify-button']} type="button" name="verifyNickname" onClick={validNicknameHandler}>중복확인</Button></Col>
                     </Row>
                 </Form.Group>
                 <FormGroup>

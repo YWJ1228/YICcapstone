@@ -17,11 +17,26 @@
     border-color: white;
 }
 .submit:hover{
-    
     background-color : white;
     color :#7B8EF5;
     border-color: #7B8EF5;
 }
 .inputBox:focus{
     box-shadow: none;
+    border-color : black;
 }
+.gender{
+    background-color: #7B8EF5 !important ;
+    color : white !important;
+    border-color : #7B8EF5 !important;
+}
+
+.gender-focus{
+    background-color: white !important;
+    color : #7B8EF5 !important;
+    border-color : #7B8EF5 !important;
+}
+.input-wrapper{
+    text-align:left;
+}
+
