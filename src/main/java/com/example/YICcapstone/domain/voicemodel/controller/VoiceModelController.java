@@ -23,18 +23,18 @@ public class VoiceModelController {
     }
 
     @GetMapping("/list")
-    public Page<VoiceModel> getVoiceModelList(@RequestParam int page) {
-        return voiceModelService.getVoiceModelList(page);
+    public Page<VoiceModel> getVoiceModelList(@RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelList(page, size);
     }
 
     @GetMapping("/list/category")
-    public Page<VoiceModel> getVoiceModelListByCategory(@RequestParam String job, @RequestParam int page) {
-        return voiceModelService.getVoiceModelListByCategory(job, page);
+    public Page<VoiceModel> getVoiceModelListByCategory(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByCategory(job, page, size);
     }
 
     @GetMapping("/list/popularity")
-    public Page<VoiceModel> getVoiceModelListByPopularity(@RequestParam int page) {
-        return voiceModelService.getVoiceModelListByPopularity(page);
+    public Page<VoiceModel> getVoiceModelListByPopularity(@RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByPopularity(page, size);
     }
 
     @PostMapping

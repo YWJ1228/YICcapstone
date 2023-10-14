@@ -61,17 +61,17 @@ public class EbookService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Ebook> getEbookList(int page) {
-        return ebookRepository.findAllByOrderByUploadedAtDesc(PageRequest.of(page, 10));
+    public Page<Ebook> getEbookList(int page, int size) {
+        return ebookRepository.findAllByOrderByUploadedAtDesc(PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)
-    public Page<Ebook> getEbookListByCategory(String classification, int page) {
-        return ebookRepository.findAllByEbookCategory_ClassificationOrderByUploadedAtDesc(classification, PageRequest.of(page, 10));
+    public Page<Ebook> getEbookListByCategory(String classification, int page, int size) {
+        return ebookRepository.findAllByEbookCategory_ClassificationOrderByUploadedAtDesc(classification, PageRequest.of(page, size));
     }
 
     @Transactional(readOnly = true)
-    public Page<Ebook> getEbookListByPopularity(int page){
-        return ebookRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page, 10));
+    public Page<Ebook> getEbookListByPopularity(int page, int size){
+        return ebookRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page, size));
     }
 }

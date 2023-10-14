@@ -112,7 +112,7 @@ class VoiceModelServiceTest {
         // 2. 실제 데이터
         voiceModelService.deleteVoiceModel(createModel.getId());
         // 3. 비교 및 검증
-        assertEquals(0, voiceModelService.getVoiceModelList(0).getTotalElements());
+        assertEquals(0, voiceModelService.getVoiceModelList(0, 10).getTotalElements());
     }
 
     @Test
@@ -162,7 +162,7 @@ class VoiceModelServiceTest {
         voiceModelService.createVoiceModel(voiceModelCreationRequest2);
         voiceModelService.createVoiceModel(voiceModelCreationRequest3);
         // 2. 실제 데이터
-        Page<VoiceModel> savedVoiceModelList = voiceModelService.getVoiceModelList(0);
+        Page<VoiceModel> savedVoiceModelList = voiceModelService.getVoiceModelList(0, 10);
         // 3. 비교 및 검증
         assertEquals(3, savedVoiceModelList.getTotalElements());
 
@@ -214,9 +214,9 @@ class VoiceModelServiceTest {
         voiceModelService.createVoiceModel(voiceModelCreationRequest2);
         voiceModelService.createVoiceModel(voiceModelCreationRequest3);
         // 2. 실제 데이터
-        Page<VoiceModel> savedVoiceModeByActorsList = voiceModelService.getVoiceModelListByCategory("actor", 0);
-        Page<VoiceModel> savedVoiceModeBySingersList = voiceModelService.getVoiceModelListByCategory("singer", 0);
-        Page<VoiceModel> savedVoiceModeByNarratorsList = voiceModelService.getVoiceModelListByCategory("narrator", 0);
+        Page<VoiceModel> savedVoiceModeByActorsList = voiceModelService.getVoiceModelListByCategory("actor", 0, 10);
+        Page<VoiceModel> savedVoiceModeBySingersList = voiceModelService.getVoiceModelListByCategory("singer", 0, 10);
+        Page<VoiceModel> savedVoiceModeByNarratorsList = voiceModelService.getVoiceModelListByCategory("narrator", 0, 10);
         // 3. 비교 및 검증
         assertEquals(1, savedVoiceModeByActorsList.getTotalElements());
         assertEquals(1, savedVoiceModeBySingersList.getTotalElements());
