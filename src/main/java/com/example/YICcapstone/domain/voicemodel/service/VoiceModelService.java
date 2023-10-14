@@ -73,7 +73,7 @@ public class VoiceModelService {
 
     @Transactional(readOnly = true)
     public Page<VoiceModel> getVoiceModelListByPopularity(int page){
-        return voiceModelRepository.findAllByOrderByScoreDesc(PageRequest.of(page,10));
+        return voiceModelRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page,10));
     }
 
 }

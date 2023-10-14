@@ -72,6 +72,6 @@ public class EbookService {
 
     @Transactional(readOnly = true)
     public Page<Ebook> getEbookListByPopularity(int page){
-        return ebookRepository.findAllByOrderByScoreDesc(PageRequest.of(page, 10));
+        return ebookRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page, 10));
     }
 }
