@@ -4,9 +4,11 @@ import Carousel from 'react-bootstrap/Carousel';
 import BannerCard from "../../Component/Card/BannerCard";
 import BookPreview from '../../Component/Preview/BookPreview';
 
+
 import axios from 'axios';
 
 import classes from './BookShopPage.module.css';
+import BookPreviewAll from '../../Component/Preview/BookPreviewAll';
 
 
 // #######################  API로 해당하는 리스트 가져오기 ##########################
@@ -42,6 +44,7 @@ export default function () {
         name: "default",
         author: "default",
     }]);
+
     const dummyInfo = [
         { title: "이달의 책", subtitle: "이달의 가장 인기있는 책을 만나보세요", images: bestSellerBook },
         { title: "할인 중인 책", subtitle: "저렴한 가격에 책을 구매할 수 있는 기회", images: onSalebook },
@@ -50,7 +53,11 @@ export default function () {
     // API를 통해서 데이터 가져오기
 
     useEffect(() => {
-        axios.all([axios.get(getBestEbookListAPI), axios.get(getOnSaleEbookListAPI), axios.get(getUpdateEbookListAPI), axios.get(getBannerEbookListAPI)])
+        axios.all([
+            axios.get(getBestEbookListAPI),
+            axios.get(getOnSaleEbookListAPI),
+            axios.get(getUpdateEbookListAPI),
+            axios.get(getBannerEbookListAPI)])
             .then(axios.spread((res1, res2, res3, res4) => {
                 const resData1 = (res1.data.content).map((book) => ({
                     id: book.id,
@@ -80,6 +87,7 @@ export default function () {
                     description: book.content
                 }));
                 setBannerBook(resData4);
+
             })).catch((err) => console.log(err));
     }, []);
     const bannerList = bannerBook.map((book) => {
@@ -115,6 +123,10 @@ export default function () {
             </div>
             {/* 리스트를 동적으로 가져옴 */}
             {previewList}
+            <BookPreviewAll
+                title="전체 페이지"
+                subtitle="전체 목록" />
+            
 
         </>
     );
