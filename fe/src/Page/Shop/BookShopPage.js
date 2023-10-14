@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 import Carousel from 'react-bootstrap/Carousel';
 import BannerCard from "../../Component/Card/BannerCard";
@@ -8,12 +8,22 @@ import axios from 'axios';
 
 import classes from './BookShopPage.module.css';
 
+
 // #######################  API로 해당하는 리스트 가져오기 ##########################
-const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0";
-const getOnSaleEbookListAPI = "http://localhost:8080/ebook/list?page=0";
-const getUpdateEbookListAPI = "http://localhost:8080/ebook/list?page=0";
+const getBannerEbookListAPI = "http://localhost:8080/ebook/list?page=0" // 배너에 올릴 책
+const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0"; // 이달의 책
+const getOnSaleEbookListAPI = "http://localhost:8080/ebook/list?page=0"; // 할인 중인 책
+const getUpdateEbookListAPI = "http://localhost:8080/ebook/list?page=0"; // 업데이트 된 책
+
+
 
 export default function () {
+    const [bannerBook, setBannerBook] = useState([{
+        id: "default",
+        image: "default",
+        name: "default",
+        description: "default"
+    }]);
     const [bestSellerBook, setBestSellerBook] = useState([{
         id: "default",
         image: "default",
@@ -38,32 +48,53 @@ export default function () {
         { title: "업데이트 된 책", subtitle: "새로 업데이트 된 책들의 오디오북을 들어보세요", images: updatedBook }
     ];
     // API를 통해서 데이터 가져오기
+
     useEffect(() => {
-        axios.all([axios.get(getBestEbookListAPI), axios.get(getOnSaleEbookListAPI), axios.get(getUpdateEbookListAPI)])
-            .then(axios.spread((res1, res2,res3) => {
-                const resData1 = (res1.data.content).map((book)=>({
+        axios.all([axios.get(getBestEbookListAPI), axios.get(getOnSaleEbookListAPI), axios.get(getUpdateEbookListAPI), axios.get(getBannerEbookListAPI)])
+            .then(axios.spread((res1, res2, res3, res4) => {
+                const resData1 = (res1.data.content).map((book) => ({
                     id: book.id,
                     image: book.imageUrl,
                     name: book.ebookName,
                     author: book.author
                 }));
                 setBestSellerBook(resData1);
-                const resData2 = (res2.data.content).map((book)=>({
+                const resData2 = (res2.data.content).map((book) => ({
                     id: book.id,
                     image: book.imageUrl,
                     name: book.ebookName,
                     author: book.author
                 }));
                 setOnSaleBook(resData2);
-                const resData3 = (res3.data.content).map((book)=>({
+                const resData3 = (res3.data.content).map((book) => ({
                     id: book.id,
                     image: book.imageUrl,
                     name: book.ebookName,
                     author: book.author
                 }));
                 setUpdatedBook(resData3);
-            })).catch((err)=> console.log(err));
+                const resData4 = (res4.data.content).map((book) => ({
+                    id: book.id,
+                    image: book.imageUrl,
+                    name: book.ebookName,
+                    description: book.content
+                }));
+                setBannerBook(resData4);
+            })).catch((err) => console.log(err));
     }, []);
+    const bannerList = bannerBook.map((book) => {
+        return (
+            <Carousel.Item>
+                <BannerCard
+                    id={book.id}
+                    imagePath={book.image}
+                    title={book.name}
+                    description={book.description}
+                    link={"/bookDetail/" + book.id} />
+            </Carousel.Item>
+        );
+
+    });
     const previewList = dummyInfo.map((preview) => {
         return (
             <div className={classes['book-preview']} key={preview.title}>
@@ -71,26 +102,20 @@ export default function () {
                     title={preview.title}
                     subtitle={preview.subtitle}
                     images={preview.images}
-                    link={"./"}
                 />
             </div>
-
         );
     });
     return (
         <>
             <div className={classes['banner-wrapper']}>
-                <Carousel>
-                    <Carousel.Item>
-                        <BannerCard imagePath="./logo192.png" title="어린왕자" description="생텍쥐페리 작가의 희대의 명작!" price="900원" salesDescription="(~9월 24일 까지)" />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <BannerCard imagePath="./logo192.png" title="어린왕자" description="생텍쥐페리 작가의 희대의 명작!" price="900원" salesDescription="(~9월 24일 까지)" />
-                    </Carousel.Item>
+                <Carousel indicators={false}>
+                    {bannerList}
                 </Carousel>
             </div>
             {/* 리스트를 동적으로 가져옴 */}
             {previewList}
+
         </>
     );
 };

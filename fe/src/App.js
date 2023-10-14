@@ -5,8 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
+
 
 import NavigationBar from './Component/NavigationBar/NavigationBar';
 import LoginPage from './Page/Login/LoginPage';
@@ -23,6 +22,10 @@ import VoiceShopPage from './Page/Shop/VoiceShopPage';
 import Test from './Test';
 import BookDetailPage from './Page/Detail/BookDetailPage';
 import VoiceDetailPage from './Page/Detail/VoiceDetailPage';
+
+// 작업 to-do list
+// 1. 배너 Item을 api로 가져오는 것 구현해야함
+
 
 
 function App() {
@@ -44,10 +47,9 @@ function App() {
             <Route path="/search-id" element={<SearchID />} />
             <Route path="/bookShop" element={<BookShopPage />} />
             <Route path="/voiceShop" element={<VoiceShopPage />} />
-            <Route path="/bookDetail" element={<BookDetailPage />} />
-            <Route path="/voiceDetail" element={<VoiceDetailPage />} />
-            {/* 테스트를 위한 주소 */}
-            <Route path="/test" element={<Test />} />
+            <Route path="/bookDetail/:ebookID" element={<BookDetailPage />} />
+            <Route path="/voiceDetail/*" element={<VoiceDetailPage />} />
+
           </Routes>
         </BrowserRouter>
     </>

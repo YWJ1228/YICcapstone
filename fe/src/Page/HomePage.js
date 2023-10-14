@@ -10,6 +10,7 @@ import classes from './HomePage.module.css';
 
 import axios from 'axios';
 
+const getBannerItemListAPI = "http://localhost:8080/ebook/list?page=0";
 const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0";
 const getBestVoiceAPI = "http://localhost:8080/voice-model/list?page=0";
 
@@ -21,46 +22,34 @@ export default function HomePage() {
         author: "default",
     }]);
     const [bestSellerVoice, setBestSellerVoice] = useState([{
-        id : "default",
-        image : "default",
-        name : "default",
-        job : "default",
-        description : "default"
+        id: "default",
+        image: "default",
+        name: "default",
+        job: "default",
+        description: "default"
     }]);
 
     useEffect(() => {
-        axios.get(getBestEbookListAPI)
-        .then(function (response) {
-            // 응답 데이터 콘솔 출력
-            console.log(response);
-            const resData = (response.data.content).map((book) => ({
-                id: book.id,
-                image: book.imageUrl,
-                name: book.ebookName,
-                author: book.author
-            }));
-            setBestSellerBook(resData);
-            console.log(resData);
-        }).catch(function (error) {
-            console.log(error);
-        });
-        axios.get(getBestVoiceAPI)
-        .then(function (response) {
-            // 응답 데이터 콘솔 출력
-            console.log(response);
-            const resData = (response.data.content).map((voice) => ({
-                id : voice.id,
-                image : voice.imageUrl,
-                name : voice.celebrityName,
-                job : voice.job,
-                description : voice.comment
-            }));
-            setBestSellerVoice(resData);
-        }).catch(function (error) {
-            console.log(error);
-        })
-        
-    },[]
+        axios.all([axios.get(getBestEbookListAPI), axios.get(getBestVoiceAPI), axios.get(getBannerItemListAPI)])
+            .then(axios.spread((res1, res2, res3) => {
+                const resData1 = (res1.data.content).map((book) => ({
+                    id: book.id,
+                    image: book.imageUrl,
+                    name: book.ebookName,
+                    author: book.author
+                }));
+                setBestSellerBook(resData1);
+                const resData2 = (res2.data.content).map((voice) => ({
+                    id: voice.id,
+                    image: voice.imageUrl,
+                    name: voice.celebrityName,
+                    job: voice.job,
+                    description: voice.comment
+                }));
+                setBestSellerVoice(resData2);
+            }
+            )).catch((err) => console.log(err));
+    }, []
     );
     return (
         <>
@@ -79,7 +68,7 @@ export default function HomePage() {
                     title="이달의 책"
                     subtitle="이달의 가장 인기 있는 책을 만나보세요"
                     images={bestSellerBook}
-                    link={"./bookShop"} />
+                    link={"./bookAll"} />
             </div>
             <div className={classes['book-preview']}>
                 <VoicePreview

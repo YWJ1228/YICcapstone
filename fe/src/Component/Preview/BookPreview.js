@@ -15,7 +15,7 @@ export default function BookPreview(props) {
     const imageArr = (props.images).map((img) => {
         return (
             <Col key={img.id}>
-                <a href="/bookDetail">
+                <a href={"/bookDetail/" + img.id}>
                     <Row><img src={img.image} className={classes.image} /></Row>
                 </a>
                 <Row className={classes.name}><div>{img.name}</div></Row>

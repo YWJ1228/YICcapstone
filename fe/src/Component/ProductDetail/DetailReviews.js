@@ -18,14 +18,13 @@ function userMasking(user) {
 }
 
 export default function DetailReviews(props) {
-
-
     const reviewArr = (props.reviews).map((review) => {
+
         return (
-            <div className={classes['review-wrapper']}>
+            <div className={classes['review-wrapper']} key = {review.id}>
                 <Row>
                     <Col>
-                        <Row className={classes.userid}>{userMasking(review.id)}</Row>
+                        <Row className={classes.userid}>{userMasking(review.nickname)}</Row>
                         <Row className={classes.review}>{review.text}</Row>
                         <Row className={classes['upload-date']}>Upload :  {review.uploadDate}</Row>
                     </Col>
