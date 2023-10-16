@@ -85,4 +85,9 @@ public class VoiceModelService {
     public Page<VoiceModel> getVoiceModelListByPriceAsc(int page, int size){
         return voiceModelRepository.findAllByOrderByPriceAsc(PageRequest.of(page, size));
     }
+
+    @Transactional(readOnly = true)
+    public int getTotalPage(int size) {
+        return (int) Math.ceil((double) voiceModelRepository.count() / size);
+    }
 }
