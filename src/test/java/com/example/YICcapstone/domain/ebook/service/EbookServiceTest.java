@@ -3,6 +3,7 @@ package com.example.YICcapstone.domain.ebook.service;
 import com.example.YICcapstone.domain.ebook.domain.Ebook;
 import com.example.YICcapstone.domain.ebook.domain.EbookCategory;
 import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
+import com.example.YICcapstone.domain.ebook.dto.response.EbookResponse;
 import com.example.YICcapstone.domain.ebook.repository.EbookCategoryRepository;
 import com.example.YICcapstone.domain.ebook.repository.EbookRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -118,7 +119,7 @@ class EbookServiceTest {
         // 2. 실제 데이터
         ebookService.createEbook(ebookCreationRequest);
         Ebook createEbook = ebookRepository.findAll().get(0);
-        Ebook ebookDetail = ebookService.getEbook(createEbook.getId());
+        EbookResponse ebookDetail = ebookService.getEbook(createEbook.getId());
         // 3. 비교 및 검증
         assertEquals(1, ebookDetail.getViewCount());
         assertEquals(0, ebookDetail.getPurchaseCount());
@@ -131,7 +132,7 @@ class EbookServiceTest {
         assertEquals("image", ebookDetail.getImageUrl());
         assertEquals("comment", ebookDetail.getComment());
         assertEquals("content", ebookDetail.getContent());
-        assertEquals("novel", ebookDetail.getEbookCategory().getClassification());
+        assertEquals("novel", ebookDetail.getEbookCategory());
     }
 
     @Test

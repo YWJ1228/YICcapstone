@@ -3,6 +3,7 @@ package com.example.YICcapstone.domain.ebook.controller;
 import com.example.YICcapstone.domain.ebook.domain.Ebook;
 import com.example.YICcapstone.domain.ebook.domain.EbookCategory;
 import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
+import com.example.YICcapstone.domain.ebook.dto.response.EbookResponse;
 import com.example.YICcapstone.domain.ebook.repository.EbookCategoryRepository;
 import com.example.YICcapstone.domain.ebook.service.EbookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,32 +23,32 @@ public class EbookController {
     private EbookCategoryRepository ebookCategoryRepository;
 
     @GetMapping("/{ebookId}")
-    public Ebook getEbook(@PathVariable Long ebookId) {
+    public EbookResponse getEbook(@PathVariable Long ebookId) {
         return ebookService.getEbook(ebookId);
     }
 
     @GetMapping("/list")
-    public Page<Ebook> getEbookList(@RequestParam int page, @RequestParam int size) {
+    public Page<EbookResponse> getEbookList(@RequestParam int page, @RequestParam int size) {
         return ebookService.getEbookList(page, size);
     }
 
     @GetMapping("/list/category")
-    public Page<Ebook> getEbookListByCategory(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
+    public Page<EbookResponse> getEbookListByCategory(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
         return ebookService.getEbookListByCategory(classification, page, size);
     }
 
     @GetMapping("/list/popularity")
-    public Page<Ebook> getEbookListByPopularity(@RequestParam int page, @RequestParam int size) {
+    public Page<EbookResponse> getEbookListByPopularity(@RequestParam int page, @RequestParam int size) {
         return ebookService.getEbookListByPopularity(page, size);
     }
 
     @GetMapping("/list/price/desc")
-    public Page<Ebook> getEbookListByPriceDesc(@RequestParam int page, @RequestParam int size) {
+    public Page<EbookResponse> getEbookListByPriceDesc(@RequestParam int page, @RequestParam int size) {
         return ebookService.getEbookListByPriceDesc(page, size);
     }
 
     @GetMapping("/list/price/asc")
-    public Page<Ebook> getEbookListByPriceAsc(@RequestParam int page, @RequestParam int size) {
+    public Page<EbookResponse> getEbookListByPriceAsc(@RequestParam int page, @RequestParam int size) {
         return ebookService.getEbookListByPriceAsc(page, size);
     }
 

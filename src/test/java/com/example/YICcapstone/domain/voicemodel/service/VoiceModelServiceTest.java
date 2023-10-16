@@ -3,6 +3,7 @@ package com.example.YICcapstone.domain.voicemodel.service;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModelCategory;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
+import com.example.YICcapstone.domain.voicemodel.dto.response.VoiceModelResponse;
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelCategoryRepository;
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -53,7 +54,7 @@ class VoiceModelServiceTest {
                 "actor");
         voiceModelService.createVoiceModel(voiceModelCreationRequest);
         // 2. 실제 데이터
-        VoiceModel savedVoiceModel = voiceModelService.getVoiceModel(1L);
+        VoiceModelResponse savedVoiceModel = voiceModelService.getVoiceModel(1L);
         // 3. 비교 및 검증
         assertEquals(1, savedVoiceModel.getId());
         assertEquals("testUrl", savedVoiceModel.getVoiceModelUrl());
@@ -62,7 +63,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl", savedVoiceModel.getImageUrl());
         assertEquals("testComment", savedVoiceModel.getComment());
         assertEquals("testSampleUrl", savedVoiceModel.getSampleUrl());
-        assertEquals("actor", savedVoiceModel.getVoiceModelCategory().getJob());
+        assertEquals("actor", savedVoiceModel.getVoiceModelCategory());
     }
 
     @Test
@@ -127,7 +128,7 @@ class VoiceModelServiceTest {
         voiceModelService.createVoiceModel(voiceModelCreationRequest);
         VoiceModel createModel = voiceModelRepository.findAll().get(0);
         // 2. 실제 데이터
-        VoiceModel savedVoiceModel = voiceModelService.getVoiceModel(createModel.getId());
+        VoiceModelResponse savedVoiceModel = voiceModelService.getVoiceModel(createModel.getId());
         // 3. 비교 및 검증
         assertEquals(createModel.getId(), savedVoiceModel.getId());
         assertEquals("testUrl", savedVoiceModel.getVoiceModelUrl());
@@ -136,7 +137,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl", savedVoiceModel.getImageUrl());
         assertEquals("testComment", savedVoiceModel.getComment());
         assertEquals("testSampleUrl", savedVoiceModel.getSampleUrl());
-        assertEquals("actor", savedVoiceModel.getVoiceModelCategory().getJob());
+        assertEquals("actor", savedVoiceModel.getVoiceModelCategory());
     }
 
     @Test
@@ -162,7 +163,7 @@ class VoiceModelServiceTest {
         voiceModelService.createVoiceModel(voiceModelCreationRequest2);
         voiceModelService.createVoiceModel(voiceModelCreationRequest3);
         // 2. 실제 데이터
-        Page<VoiceModel> savedVoiceModelList = voiceModelService.getVoiceModelList(0, 10);
+        Page<VoiceModelResponse> savedVoiceModelList = voiceModelService.getVoiceModelList(0, 10);
         // 3. 비교 및 검증
         assertEquals(3, savedVoiceModelList.getTotalElements());
 
@@ -172,7 +173,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl3", savedVoiceModelList.getContent().get(0).getImageUrl());
         assertEquals("testComment3", savedVoiceModelList.getContent().get(0).getComment());
         assertEquals("testSampleUrl3", savedVoiceModelList.getContent().get(0).getSampleUrl());
-        assertEquals("narrator", savedVoiceModelList.getContent().get(0).getVoiceModelCategory().getJob());
+        assertEquals("narrator", savedVoiceModelList.getContent().get(0).getVoiceModelCategory());
 
         assertEquals("testUrl2", savedVoiceModelList.getContent().get(1).getVoiceModelUrl());
         assertEquals("testName2", savedVoiceModelList.getContent().get(1).getCelebrityName());
@@ -180,7 +181,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl2", savedVoiceModelList.getContent().get(1).getImageUrl());
         assertEquals("testComment2", savedVoiceModelList.getContent().get(1).getComment());
         assertEquals("testSampleUrl2", savedVoiceModelList.getContent().get(1).getSampleUrl());
-        assertEquals("singer", savedVoiceModelList.getContent().get(1).getVoiceModelCategory().getJob());
+        assertEquals("singer", savedVoiceModelList.getContent().get(1).getVoiceModelCategory());
 
         assertEquals("testUrl", savedVoiceModelList.getContent().get(2).getVoiceModelUrl());
         assertEquals("testName", savedVoiceModelList.getContent().get(2).getCelebrityName());
@@ -188,7 +189,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl", savedVoiceModelList.getContent().get(2).getImageUrl());
         assertEquals("testComment", savedVoiceModelList.getContent().get(2).getComment());
         assertEquals("testSampleUrl", savedVoiceModelList.getContent().get(2).getSampleUrl());
-        assertEquals("actor", savedVoiceModelList.getContent().get(2).getVoiceModelCategory().getJob());
+        assertEquals("actor", savedVoiceModelList.getContent().get(2).getVoiceModelCategory());
     }
 
     @Test
@@ -214,9 +215,9 @@ class VoiceModelServiceTest {
         voiceModelService.createVoiceModel(voiceModelCreationRequest2);
         voiceModelService.createVoiceModel(voiceModelCreationRequest3);
         // 2. 실제 데이터
-        Page<VoiceModel> savedVoiceModeByActorsList = voiceModelService.getVoiceModelListByCategory("actor", 0, 10);
-        Page<VoiceModel> savedVoiceModeBySingersList = voiceModelService.getVoiceModelListByCategory("singer", 0, 10);
-        Page<VoiceModel> savedVoiceModeByNarratorsList = voiceModelService.getVoiceModelListByCategory("narrator", 0, 10);
+        Page<VoiceModelResponse> savedVoiceModeByActorsList = voiceModelService.getVoiceModelListByCategory("actor", 0, 10);
+        Page<VoiceModelResponse> savedVoiceModeBySingersList = voiceModelService.getVoiceModelListByCategory("singer", 0, 10);
+        Page<VoiceModelResponse> savedVoiceModeByNarratorsList = voiceModelService.getVoiceModelListByCategory("narrator", 0, 10);
         // 3. 비교 및 검증
         assertEquals(1, savedVoiceModeByActorsList.getTotalElements());
         assertEquals(1, savedVoiceModeBySingersList.getTotalElements());
