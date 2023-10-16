@@ -44,3 +44,12 @@
 .more:link {
     text-decoration: none;
 }
+.page-button{
+    background-color: #7B8EF5;
+    border-color : #7B8EF5;
+}
+.page-button:hover{
+    background-color: white;
+    color :#7B8EF5;
+    border-color : #7B8EF5;
+}
