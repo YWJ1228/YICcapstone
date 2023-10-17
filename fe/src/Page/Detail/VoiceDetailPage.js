@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { API } from '../../Config/APIConfig.js';
+
 import axios from 'axios';
 
 import DetailBanner from "../../Component/ProductDetail/DetailBanner.js.js";
@@ -8,8 +10,6 @@ import DetailDescription from "../../Component/ProductDetail/DetailDescription.j
 import DetailReviews from "../../Component/ProductDetail/DetailReviews.js";
 
 import classes from './VoiceDetailPage.module.css';
-
-const getEachVoiceAPI = "http://localhost:8080/voice-model/";
 
 export default function VoiceDetailPage() {
     const { voiceID } = useParams();
@@ -32,7 +32,7 @@ export default function VoiceDetailPage() {
     });
 
     useEffect(() => {
-        axios.get(getEachVoiceAPI + voiceID)
+        axios.get(`${API.LOAD_VOICE}/${voiceID}`)
             .then(function (response) {
                 setVoiceInfo({
                     name: response.data.celebrityName,
@@ -49,7 +49,7 @@ export default function VoiceDetailPage() {
                 console.log(err);
                 console.log("Voice detail loading error");
             })
-    })
+    },[]);
 
     return (
         <>

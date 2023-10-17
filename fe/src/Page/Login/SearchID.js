@@ -1,3 +1,5 @@
+import { API } from '../../Config/APIConfig';
+
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -10,13 +12,10 @@ import classes from './SearchID.module.css';
 
 import axios from 'axios';
 
-// ######################### API #####################
-const postSearchIDAPI = "http:localhost:8080/api/find/id";
-
 export default function SearchID() {
     function submitHandler(event) {
         event.preventDefault();
-        axios.post(postSearchIDAPI, {
+        axios.post(`${API.FIND_ID}`, {
             name: event.target.name.value,
             birth : event.target.birth.value
         }).then(function (res) {

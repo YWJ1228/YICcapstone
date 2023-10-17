@@ -7,6 +7,7 @@ import BannerCard from "../../Component/Card/BannerCard";
 
 import VoicePreview from '../../Component/Preview/VoicePreview';
 import classes from './VoiceShopPage.module.css';
+import VoicePreviewAll from '../../Component/Preview/VoicePreviewAll';
 
 const getBannerVoiceListAPI = "http://localhost:8080/voice-model/list?page=0&size=5"; // 배너에 올릴 TTS api
 const getBestVoiceListAPI = "http://localhost:8080/voice-model/list/popularity?page=0&size=5"; // 이달의  TTS
@@ -116,6 +117,9 @@ export default function () {
             </div>
             {/* 리스트를 동적으로 가져옴 */}
             {previewList}
+            <VoicePreviewAll
+                title="전체 페이지"
+                subtitle="전체 목록" />
         </>
     );
 };

@@ -4,7 +4,6 @@
 
 import {useEffect} from 'react';
 
-const getAllVoiceList = "http://localhost:8080/voice-model/list?page=0&size=10";
 export default function AdminPageFirst(){
 
     useEffect(()=>{

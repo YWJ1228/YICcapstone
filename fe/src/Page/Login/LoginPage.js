@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 
+import { API } from '../../Config/APIConfig';
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -36,7 +37,7 @@ export default function LoginPage(props) {
         // api로 데이터 전송
         if (loginForm.password !== '') {
             console.log(loginForm);
-            axios.post("http://localhost:8080/api/log-in", loginForm)
+            axios.post(`${API.LOGIN_USER}`, loginForm)
                 .then(function (response) {
                     console.log(response);
                     props.changeLoginHandler(true); // 로그인 유무 확인해서 App.js에 보내는 function

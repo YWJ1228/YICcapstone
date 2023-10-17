@@ -1,5 +1,11 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { API } from '../../Config/APIConfig';
+
+import axios from 'axios';
+
+import classes from './RegisterPage.module.css';
+import StyleChangeRef from '../../Ref/StyleChangeRef';
 
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -8,19 +14,8 @@ import Row from 'react-bootstrap/Row';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 
-import classes from './RegisterPage.module.css';
+
 import FormGroup from 'react-bootstrap/esm/FormGroup';
-
-import axios from 'axios';
-import StyleChangeRef from '../../Ref/StyleChangeRef';
-
-// #####################  API URL  ##########################
-
-const getNicknameAPI = "http://localhost:8080/api/sign-up/nickname/";
-const getEmailVerifyNumberAPI = "http://localhost:8080/api/sign-up/username/";
-const postRegisterFormAPI = "http://localhost:8080/api/sign-up";
-
-// ############################################################
 
 export default function RegisterPage() {
     const myRef = useRef([]); // css의 변경을 위한 코드
@@ -41,8 +36,7 @@ export default function RegisterPage() {
     const [guideMessage, setGuideMessage] = useState({// 가이드 문구
         guideEmailText: '',
         guidePwdText: '숫자와 알파벳을 섞어서 8~12자로 작성해주세요',
-        guideEqualPwdText: '',
-        guideNicknameText: ''
+        guideEqualPwdText: ''
     });
 
     const [validForm, setValidForm] = useState({// 회원가입 유효성 판단
@@ -72,24 +66,21 @@ export default function RegisterPage() {
     // ######################################################
 
     function validEmailHandler() { // 인증번호 확인 & 이메일 보내기 api 호출
-        axios.get(getEmailVerifyNumberAPI + userForm.username)
+        axios.get(`${API.VERIFY_EMAIL}/${userForm.username}`)
             .then(function (response) {
-                console.log(guideMessage);
                 setValidForm({ ...validForm, verifyText: response.data }); // 정답 인증번호 저장
                 setGuideMessage({ ...guideMessage, guideEmailText: '' });
             }).catch(function (error) {
-                console.log('error.response.message : ', error.response.message);
-                setGuideMessage({ ...guideMessage, guideEmailText: error.response.status });
+                console.log(error);
             });
     }
     function validNicknameHandler() { // 닉네임 중복확인 api 호출
-        axios.get(getNicknameAPI + userForm.nickname)
+        axios.get(`${API.CHECK_NICKNAME}/${userForm.nickname}`)
             .then(function (response) {
                 console.log('valid nickname');
                 setValidForm({ ...validForm, verifyNickname: true });
-                setGuideMessage({ ...guideMessage, guideNicknameText: '' });
             }).catch(function (error) {
-                setGuideMessage({ ...guideMessage, guideNicknameText: error.response.message });
+               console.log(error);
             });
     }
 
@@ -99,7 +90,7 @@ export default function RegisterPage() {
         // 회원가입 요청 유효성 검사
         if (validForm.verifyText === (event.target.verifyText.value) && validForm.verifyNickname && validForm.verifyPwd && validForm.verifyEqualPwd) {
             console.log('Login Succeeded');
-            axios.post(postRegisterFormAPI, userForm)
+            axios.post(`${API.REGISTER_USER}`, userForm)
                 .then(function (response) { // 로그인 성공
                     navigate('/login');
                 }).catch(function (error) {

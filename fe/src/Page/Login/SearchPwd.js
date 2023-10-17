@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { API } from '../../Config/APIConfig';
+
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -10,13 +12,10 @@ import Col from 'react-bootstrap/Col';
 
 import classes from './SearchPwd.module.css';
 
-// ############ API #################
-const postSearchPwdAPI = "http:localhost:8080/api/find/password";
-
 export default function SearchPwd() {
     function submitHandler(event) {
         event.preventDefault();
-        axios.post(postSearchPwdAPI, {
+        axios.post(`${API.FIND_PWD}`, {
             usename: event.target.email.value,
             name: event.target.name.value
         }).then(function (res) {

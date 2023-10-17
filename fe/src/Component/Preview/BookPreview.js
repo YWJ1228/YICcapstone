@@ -26,12 +26,6 @@ export default function BookPreview(props) {
         <Container>
             <Row className={classes.title}>{props.title}</Row>
             <Row>
-                <Col className={classes['sub-title']}>{props.subtitle}</Col>
-                <Col xs={1} className={classes['more-wrapper']}>
-                    <a href={props.link} className={classes.more}>&lt;더보기</a>
-                </Col>
-            </Row>
-            <Row>
                 {imageArr}
             </Row>
         </Container>

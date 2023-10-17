@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { API } from '../../Config/APIConfig';
 import axios from 'axios';
 
 import Button from 'react-bootstrap/Button';
@@ -7,10 +8,6 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
 import classes from './ChangeInfoPage.module.css';
-
-const getCheckNickname = "http://localhost:8080/api/user/nickname";
-const patchPassword = "http://localhost:8080/api/user/password";
-const deleteUserWithdrawal = "http://localhost:8080/api/user";
 
 export default function ChangeInfoPage() {
     const [changeForm, setChangeForm] = useState({
@@ -65,7 +62,7 @@ export default function ChangeInfoPage() {
     // 닉네임 변경
     function nicknameSubmitHandler(event) {
         event.preventDefault();
-        axios.patch(getCheckNickname, { nickname: event.target.nickname.trim() })
+        axios.patch(`${API.CHANGE_NICKNAME}`, { nickname: event.target.nickname.trim() })
             .then(function (response) {
                 console.log(response);
             }).catch(function (err) {
@@ -75,7 +72,7 @@ export default function ChangeInfoPage() {
     // 비밀번호 변경
     function passwordSubmitHandler(event) {
         event.preventDefault();
-        axios.patch(patchPassword, {
+        axios.patch(`${API.CHANGE_PWD}`, {
             checkPassword: "default",
             changePassword: guideMessage.guidePwdText
         }).then((res) => {
@@ -86,7 +83,7 @@ export default function ChangeInfoPage() {
     // 작업 필요!!!!!!!!!!!!!!!!
     function userWithdrawal(event) {
         event.preventDefault();
-        axios.get(deleteUserWithdrawal)
+        axios.delete(`${API.DELETE_USER}`)
             .then(function (response) {
 
             })

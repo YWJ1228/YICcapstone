@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { API } from '../../Config/APIConfig.js';
+
 import DetailBanner from "../../Component/ProductDetail/DetailBanner.js.js";
 import DetailDescription from "../../Component/ProductDetail/DetailDescription.js";
 import DetailReviews from "../../Component/ProductDetail/DetailReviews.js";
@@ -9,7 +11,6 @@ import classes from './BookDetailPage.module.css';
 
 import axios from 'axios'
 
-const getEachBookAPI = "http://localhost:8080/ebook/";
 
 export default function BookDetailPage() {
     const { ebookID } = useParams();
@@ -32,7 +33,7 @@ export default function BookDetailPage() {
     });
 
     useEffect(() => {
-        axios.get(getEachBookAPI + ebookID)
+        axios.get(`${API.LOAD_EBOOK}/${ebookID}`)
         .then(function (response) {
             setBookInfo({
                 title: response.data.ebookName,
