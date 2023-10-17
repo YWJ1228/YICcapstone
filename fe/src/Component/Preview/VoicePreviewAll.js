@@ -45,7 +45,7 @@ export default function VoicePreviewAll(props) {
         axios.get(
             currentCategory === 'all'
             ? `${API.NUM_PAGES_VOICELIST}`
-            :`${API.NUM_PAGES_CATEGORY_VOICELIST}`)
+            :`${API.NUM_PAGES_CATEGORY_VOICELIST}${currentCategory}`)
             .then((res) => {
                 setPageCnt(res.data);
             }).catch((err) => { console.log(err) });
@@ -75,7 +75,8 @@ export default function VoicePreviewAll(props) {
                 <Row className={classes.job}><div>{img.job}</div></Row>
             </Col>);
     });
-    // 페이지 버튼 배열
+    // 페이지 버튼 배열 
+    // 버튼 개수 동적으로 생성
     const buttonArr = (Array.from({ length: pageCnt }, (v, i) => i + 1)).map((pageNum) => {
         return (
             <Button

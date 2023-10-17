@@ -42,7 +42,7 @@ export default function BookPreviewAll(props) {
         axios.get(
             currentCategory === 'all'
             ?`${API.NUM_PAGES_EBOOKLIST}`
-            :`${API.NUM_PAGES_CATEGORY_EBOOKLIST}&classification=${currentCategory}`)
+            :`${API.NUM_PAGES_CATEGORY_EBOOKLIST}${currentCategory}`)
             .then((res) => {
                 setPageCnt(res.data);
             }).catch((err) => { console.log(err) });

@@ -29,12 +29,12 @@ export const API = {
     LOAD_ALL_EBOOKS :               `${BASE_URL}/ebook/list?page=`,
     LOAD_CATEGORY_EBOOKS :          `${BASE_URL}/ebook/list/category?classification=`,
     NUM_PAGES_EBOOKLIST :           `${BASE_URL}/ebook/list/total?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`,
-    NUM_PAGES_CATEGORY_EBOOKLIST :  `${BASE_URL}/ebook/list/total/category?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`,
+    NUM_PAGES_CATEGORY_EBOOKLIST :  `${BASE_URL}/ebook/list/total/category?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&classification=`,
     // VOICE
     LOAD_VOICE :                    `${BASE_URL}/voice-model`,
     LOAD_ALL_VOICES :               `${BASE_URL}/voice-model/list?page=`,
     LOAD_CATEGORY_VOICES :          `${BASE_URL}/voice-model/list/category?job=`,
     NUM_PAGES_VOICELIST :           `${BASE_URL}/voice-model/list/total?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
-    NUM_PAGES_CATEGORY_VOICELIST :  `${BASE_URL}/voice-model/list/total/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
+    NUM_PAGES_CATEGORY_VOICELIST :  `${BASE_URL}/voice-model/list/total/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&job=`,
 
 }
