@@ -2,6 +2,7 @@ package com.example.YICcapstone.domain.voicemodel.controller;
 
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
+import com.example.YICcapstone.domain.voicemodel.dto.response.VoiceModelResponse;
 import com.example.YICcapstone.domain.voicemodel.service.VoiceModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,33 +19,38 @@ public class VoiceModelController {
     private VoiceModelService voiceModelService;
 
     @GetMapping("/{voiceModelId}")
-    public VoiceModel getVoiceModel(@PathVariable Long voiceModelId) {
+    public VoiceModelResponse getVoiceModel(@PathVariable Long voiceModelId) {
         return voiceModelService.getVoiceModel(voiceModelId);
     }
 
     @GetMapping("/list")
-    public Page<VoiceModel> getVoiceModelList(@RequestParam int page, @RequestParam int size) {
+    public Page<VoiceModelResponse> getVoiceModelList(@RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelList(page, size);
     }
 
     @GetMapping("/list/category")
-    public Page<VoiceModel> getVoiceModelListByCategory(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
+    public Page<VoiceModelResponse> getVoiceModelListByCategory(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByCategory(job, page, size);
     }
 
     @GetMapping("/list/popularity")
-    public Page<VoiceModel> getVoiceModelListByPopularity(@RequestParam int page, @RequestParam int size) {
+    public Page<VoiceModelResponse> getVoiceModelListByPopularity(@RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByPopularity(page, size);
     }
 
     @GetMapping("/list/price/desc")
-    public Page<VoiceModel> getVoiceModelListByPriceDesc(@RequestParam int page, @RequestParam int size) {
+    public Page<VoiceModelResponse> getVoiceModelListByPriceDesc(@RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByPriceDesc(page, size);
     }
 
     @GetMapping("/list/price/asc")
-    public Page<VoiceModel> getVoiceModelListByPriceAsc(@RequestParam int page, @RequestParam int size) {
+    public Page<VoiceModelResponse> getVoiceModelListByPriceAsc(@RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByPriceAsc(page, size);
+    }
+
+    @GetMapping("/list/total")
+    public int getTotalPage(@RequestParam int size) {
+        return voiceModelService.getTotalPage(size);
     }
 
     @PostMapping
