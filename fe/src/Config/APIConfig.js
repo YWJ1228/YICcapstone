@@ -1,6 +1,8 @@
-import { PageConfig } from "./PageConfig";
+import { PageConfig } from "./Config";
 
 const BASE_URL = "http://localhost:8080";
+const EBOOK_URL = `${BASE_URL}/ebook`;
+const VOICE_URL = `${BASE_URL}/voice-model`;
 
 export const API = {
     // #########  우준 API  ########
@@ -25,16 +27,16 @@ export const API = {
     // #########  태훈 API  #############
     // GET
     // EBOOK
-    LOAD_EBOOK :                    `${BASE_URL}/ebook`,
-    LOAD_ALL_EBOOKS :               `${BASE_URL}/ebook/list?page=`,
-    LOAD_CATEGORY_EBOOKS :          `${BASE_URL}/ebook/list/category?classification=`,
-    NUM_PAGES_EBOOKLIST :           `${BASE_URL}/ebook/list/total?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`,
-    NUM_PAGES_CATEGORY_EBOOKLIST :  `${BASE_URL}/ebook/list/total/category?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&classification=`,
+    LOAD_EBOOK :                    `${EBOOK_URL}`,
+    LOAD_ALL_EBOOKS :               `${EBOOK_URL}/list?page=`,
+    LOAD_CATEGORY_EBOOKS :          `${EBOOK_URL}/list/category?classification=`,
+    NUM_PAGES_EBOOKLIST :           `${EBOOK_URL}/list/total?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`,
+    NUM_PAGES_CATEGORY_EBOOKLIST :  `${EBOOK_URL}/list/total/category?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&classification=`,
     // VOICE
-    LOAD_VOICE :                    `${BASE_URL}/voice-model`,
-    LOAD_ALL_VOICES :               `${BASE_URL}/voice-model/list?page=`,
-    LOAD_CATEGORY_VOICES :          `${BASE_URL}/voice-model/list/category?job=`,
-    NUM_PAGES_VOICELIST :           `${BASE_URL}/voice-model/list/total?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
-    NUM_PAGES_CATEGORY_VOICELIST :  `${BASE_URL}/voice-model/list/total/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&job=`,
+    LOAD_VOICE :                    `${VOICE_URL}`,
+    LOAD_ALL_VOICES :               `${VOICE_URL}/list?page=`,
+    LOAD_CATEGORY_VOICES :          `${VOICE_URL}/list/category?job=`,
+    NUM_PAGES_VOICELIST :           `${VOICE_URL}/list/total?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
+    NUM_PAGES_CATEGORY_VOICELIST :  `${VOICE_URL}/list/total/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&job=`,
 
 }

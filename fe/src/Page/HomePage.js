@@ -5,6 +5,7 @@ import Carousel from 'react-bootstrap/Carousel';
 import BannerCard from "../Component/Card/BannerCard";
 import BookPreview from '../Component/Preview/BookPreview';
 import VoicePreview from '../Component/Preview/VoicePreview';
+import Footer from '../Component/Footer/Footer';
 
 import classes from './HomePage.module.css';
 
@@ -79,7 +80,7 @@ export default function HomePage() {
                     link={"./voiceShop"} />
             </div>
             {/* 구현 시간남으면 할 예정 */}
-            {/* <Footer /> */}
+            <Footer />
         </>
     );
 };

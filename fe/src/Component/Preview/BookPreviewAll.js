@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { API } from '../../Config/APIConfig';
-import { PageConfig } from '../../Config/PageConfig';
+import { PageConfig } from '../../Config/Config';
 
 import axios from 'axios';
 
@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 import classes from './BookPreviewAll.module.css';
+import BookPreview from './BookPreview';
 
 export default function BookPreviewAll(props) {
     const [currentCategory, setCurrentCategory] = useState('all');
@@ -29,25 +30,24 @@ export default function BookPreviewAll(props) {
         if (currentCategory === 'all') {
             api = `${API.LOAD_ALL_EBOOKS}${currentPage - 1}&size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`;
         }
-        axios.get(api)
-            .then((response) => {
-                const resData = (response.data.content).map((book) => ({
-                    id: book.id,
-                    image: book.imageUrl,
-                    name: book.ebookName,
-                    author: book.author
-                }));
-                setEntireBook(resData);
-            }).catch((err) => console.log(err));
-        axios.get(
-            currentCategory === 'all'
-            ?`${API.NUM_PAGES_EBOOKLIST}`
-            :`${API.NUM_PAGES_CATEGORY_EBOOKLIST}${currentCategory}`)
-            .then((res) => {
-                setPageCnt(res.data);
-            }).catch((err) => { console.log(err) });
-
+        axios.all([
+            axios.get(api),
+            axios.get(currentCategory === 'all'
+                    ?`${API.NUM_PAGES_EBOOKLIST}`
+                    :`${API.NUM_PAGES_CATEGORY_EBOOKLIST}${currentCategory}`)])
+                .then(axios.spread((res1, res2)=>{
+                    const resData = (res1.data.content).map((book) => ({
+                        id: book.id,
+                        image: book.imageUrl,
+                        name: book.ebookName,
+                        author: book.author
+                    }));
+                    setEntireBook(resData);
+                    setPageCnt(res2.data);
+                })).catch((err) => { console.log(err) });
     }, [currentPage, currentCategory]);
+    
+    // category 변경하면 항상 첫페이지로 넘어가도록
     function CategoryClickHandler(category) {
         setCurrentCategory(category);
         setCurrentPage(1);
@@ -61,17 +61,6 @@ export default function BookPreviewAll(props) {
                 {category}
             </Button>
         );
-    });
-    // 각 상품 카드에 대한 코드
-    const imageArr = (entireBook).map((img) => {
-        return (
-            <Col key={img.id}>
-                <a href={props.link}>
-                    <Row><img src={img.image} className={classes.image} /></Row>
-                </a>
-                <Row className={classes.name}><div>{img.name}</div></Row>
-                <Row className={classes.author}><div>{img.author}</div></Row>
-            </Col>);
     });
     // 페이지 버튼 배열
     const buttonArr = (Array.from({ length: pageCnt }, (v, i) => i + 1)).map((pageNum) => {
@@ -88,7 +77,7 @@ export default function BookPreviewAll(props) {
             <Row className={classes.title}>{props.title}</Row>
             <Row className={classes['category-wrapper']}><Stack direction="horizontal" gap={3}>{catergoryArr}</Stack></Row>
             <hr></hr>
-            <Row>{imageArr}</Row>
+            <Row><BookPreview images = {entireBook} once = {true}/></Row>
             <Row><Col className={classes['button-wrapper']}><ButtonGroup>{buttonArr}</ButtonGroup></Col></Row>
 
         </Container>

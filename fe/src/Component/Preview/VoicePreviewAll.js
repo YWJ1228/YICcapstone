@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { API } from '../../Config/APIConfig';
-import { PageConfig } from '../../Config/PageConfig';
+import { PageConfig } from '../../Config/Config';
 
 import axios from 'axios';
 
@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 import classes from './VoicePreviewAll.module.css';
+import VoicePreview from './VoicePreview';
 
 
 export default function VoicePreviewAll(props) {
@@ -25,31 +26,30 @@ export default function VoicePreviewAll(props) {
         name: "default",
         job: "default"
     }]);
+
     useEffect(() => {
         var api = `${API.LOAD_CATEGORY_VOICES}${currentCategory}&page=${currentPage - 1}&size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`;
         if (currentCategory === 'all') {
             api = `${API.LOAD_ALL_VOICES}${currentPage - 1}&size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`;
         }
-        axios.get(api)
-            .then((response) => {
-                const resData = (response.data.content).map((voice) => ({
-                    id: voice.id,
-                    image: voice.imageUrl,
-                    name: voice.celebrityName,
-                    job: voice.voiceModelCategory
-                }));
-                setEntireVoice(resData);
-            }).catch((err) => console.log(err));
-
-        // 버튼 개수 가져오는 api
-        axios.get(
-            currentCategory === 'all'
-            ? `${API.NUM_PAGES_VOICELIST}`
-            :`${API.NUM_PAGES_CATEGORY_VOICELIST}${currentCategory}`)
-            .then((res) => {
-                setPageCnt(res.data);
-            }).catch((err) => { console.log(err) });
+        axios.all([
+            axios.get(api),
+            axios.get(currentCategory === 'all'
+                    ? `${API.NUM_PAGES_VOICELIST}`
+                    :`${API.NUM_PAGES_CATEGORY_VOICELIST}${currentCategory}`)])
+                .then(axios.spread((res1, res2) => {
+                    const resData = (res1.data.content).map((voice) => ({
+                        id: voice.id,
+                        image: voice.imageUrl,
+                        name: voice.celebrityName,
+                        job: voice.voiceModelCategory
+                    }));
+                    setEntireVoice(resData);
+                    setPageCnt(res2.data);
+                })).catch((err) => { console.log(err) });;
     }, [currentPage, currentCategory]);
+
+    // category 변경하면 항상 첫페이지로 넘어가도록
     function CategoryClickHandler(category) {
         setCurrentCategory(category);
         setCurrentPage(1);
@@ -63,17 +63,6 @@ export default function VoicePreviewAll(props) {
                 {category}
             </Button>
         );
-    });
-    // 각 상품 카드에 대한 코드
-    const imageArr = (entireVoice).map((img) => {
-        return (
-            <Col key={img.id}>
-                <a href={props.link}>
-                    <Row><img src={img.image} className={classes.image} /></Row>
-                </a>
-                <Row className={classes.name}><div>{img.name}</div></Row>
-                <Row className={classes.job}><div>{img.job}</div></Row>
-            </Col>);
     });
     // 페이지 버튼 배열 
     // 버튼 개수 동적으로 생성
@@ -91,7 +80,7 @@ export default function VoicePreviewAll(props) {
             <Row className={classes.title}>{props.title}</Row>
             <Row className={classes['category-wrapper']}><Stack direction="horizontal" gap={3}>{catergoryArr}</Stack></Row>
             <hr></hr>
-            <Row>{imageArr}</Row>
+            <Row><VoicePreview voices = {entireVoice} once = {true}/></Row>
             <Row><Col className={classes['button-wrapper']}><ButtonGroup>{buttonArr}</ButtonGroup></Col></Row>
 
         </Container>
