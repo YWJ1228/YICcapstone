@@ -18,9 +18,11 @@ const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0&size=3"; //
 const getOnSaleEbookListAPI = "http://localhost:8080/ebook/list?page=0&size=5"; // 할인 중인 책
 const getUpdateEbookListAPI = "http://localhost:8080/ebook/list?page=0&size=5"; // 업데이트 된 책
 const getTotalEbookPageAPI = "http://localhost:8080/ebook/list/total?size=5"; // 전체 페이지 수
+const getTotalEbookPageByCategoryAPI = "http://localhost:8080/ebook/list/total/category?size=5&classification=novel"; // 카테고리별 전체 페이지 수
 
 export default function () {
     console.log(getTotalEbookPageAPI);
+    console.log(getTotalEbookPageByCategoryAPI);
     const [bannerBook, setBannerBook] = useState([{
         id: "default",
         image: "default",

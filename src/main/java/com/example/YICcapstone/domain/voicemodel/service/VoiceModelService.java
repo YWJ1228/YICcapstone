@@ -91,4 +91,9 @@ public class VoiceModelService {
     public int getTotalPage(int size) {
         return (int) Math.ceil((double) voiceModelRepository.count() / size);
     }
+
+    @Transactional(readOnly = true)
+    public int getTotalPageByCategory(String job, int size) {
+        return (int) Math.ceil((double) voiceModelRepository.countByVoiceModelCategory_Job(job) / size);
+    }
 }

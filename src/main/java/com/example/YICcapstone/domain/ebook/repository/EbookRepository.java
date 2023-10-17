@@ -15,4 +15,5 @@ public interface EbookRepository extends JpaRepository<Ebook, Long> {
     Page<Ebook> findAllByEbookCategory_ClassificationOrderByUploadedAtDesc(String classification, Pageable pageable);
     Page<Ebook> findAllByOrderByPriceDesc(Pageable pageable);
     Page<Ebook> findAllByOrderByPriceAsc(Pageable pageable);
+    Long countByEbookCategory_Classification(String classification);
 }
