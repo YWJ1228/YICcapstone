@@ -98,7 +98,8 @@ export default function () {
                     imagePath={book.image}
                     title={book.name}
                     description={book.description}
-                    link={"/bookDetail/" + book.id} />
+                    link={"/bookDetail/" + book.id} 
+                    />
             </Carousel.Item>
         );
 

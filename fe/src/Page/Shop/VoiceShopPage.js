@@ -102,7 +102,6 @@ export default function () {
                     title={preview.title}
                     subtitle={preview.subtitle}
                     voices={preview.voices}
-                    link={"./"}
                 />
             </div>
 

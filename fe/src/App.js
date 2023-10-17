@@ -17,9 +17,9 @@ import SearchPwd from './Page/Login/SearchPwd';
 import SearchID from './Page/Login/SearchID';
 import BookShopPage from './Page/Shop/BookShopPage';
 import VoiceShopPage from './Page/Shop/VoiceShopPage';
+import AdminPage from './Page/Admin/AdminPage';
 
-// For test
-import Test from './Test';
+
 import BookDetailPage from './Page/Detail/BookDetailPage';
 import VoiceDetailPage from './Page/Detail/VoiceDetailPage';
 
@@ -39,6 +39,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/admin" element={<AdminPage/>} />
             <Route path="/login" element={<LoginPage changeLoginHandler={setIsLoggedIn} />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/mypage" element={<MyPage />} />
@@ -48,7 +49,7 @@ function App() {
             <Route path="/bookShop" element={<BookShopPage />} />
             <Route path="/voiceShop" element={<VoiceShopPage />} />
             <Route path="/bookDetail/:ebookID" element={<BookDetailPage />} />
-            <Route path="/voiceDetail/*" element={<VoiceDetailPage />} />
+            <Route path="/voiceDetail/:voiceID" element={<VoiceDetailPage />} />
 
           </Routes>
         </BrowserRouter>

@@ -11,7 +11,7 @@ import axios from 'axios'
 
 const getEachBookAPI = "http://localhost:8080/ebook/";
 
-export default function BookDetailPage(props) {
+export default function BookDetailPage() {
     const { ebookID } = useParams();
     const dummyReviews = [
         { id : 1, nickname: "username1", uploadDate: "23.08.10", text: "어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다." },

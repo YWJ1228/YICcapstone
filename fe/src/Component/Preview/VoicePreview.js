@@ -9,7 +9,7 @@ export default function VoicePreview(props) {
     const voiceArr = (props.voices).map((voice) => {
         return (
             <Col key={voice.id}>
-                <a href="/voiceDetail">
+                <a href={"/voiceDetail/" + voice.id}>
                     <Row><img src={voice.image} className={classes.image} /></Row>
                 </a>
                 <Row className={classes.name}><div>{voice.name}</div></Row>

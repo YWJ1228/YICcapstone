@@ -31,7 +31,7 @@ export default function BookPreview(props) {
                     <a href={props.link} className={classes.more}>&lt;더보기</a>
                 </Col>
             </Row>
-            <Row >
+            <Row>
                 {imageArr}
             </Row>
         </Container>

@@ -11,8 +11,8 @@ import classes from './HomePage.module.css';
 import axios from 'axios';
 
 const getBannerItemListAPI = "http://localhost:8080/ebook/list?page=0";
-const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0";
-const getBestVoiceAPI = "http://localhost:8080/voice-model/list?page=0";
+const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0&size=3";
+const getBestVoiceAPI = "http://localhost:8080/voice-model/list/popularity?page=0&size=5";
 
 export default function HomePage() {
     const [bestSellerBook, setBestSellerBook] = useState([{
@@ -30,8 +30,10 @@ export default function HomePage() {
     }]);
 
     useEffect(() => {
-        axios.all([axios.get(getBestEbookListAPI), axios.get(getBestVoiceAPI), axios.get(getBannerItemListAPI)])
-            .then(axios.spread((res1, res2, res3) => {
+        axios.all([axios.get(getBestEbookListAPI), axios.get(getBestVoiceAPI)])
+            .then(axios.spread((res1, res2) => {
+                console.log(res1);
+                console.log(res2);
                 const resData1 = (res1.data.content).map((book) => ({
                     id: book.id,
                     image: book.imageUrl,
@@ -49,8 +51,7 @@ export default function HomePage() {
                 setBestSellerVoice(resData2);
             }
             )).catch((err) => console.log(err));
-    }, []
-    );
+    }, []);
     return (
         <>
             <div className={classes['banner-wrapper']}>

@@ -27,7 +27,6 @@ export default function DetailBanner(props) {
                     <Col>
                         <Row className={classes.title}>
                             {props.book.name}
-
                         </Row>
 
                         <Row className={classes.detail}>{props.book.job} ( {props.book.jobDescription} )</Row>

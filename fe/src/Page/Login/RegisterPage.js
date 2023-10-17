@@ -38,9 +38,11 @@ export default function RegisterPage() {
         birth: 'defaultBirth',
         sex: 0
     });
-    const [validMessage, setValidMessage] = useState({// 가이드 문구
-        validPwd: '숫자와 알파벳을 섞어서 8~12자로 작성해주세요',
-        equalPwd: ''
+    const [guideMessage, setGuideMessage] = useState({// 가이드 문구
+        guideEmailText: '',
+        guidePwdText: '숫자와 알파벳을 섞어서 8~12자로 작성해주세요',
+        guideEqualPwdText: '',
+        guideNicknameText: ''
     });
 
     const [validForm, setValidForm] = useState({// 회원가입 유효성 판단
@@ -72,21 +74,22 @@ export default function RegisterPage() {
     function validEmailHandler() { // 인증번호 확인 & 이메일 보내기 api 호출
         axios.get(getEmailVerifyNumberAPI + userForm.username)
             .then(function (response) {
+                console.log(guideMessage);
                 setValidForm({ ...validForm, verifyText: response.data }); // 정답 인증번호 저장
+                setGuideMessage({ ...guideMessage, guideEmailText: '' });
             }).catch(function (error) {
-                console.log(error);
+                console.log('error.response.message : ', error.response.message);
+                setGuideMessage({ ...guideMessage, guideEmailText: error.response.status });
             });
     }
     function validNicknameHandler() { // 닉네임 중복확인 api 호출
         axios.get(getNicknameAPI + userForm.nickname)
             .then(function (response) {
                 console.log('valid nickname');
-                if (response.data === '사용 가능한 닉네임입니다!') { // 서버에서도 확인가능한 닉네임인지 확인
-                    setValidForm({ ...validForm, verifyNickname: true });
-                }
-                else { console.log("서버에서 부적절한 결과 받음"); }
+                setValidForm({ ...validForm, verifyNickname: true });
+                setGuideMessage({ ...guideMessage, guideNicknameText: '' });
             }).catch(function (error) {
-                console.log(error);
+                setGuideMessage({ ...guideMessage, guideNicknameText: error.response.message });
             });
     }
 
@@ -124,31 +127,31 @@ export default function RegisterPage() {
         });
 
         // 비밀번호 규칙 확인
-        const regex = /(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\\W)(?=\\S+$).{8,20}/;
+        const regex = /(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,20}/;
         const pwdString = event.target.value.trim();
         setValidForm({ ...validForm, verifyPwd: false });
         if (pwdString.length === 0) {
-            setValidMessage({ ...validMessage, validPwd: '숫자와 알파벳을 섞어서 8~12자로 작성해주세요' });
+            setGuideMessage({ ...guideMessage, guidePwdText: '숫자와 알파벳을 섞어서 8~12자로 작성해주세요' });
         }
-        else if (pwdString.length > 20 || pwdString.length < 8) {
-            setValidMessage({ ...validMessage, validPwd: "비밀번호 길이는 8~20자입니다" });
+        else if (!(pwdString.length < 21 && pwdString.length >= 8)) {
+            setGuideMessage({ ...guideMessage, guidePwdText: "비밀번호 길이는 8~20자입니다" });
         }
         else if (!(regex.test(pwdString))) {
-            setValidMessage({ ...validMessage, validPwd: "숫자와 알파벳을 혼합하여 작성해주세요" });
+            setGuideMessage({ ...guideMessage, guidePwdText: "숫자와 알파벳을 혼합하여 작성해주세요" });
         }
         else {
-            setValidMessage({ ...validMessage, validPwd: "확인" });
+            setGuideMessage({ ...guideMessage, guidePwdText: "확인" });
             setValidForm({ ...validForm, verifyPwd: true });
         }
     }
     // 비밀번호 확인 
     function equalPwdChangeHandler(event) {
         if (userForm.password === event.target.value.trim()) {
-            setValidMessage({ ...validMessage, equalPwd: "일치합니다" });
+            setGuideMessage({ ...guideMessage, guideEqualPwdText: "일치합니다" });
             setValidForm({ ...validForm, verifyEqualPwd: true });
         }
         else {
-            setValidMessage({ ...validMessage, equalPwd: "비밀번호가 다릅니다" });
+            setGuideMessage({ ...guideMessage, guideEqualPwdText: "비밀번호가 다릅니다" });
             setValidForm({ ...validForm, verifyEqualPwd: false });
         }
     }
@@ -162,6 +165,7 @@ export default function RegisterPage() {
                     <Form.Label >아이디 생성</Form.Label>
                     <Form.Control type="email" name="username" onChange={formChangeHandler} placeholder='이메일' className={classes.inputBox}
                         ref={el => myRef.current[0] = el} />
+                    <Form.Text>{guideMessage.guideEmailText}</Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formVerify">
@@ -174,11 +178,11 @@ export default function RegisterPage() {
 
                 <Form.Group className="mb-3" controlId="formPwd">
                     <Form.Control type="password" name="password" onChange={pwdChangeHanlder} placeholder='비밀번호' className={classes.inputBox} ref={el => myRef.current[2] = el} />
-                    <Form.Text>{validMessage.validPwd}</Form.Text>
+                    <Form.Text>{guideMessage.guidePwdText}</Form.Text>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formCheckPwd">
                     <Form.Control type="password" name="checkPassword" onChange={equalPwdChangeHandler} placeholder='비밀번호 확인' className={classes.inputBox} ref={el => myRef.current[3] = el} />
-                    <Form.Text>{validMessage.equalPwd}</Form.Text>
+                    <Form.Text>{guideMessage.guideEqualPwdText}</Form.Text>
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formGridName">

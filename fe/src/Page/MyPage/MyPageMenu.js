@@ -21,9 +21,6 @@ export default function MyPageMenu() {
                 <Tab.Pane eventKey="second"><MyPageReview /></Tab.Pane>
                 <Tab.Pane eventKey="third"> <LikeList /></Tab.Pane>
             </Tab.Content >
-
-
-
         </Tab.Container >
     )
 }
