@@ -26,9 +26,9 @@ export default function VoicePreviewAll(props) {
         job: "default"
     }]);
     useEffect(() => {
-        var api = `${API.LOAD_CATEGORY_VOICES}${currentCategory}&page=${currentPage-1}&size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`;
+        var api = `${API.LOAD_CATEGORY_VOICES}${currentCategory}&page=${currentPage - 1}&size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`;
         if (currentCategory === 'all') {
-            api = `${API.LOAD_ALL_VOICES}${currentPage-1}&size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`;
+            api = `${API.LOAD_ALL_VOICES}${currentPage - 1}&size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`;
         }
         axios.get(api)
             .then((response) => {
@@ -40,7 +40,12 @@ export default function VoicePreviewAll(props) {
                 }));
                 setEntireVoice(resData);
             }).catch((err) => console.log(err));
-        axios.get(`${API.NUM_PAGES_VOICELIST}${PageConfig.VOICE_PRODUCT_PER_PAGE}`)
+
+        // 버튼 개수 가져오는 api
+        axios.get(
+            currentCategory === 'all'
+            ? `${API.NUM_PAGES_VOICELIST}`
+            :`${API.NUM_PAGES_CATEGORY_VOICELIST}`)
             .then((res) => {
                 setPageCnt(res.data);
             }).catch((err) => { console.log(err) });
@@ -52,7 +57,11 @@ export default function VoicePreviewAll(props) {
     // 카테고리 리스트 시각화
     const catergoryArr = (PageConfig.VOICE_CATERGORY_LIST).map((category) => {
         return (
-            <Button className = {currentCategory !== category ? classes.category : classes['category-focus']} onClick={() => { CategoryClickHandler(category) }}>{category}</Button>
+            <Button
+                className={currentCategory !== category ? classes.category : classes['category-focus']}
+                onClick={() => { CategoryClickHandler(category) }}>
+                {category}
+            </Button>
         );
     });
     // 각 상품 카드에 대한 코드
@@ -70,7 +79,7 @@ export default function VoicePreviewAll(props) {
     const buttonArr = (Array.from({ length: pageCnt }, (v, i) => i + 1)).map((pageNum) => {
         return (
             <Button
-                className={ pageNum === currentPage ? classes['page-button-focus'] : classes['page-button']}
+                className={pageNum === currentPage ? classes['page-button-focus'] : classes['page-button']}
                 onClick={() => { setCurrentPage(pageNum) }}>
                 {pageNum}
             </Button>);
@@ -79,7 +88,7 @@ export default function VoicePreviewAll(props) {
     return (
         <Container>
             <Row className={classes.title}>{props.title}</Row>
-            <Row className = {classes['category-wrapper']}><Stack direction="horizontal" gap={3}>{catergoryArr}</Stack></Row>
+            <Row className={classes['category-wrapper']}><Stack direction="horizontal" gap={3}>{catergoryArr}</Stack></Row>
             <hr></hr>
             <Row>{imageArr}</Row>
             <Row><Col className={classes['button-wrapper']}><ButtonGroup>{buttonArr}</ButtonGroup></Col></Row>

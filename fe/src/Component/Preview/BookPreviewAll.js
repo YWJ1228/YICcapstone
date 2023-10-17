@@ -39,7 +39,10 @@ export default function BookPreviewAll(props) {
                 }));
                 setEntireBook(resData);
             }).catch((err) => console.log(err));
-        axios.get(`${API.NUM_PAGES_EBOOKLIST}${PageConfig.EBOOK_PRODUCT_PER_PAGE}`)
+        axios.get(
+            currentCategory === 'all'
+            ?`${API.NUM_PAGES_EBOOKLIST}`
+            :`${API.NUM_PAGES_CATEGORY_EBOOKLIST}&classification=${currentCategory}`)
             .then((res) => {
                 setPageCnt(res.data);
             }).catch((err) => { console.log(err) });

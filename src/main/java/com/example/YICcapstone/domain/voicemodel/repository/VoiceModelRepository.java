@@ -15,4 +15,5 @@ public interface VoiceModelRepository extends JpaRepository<VoiceModel, Long> {
     Page<VoiceModel> findAllByVoiceModelCategory_JobOrderByUploadedAtDesc(String job, Pageable pageable);
     Page<VoiceModel> findAllByOrderByPriceDesc(Pageable pageable);
     Page<VoiceModel> findAllByOrderByPriceAsc(Pageable pageable);
+    Long countByVoiceModelCategory_Job(String job);
 }

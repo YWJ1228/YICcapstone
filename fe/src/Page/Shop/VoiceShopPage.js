@@ -13,8 +13,11 @@ const getBannerVoiceListAPI = "http://localhost:8080/voice-model/list?page=0&siz
 const getBestVoiceListAPI = "http://localhost:8080/voice-model/list/popularity?page=0&size=5"; // 이달의  TTS
 const getOnSaleVoiceListAPI = "http://localhost:8080/voice-model/list/category?page=0&job=singer&size=5"; // 인기 TTS
 const getUpdateVoiceListAPI = "http://localhost:8080/voice-model/list?page=0&size=5"; // 업데이트 된 TTS
-
+const getTotalVoicePageAPI = "http://localhost:8080/voice-model/list/total?size=5"; // 전체 페이지 수
+const getTotalVoicePageByCategoryAPI = "http://localhost:8080/voice-model/list/total/category?size=5&job=singer"; // 카테고리별 전체 페이지 수
 export default function () {
+    console.log(getTotalVoicePageAPI);
+    console.log(getTotalVoicePageByCategoryAPI);
     const [bestSellerVoice, setBestSellerVoice] = useState([{ // 이달의 TTS
         id: "default",
         image: "default",
@@ -48,6 +51,7 @@ export default function () {
         { title: "인기 TTS", subtitle: "인기가 많은 연예인의 목소리로 오디오 북을 들어보세요", voices: onSaleVoice },
         { title: "업데이트 된 TTS", subtitle: "새로 업데이트 된 TTS를 만나보세요", voices: updatedVoice }
     ];
+    console.log(getUpdateVoiceListAPI);
     useEffect(() => {
         axios.all([axios.get(getBestVoiceListAPI), axios.get(getOnSaleVoiceListAPI), axios.get(getUpdateVoiceListAPI), axios.get(getBannerVoiceListAPI)])
             .then(axios.spread((res1, res2, res3, res4) => {
