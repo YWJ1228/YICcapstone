@@ -4,28 +4,24 @@ import Col from 'react-bootstrap/Col';
 
 import Grow from '@mui/material/Grow';
 
-
 import classes from './BookPreview.module.css';
 
-/**
-    이달의 책
-    이달의 가장 인기 있는 책을 만나보세요
-
- */
 
 export default function BookPreview(props) {
     // 각 상품 카드에 대한 코드
     const imageArr = (props.images).map((img, idx) => {
         return (
-            <Col key={img.id}>
+            
+            <Col  key = {img.id}>
                 <Grow in={true} style={{ transformOrigin: 'center top' }}
-                    {...(props.once ? {timeout : 0}: { timeout: Math.abs((Math.floor(props.images.length / 2)) - idx) * 1000 + 1000 })}>
+                    {...(props.once ? { timeout: 0 } : { timeout: Math.abs((Math.floor(props.images.length / 2)) - idx) * 1000 + 1000 })}>
                     <div>
                         <a href={"/bookDetail/" + img.id}>
                             <Row><img src={img.image} className={classes.image} /></Row>
                         </a>
                         <Row className={classes.name}><div>{img.name}</div></Row>
                         <Row className={classes.author}><div>{img.author}</div></Row>
+                        <Row className={classes.price}><div>{img.price}원</div></Row>
                     </div>
                 </Grow>
             </Col >

@@ -1,97 +1,59 @@
 import { useState, useEffect } from 'react';
+import { API } from '../../Config/APIConfig';
+import { PageConfig } from '../../Config/Config';
+
 import axios from 'axios';
 
 import Carousel from 'react-bootstrap/Carousel';
-
 import BannerCard from "../../Component/Card/BannerCard";
 
 import VoicePreview from '../../Component/Preview/VoicePreview';
-import classes from './VoiceShopPage.module.css';
 import VoicePreviewAll from '../../Component/Preview/VoicePreviewAll';
+import classes from './VoiceShopPage.module.css';
 
-const getBannerVoiceListAPI = "http://localhost:8080/voice-model/list?page=0&size=5"; // 배너에 올릴 TTS api
-const getBestVoiceListAPI = "http://localhost:8080/voice-model/list/popularity?page=0&size=5"; // 이달의  TTS
-const getOnSaleVoiceListAPI = "http://localhost:8080/voice-model/list/category?page=0&job=singer&size=5"; // 인기 TTS
-const getUpdateVoiceListAPI = "http://localhost:8080/voice-model/list?page=0&size=5"; // 업데이트 된 TTS
-const getTotalVoicePageAPI = "http://localhost:8080/voice-model/list/total?size=5"; // 전체 페이지 수
-const getTotalVoicePageByCategoryAPI = "http://localhost:8080/voice-model/list/total/category?size=5&job=singer"; // 카테고리별 전체 페이지 수
+
 export default function () {
-    console.log(getTotalVoicePageAPI);
-    console.log(getTotalVoicePageByCategoryAPI);
-    const [bestSellerVoice, setBestSellerVoice] = useState([{ // 이달의 TTS
-        id: "default",
-        image: "default",
-        name: "default",
-        job: "default",
-        description: "default"
-    }]);
-    const [onSaleVoice, setOnSaleVoice] = useState([{ // 인기 TTS
-        id: "default",
-        image: "default",
-        name: "default",
-        job: "default",
-        description: "default"
-    }]);
-    const [updatedVoice, setUpdatedVoice] = useState([{ // 업데이트 된 TTS
-        id: "default",
-        image: "default",
-        name: "default",
-        job: "default",
-        description: "default"
-    }]);
-    const [bannerVoice, setBannerVoice] = useState([{ // 배너에 들어갈 정보
-        id: "default",
-        image: "default",
-        name: "default",
-        job: "default",
-        description: "default"
-    }]);
-    const dummyInfo = [
-        { title: "이달의 TTS", subtitle: "이달의 가장 인기있는 목소리를 만나보세요", voices: bestSellerVoice },
-        { title: "인기 TTS", subtitle: "인기가 많은 연예인의 목소리로 오디오 북을 들어보세요", voices: onSaleVoice },
-        { title: "업데이트 된 TTS", subtitle: "새로 업데이트 된 TTS를 만나보세요", voices: updatedVoice }
-    ];
-    console.log(getUpdateVoiceListAPI);
+    const [bestSellerVoice, setBestSellerVoice] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
+    const [updatedVoice, setUpdatedVoice] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
+    const [bannerVoice, setBannerVoice] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
+    const stateArr = [bestSellerVoice, updatedVoice];
+
     useEffect(() => {
-        axios.all([axios.get(getBestVoiceListAPI), axios.get(getOnSaleVoiceListAPI), axios.get(getUpdateVoiceListAPI), axios.get(getBannerVoiceListAPI)])
-            .then(axios.spread((res1, res2, res3, res4) => {
+        axios.all([
+            axios.get(`${API.LOAD_POPULAR_VOICES}`), 
+            axios.get(`${API.LOAD_RECENT_VOICES}`), 
+            axios.get(`${API.LOAD_BANNER_VOICES}`)])
+            .then(axios.spread((res1, res2, res3) => {
                 const resData = (res1.data.content).map((voice) => ({
                     id: voice.id,
                     image: voice.imageUrl,
                     name: voice.celebrityName,
-                    job: voice.job,
-                    description: voice.comment
+                    job: voice.voiceModelCategory,
+                    price : voice.price
                 }));
                 setBestSellerVoice(resData);
                 const resData2 = (res2.data.content).map((voice) => ({
                     id: voice.id,
                     image: voice.imageUrl,
                     name: voice.celebrityName,
-                    job: voice.job,
-                    description: voice.comment
+                    job: voice.voiceModelCategory,
+                    price : voice.price
                 }));
-                setOnSaleVoice(resData2);
+                setUpdatedVoice(resData2);
                 const resData3 = (res3.data.content).map((voice) => ({
                     id: voice.id,
                     image: voice.imageUrl,
                     name: voice.celebrityName,
-                    job: voice.job,
-                    description: voice.comment
+                    job: voice.voiceModelCategory,
+                    description: voice.comment,
+                    price : voice.price
                 }));
-                setUpdatedVoice(resData3);
-                const resData4 = (res4.data.content).map((voice) => ({
-                    id: voice.id,
-                    image: voice.imageUrl,
-                    name: voice.celebrityName,
-                    job: voice.job,
-                    description: voice.comment
-                }));
-                setBannerVoice(resData4);
+                setBannerVoice(resData3);
             })).catch((err) => console.log(err));
     }, []);
     const BannerList = bannerVoice.map((voice) => { // 배너 리스트 디자인
         return (
-            <Carousel.Item>
+            <Carousel.Item key = {voice.id}>
                 <BannerCard
                     imagePath={voice.image}
                     title={voice.name}
@@ -100,16 +62,15 @@ export default function () {
             </Carousel.Item>
         );
     })
-    const previewList = dummyInfo.map((preview) => { // 각 프리뷰 리스트 디자인
+    const previewList = (PageConfig.VOICE_SHOP_TITLES).map((preview,idx) => { // 각 프리뷰 리스트 디자인
         return (
             <div className={classes['voice-preview']} key={preview.title}>
                 <VoicePreview
                     title={preview.title}
                     subtitle={preview.subtitle}
-                    voices={preview.voices}
+                    voices={stateArr[idx]}
                 />
             </div>
-
         );
     });
     return (

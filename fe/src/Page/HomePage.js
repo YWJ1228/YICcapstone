@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react';
+import { API } from '../Config/APIConfig';
+import { PageConfig } from '../Config/Config';
+
+import axios from 'axios';
 
 import Carousel from 'react-bootstrap/Carousel';
 
@@ -9,37 +13,21 @@ import Footer from '../Component/Footer/Footer';
 
 import classes from './HomePage.module.css';
 
-import axios from 'axios';
-
-const getBannerItemListAPI = "http://localhost:8080/ebook/list?page=0";
-const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0&size=3";
-const getBestVoiceAPI = "http://localhost:8080/voice-model/list/popularity?page=0&size=5";
-
 export default function HomePage() {
-    const [bestSellerBook, setBestSellerBook] = useState([{
-        id: "default",
-        image: "default",
-        name: "default",
-        author: "default",
-    }]);
-    const [bestSellerVoice, setBestSellerVoice] = useState([{
-        id: "default",
-        image: "default",
-        name: "default",
-        job: "default",
-        description: "default"
-    }]);
+    const [bestSellerBook, setBestSellerBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
+    const [bestSellerVoice, setBestSellerVoice] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
 
     useEffect(() => {
-        axios.all([axios.get(getBestEbookListAPI), axios.get(getBestVoiceAPI)])
+        axios.all([
+            axios.get(`${API.LOAD_POPULAR_EBOOKS}`), 
+            axios.get(`${API.LOAD_POPULAR_VOICES}`)])
             .then(axios.spread((res1, res2) => {
-                console.log(res1);
-                console.log(res2);
                 const resData1 = (res1.data.content).map((book) => ({
                     id: book.id,
                     image: book.imageUrl,
                     name: book.ebookName,
-                    author: book.author
+                    author: book.author,
+                    price : book.price
                 }));
                 setBestSellerBook(resData1);
                 const resData2 = (res2.data.content).map((voice) => ({
@@ -47,7 +35,8 @@ export default function HomePage() {
                     image: voice.imageUrl,
                     name: voice.celebrityName,
                     job: voice.job,
-                    description: voice.comment
+                    description: voice.comment,
+                    price : voice.price
                 }));
                 setBestSellerVoice(resData2);
             }
@@ -67,19 +56,14 @@ export default function HomePage() {
             </div>
             <div className={classes['book-preview']}>
                 <BookPreview
-                    title="이달의 책"
-                    subtitle="이달의 가장 인기 있는 책을 만나보세요"
-                    images={bestSellerBook}
-                    link={"./bookAll"} />
+                    {...PageConfig.HOMEPAGE_TITLES[0]}
+                    images={bestSellerBook} />
             </div>
             <div className={classes['book-preview']}>
                 <VoicePreview
-                    title="이달의 TTS"
-                    subtitle="이달의 가장 인기 있는 TTS를 만나보세요"
-                    voices={bestSellerVoice}
-                    link={"./voiceShop"} />
+                    {...PageConfig.HOMEPAGE_TITLES[1]}
+                    voices={bestSellerVoice} />
             </div>
-            {/* 구현 시간남으면 할 예정 */}
             <Footer />
         </>
     );

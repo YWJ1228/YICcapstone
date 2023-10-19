@@ -33,7 +33,9 @@
     color: gray;
     font-size: 0.5rem;
 }
-
+.selectBox{
+    text-align: right;
+}
 .more-wrapper {
     width: 5rem;
 }

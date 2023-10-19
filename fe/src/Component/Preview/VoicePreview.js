@@ -19,7 +19,7 @@ export default function VoicePreview(props) {
                         </a>
                         <Row className={classes.name}><div>{voice.name}</div></Row>
                         <Row className={classes.job}><div>{voice.job}</div></Row>
-                        <Row className={classes.description}><div>{voice.description}</div></Row>
+                        <Row className={classes.price}><div>{voice.price}원</div></Row>
                     </div>
                 </Grow>
             </Col >

@@ -12,10 +12,10 @@
     color : gray;
     font-size : 1rem;
 }
-.description{
+.price{
     text-align: center;
     color : gray;
-    font-size : 1rem;
+    font-size : 0.7rem;
 }
 .title {
     font-size : 1.5rem;

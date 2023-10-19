@@ -4,12 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { CookiesProvider } from 'react-cookie';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 // React.StrictMode
 // 오류를 잡기 위해서 2번 랜더링하는 로직
 root.render(
   //<React.StrictMode>
+  <CookiesProvider>
     <App />
+  </CookiesProvider>
   //</React.StrictMode>
 );
 

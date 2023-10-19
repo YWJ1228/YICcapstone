@@ -1,91 +1,52 @@
 import { useState, useEffect } from 'react';
+import { API } from '../../Config/APIConfig';
+import { PageConfig } from '../../Config/Config';
+
+import axios from 'axios';
 
 import Carousel from 'react-bootstrap/Carousel';
 import BannerCard from "../../Component/Card/BannerCard";
 import BookPreview from '../../Component/Preview/BookPreview';
 
-
-import axios from 'axios';
-
 import classes from './BookShopPage.module.css';
 import BookPreviewAll from '../../Component/Preview/BookPreviewAll';
 
-
-// #######################  API로 해당하는 리스트 가져오기 ##########################
-
-const getBannerEbookListAPI = "http://localhost:8080/ebook/list?page=0&size=5" // 배너에 올릴 책
-const getBestEbookListAPI = "http://localhost:8080/ebook/list?page=0&size=3"; // 이달의 책
-const getOnSaleEbookListAPI = "http://localhost:8080/ebook/list?page=0&size=5"; // 할인 중인 책
-const getUpdateEbookListAPI = "http://localhost:8080/ebook/list?page=0&size=5"; // 업데이트 된 책
-
 export default function () {
-    const [bannerBook, setBannerBook] = useState([{
-        id: "default",
-        image: "default",
-        name: "default",
-        description: "default"
-    }]);
-    const [bestSellerBook, setBestSellerBook] = useState([{
-        id: "default",
-        image: "default",
-        name: "default",
-        author: "default",
-    }]);
-    const [onSalebook, setOnSaleBook] = useState([{
-        id: "default",
-        image: "default",
-        name: "default",
-        author: "default",
-    }]);
-    const [updatedBook, setUpdatedBook] = useState([{
-        id: "default",
-        image: "default",
-        name: "default",
-        author: "default",
-    }]);
+    const [bannerBook, setBannerBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
+    const [bestSellerBook, setBestSellerBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
+    const [updatedBook, setUpdatedBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
 
-    const dummyInfo = [
-        { title: "이달의 책", subtitle: "이달의 가장 인기있는 책을 만나보세요", images: bestSellerBook },
-        { title: "할인 중인 책", subtitle: "저렴한 가격에 책을 구매할 수 있는 기회", images: onSalebook },
-        { title: "업데이트 된 책", subtitle: "새로 업데이트 된 책들의 오디오북을 들어보세요", images: updatedBook }
-    ];
-    // API를 통해서 데이터 가져오기
+    const stateArr = [bestSellerBook, updatedBook];
 
     useEffect(() => {
         axios.all([
-            axios.get(getBestEbookListAPI),
-            axios.get(getOnSaleEbookListAPI),
-            axios.get(getUpdateEbookListAPI),
-            axios.get(getBannerEbookListAPI)])
-            .then(axios.spread((res1, res2, res3, res4) => {
+            axios.get(API.LOAD_POPULAR_EBOOKS),
+            axios.get(API.LOAD_RECENT_EBOOKS),
+            axios.get(API.LOAD_BANNER_EBOOKS)])
+            .then(axios.spread((res1, res2, res3) => {
                 const resData1 = (res1.data.content).map((book) => ({
                     id: book.id,
                     image: book.imageUrl,
                     name: book.ebookName,
-                    author: book.author
+                    author: book.author,
+                    price : book.price
                 }));
                 setBestSellerBook(resData1);
                 const resData2 = (res2.data.content).map((book) => ({
                     id: book.id,
                     image: book.imageUrl,
                     name: book.ebookName,
-                    author: book.author
+                    author: book.author,
+                    price : book.price
                 }));
-                setOnSaleBook(resData2);
+                setUpdatedBook(resData2);
                 const resData3 = (res3.data.content).map((book) => ({
                     id: book.id,
                     image: book.imageUrl,
                     name: book.ebookName,
                     author: book.author
                 }));
-                setUpdatedBook(resData3);
-                const resData4 = (res4.data.content).map((book) => ({
-                    id: book.id,
-                    image: book.imageUrl,
-                    name: book.ebookName,
-                    description: book.content
-                }));
-                setBannerBook(resData4);
+                setBannerBook(resData3);
 
             })).catch((err) => console.log(err));
     }, []);
@@ -103,13 +64,13 @@ export default function () {
         );
 
     });
-    const previewList = dummyInfo.map((preview) => {
+    const previewList = (PageConfig.EBOOK_SHOP_TITLES).map((preview, idx) => {
         return (
             <div className={classes['book-preview']} key={preview.title}>
                 <BookPreview
                     title={preview.title}
                     subtitle={preview.subtitle}
-                    images={preview.images}
+                    images={stateArr[idx]}
                 />
             </div>
         );
@@ -126,8 +87,6 @@ export default function () {
             <BookPreviewAll
                 title="전체 페이지"
                 subtitle="전체 목록" />
-            
-
         </>
     );
 };

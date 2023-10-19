@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 import { API } from '../../Config/APIConfig';
 
@@ -16,6 +17,7 @@ import axios from 'axios';
 import classes from './LoginPage.module.css';
 
 export default function LoginPage(props) {
+    const [cookies, setCookies]= useCookies(['token']);
     const navigateHome = useNavigate();
     // 로그인 json 형식
     const [loginForm, setLoginForm] = useState({
@@ -41,6 +43,7 @@ export default function LoginPage(props) {
                 .then(function (response) {
                     console.log(response);
                     props.changeLoginHandler(true); // 로그인 유무 확인해서 App.js에 보내는 function
+                    // setCookies('token', response.data.token);
                     navigateHome('/');
                 }).catch(function (error) {
                     console.log(error);
