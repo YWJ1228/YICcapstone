@@ -73,18 +73,33 @@ public class VoiceModelService {
     }
 
     @Transactional(readOnly = true)
+    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByScoreAndUploadedAtDesc(String job, int page, int size) {
+        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByScoreAndUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByPriceDesc(String job, int page, int size) {
+        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByPriceDescUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByPriceAsc(String job, int page, int size) {
+        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByPriceAscUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    }
+
+    @Transactional(readOnly = true)
     public Page<VoiceModelResponse> getVoiceModelListByPopularity(int page, int size){
         return voiceModelRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page,size)).map(VoiceModelResponse::new);
     }
 
     @Transactional(readOnly = true)
     public Page<VoiceModelResponse> getVoiceModelListByPriceDesc(int page, int size){
-        return voiceModelRepository.findAllByOrderByPriceDesc(PageRequest.of(page, size)).map(VoiceModelResponse::new);
+        return voiceModelRepository.findAllByOrderByPriceDescUploadedAtDesc(PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
     @Transactional(readOnly = true)
     public Page<VoiceModelResponse> getVoiceModelListByPriceAsc(int page, int size){
-        return voiceModelRepository.findAllByOrderByPriceAsc(PageRequest.of(page, size)).map(VoiceModelResponse::new);
+        return voiceModelRepository.findAllByOrderByPriceAscUploadedAtDesc(PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
     @Transactional(readOnly = true)

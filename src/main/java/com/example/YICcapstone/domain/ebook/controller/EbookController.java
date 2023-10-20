@@ -1,7 +1,5 @@
 package com.example.YICcapstone.domain.ebook.controller;
 
-import com.example.YICcapstone.domain.ebook.domain.Ebook;
-import com.example.YICcapstone.domain.ebook.domain.EbookCategory;
 import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
 import com.example.YICcapstone.domain.ebook.dto.response.EbookResponse;
 import com.example.YICcapstone.domain.ebook.repository.EbookCategoryRepository;
@@ -37,6 +35,21 @@ public class EbookController {
         return ebookService.getEbookListByCategory(classification, page, size);
     }
 
+    @GetMapping("/list/category/popularity")
+    public Page<EbookResponse> getEbookListByScoreAndUploadedAtDesc(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByCategorySortedByScore(classification, page, size);
+    }
+
+    @GetMapping("/list/category/price/desc")
+    public Page<EbookResponse> getEbookListByPriceDesc(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByCategorySortedByPriceDesc(classification, page, size);
+    }
+
+    @GetMapping("/list/category/price/asc")
+    public Page<EbookResponse> getEbookListByPriceAsc(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByCategorySortedByPriceAsc(classification, page, size);
+    }
+
     @GetMapping("/list/popularity")
     public Page<EbookResponse> getEbookListByPopularity(@RequestParam int page, @RequestParam int size) {
         return ebookService.getEbookListByPopularity(page, size);
@@ -44,12 +57,12 @@ public class EbookController {
 
     @GetMapping("/list/price/desc")
     public Page<EbookResponse> getEbookListByPriceDesc(@RequestParam int page, @RequestParam int size) {
-        return ebookService.getEbookListByPriceDesc(page, size);
+        return ebookService.getEbookListSortedByPriceDesc(page, size);
     }
 
     @GetMapping("/list/price/asc")
     public Page<EbookResponse> getEbookListByPriceAsc(@RequestParam int page, @RequestParam int size) {
-        return ebookService.getEbookListByPriceAsc(page, size);
+        return ebookService.getEbookListSortedByPriceAsc(page, size);
     }
 
     @GetMapping("/list/total")
