@@ -10,6 +10,7 @@ import DetailReviews from "../../Component/ProductDetail/DetailReviews.js";
 import classes from './BookDetailPage.module.css';
 
 import axios from 'axios'
+import { DebuggingMode } from '../../Config/Config.js';
 
 
 export default function BookDetailPage() {
@@ -46,7 +47,7 @@ export default function BookDetailPage() {
                 description: response.data.content,
                 reviews : dummyReviews
             });
-
+            DebuggingMode(["책 정보"],[response.data]);
         }).catch(function (error) {
             console.log(error);
             console.log("Book Detail loading error");

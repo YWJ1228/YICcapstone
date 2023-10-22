@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API } from '../../Config/APIConfig';
-import { PageConfig } from '../../Config/Config';
+import { DebuggingMode, PageConfig } from '../../Config/Config';
 
 import axios from 'axios';
 
@@ -49,11 +49,15 @@ export default function () {
                     price : voice.price
                 }));
                 setBannerVoice(resData3);
+                DebuggingMode(
+                    ["이달의 TTS","업데이트 된 TTS", "배너"],
+                    [resData, resData2, resData3]
+                )
             })).catch((err) => console.log(err));
     }, []);
-    const BannerList = bannerVoice.map((voice) => { // 배너 리스트 디자인
+    const BannerList = bannerVoice.map((voice,idx) => { // 배너 리스트 디자인
         return (
-            <Carousel.Item key = {voice.id}>
+            <Carousel.Item key = {idx}>
                 <BannerCard
                     imagePath={voice.image}
                     title={voice.name}
@@ -64,7 +68,7 @@ export default function () {
     })
     const previewList = (PageConfig.VOICE_SHOP_TITLES).map((preview,idx) => { // 각 프리뷰 리스트 디자인
         return (
-            <div className={classes['voice-preview']} key={preview.title}>
+            <div className={classes['voice-preview']} key={idx}>
                 <VoicePreview
                     title={preview.title}
                     subtitle={preview.subtitle}

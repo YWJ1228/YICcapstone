@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API } from '../../Config/APIConfig';
-import { PageConfig } from '../../Config/Config';
+import { DebuggingMode, PageConfig } from '../../Config/Config';
 
 import axios from 'axios';
 
@@ -47,7 +47,9 @@ export default function () {
                     author: book.author
                 }));
                 setBannerBook(resData3);
-
+                DebuggingMode(
+                    ["이 달의 책","업데이트 된 책","배너"],
+                    [resData1,resData2,resData3]);
             })).catch((err) => console.log(err));
     }, []);
     const bannerList = bannerBook.map((book) => {
@@ -66,7 +68,7 @@ export default function () {
     });
     const previewList = (PageConfig.EBOOK_SHOP_TITLES).map((preview, idx) => {
         return (
-            <div className={classes['book-preview']} key={preview.title}>
+            <div className={classes['book-preview']} key={idx}>
                 <BookPreview
                     title={preview.title}
                     subtitle={preview.subtitle}

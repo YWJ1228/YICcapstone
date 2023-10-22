@@ -11,7 +11,7 @@ export default function BannerCard(props) {
         <Container className={classes.wrapper}>
             <Row>
                 <Col xs={4}>
-                    <img src={props.imagePath} />
+                    <img className = {classes.image} src={props.imagePath} />
                 </Col>
                 <Col>
                     <Row className={classes.title}>{props.title}</Row>

@@ -10,7 +10,7 @@ import classes from './VoicePreview.module.css';
 export default function VoicePreview(props) {
     const voiceArr = (props.voices).map((voice, idx) => {
         return (
-            <Col key={voice.id}>
+            <Col key={idx}>
                 <Grow in={true} style={{ transformOrigin: 'center top' }}
                     {...(props.once ? { timeout: 0 } : { timeout: Math.abs((Math.floor(props.voices.length / 2)) - idx) * 1000 + 1000 })}>
                     <div>

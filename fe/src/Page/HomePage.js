@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { API } from '../Config/APIConfig';
-import { PageConfig } from '../Config/Config';
+import { PageConfig, DebuggingMode } from '../Config/Config';
 
 import axios from 'axios';
 
@@ -19,7 +19,7 @@ export default function HomePage() {
 
     useEffect(() => {
         axios.all([
-            axios.get(`${API.LOAD_POPULAR_EBOOKS}`), 
+            axios.get(`${API.LOAD_POPULAR_EBOOKS}`),
             axios.get(`${API.LOAD_POPULAR_VOICES}`)])
             .then(axios.spread((res1, res2) => {
                 const resData1 = (res1.data.content).map((book) => ({
@@ -27,7 +27,7 @@ export default function HomePage() {
                     image: book.imageUrl,
                     name: book.ebookName,
                     author: book.author,
-                    price : book.price
+                    price: book.price
                 }));
                 setBestSellerBook(resData1);
                 const resData2 = (res2.data.content).map((voice) => ({
@@ -36,16 +36,20 @@ export default function HomePage() {
                     name: voice.celebrityName,
                     job: voice.job,
                     description: voice.comment,
-                    price : voice.price
+                    price: voice.price
                 }));
                 setBestSellerVoice(resData2);
+                // 디버깅
+                DebuggingMode(
+                    ["배너", "이 달의 책", "이 달의 TTS"],
+                    [null, resData1, resData2]);
             }
             )).catch((err) => console.log(err));
     }, []);
     return (
         <>
             <div className={classes['banner-wrapper']}>
-                <Carousel>
+                <Carousel indicators={false}>
                     <Carousel.Item>
                         <BannerCard imagePath="./logo192.png" title="어린왕자" description="생텍쥐페리 작가의 희대의 명작!" price="900원" salesDescription="(~9월 24일 까지)" />
                     </Carousel.Item>

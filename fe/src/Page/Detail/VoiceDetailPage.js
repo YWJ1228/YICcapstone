@@ -2,14 +2,18 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { API } from '../../Config/APIConfig.js';
+import { DebuggingMode } from '../../Config/Config.js';
 
 import axios from 'axios';
 
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import DetailBanner from "../../Component/ProductDetail/DetailBanner.js.js";
 import DetailDescription from "../../Component/ProductDetail/DetailDescription.js";
 import DetailReviews from "../../Component/ProductDetail/DetailReviews.js";
 
 import classes from './VoiceDetailPage.module.css';
+
 
 export default function VoiceDetailPage() {
     const { voiceID } = useParams();
@@ -31,6 +35,10 @@ export default function VoiceDetailPage() {
         reviews: dummyReviews
     });
 
+    const [show, setShow] = useState(false);
+    const handlerClose = () => setShow(false);
+    const handlerShow = () => setShow(true);
+
     useEffect(() => {
         axios.get(`${API.LOAD_VOICE}/${voiceID}`)
             .then(function (response) {
@@ -45,6 +53,7 @@ export default function VoiceDetailPage() {
                     description: response.data.comment,
                     reviews: dummyReviews
                 });
+                DebuggingMode("TTS 정보", response.data);
             }).catch(function(err){
                 console.log(err);
                 console.log("Voice detail loading error");
@@ -53,8 +62,17 @@ export default function VoiceDetailPage() {
 
     return (
         <>
+        <Modal show = {show} onHide = {handlerClose}>
+            <Modal.Header closeButton><Modal.Title>데모 듣기</Modal.Title></Modal.Header>
+            <Modal.Body>
+                <audio src = "/1.wav" controls></audio>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant = "secondary" onClick = {handlerClose}>닫기</Button>
+            </Modal.Footer>
+        </Modal>
             <div className={classes['banner-wrapper']}>
-                <DetailBanner book={voiceInfo} type="voice" />
+                <DetailBanner book={voiceInfo} type="voice" demoFn = {handlerShow} />
             </div>
             <div className={classes.divider}></div>
             <div className={classes['description-wrapper']}>

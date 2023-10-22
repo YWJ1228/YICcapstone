@@ -19,7 +19,7 @@ export default function MyPageBanner(props) {
             <Container>
                 <Row>
                     <Col xs={4}>
-                        <img src={props.imagePath} />
+                        <img src={props.imagePath} className = {classes.image} />
                     </Col>
                     <Col>
                         <Row className={classes.greeting}>반갑습니다! {props.username}님!</Row>

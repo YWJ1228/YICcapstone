@@ -12,7 +12,7 @@ export default function BookPreview(props) {
     const imageArr = (props.images).map((img, idx) => {
         return (
             
-            <Col  key = {img.id}>
+            <Col key = {idx}>
                 <Grow in={true} style={{ transformOrigin: 'center top' }}
                     {...(props.once ? { timeout: 0 } : { timeout: Math.abs((Math.floor(props.images.length / 2)) - idx) * 1000 + 1000 })}>
                     <div>

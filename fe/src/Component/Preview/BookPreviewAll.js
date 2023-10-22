@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { API } from '../../Config/APIConfig';
-import { PageConfig } from '../../Config/Config';
+import { PageConfig, DebuggingMode } from '../../Config/Config';
 
 import axios from 'axios';
 
@@ -22,21 +22,23 @@ export default function BookPreviewAll(props) {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageCnt, setPageCnt] = useState(1);
     const [entireBook, setEntireBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
-    const [sortType, setSortType] = useState(0);
+    const [sortType, setSortType] = useState('0');
     useEffect(() => {
-        var api = `${API.LOAD_CATEGORY_EBOOKS}${currentCategory}&page=${currentPage - 1}&size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`;
+        var api = `${API.LOAD_CATEGORY_EBOOKS_UPLOAD}${currentCategory}&page=${currentPage - 1}`;
         if (currentCategory === 'all') {
-            if (sortType === 0) {
-                api = `${API.LOAD_EBOOK_SORTBY_UPLOAD}${currentPage - 1}`;
+            switch (sortType) {
+                case '0': api = `${API.LOAD_EBOOK_SORTBY_UPLOAD}${currentPage - 1}`; break;
+                case '1': api = `${API.LOAD_EBOOK_SORTBY_POPULARITY}${currentPage - 1}`; break;
+                case '2': api = `${API.LOAD_EBOOK_SORTBY_LOW_PRICE}${currentPage - 1}`; break;
+                case '3': api = `${API.LOAD_EBOOK_SORTBY_HIGH_PRICE}${currentPage - 1}`; break;
             }
-            else if (sortType === 1) {
-                api = `${API.LOAD_EBOOK_SORTBY_POPULARITY}${currentPage - 1}`;
-            }
-            else if (sortType === 2) {
-                api = `${API.LOAD_EBOOK_SORTBY_LOW_PRICE}${currentPage - 1}`;
-            }
-            else {
-                api = `${API.LOAD_EBOOK_SORTBY_HIGH_PRICE}${currentPage - 1}`;
+        }
+        else {
+            switch (sortType) {
+                case '0': api = `${API.LOAD_CATEGORY_EBOOKS_UPLOAD}${currentCategory}&page=${currentPage - 1}`; break;
+                case '1': api = `${API.LOAD_CATEGORY_EBOOKS_SORTBY_POPULARITY}${currentCategory}&page=${currentPage - 1}`; break;
+                case '2': api = `${API.LOAD_CATEGORY_EBOOKS_SORTBY_LOW_PRICE}${currentCategory}&page=${currentPage - 1}`; break;
+                case '3': api = `${API.LOAD_CATEGORY_EBOOKS_SORTBY_HIGH_PRICE}${currentCategory}&page=${currentPage - 1}`; break;
             }
         }
         axios.all([
@@ -50,11 +52,11 @@ export default function BookPreviewAll(props) {
                     image: book.imageUrl,
                     name: book.ebookName,
                     author: book.author,
-                    price : book.price
+                    price: book.price
                 }));
                 setEntireBook(resData);
                 setPageCnt(res2.data); // page 개수 가져오기
-                console.log(entireBook);
+                DebuggingMode([`${currentCategory} 페이지 `, `${currentCategory} 페이지 수`], [resData, res2.data]);
             })).catch((err) => { console.log(err) });
     }, [currentPage, currentCategory, sortType]);
 

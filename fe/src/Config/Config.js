@@ -1,3 +1,12 @@
+export const IS_DEBUGGING = false; // 디버깅 모드 선택 가능
+export const DebuggingMode = (description, data) =>{
+    if(IS_DEBUGGING){
+        description.map((text, idx)=>{
+            console.log(text, data[idx]);
+        });
+    }
+}
+
 
 export const PageConfig = {
 
@@ -43,7 +52,7 @@ export const PageConfig = {
         description : "default"
     },
     VOICE_CATERGORY_LIST : ["all","singer","actor"],
-    VOICE_PRODUCT_PER_PAGE : 3,
+    VOICE_PRODUCT_PER_PAGE : 2,
 
     NUM_BANNER_VOICES : 4,
     NUM_POPULAR_VOICES : 3,
