@@ -3,6 +3,7 @@ package com.example.YICcapstone.domain.ebook.service;
 import com.example.YICcapstone.domain.ebook.domain.Ebook;
 import com.example.YICcapstone.domain.ebook.domain.EbookCategory;
 import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
+import com.example.YICcapstone.domain.ebook.dto.response.EbookResponse;
 import com.example.YICcapstone.domain.ebook.exception.EbookCategoryNotFoundException;
 import com.example.YICcapstone.domain.ebook.exception.EbookNotFoundException;
 import com.example.YICcapstone.domain.ebook.repository.EbookCategoryRepository;
@@ -11,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,27 +53,65 @@ public class EbookService {
     }
 
     @Transactional
-    public Ebook getEbook(Long ebookId) {
+    public EbookResponse getEbook(Long ebookId) {
         Ebook ebook = ebookRepository.findById(ebookId)
                 .orElseThrow(EbookNotFoundException::new);
 
         ebook.setViewCount(ebook.getViewCount() + 1);
 
-        return ebook;
+        return new EbookResponse(ebook);
     }
 
     @Transactional(readOnly = true)
-    public Page<Ebook> getEbookList(int page) {
-        return ebookRepository.findAllByOrderByUploadedAtDesc(PageRequest.of(page, 10));
+    public Page<EbookResponse> getEbookList(int page, int size) {
+        return ebookRepository.findAllByOrderByUploadedAtDesc(PageRequest.of(page, size)).map(EbookResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public Page<Ebook> getEbookListByCategory(String classification, int page) {
-        return ebookRepository.findAllByEbookCategory_ClassificationOrderByUploadedAtDesc(classification, PageRequest.of(page, 10));
+    public Page<EbookResponse> getEbookListByCategory(String classification, int page, int size) {
+        return ebookRepository.findAllByEbookCategory_ClassificationOrderByUploadedAtDesc(classification, PageRequest.of(page, size)).map(EbookResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public Page<Ebook> getEbookListByPopularity(int page){
-        return ebookRepository.findAllByOrderByScoreDesc(PageRequest.of(page, 10));
+    public Page<EbookResponse> getEbookListByCategorySortedByScore(String classification, int page, int size) {
+        return ebookRepository.findAllByEbookCategory_ClassificationOrderByScoreAndUploadedAtDesc(classification, PageRequest.of(page, size)).map(EbookResponse::new);
     }
+
+    @Transactional(readOnly = true)
+    public Page<EbookResponse> getEbookListByCategorySortedByPriceDesc(String classification, int page, int size) {
+        return ebookRepository.findAllByEbookCategory_ClassificationOrderByPriceDescUploadedAtDesc(classification, PageRequest.of(page, size)).map(EbookResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<EbookResponse> getEbookListByCategorySortedByPriceAsc(String classification, int page, int size) {
+        return ebookRepository.findAllByEbookCategory_ClassificationOrderByPriceAscUploadedAtDesc(classification, PageRequest.of(page, size)).map(EbookResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<EbookResponse> getEbookListByPopularity(int page, int size){
+        return ebookRepository.findAllByOrderByScore(PageRequest.of(page, size)).map(EbookResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<EbookResponse> getEbookListSortedByPriceDesc(int page, int size){
+        return ebookRepository.findAllByOrderByPriceDescUploadedAtDesc(PageRequest.of(page, size)).map(EbookResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<EbookResponse> getEbookListSortedByPriceAsc(int page, int size){
+        return ebookRepository.findAllByOrderByPriceAscUploadedAtDesc(PageRequest.of(page, size)).map(EbookResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public int getTotalPage(int size) {
+        return (int) Math.ceil((double) ebookRepository.count() / size);
+    }
+
+    // category별로 총 페이지 가져오기
+    @Transactional(readOnly = true)
+    public int getTotalPageByCategory(String classification, int size) {
+        return (int) Math.ceil((double) ebookRepository.countByEbookCategory_Classification(classification) / size);
+    }
+
+
 }

@@ -1,62 +1,94 @@
+import { useState, useEffect } from 'react';
+import { API } from '../../Config/APIConfig';
+import { DebuggingMode, PageConfig } from '../../Config/Config';
+
+import axios from 'axios';
+
 import Carousel from 'react-bootstrap/Carousel';
-
-
 import BannerCard from "../../Component/Card/BannerCard";
-
 import BookPreview from '../../Component/Preview/BookPreview';
+
 import classes from './BookShopPage.module.css';
-/**
- * API로 가져올 정보
- *  1. 이달의 책 리스트
- *  2. 할인 중인 책 리스트
- *  3. 업데이트 된 책 리스트
- * 
- *  각 책마다 가져올 정보
- *  1. id
- *  2. 이미지 경로
- *  3. 책 제목
- * 
- */
+import BookPreviewAll from '../../Component/Preview/BookPreviewAll';
+
 export default function () {
-    const dummyBook = [
-        { id: 1, image: "./logo192.png", name: "어린왕자" },
-        { id: 2, image: "./logo192.png", name: "어린왕자" },
-        { id: 3, image: "./logo192.png", name: "어린왕자" },
-        { id: 4, image: "./logo192.png", name: "어린왕자" },
-        { id: 5, image: "./logo192.png", name: "어린왕자" },
-    ];
-    const dummyInfo = [
-        { title: "이달의 책", subtitle: "이달의 가장 인기있는 책을 만나보세요", images: dummyBook },
-        { title: "할인 중인 책", subtitle: "저렴한 가격에 책을 구매할 수 있는 기회", images: dummyBook },
-        { title: "업데이트 된 책", subtitle: "새로 업데이트 된 책들의 오디오북을 들어보세요", images: dummyBook }
-    ];
-    const previewList = dummyInfo.map((preview) => {
+    const [bannerBook, setBannerBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
+    const [bestSellerBook, setBestSellerBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
+    const [updatedBook, setUpdatedBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
+
+    const stateArr = [bestSellerBook, updatedBook];
+
+    useEffect(() => {
+        axios.all([
+            axios.get(API.LOAD_POPULAR_EBOOKS),
+            axios.get(API.LOAD_RECENT_EBOOKS),
+            axios.get(API.LOAD_BANNER_EBOOKS)])
+            .then(axios.spread((res1, res2, res3) => {
+                const resData1 = (res1.data.content).map((book) => ({
+                    id: book.id,
+                    image: book.imageUrl,
+                    name: book.ebookName,
+                    author: book.author,
+                    price : book.price
+                }));
+                setBestSellerBook(resData1);
+                const resData2 = (res2.data.content).map((book) => ({
+                    id: book.id,
+                    image: book.imageUrl,
+                    name: book.ebookName,
+                    author: book.author,
+                    price : book.price
+                }));
+                setUpdatedBook(resData2);
+                const resData3 = (res3.data.content).map((book) => ({
+                    id: book.id,
+                    image: book.imageUrl,
+                    name: book.ebookName,
+                    author: book.author
+                }));
+                setBannerBook(resData3);
+                DebuggingMode(
+                    ["이 달의 책","업데이트 된 책","배너"],
+                    [resData1,resData2,resData3]);
+            })).catch((err) => console.log(err));
+    }, []);
+    const bannerList = bannerBook.map((book) => {
         return (
-            <div className={classes['book-preview']} key = {preview.title}>
+            <Carousel.Item>
+                <BannerCard
+                    id={book.id}
+                    imagePath={book.image}
+                    title={book.name}
+                    description={book.description}
+                    link={"/bookDetail/" + book.id} 
+                    />
+            </Carousel.Item>
+        );
+
+    });
+    const previewList = (PageConfig.EBOOK_SHOP_TITLES).map((preview, idx) => {
+        return (
+            <div className={classes['book-preview']} key={idx}>
                 <BookPreview
                     title={preview.title}
                     subtitle={preview.subtitle}
-                    images={preview.images}
-                    link={"./"}
+                    images={stateArr[idx]}
                 />
             </div>
-
         );
     });
     return (
         <>
             <div className={classes['banner-wrapper']}>
-                <Carousel>
-                    <Carousel.Item>
-                        <BannerCard imagePath="./logo192.png" title="어린왕자" description="생텍쥐페리 작가의 희대의 명작!" price="900원" salesDescription="(~9월 24일 까지)" />
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <BannerCard imagePath="./logo192.png" title="어린왕자" description="생텍쥐페리 작가의 희대의 명작!" price="900원" salesDescription="(~9월 24일 까지)" />
-                    </Carousel.Item>
+                <Carousel indicators={false}>
+                    {bannerList}
                 </Carousel>
             </div>
             {/* 리스트를 동적으로 가져옴 */}
             {previewList}
+            <BookPreviewAll
+                title="전체 페이지"
+                subtitle="전체 목록" />
         </>
     );
 };

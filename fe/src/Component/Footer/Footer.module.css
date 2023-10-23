@@ -1,0 +1,28 @@
+.wrapper{
+    background-color: rgb(243, 243, 243);
+    bottom: 0px;
+    width : 100%;
+    height : 10rem;
+    bottom : 0px;
+
+    margin-top : 3rem;
+}
+.title{
+    font-size : 1rem;
+    font-weight: bold;
+    margin-top:1rem;
+}
+.sub-title{
+    color : gray;
+    font-size : 0.7rem;
+    margin :0.2rem;
+    margin-left : 0rem;
+}
+.maker{
+    color : gray;
+    font-size : 0.7rem;
+    margin-left : 2rem;
+}
+.info{
+    text-align: right;
+}

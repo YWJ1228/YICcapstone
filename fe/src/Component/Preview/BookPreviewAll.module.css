@@ -1,0 +1,115 @@
+.image {
+    width: 10rem;
+    display: block;
+    margin: auto;
+}
+
+.image-wrapper {
+    width: 10rem;
+    display: block;
+    margin: auto;
+}
+
+.name {
+    text-align: center;
+    font-weight: bold;
+}
+.author{
+    text-align: center;
+    color : gray;
+    font-size : 1rem;
+
+}
+
+.title {
+    margin: auto;
+    font-weight: bold;
+    font-size : 1.5rem;
+    padding : 1rem;
+}
+
+.sub-title {
+    margin: auto;
+    color: gray;
+    font-size: 0.5rem;
+}
+.selectBox{
+    text-align: right;
+}
+.more-wrapper {
+    width: 5rem;
+}
+
+.more {
+    color: gray;
+    font-size: 0.7rem;
+}
+
+.more:link {
+    text-decoration: none;
+}
+.page-button{
+    background-color: #7B8EF5;
+    border-color : #7B8EF5;
+}
+.page-button:hover{
+    background-color: white;
+    color :#7B8EF5;
+    border-color : #7B8EF5;
+}
+.page-button:active{
+    background-color: white !important;
+    color :#7B8EF5 !important;
+    border-color : #7B8EF5 !important;
+}
+.page-button-focus{
+    background-color: #6374c9;
+    border-color : #7B8EF5 !important;
+}
+.page-button-focus:hover{
+    background-color: #6374c9;
+    border-color : #7B8EF5 !important;
+}
+.page-button-focus:active{
+    background-color: #6374c9!important;
+    border-color : #7B8EF5 !important;
+}
+.button-wrapper{
+    padding : 2rem;
+    text-align: center;
+}
+.category{
+    background-color: rgba(175, 175, 175, 0.1);
+    color : black;
+    border-color : white;
+}
+.category:hover{
+    background-color: rgba(175, 175, 175, 0.5);
+    color : black;
+    border-color : white;
+}
+.category:focus{
+    background-color: #7B8EF5 !important;
+    color : black;
+    border-color : white  !important;
+}
+.category:active{
+    background-color: rgba(175, 175, 175, 0.1);
+    border-color : white !important;
+}
+.category-focus{
+    background-color :#7B8EF5;
+    border-color : white;
+}
+.category-focus:active{
+    background-color :#7B8EF5 !important;
+    border-color : white  !important;
+}
+.category-focus:hover{
+    background-color :#7B8EF5;
+    border-color : white;
+}
+.category-wrapper{
+    padding :1rem;
+    padding-bottom : 0.5rem;
+}
