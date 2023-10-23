@@ -14,6 +14,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.net.BindException;
 import java.nio.file.AccessDeniedException;
+import java.util.Objects;
 
 @RestControllerAdvice
 class GlobalExceptionHandler {
@@ -58,7 +59,7 @@ class GlobalExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(
                 ErrorCode.INVALID_INPUT_VALUE.getCode(),
                 ErrorCode.INVALID_INPUT_VALUE.getMessage(),
-                e.getBindingResult().getFieldError().getDefaultMessage()
+                Objects.requireNonNull(e.getBindingResult().getFieldError()).getDefaultMessage()
         );
         return new ResponseEntity<ErrorResponse>(errorResponse,HttpStatus.BAD_REQUEST);
     }
