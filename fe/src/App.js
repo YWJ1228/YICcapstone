@@ -2,8 +2,7 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
-import { useState } from 'react';
-
+import {useState} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import NavigationBar from './Component/NavigationBar/NavigationBar';
@@ -24,14 +23,15 @@ import VoiceDetailPage from './Page/Detail/VoiceDetailPage';
 
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <>
-      <NavigationBar img_src="logo.png" />
+      <NavigationBar img_src="logo.png" isLogged = {isLoggedIn}/>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage changeLoginHandler = {setIsLoggedIn}/>} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/changeinfo" element={<ChangeInfoPage />} />

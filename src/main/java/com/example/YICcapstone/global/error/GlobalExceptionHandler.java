@@ -68,8 +68,5 @@ class GlobalExceptionHandler {
     public ResponseEntity<ErrorCode> constraintViolationException(ConstraintViolationException ex) {
         ErrorCode errorResponse = ErrorCode.INVALID_INPUT_VALUE;
         return ResponseEntity.status(errorResponse.getStatus()).body(errorResponse);
-    } // @GetMapping에서 URL {} 매개변수의 @PathVariable의 유효성 검사 실패 시, 500 에러코드 리턴 막으려고 추가로 넣음 - 우준
-
-    // org.hibernate.engine.jdbc.spi.SqlExceptionHelper : NULL not allowed for column "USERNAME"; SQL statement
-    // 회원가입 시, 아이디(이메일) 누락했을 때 에러코드 500 발생 -> 해당 오류도 입력값이 잘못되었다는 INVALID_INPUT_VALUE ErrorCode로 대체 필요
+    } // @GetMapping에서 URL {} 매개변수의 @PathVariable의 유효성 검사 실패 시, 500 에러코드 리턴 막으려고 추가로 넣음
 }
