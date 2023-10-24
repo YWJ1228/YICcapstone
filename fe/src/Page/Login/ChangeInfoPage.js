@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { API } from '../../Config/APIConfig';
 import axios from 'axios';
-import { getCookies, removeCookies, setCookies } from '../../Component/Cookies/LoginCookie';
+import { getCookies, removeCookies } from '../../Component/Cookies/LoginCookie';
 
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -62,17 +62,19 @@ export default function ChangeInfoPage() {
 
     // 닉네임 변경
     function nicknameSubmitHandler(event) {
+        console.log(getCookies('refreshToken'));
         event.preventDefault();
         axios.patch(
             `${API.CHANGE_NICKNAME}`, // url
-            { nickname: event.target.nickname.trim() }, // data
+            { nickname: event.target.nickname.value.trim() }, // data
             {
-                header: {
+                headers: {
                     Authorization: `Bearer ${getCookies('accessToken')}`,
                 }
             })
             .then(function (response) {
                 console.log('닉네임 변경 완료!');
+                console.log(response);
             }).catch(function (err) {
                 console.log(err);
             })
@@ -85,7 +87,7 @@ export default function ChangeInfoPage() {
             changePassword: changeForm.password
         }, {
             headers: {
-                Authorization : `Bearer ${getCookies()}`,
+                Authorization : `Bearer ${getCookies('accessToken')}`,
             }
         }).then((res) => {
             console.log('비밀번호 변경 완료!')
@@ -94,8 +96,7 @@ export default function ChangeInfoPage() {
             console.log(err);
         })
     };
-    //회원 탈퇴
-    // 작업 필요!!!!!!!!!!!!!!!!
+
     function userWithdrawalClickHandler(event) {
         event.preventDefault();
         axios.delete(`${API.DELETE_USER}`)
@@ -120,7 +121,7 @@ export default function ChangeInfoPage() {
                             <Form.Text>{guideMessage.guideNicknameText}</Form.Text>
                         </Col>
                         <Col>
-                            <Button type="button" className={classes['verify-button']}>
+                            <Button type = "submit" className={classes['verify-button']}>
                                 닉네임 변경
                             </Button>
                         </Col>
@@ -142,16 +143,12 @@ export default function ChangeInfoPage() {
                     <Form.Control type="password" onChange={equalPwdChangeHandler} />
                     <Form.Text>{guideMessage.guideEqualPwdText}</Form.Text>
                 </Form.Group>
-
-
-
-
                 <Button type="submit" className={classes['submit']}>
                     비밀번호 변경
                 </Button>
             </Form>
 
-            <Button type="button" className={classes['submit']}>
+            <Button type="button" onClick = {userWithdrawalClickHandler}className={classes['submit']}>
                 회원 탈퇴
             </Button>
         </div>
