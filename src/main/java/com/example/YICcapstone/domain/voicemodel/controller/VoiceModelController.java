@@ -2,6 +2,7 @@ package com.example.YICcapstone.domain.voicemodel.controller;
 
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
+import com.example.YICcapstone.domain.voicemodel.dto.response.VoiceModelResponse;
 import com.example.YICcapstone.domain.voicemodel.service.VoiceModelPreferenceService;
 import com.example.YICcapstone.domain.voicemodel.service.VoiceModelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RequestMapping("/voice-model")
+@CrossOrigin(origins = "*")
 @RestController
 public class VoiceModelController {
     @Autowired
@@ -19,23 +21,58 @@ public class VoiceModelController {
     @Autowired
     private VoiceModelPreferenceService voiceModelPreferenceService;
     @GetMapping("/{voiceModelId}")
-    public VoiceModel getVoiceModel(@PathVariable Long voiceModelId) {
+    public VoiceModelResponse getVoiceModel(@PathVariable Long voiceModelId) {
         return voiceModelService.getVoiceModel(voiceModelId);
     }
 
     @GetMapping("/list")
-    public Page<VoiceModel> getVoiceModelList(@RequestParam int page) {
-        return voiceModelService.getVoiceModelList(page);
+    public Page<VoiceModelResponse> getVoiceModelList(@RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelList(page, size);
     }
 
     @GetMapping("/list/category")
-    public Page<VoiceModel> getVoiceModelListByCategory(@RequestParam String job, @RequestParam int page) {
-        return voiceModelService.getVoiceModelListByCategory(job, page);
+    public Page<VoiceModelResponse> getVoiceModelListByCategory(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByCategory(job, page, size);
+    }
+
+    @GetMapping("/list/category/popularity")
+    public Page<VoiceModelResponse> getVoiceModelListByScoreAndUploadedAtDesc(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByCategorySortedByScoreAndUploadedAtDesc(job, page, size);
+    }
+
+    @GetMapping("/list/category/price/desc")
+    public Page<VoiceModelResponse> getVoiceModelListByPriceDesc(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByCategorySortedByPriceDesc(job, page, size);
+    }
+
+    @GetMapping("/list/category/price/asc")
+    public Page<VoiceModelResponse> getVoiceModelListByPriceAsc(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByCategorySortedByPriceAsc(job, page, size);
     }
 
     @GetMapping("/list/popularity")
-    public Page<VoiceModel> getVoiceModelListByPopularity(@RequestParam int page) {
-        return voiceModelService.getVoiceModelListByPopularity(page);
+    public Page<VoiceModelResponse> getVoiceModelListByPopularity(@RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByPopularity(page, size);
+    }
+
+    @GetMapping("/list/price/desc")
+    public Page<VoiceModelResponse> getVoiceModelListByPriceDesc(@RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByPriceDesc(page, size);
+    }
+
+    @GetMapping("/list/price/asc")
+    public Page<VoiceModelResponse> getVoiceModelListByPriceAsc(@RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByPriceAsc(page, size);
+    }
+
+    @GetMapping("/list/total")
+    public int getTotalPage(@RequestParam int size) {
+        return voiceModelService.getTotalPage(size);
+    }
+
+    @GetMapping("/list/total/category")
+    public int getTotalPageByCategory(@RequestParam String job, @RequestParam int size) {
+        return voiceModelService.getTotalPageByCategory(job, size);
     }
 
     @PostMapping
@@ -66,5 +103,8 @@ public class VoiceModelController {
         voiceModelService.deleteVoiceModel(voiceModelId);
         return ResponseEntity.status(200).body("VoiceModel deleted successfully");
     }
+
+
+
 
 }

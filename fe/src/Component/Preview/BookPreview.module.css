@@ -1,21 +1,42 @@
 .image {
     width: 10rem;
-    display : block;
-    margin : auto;
+    display: block;
+    margin: auto;
+    border-radius: 1rem;
+
+    transition-property: box-shadow;
+    transition-duration : 0.5s;
 }
-.image-wrapper{
-    width : 10rem;
-    display : block;
-    margin : auto;
+.image:hover{
+    box-shadow: 3px 3px 3px 2px gray;
 }
-.name{
+
+.image-wrapper {
+    width: 10rem;
+    display: block;
+    margin: auto;
+}
+
+.name {
     text-align: center;
     font-weight: bold;
+}
+.author{
+    text-align: center;
+    color : gray;
+    font-size : 1rem;
+
+}
+.price{
+    text-align: center;
+    color : gray;
+    font-size : 0.7rem;
 }
 
 .title {
     margin: auto;
     font-weight: bold;
+    font-size : 1.5rem;
 }
 
 .sub-title {
@@ -23,9 +44,11 @@
     color: gray;
     font-size: 0.5rem;
 }
-.more-wrapper{
-    width : 5rem;
+
+.more-wrapper {
+    width: 5rem;
 }
+
 .more {
     color: gray;
     font-size: 0.7rem;
@@ -34,4 +57,3 @@
 .more:link {
     text-decoration: none;
 }
-

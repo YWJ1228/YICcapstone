@@ -1,8 +1,7 @@
 package com.example.YICcapstone.domain.ebook.controller;
 
-import com.example.YICcapstone.domain.ebook.domain.Ebook;
-import com.example.YICcapstone.domain.ebook.domain.EbookCategory;
 import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
+import com.example.YICcapstone.domain.ebook.dto.response.EbookResponse;
 import com.example.YICcapstone.domain.ebook.repository.EbookCategoryRepository;
 import com.example.YICcapstone.domain.ebook.service.EbookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/ebook")
 public class EbookController {
     @Autowired
@@ -21,23 +21,58 @@ public class EbookController {
     private EbookCategoryRepository ebookCategoryRepository;
 
     @GetMapping("/{ebookId}")
-    public Ebook getEbook(@PathVariable Long ebookId) {
+    public EbookResponse getEbook(@PathVariable Long ebookId) {
         return ebookService.getEbook(ebookId);
     }
 
     @GetMapping("/list")
-    public Page<Ebook> getEbookList(@RequestParam int page) {
-        return ebookService.getEbookList(page);
+    public Page<EbookResponse> getEbookList(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookList(page, size);
     }
 
     @GetMapping("/list/category")
-    public Page<Ebook> getEbookListByCategory(@RequestParam String classification, @RequestParam int page) {
-        return ebookService.getEbookListByCategory(classification, page);
+    public Page<EbookResponse> getEbookListByCategory(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByCategory(classification, page, size);
+    }
+
+    @GetMapping("/list/category/popularity")
+    public Page<EbookResponse> getEbookListByScoreAndUploadedAtDesc(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByCategorySortedByScore(classification, page, size);
+    }
+
+    @GetMapping("/list/category/price/desc")
+    public Page<EbookResponse> getEbookListByPriceDesc(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByCategorySortedByPriceDesc(classification, page, size);
+    }
+
+    @GetMapping("/list/category/price/asc")
+    public Page<EbookResponse> getEbookListByPriceAsc(@RequestParam String classification, @RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByCategorySortedByPriceAsc(classification, page, size);
     }
 
     @GetMapping("/list/popularity")
-    public Page<Ebook> getEbookListByPopularity(@RequestParam int page) {
-        return ebookService.getEbookListByPopularity(page);
+    public Page<EbookResponse> getEbookListByPopularity(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListByPopularity(page, size);
+    }
+
+    @GetMapping("/list/price/desc")
+    public Page<EbookResponse> getEbookListByPriceDesc(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListSortedByPriceDesc(page, size);
+    }
+
+    @GetMapping("/list/price/asc")
+    public Page<EbookResponse> getEbookListByPriceAsc(@RequestParam int page, @RequestParam int size) {
+        return ebookService.getEbookListSortedByPriceAsc(page, size);
+    }
+
+    @GetMapping("/list/total")
+    public int getTotalPage(@RequestParam int size) {
+        return ebookService.getTotalPage(size);
+    }
+
+    @GetMapping("/list/total/category")
+    public int getTotalPageByCategory(@RequestParam String classification, @RequestParam int size) {
+        return ebookService.getTotalPageByCategory(classification, size);
     }
 
     @PostMapping

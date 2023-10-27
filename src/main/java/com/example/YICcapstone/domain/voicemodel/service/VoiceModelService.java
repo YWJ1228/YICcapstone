@@ -3,6 +3,7 @@ package com.example.YICcapstone.domain.voicemodel.service;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModelCategory;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
+import com.example.YICcapstone.domain.voicemodel.dto.response.VoiceModelResponse;
 import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelCategoryNotFoundException;
 import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelNotFoundException;
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelCategoryRepository;
@@ -52,28 +53,62 @@ public class VoiceModelService {
     }
 
     @Transactional
-    public VoiceModel getVoiceModel(Long voiceModelId) {
+    public VoiceModelResponse getVoiceModel(Long voiceModelId) {
         VoiceModel voiceModel = voiceModelRepository.findById(voiceModelId).orElseThrow(
                 VoiceModelNotFoundException::new
         );
 
         voiceModel.setViewCount(voiceModel.getViewCount() + 1);
-        return voiceModel;
+        return new VoiceModelResponse(voiceModel);
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModel> getVoiceModelList(int page) {
-        return voiceModelRepository.findAllByOrderByUploadedAtDesc(PageRequest.of(page, 10));
+    public Page<VoiceModelResponse> getVoiceModelList(int page, int size) {
+        return voiceModelRepository.findAllByOrderByUploadedAtDesc(PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModel> getVoiceModelListByCategory(String job, int page) {
-        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByUploadedAtDesc(job, PageRequest.of(page, 10));
+    public Page<VoiceModelResponse> getVoiceModelListByCategory(String job, int page, int size) {
+        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModel> getVoiceModelListByPopularity(int page){
-        return voiceModelRepository.findAllByOrderByScoreDesc(PageRequest.of(page,10));
+    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByScoreAndUploadedAtDesc(String job, int page, int size) {
+        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByScoreAndUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
+    @Transactional(readOnly = true)
+    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByPriceDesc(String job, int page, int size) {
+        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByPriceDescUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByPriceAsc(String job, int page, int size) {
+        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByPriceAscUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<VoiceModelResponse> getVoiceModelListByPopularity(int page, int size){
+        return voiceModelRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page,size)).map(VoiceModelResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<VoiceModelResponse> getVoiceModelListByPriceDesc(int page, int size){
+        return voiceModelRepository.findAllByOrderByPriceDescUploadedAtDesc(PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<VoiceModelResponse> getVoiceModelListByPriceAsc(int page, int size){
+        return voiceModelRepository.findAllByOrderByPriceAscUploadedAtDesc(PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public int getTotalPage(int size) {
+        return (int) Math.ceil((double) voiceModelRepository.count() / size);
+    }
+
+    @Transactional(readOnly = true)
+    public int getTotalPageByCategory(String job, int size) {
+        return (int) Math.ceil((double) voiceModelRepository.countByVoiceModelCategory_Job(job) / size);
+    }
 }

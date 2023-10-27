@@ -1,27 +1,25 @@
+import { Link } from 'react-router-dom';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-import Button from 'react-bootstrap/Button';
 import classes from './BannerCard.module.css';
-
+// 홈페이지 Carousel에 들어가는 배너 카드
 export default function BannerCard(props) {
     return (
         <Container className={classes.wrapper}>
             <Row>
                 <Col xs={4}>
-                    <img src={props.imagePath} />
+                    <img className = {classes.image} src={props.imagePath} />
                 </Col>
                 <Col>
                     <Row className={classes.title}>{props.title}</Row>
                     <Row className={classes.description}>{props.description}</Row>
                     <Row>
-                        <Col xs={3}>
-                            <Button className={classes.price}>{props.price}</Button>
-                            </Col>
-                            <Col>
-                                <div className = {classes.sale}>{props.salesDescription} </div>
-                            </Col>
+                        <Link to={props.link}>
+                            <button className={classes.detail}>자세히 보기</button>
+                        </Link>
                     </Row>
                 </Col>
             </Row>

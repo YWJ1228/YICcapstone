@@ -31,3 +31,8 @@
     background-color : #7B8EF5 ;
     border : none;
 }
+.wrapper{
+    position:fixed;
+    width : 100%;
+    z-index : 100;
+}

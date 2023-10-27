@@ -22,7 +22,13 @@ public enum ErrorCode {
 
     // VoiceModel
     VOICE_MODEL_NOT_FOUND(400, "V001", "해당 VoiceModel을 찾을 수 없습니다."),
-    VOICE_MODEL_CATEGORY_NOT_FOUND(400, "V002", "해당 VoiceModelCategory를 찾을 수 없습니다.");
+    VOICE_MODEL_CATEGORY_NOT_FOUND(400, "V002", "해당 VoiceModelCategory를 찾을 수 없습니다."),
+
+    // Member
+    MEMBER_USERNAME_DUPLICATED(409, "M001", "이미 사용중인 이메일입니다."),
+    MEMBER_NICKNAME_DUPLICATED(409, "M002", "이미 사용중인 닉네임입니다."),
+    MEMBER_PASSWORD_INCORRETED(400, "M003", "비밀번호가 일치하지 않습니다."),
+    MEMBER_NOT_EXIST(404, "M004", "존재하지 않는 회원입니다.");
 
     private final int status;
     private final String code;

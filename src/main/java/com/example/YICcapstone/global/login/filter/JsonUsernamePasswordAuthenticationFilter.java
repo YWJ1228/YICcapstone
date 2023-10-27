@@ -17,27 +17,19 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
-    // 인증과 관련한 AbstractAuthenticationProcessingFilter에서 formLogin이 아닌, josn 데이터를 통한 인증 로직이므로 설정 필요
-    // 해당 필터의 성공 처리와 실패 처리를 제공할 Handler는 global 내 동일 경로에 생성해 둠.
-
-    private static final String DEFAULT_LOGIN_REQUEST_URL = "/api/log-in";  // /api/member/log-in/oauth2/ + ????? 로 오는 요청을 처리
-
-    private static final String HTTP_METHOD = "POST";    //HTTP 메서드의 방식은 POST로 지정 (이 경우 GET으로 로그인 인증 X)
-
-    private static final String CONTENT_TYPE = "application/json";//json 타입의 데이터로만 로그인을 진행
-
+    private static final String DEFAULT_LOGIN_REQUEST_URL = "/api/log-in"; // "/api/log-in"을 로그인 인증 요청으로 인식하도록 함
+    private static final String HTTP_METHOD = "POST"; // POST 요청을 통해서만 로그인 인증을 진행할 수 있도록 설정 (GET 방식 X)
+    private static final String CONTENT_TYPE = "application/json"; // formLogin이 아닌, json 타입의 데이터를 통한 로그인을 진행하도록 설정
     private final ObjectMapper objectMapper;
-
-    private static final String USERNAME_KEY="username"; // username = email
-    private static final String PASSWORD_KEY="password";
-
+    private static final String USERNAME_KEY="username"; // 로그인 요청에 담긴 아이디 키 명칭 (email이지만, username으로 설정함)
+    private static final String PASSWORD_KEY="password"; // 로그인 요청에 담긴 비밀번호 키 명칭 (password)
 
     private static final AntPathRequestMatcher DEFAULT_LOGIN_PATH_REQUEST_MATCHER =
-            new AntPathRequestMatcher(DEFAULT_LOGIN_REQUEST_URL, HTTP_METHOD); //=>   login 의 요청에, POST로 온 요청에 매칭된다.
+            new AntPathRequestMatcher(DEFAULT_LOGIN_REQUEST_URL, HTTP_METHOD);
 
     public JsonUsernamePasswordAuthenticationFilter(ObjectMapper objectMapper) {
 
-        super(DEFAULT_LOGIN_PATH_REQUEST_MATCHER);   // 위에서 설정한  /oauth2//api/member/log-in* 의 요청에, GET으로 온 요청을 처리하기 위해 설정한다.
+        super(DEFAULT_LOGIN_PATH_REQUEST_MATCHER);   // POST 형태의 "/api/log-in" 요청이 아닐 때를 위해 처리(=GET인 경우)
 
         this.objectMapper = objectMapper;
     }
@@ -46,17 +38,18 @@ public class JsonUsernamePasswordAuthenticationFilter extends AbstractAuthentica
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         if(request.getContentType() == null || !request.getContentType().equals(CONTENT_TYPE)  ) {
             throw new AuthenticationServiceException("Authentication Content-Type not supported: " + request.getContentType());
-        }
+        } // 로그인 요청이 json 타입의 데이터 형식인지 확인
 
         String messageBody = StreamUtils.copyToString(request.getInputStream(), StandardCharsets.UTF_8);
 
         Map<String, String> usernamePasswordMap = objectMapper.readValue(messageBody, Map.class);
-
         String username = usernamePasswordMap.get(USERNAME_KEY);
         String password = usernamePasswordMap.get(PASSWORD_KEY);
 
-        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);//principal 과 credentials 전달
+        UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(username, password);
+        // principal(username)과 credentials(password)를 통해 UsernamePasswordAuthenticationToken 생성
 
         return this.getAuthenticationManager().authenticate(authRequest);
+        // UsernamePasswordAuthenticationToken을 AuthenticationProvider의 authenticate()의 인자로 넘겨 만든 결과물인 Authentication 객체 반환
     }
 }

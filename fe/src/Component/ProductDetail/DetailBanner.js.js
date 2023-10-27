@@ -5,12 +5,13 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 
 import classes from './DetailBanner.module.css';
+
 export default function DetailBanner(props) {
     return (
         <Container >
             <Row>
                 <Col xs={1}></Col>
-                <Col xs={4}><img src={props.book.image} className={classes.image} /></Col>
+                <Col xs={4}><img src="/logo192.png" className={classes.image} /></Col>
                 <Col xs={1}></Col>
                 {/* // 책 배너와 TTS 배너 */}
                 {props.type === "book" ?
@@ -27,7 +28,6 @@ export default function DetailBanner(props) {
                     <Col>
                         <Row className={classes.title}>
                             {props.book.name}
-
                         </Row>
 
                         <Row className={classes.detail}>{props.book.job} ( {props.book.jobDescription} )</Row>
@@ -36,7 +36,7 @@ export default function DetailBanner(props) {
                         <Row className={classes['price-wrapper']}>
                             <Button className={classes['price-button']}>{props.book.price} 원</Button>
                         </Row>
-                        <Row className={classes['demo-wrapper']}><Button className={classes['demo-button']}>데모 듣기</Button></Row>
+                        <Row className={classes['demo-wrapper']}><Button className={classes['demo-button']} onClick = {props.demoFn}>데모 듣기</Button></Row>
                     </Col>
                 }
             </Row>
