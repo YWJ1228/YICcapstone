@@ -11,15 +11,11 @@ public class MemberInfoDto {
     private final String username;
     private final String name;
     private final String nickname;
-    private final String birth;
-    private final Sex sex;
 
     @Builder
     public MemberInfoDto(Member member) {
         this.username = member.getUsername();
         this.name = member.getName();
         this.nickname = member.getNickname();
-        this.birth = member.getBirth();
-        this.sex = member.getSex();
     }
 }
