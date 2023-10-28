@@ -37,12 +37,12 @@ public class WishController {
     }
 
     @GetMapping("/ebook")
-    public Page<EbookWishResponse> getEbookWishList(@RequestParam int page) {
-        return wishService.getEbookWishList(page);
+    public Page<EbookWishResponse> getEbookWishList(@RequestParam int page, @RequestParam int size) {
+        return wishService.getEbookWishList(page, size);
     }
 
     @GetMapping("/voice-model")
-    public Page<VoiceModelWishResponse> getVoiceModelWishList(@RequestParam int page) {
-        return wishService.getVoiceModelWishList(page);
+    public Page<VoiceModelWishResponse> getVoiceModelWishList(@RequestParam int page, @RequestParam int size) {
+        return wishService.getVoiceModelWishList(page, size);
     }
 }

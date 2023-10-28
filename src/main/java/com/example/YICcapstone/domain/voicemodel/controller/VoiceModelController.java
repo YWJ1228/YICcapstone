@@ -1,6 +1,5 @@
 package com.example.YICcapstone.domain.voicemodel.controller;
 
-import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
 import com.example.YICcapstone.domain.voicemodel.dto.response.VoiceModelResponse;
 import com.example.YICcapstone.domain.voicemodel.service.VoiceModelPreferenceService;

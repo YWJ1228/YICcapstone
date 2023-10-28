@@ -4,6 +4,7 @@ import com.example.YICcapstone.domain.ebook.domain.Ebook;
 import com.example.YICcapstone.domain.ebook.exception.EbookNotFoundException;
 import com.example.YICcapstone.domain.ebook.repository.EbookRepository;
 import com.example.YICcapstone.domain.member.entity.Member;
+import com.example.YICcapstone.domain.member.exception.MemberNotExistException;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
 import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelNotFoundException;
@@ -65,18 +66,18 @@ public class WishService {
     }
 
     @Transactional(readOnly = true)
-    public Page<EbookWishResponse> getEbookWishList(int page) {
+    public Page<EbookWishResponse> getEbookWishList(int page, int size) {
         Member member = verifyMember();
-        Page<EbookWish> savedEbookWishList = ebookWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, 10));
+        Page<EbookWish> savedEbookWishList = ebookWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, size));
         return savedEbookWishList.map(
                 ebookWish -> new EbookWishResponse(ebookWish.getId(), ebookWish.getEbook())
         );
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModelWishResponse> getVoiceModelWishList(int page) {
+    public Page<VoiceModelWishResponse> getVoiceModelWishList(int page, int size) {
         Member member = verifyMember();
-        Page<VoiceModelWish> savedVoiceModelList = voiceModelWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, 10));
+        Page<VoiceModelWish> savedVoiceModelList = voiceModelWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, size));
         return savedVoiceModelList.map(
                 voiceModelWish -> new VoiceModelWishResponse(voiceModelWish.getId(), voiceModelWish.getVoiceModel())
         );
@@ -94,6 +95,6 @@ public class WishService {
 
     public Member verifyMember() {
         return memberRepository.findByUsername(SecurityUtil.getLoginUsername())
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다.")); //TODO: MemberNotExistsException 변경
+                .orElseThrow(() -> new MemberNotExistException());
     }
 }

@@ -1,6 +1,7 @@
 package com.example.YICcapstone.domain.voicemodel.service;
 
 import com.example.YICcapstone.domain.member.entity.Member;
+import com.example.YICcapstone.domain.member.exception.MemberNotExistException;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModelPreference;
@@ -31,13 +32,17 @@ public class VoiceModelPreferenceService {
 
         if (preference == null) {
             preference = new VoiceModelPreference(member, savedVoiceModel);
-            savedVoiceModel.setPreferenceCount(savedVoiceModel.getPreferenceCount() + 1);
             preferenceRepository.save(preference);
         } else {
-            savedVoiceModel.setPreferenceCount(savedVoiceModel.getPreferenceCount() - 1);
             preferenceRepository.delete(preference);
         }
-        return savedVoiceModel.getPreferenceCount();
+        return getPreferenceCount(voiceModelId);
+    }
+
+    public Integer getPreferenceCount(Long voiceModelId) {
+        VoiceModel voiceModel = voiceModelRepository.findById(voiceModelId)
+                .orElseThrow(VoiceModelNotFoundException::new);
+        return preferenceRepository.countByVoiceModelId(voiceModelId);
     }
 
     public Boolean preferenceVerify(Long voiceModelId) {
@@ -47,6 +52,6 @@ public class VoiceModelPreferenceService {
 
     public Member verifyMember() {
         return memberRepository.findByUsername(SecurityUtil.getLoginUsername())
-                .orElseThrow(() -> new IllegalArgumentException("해당 유저가 존재하지 않습니다.")); //TODO: MemberNotExistsException 변경
+                .orElseThrow(() -> new MemberNotExistException());
     }
 }
