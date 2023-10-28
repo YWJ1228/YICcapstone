@@ -30,6 +30,6 @@ public class EbookCreationRequest {
     @Size(min = 2)
     private String content;
     @NotBlank(message = "Ebook 카테고리를 선택해주세요.")
-    private String classification;
+    private String category;
 
 }

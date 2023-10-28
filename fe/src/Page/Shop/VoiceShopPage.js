@@ -28,7 +28,7 @@ export default function () {
                     id: voice.id,
                     image: voice.imageUrl,
                     name: voice.celebrityName,
-                    job: voice.voiceModelCategory,
+                    category: voice.category,
                     price : voice.price
                 }));
                 setBestSellerVoice(resData);
@@ -36,7 +36,7 @@ export default function () {
                     id: voice.id,
                     image: voice.imageUrl,
                     name: voice.celebrityName,
-                    job: voice.voiceModelCategory,
+                    category: voice.category,
                     price : voice.price
                 }));
                 setUpdatedVoice(resData2);
@@ -44,7 +44,7 @@ export default function () {
                     id: voice.id,
                     image: voice.imageUrl,
                     name: voice.celebrityName,
-                    job: voice.voiceModelCategory,
+                    category: voice.category,
                     description: voice.comment,
                     price : voice.price
                 }));

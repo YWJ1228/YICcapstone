@@ -1,13 +1,10 @@
 package com.example.YICcapstone.domain.voicemodel.service;
 
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
-import com.example.YICcapstone.domain.voicemodel.domain.VoiceModelCategory;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
 import com.example.YICcapstone.domain.voicemodel.dto.response.VoiceModelResponse;
-import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelCategoryRepository;
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,21 +22,10 @@ class VoiceModelServiceTest {
     @Autowired
     VoiceModelService voiceModelService;
     @Autowired
-    VoiceModelCategoryRepository voiceModelCategoryRepository;
-    @Autowired
     VoiceModelRepository voiceModelRepository;
 
     @BeforeEach
     void before() {
-        voiceModelCategoryRepository.save(
-                new VoiceModelCategory("actor")
-        );
-        voiceModelCategoryRepository.save(
-                new VoiceModelCategory("singer")
-        );
-        voiceModelCategoryRepository.save(
-                new VoiceModelCategory("narrator")
-        );
 
     }
 
@@ -63,7 +49,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl", savedVoiceModel.getImageUrl());
         assertEquals("testComment", savedVoiceModel.getComment());
         assertEquals("testSampleUrl", savedVoiceModel.getSampleUrl());
-        assertEquals("actor", savedVoiceModel.getVoiceModelCategory());
+        assertEquals("actor", savedVoiceModel.getCategory());
     }
 
     @Test
@@ -97,7 +83,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl2", savedVoiceModel.getImageUrl());
         assertEquals("testComment2", savedVoiceModel.getComment());
         assertEquals("testSampleUrl2", savedVoiceModel.getSampleUrl());
-        assertEquals("singer", savedVoiceModel.getVoiceModelCategory().getJob());
+        assertEquals("singer", savedVoiceModel.getCategory());
     }
 
     @Test
@@ -137,7 +123,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl", savedVoiceModel.getImageUrl());
         assertEquals("testComment", savedVoiceModel.getComment());
         assertEquals("testSampleUrl", savedVoiceModel.getSampleUrl());
-        assertEquals("actor", savedVoiceModel.getVoiceModelCategory());
+        assertEquals("actor", savedVoiceModel.getCategory());
     }
 
     @Test
@@ -173,7 +159,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl3", savedVoiceModelList.getContent().get(0).getImageUrl());
         assertEquals("testComment3", savedVoiceModelList.getContent().get(0).getComment());
         assertEquals("testSampleUrl3", savedVoiceModelList.getContent().get(0).getSampleUrl());
-        assertEquals("narrator", savedVoiceModelList.getContent().get(0).getVoiceModelCategory());
+        assertEquals("narrator", savedVoiceModelList.getContent().get(0).getCategory());
 
         assertEquals("testUrl2", savedVoiceModelList.getContent().get(1).getVoiceModelUrl());
         assertEquals("testName2", savedVoiceModelList.getContent().get(1).getCelebrityName());
@@ -181,7 +167,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl2", savedVoiceModelList.getContent().get(1).getImageUrl());
         assertEquals("testComment2", savedVoiceModelList.getContent().get(1).getComment());
         assertEquals("testSampleUrl2", savedVoiceModelList.getContent().get(1).getSampleUrl());
-        assertEquals("singer", savedVoiceModelList.getContent().get(1).getVoiceModelCategory());
+        assertEquals("singer", savedVoiceModelList.getContent().get(1).getCategory());
 
         assertEquals("testUrl", savedVoiceModelList.getContent().get(2).getVoiceModelUrl());
         assertEquals("testName", savedVoiceModelList.getContent().get(2).getCelebrityName());
@@ -189,7 +175,7 @@ class VoiceModelServiceTest {
         assertEquals("testImageUrl", savedVoiceModelList.getContent().get(2).getImageUrl());
         assertEquals("testComment", savedVoiceModelList.getContent().get(2).getComment());
         assertEquals("testSampleUrl", savedVoiceModelList.getContent().get(2).getSampleUrl());
-        assertEquals("actor", savedVoiceModelList.getContent().get(2).getVoiceModelCategory());
+        assertEquals("actor", savedVoiceModelList.getContent().get(2).getCategory());
     }
 
     @Test

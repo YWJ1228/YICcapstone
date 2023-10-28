@@ -1,9 +1,7 @@
 package com.example.YICcapstone.domain.review.service;
 
 import com.example.YICcapstone.domain.ebook.domain.Ebook;
-import com.example.YICcapstone.domain.ebook.domain.EbookCategory;
 import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
-import com.example.YICcapstone.domain.ebook.repository.EbookCategoryRepository;
 import com.example.YICcapstone.domain.ebook.repository.EbookRepository;
 import com.example.YICcapstone.domain.member.dto.MemberSignUpDto;
 import com.example.YICcapstone.domain.member.entity.Sex;
@@ -19,9 +17,7 @@ import com.example.YICcapstone.domain.review.dto.request.ReviewCreationRequest;
 import com.example.YICcapstone.domain.review.repository.EbookReviewRepository;
 import com.example.YICcapstone.domain.review.repository.VoiceModelReviewRepository;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
-import com.example.YICcapstone.domain.voicemodel.domain.VoiceModelCategory;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
-import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelCategoryRepository;
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelRepository;
 import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +27,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class ReviewServiceTest {
@@ -41,10 +36,6 @@ class ReviewServiceTest {
     EbookRepository ebookRepository;
     @Autowired
     VoiceModelRepository voiceModelRepository;
-    @Autowired
-    EbookCategoryRepository ebookCategoryRepository;
-    @Autowired
-    VoiceModelCategoryRepository voiceModelCategoryRepository;
     @Autowired
     EbookPurchaseRepository ebookPurchaseRepository;
     @Autowired
@@ -75,7 +66,6 @@ class ReviewServiceTest {
                 Sex.MAN
         );
         memberService.signUp(memberSignUpDto);
-        ebookCategoryRepository.save(new EbookCategory("novel"));
         EbookCreationRequest ebookCreationRequest = new EbookCreationRequest(
                 "title", "author",
                 300, "publisher",
@@ -83,8 +73,6 @@ class ReviewServiceTest {
                 "comment", "content", "novel");
         testEbook = ebookRepository.save(new Ebook(ebookCreationRequest));
         testEbookPurchase = ebookPurchaseRepository.save(new EbookPurchase(testEbook, memberRepository.findByUsername("test@naver.com").orElse(null)));
-
-        voiceModelCategoryRepository.save(new VoiceModelCategory("actor"));
         VoiceModelCreationRequest voiceModelCreationRequest = new VoiceModelCreationRequest(
                 "testUrl", "testName",
                 3000, "testImageUrl",

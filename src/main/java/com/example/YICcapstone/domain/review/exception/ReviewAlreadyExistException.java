@@ -5,6 +5,6 @@ import com.example.YICcapstone.global.error.exception.ErrorCode;
 
 public class ReviewAlreadyExistException extends BusinessException {
     public ReviewAlreadyExistException() {
-        super(ErrorCode.REVIEW_ALREADY_EXIST);
-    }
+        super(ErrorCode.HANDLE_ACCESS_DENIED);
+    } //:TODO ErrorCode 수정
 }

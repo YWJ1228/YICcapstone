@@ -13,11 +13,9 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class VoiceModelResponse {
-    @Autowired
-    private VoiceModelPreferenceRepository preferenceRepository;
 
     private Long id;
-    private String voiceModelCategory;
+    private String category;
     private String voiceModelUrl;
     private String celebrityName;
     private int price;
@@ -31,7 +29,7 @@ public class VoiceModelResponse {
 
     public VoiceModelResponse(VoiceModel voiceModel) {
         id = voiceModel.getId();
-        voiceModelCategory = voiceModel.getVoiceModelCategory().getJob();
+        category = voiceModel.getCategory();
         voiceModelUrl = voiceModel.getVoiceModelUrl();
         celebrityName = voiceModel.getCelebrityName();
         price = voiceModel.getPrice();
@@ -40,12 +38,8 @@ public class VoiceModelResponse {
         sampleUrl = voiceModel.getSampleUrl();
         viewCount = voiceModel.getViewCount();
         purchaseCount = voiceModel.getPurchaseCount();
-        preferenceCount = preferenceRepository.countByVoiceModelId(voiceModel.getId());
+        preferenceCount = voiceModel.getVoiceModelPreferenceList().size();
         uploadedAt = timeFormat(voiceModel.getUploadedAt());
-    }
-
-    public Integer getPreferenceCount(Long voiceModelId) {
-        return preferenceRepository.countByVoiceModelId(voiceModelId);
     }
 
     public String timeFormat(LocalDateTime time) {

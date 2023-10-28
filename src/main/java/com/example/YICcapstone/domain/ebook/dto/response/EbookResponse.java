@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Setter
 public class EbookResponse {
     private Long id;
-    private String ebookCategory;
+    private String category;
     private String ebookName;
     private String author;
     private int pages;
@@ -26,7 +26,7 @@ public class EbookResponse {
 
     public EbookResponse(Ebook ebook){
         id = ebook.getId();
-        ebookCategory = ebook.getEbookCategory().getClassification();
+        category = ebook.getCategory();
         ebookName = ebook.getEbookName();
         author = ebook.getAuthor();
         pages = ebook.getPages();

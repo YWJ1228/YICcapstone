@@ -30,23 +30,23 @@ public class VoiceModelController {
     }
 
     @GetMapping("/list/category")
-    public Page<VoiceModelResponse> getVoiceModelListByCategory(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
-        return voiceModelService.getVoiceModelListByCategory(job, page, size);
+    public Page<VoiceModelResponse> getVoiceModelListByCategory(@RequestParam String category, @RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByCategory(category, page, size);
     }
 
     @GetMapping("/list/category/popularity")
-    public Page<VoiceModelResponse> getVoiceModelListByScoreAndUploadedAtDesc(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
-        return voiceModelService.getVoiceModelListByCategorySortedByScoreAndUploadedAtDesc(job, page, size);
+    public Page<VoiceModelResponse> getVoiceModelListByScoreAndUploadedAtDesc(@RequestParam String category, @RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByCategorySortedByScoreAndUploadedAtDesc(category, page, size);
     }
 
     @GetMapping("/list/category/price/desc")
-    public Page<VoiceModelResponse> getVoiceModelListByPriceDesc(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
-        return voiceModelService.getVoiceModelListByCategorySortedByPriceDesc(job, page, size);
+    public Page<VoiceModelResponse> getVoiceModelListByPriceDesc(@RequestParam String category, @RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByCategorySortedByPriceDesc(category, page, size);
     }
 
     @GetMapping("/list/category/price/asc")
-    public Page<VoiceModelResponse> getVoiceModelListByPriceAsc(@RequestParam String job, @RequestParam int page, @RequestParam int size) {
-        return voiceModelService.getVoiceModelListByCategorySortedByPriceAsc(job, page, size);
+    public Page<VoiceModelResponse> getVoiceModelListByPriceAsc(@RequestParam String category, @RequestParam int page, @RequestParam int size) {
+        return voiceModelService.getVoiceModelListByCategorySortedByPriceAsc(category, page, size);
     }
 
     @GetMapping("/list/popularity")
@@ -70,8 +70,8 @@ public class VoiceModelController {
     }
 
     @GetMapping("/list/total/category")
-    public int getTotalPageByCategory(@RequestParam String job, @RequestParam int size) {
-        return voiceModelService.getTotalPageByCategory(job, size);
+    public int getTotalPageByCategory(@RequestParam String category, @RequestParam int size) {
+        return voiceModelService.getTotalPageByCategory(category, size);
     }
 
     @PostMapping
@@ -102,8 +102,5 @@ public class VoiceModelController {
         voiceModelService.deleteVoiceModel(voiceModelId);
         return ResponseEntity.status(200).body("VoiceModel deleted successfully");
     }
-
-
-
-
+    
 }

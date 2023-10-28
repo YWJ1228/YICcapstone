@@ -42,7 +42,7 @@ public class VoiceModelPreferenceService {
     public Integer getPreferenceCount(Long voiceModelId) {
         VoiceModel voiceModel = voiceModelRepository.findById(voiceModelId)
                 .orElseThrow(VoiceModelNotFoundException::new);
-        return preferenceRepository.countByVoiceModelId(voiceModelId);
+        return preferenceRepository.countByVoiceModelId(voiceModelId).orElse(0);
     }
 
     public Boolean preferenceVerify(Long voiceModelId) {

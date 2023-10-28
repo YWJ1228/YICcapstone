@@ -39,14 +39,14 @@ export const API = {
     LOAD_EBOOK_SORTBY_HIGH_PRICE :      `${EBOOK_URL}/list/price/desc?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=`,
 
 
-    LOAD_CATEGORY_EBOOKS_UPLOAD:                        `${EBOOK_URL}/list/category?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&classification=`,
-    LOAD_CATEGORY_EBOOKS_SORTBY_POPULARITY :     `${EBOOK_URL}/list/category/popularity?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&classification=`,
-    LOAD_CATEGORY_EBOOKS_SORTBY_LOW_PRICE :      `${EBOOK_URL}/list/category/price/asc?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&classification=`,
-    LOAD_CATEGORY_EBOOKS_SORTBY_HIGH_PRICE :     `${EBOOK_URL}/list/category/price/desc?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&classification=`,
+    LOAD_CATEGORY_EBOOKS_UPLOAD:                        `${EBOOK_URL}/list/category?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&category=`,
+    LOAD_CATEGORY_EBOOKS_SORTBY_POPULARITY :     `${EBOOK_URL}/list/category/popularity?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&category=`,
+    LOAD_CATEGORY_EBOOKS_SORTBY_LOW_PRICE :      `${EBOOK_URL}/list/category/price/asc?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&category=`,
+    LOAD_CATEGORY_EBOOKS_SORTBY_HIGH_PRICE :     `${EBOOK_URL}/list/category/price/desc?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&category=`,
 
 
     NUM_PAGES_EBOOKLIST:                `${EBOOK_URL}/list/total?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`,
-    NUM_PAGES_CATEGORY_EBOOKLIST:       `${EBOOK_URL}/list/total/category?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&classification=`,
+    NUM_PAGES_CATEGORY_EBOOKLIST:       `${EBOOK_URL}/list/total/category?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&category=`,
 
 
     // VOICE
@@ -54,7 +54,7 @@ export const API = {
     LOAD_BANNER_VOICES:                 `${VOICE_URL}/list?size=${PageConfig.NUM_BANNER_VOICES}&page=0`,   // 배너
     LOAD_RECENT_VOICES:                 `${VOICE_URL}/list?size=${PageConfig.NUM_RECENT_VOICES}&page=0`,  // 최신 업로드
     LOAD_POPULAR_VOICES:                `${VOICE_URL}/list/popularity?size=${PageConfig.NUM_POPULAR_VOICES}&page=0`, // 인기 리스트
-    LOAD_CATEGORY_VOICES:               `${VOICE_URL}/list/category?job=`,
+    LOAD_CATEGORY_VOICES:               `${VOICE_URL}/list/category?category=`,
 
     LOAD_VOICE_SORTBY_UPLOAD :          `${VOICE_URL}/list?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
     LOAD_VOICE_SORTBY_POPULARITY :      `${VOICE_URL}/list/popularity?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
@@ -62,14 +62,14 @@ export const API = {
     LOAD_VOICE_SORTBY_HIGH_PRICE :      `${VOICE_URL}/list/price/desc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
 
 
-    LOAD_CATEGORY_VOICE_UPLOAD:               `${VOICE_URL}/list/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&job=`,
-    LOAD_CATEGORY_VOICE_SORTBY_POPULARITY :     `${VOICE_URL}/list/category/popularity?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&job=`,
-    LOAD_CATEGORY_VOICE_SORTBY_LOW_PRICE :      `${VOICE_URL}/list/category/price/asc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&job=`,
-    LOAD_CATEGORY_VOICE_SORTBY_HIGH_PRICE :     `${VOICE_URL}/list/category/price/desc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&job=`,
+    LOAD_CATEGORY_VOICE_UPLOAD:               `${VOICE_URL}/list/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
+    LOAD_CATEGORY_VOICE_SORTBY_POPULARITY :     `${VOICE_URL}/list/category/popularity?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
+    LOAD_CATEGORY_VOICE_SORTBY_LOW_PRICE :      `${VOICE_URL}/list/category/price/asc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
+    LOAD_CATEGORY_VOICE_SORTBY_HIGH_PRICE :     `${VOICE_URL}/list/category/price/desc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
 
     
 
     NUM_PAGES_VOICELIST:                `${VOICE_URL}/list/total?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
-    NUM_PAGES_CATEGORY_VOICELIST:       `${VOICE_URL}/list/total/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&job=`,
+    NUM_PAGES_CATEGORY_VOICELIST:       `${VOICE_URL}/list/total/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
 
 }
