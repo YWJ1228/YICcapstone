@@ -1,4 +1,5 @@
 import { API } from '../../Config/APIConfig';
+import { DebuggingMode } from '../../Config/Config';
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -13,14 +14,15 @@ import classes from './SearchID.module.css';
 import axios from 'axios';
 
 export default function SearchID() {
+
     function submitHandler(event) {
         event.preventDefault();
         axios.post(`${API.FIND_ID}`, {
             name: event.target.name.value,
-            birth : event.target.birth.value
+            birth: event.target.birth.value
         }).then(function (res) {
-            console.log(res);
-            // 일치하는 회원의 list
+            alert(`아이디는 ${res.data} 입니다`);
+            DebuggingMode(['검색된 아이디'], [res.data]);
         }).catch(function (err) {
             console.log(err);
             // 404 존재하지 않는 회원
@@ -34,12 +36,12 @@ export default function SearchID() {
                     <Form onSubmit={submitHandler}>
                         <Form.Group className="mb-3" controlId="formName">
                             <Form.Label>이름</Form.Label>
-                            <Form.Control type="text" name = "name" placeholder="홍길동" />
+                            <Form.Control type="text" name="name" placeholder="홍길동" />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBirth">
                             <Form.Label>생일</Form.Label>
-                            <Form.Control type="number" name = "birth" placeholder="생년월일 6자리 (ex.010101)" />
+                            <Form.Control type="number" name="birth" placeholder="생년월일 6자리 (ex.010101)" />
                         </Form.Group>
                         <Button className={classes['login_btn']} variant="primary" type="submit">
                             아이디 찾기
@@ -47,6 +49,7 @@ export default function SearchID() {
                     </Form>
                 </Card.Body>
             </Card>
+
         </div>
     );
 }

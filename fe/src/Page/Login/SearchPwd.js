@@ -16,8 +16,8 @@ export default function SearchPwd() {
     function submitHandler(event) {
         event.preventDefault();
         axios.post(`${API.FIND_PWD}`, {
-            usename: event.target.email.value,
-            name: event.target.name.value
+            usename: event.target.email.value.trim(),
+            name: event.target.name.value.trim()
         }).then(function (res) {
             console.log(res);
         }).catch(function (err) {

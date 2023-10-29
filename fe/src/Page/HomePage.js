@@ -12,15 +12,22 @@ import VoicePreview from '../Component/Preview/VoicePreview';
 import Footer from '../Component/Footer/Footer';
 
 import classes from './HomePage.module.css';
+import {getCookies} from '../Component/Cookies/LoginCookie';
+import DetailStyle1 from './Detail/DetailStyle1';
 
 export default function HomePage() {
     const [bestSellerBook, setBestSellerBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
     const [bestSellerVoice, setBestSellerVoice] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
 
     useEffect(() => {
+        console.log(getCookies('accessToken'));
         axios.all([
-            axios.get(`${API.LOAD_POPULAR_EBOOKS}`),
-            axios.get(`${API.LOAD_POPULAR_VOICES}`)])
+            axios.get(`${API.LOAD_POPULAR_EBOOKS}`, {
+                headers: { Authorization: `${getCookies('accessToken')}` }
+            }),
+            axios.get(`${API.LOAD_POPULAR_VOICES}`), {
+                headers: { Authorization: `${getCookies('accessToken')}` }
+            }])
             .then(axios.spread((res1, res2) => {
                 const resData1 = (res1.data.content).map((book) => ({
                     id: book.id,
@@ -67,6 +74,9 @@ export default function HomePage() {
                 <VoicePreview
                     {...PageConfig.HOMEPAGE_TITLES[1]}
                     voices={bestSellerVoice} />
+            </div>
+            <div className = {classes['book-preview']}>
+                <DetailStyle1 books = {bestSellerBook}/>
             </div>
             <Footer />
         </>

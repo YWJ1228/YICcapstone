@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
-import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+import { getCookies, setCookies } from '../../Component/Cookies/LoginCookie';
 
 import { API } from '../../Config/APIConfig';
 
@@ -17,13 +17,12 @@ import axios from 'axios';
 import classes from './LoginPage.module.css';
 
 export default function LoginPage(props) {
-    const [cookies, setCookies]= useCookies(['token']);
     const navigateHome = useNavigate();
     // 로그인 json 형식
     const [loginForm, setLoginForm] = useState({
         username: 'defaultUser',
         password: 'defaultPassword',
-        loginSuccess : true
+        loginSuccess: true
     });
 
     function formChangeHandler(event) {
@@ -42,14 +41,15 @@ export default function LoginPage(props) {
             axios.post(`${API.LOGIN_USER}`, loginForm)
                 .then(function (response) {
                     console.log(response);
-                    props.changeLoginHandler(true); // 로그인 유무 확인해서 App.js에 보내는 function
-                    // setCookies('token', response.data.token);
+                    setCookies('accessToken', response.headers.getAuthorization());
+                    setCookies('refreshToken', response.headers['authorization-refresh']);
+                    console.log(getCookies('accessToken'));
                     navigateHome('/');
                 }).catch(function (error) {
                     console.log(error);
-                    setLoginForm({...loginForm, loginSuccess : false});
+                    setLoginForm({ ...loginForm, loginSuccess: false });
                 });
-            
+
         }
         else if (loginForm.password === '') {
             console.log('비밀번호를 입력해주세요');
@@ -69,9 +69,9 @@ export default function LoginPage(props) {
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>비밀번호</Form.Label>
                             <Form.Control type="password" placeholder="비밀번호" name="password" onChange={formChangeHandler} />
-                            {!loginForm.loginSuccess &&<div className = {classes['login-guide']}>일치하는 회원정보가 없습니다</div>}
+                            {!loginForm.loginSuccess && <div className={classes['login-guide']}>일치하는 회원정보가 없습니다</div>}
                         </Form.Group>
-                        
+
                         <Button className={classes['login_btn']} variant="primary" type="submit">로그인</Button>
                     </Form>
                 </Card.Body>
