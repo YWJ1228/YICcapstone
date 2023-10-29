@@ -6,6 +6,10 @@ export const DebuggingMode = (description, data) =>{
         });
     }
 }
+export const creditConfig = {
+    imp : 'imp40848253',
+    pg : 'KCP.A52CY'
+}
 
 
 export const PageConfig = {

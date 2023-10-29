@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import { getCookies } from '../../Component/Cookies/LoginCookie.js';
 import { API } from '../../Config/APIConfig.js';
 import { DebuggingMode } from '../../Config/Config.js';
 
@@ -35,6 +36,7 @@ export default function VoiceDetailPage() {
         reviews: dummyReviews
     });
 
+
     const [show, setShow] = useState(false);
     const handlerClose = () => setShow(false);
     const handlerShow = () => setShow(true);
@@ -43,17 +45,18 @@ export default function VoiceDetailPage() {
         axios.get(`${API.LOAD_VOICE}/${voiceID}`)
             .then(function (response) {
                 setVoiceInfo({
+                    id : response.data.id,
                     name: response.data.celebrityName,
                     category: response.data.category,
                     jobDescription: response.data.comment,
                     image: response.data.imageUrl,
                     updatedDate: response.data.uploadedAt,
-                    rating: response.data.rating,
+                    rating: response.data.preferenceCount,
                     price: response.data.price,
                     description: response.data.comment,
                     reviews: dummyReviews
                 });
-                DebuggingMode("TTS 정보", response.data);
+                DebuggingMode(["TTS 정보"], [response.data]);
             }).catch(function(err){
                 console.log(err);
                 console.log("Voice detail loading error");

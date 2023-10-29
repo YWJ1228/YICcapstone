@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { API } from '../../Config/APIConfig';
 import axios from 'axios';
+import { getCookies, removeCookies } from '../../Component/Cookies/LoginCookie';
 
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -61,9 +62,18 @@ export default function ChangeInfoPage() {
 
     // 닉네임 변경
     function nicknameSubmitHandler(event) {
+        console.log(getCookies('refreshToken'));
         event.preventDefault();
-        axios.patch(`${API.CHANGE_NICKNAME}`, { nickname: event.target.nickname.trim() })
+        axios.patch(
+            `${API.CHANGE_NICKNAME}`, // url
+            { nickname: event.target.nickname.value.trim() }, // data
+            {
+                headers: {
+                    Authorization: `Bearer ${getCookies('accessToken')}`,
+                }
+            })
             .then(function (response) {
+                console.log('닉네임 변경 완료!');
                 console.log(response);
             }).catch(function (err) {
                 console.log(err);
@@ -73,27 +83,36 @@ export default function ChangeInfoPage() {
     function passwordSubmitHandler(event) {
         event.preventDefault();
         axios.patch(`${API.CHANGE_PWD}`, {
-            checkPassword: "default",
-            changePassword: guideMessage.guidePwdText
+            checkPassword: event.target.curPwd.value,
+            changePassword: changeForm.password
+        }, {
+            headers: {
+                Authorization : `Bearer ${getCookies('accessToken')}`,
+            }
         }).then((res) => {
+            console.log('비밀번호 변경 완료!')
             console.log(res);
-        }).catch((err) => { console.log(err); })
+        }).catch((err) => {
+            console.log(err);
+        })
     };
-    //회원 탈퇴
-    // 작업 필요!!!!!!!!!!!!!!!!
-    function userWithdrawal(event) {
+
+    function userWithdrawalClickHandler(event) {
         event.preventDefault();
         axios.delete(`${API.DELETE_USER}`)
             .then(function (response) {
-
+                removeCookies('accessToken');
+                removeCookies('refreshToken');
             })
-            .catch((err) => { console.log(err); });
+            .catch((err) => { 
+                console.log(err.data); 
+            });
     };
 
 
     return (
         <div className={classes.wrapper}>
-            <Form onSubmit={passwordSubmitHandler}>
+            <Form onSubmit={nicknameSubmitHandler}>
                 <Form.Group className="mb-3" controlId="formGridName">
                     <Row className="mb-3">
                         <Form.Label>닉네임</Form.Label>
@@ -102,11 +121,17 @@ export default function ChangeInfoPage() {
                             <Form.Text>{guideMessage.guideNicknameText}</Form.Text>
                         </Col>
                         <Col>
-                            <Button type="button" className={classes['verify-button']} onClick={nicknameSubmitHandler}>
+                            <Button type = "submit" className={classes['verify-button']}>
                                 닉네임 변경
                             </Button>
                         </Col>
                     </Row>
+                </Form.Group>
+            </Form>
+            <Form onSubmit={passwordSubmitHandler}>
+                <Form.Group className="mb-3" controlId="formCheckPwd">
+                    <Form.Label>현재 비밀번호 확인</Form.Label>
+                    <Form.Control type="password" name="curPwd" />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formPwd">
                     <Form.Label>새 비밀번호</Form.Label>
@@ -118,18 +143,12 @@ export default function ChangeInfoPage() {
                     <Form.Control type="password" onChange={equalPwdChangeHandler} />
                     <Form.Text>{guideMessage.guideEqualPwdText}</Form.Text>
                 </Form.Group>
-
-
-
                 <Button type="submit" className={classes['submit']}>
                     비밀번호 변경
                 </Button>
             </Form>
-            <Form.Group className="mb-3" controlId="formCheckPwd">
-                <Form.Label>현재 비밀번호 확인</Form.Label>
-                <Form.Control type="password" onChange={equalPwdChangeHandler} />
-            </Form.Group>
-            <Button type="button" className={classes['submit']}>
+
+            <Button type="button" onClick = {userWithdrawalClickHandler}className={classes['submit']}>
                 회원 탈퇴
             </Button>
         </div>

@@ -104,5 +104,14 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body("비밀번호 변경 완료!");
     }
 
+    @GetMapping("/api/user/info") // 내 서재 회원정보 요청 (username, name, nickname)
+    public ResponseEntity<MemberInfoDto> userInfo() {
+        MemberInfoDto memberInfoDto = memberService.userInfo(SecurityUtil.getLoginUsername());
+        return ResponseEntity.status(HttpStatus.OK).body(memberInfoDto);
+    }
+
+    // 사용자가 음성모델과 E-Book을 합성한 오디오북을 신청했을 때 오디오북 다운로드 기록을 저장하는 오디오북 다운로드 DB에 이를 저장
+    // 현재 리뷰와 구매 테이블을 합치는 작업이 필요하기 때문에 음성모델 구매와 EBook 구매 테이블의 외래키를 가져올 수 없어 작업 보류
+
 
 }

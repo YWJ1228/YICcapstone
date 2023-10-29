@@ -2,6 +2,7 @@ package com.example.YICcapstone.domain.member.service;
 
 import com.example.YICcapstone.domain.member.dto.*;
 import com.example.YICcapstone.domain.member.entity.Member;
+import com.example.YICcapstone.global.util.security.SecurityUtil;
 
 import java.util.List;
 
@@ -16,5 +17,7 @@ public interface MemberService {
     public List<String> findId(MemberFindIdDto memberFindIdDto); // 아이디 찾기 서비스
     public void findPassword(MemberFindPasswordDto memberFindPasswordDto); // 비밀번호 찾기(변경) 위한 이메일 인증 서비스
     public void newPassword(UpdateNewPasswordDto updateNewPasswordDto); // 비밀번호 찾기 이메일 인증 성공 후, 비밀번호 변경 서비스
+    public MemberInfoDto userInfo(String username); // 내 서재 회원정보 불러오기 서비스
+
     public List<Member> index(); // 회원가입 되어 있는 모든 사용자 불러오기
 }

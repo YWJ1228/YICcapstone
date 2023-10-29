@@ -35,7 +35,7 @@ export default function RegisterPage() {
     });
     const [guideMessage, setGuideMessage] = useState({// 가이드 문구
         guideEmailText: '',
-        guidePwdText: '숫자와 알파벳을 섞어서 8~12자로 작성해주세요',
+        guidePwdText: '숫자, 알파벳과 특수문자를 섞어서 8~12자로 작성해주세요',
         guideEqualPwdText: ''
     });
 
