@@ -10,6 +10,7 @@ import { onClickPayment } from '../../Page/Credit/Credit';
 
 import classes from './DetailBanner.module.css';
 import { getCookies } from '../Cookies/LoginCookie';
+import { HeartButton } from '../Button/HeartButton';
 
 export default function DetailBanner(props) {
     const creditInfo = {
@@ -55,7 +56,8 @@ export default function DetailBanner(props) {
                     </Col> :
                     <Col>
                         <Row className={classes.title}>
-                            {props.book.name}
+                            <Col xs = "auto">{props.book.name}</Col>
+                            <Col><HeartButton id = {props.book.id}/></Col>
                         </Row>
                         <Row className={classes.detail}>{props.book.job} ( {props.book.jobDescription} )</Row>
                         <Row className={classes.detail}>좋아요 : {props.book.rating}</Row>
