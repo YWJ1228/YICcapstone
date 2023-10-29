@@ -2,14 +2,20 @@ package com.example.YICcapstone.domain.voicemodel.dto.response;
 
 
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
+import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelNotFoundException;
+import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelPreferenceRepository;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class VoiceModelResponse {
+    @Autowired
+    private VoiceModelPreferenceRepository preferenceRepository;
+
     private Long id;
     private String voiceModelCategory;
     private String voiceModelUrl;
@@ -34,8 +40,12 @@ public class VoiceModelResponse {
         sampleUrl = voiceModel.getSampleUrl();
         viewCount = voiceModel.getViewCount();
         purchaseCount = voiceModel.getPurchaseCount();
-        preferenceCount = voiceModel.getPreferenceCount();
+        preferenceCount = preferenceRepository.countByVoiceModelId(voiceModel.getId());
         uploadedAt = timeFormat(voiceModel.getUploadedAt());
+    }
+
+    public Integer getPreferenceCount(Long voiceModelId) {
+        return preferenceRepository.countByVoiceModelId(voiceModelId);
     }
 
     public String timeFormat(LocalDateTime time) {

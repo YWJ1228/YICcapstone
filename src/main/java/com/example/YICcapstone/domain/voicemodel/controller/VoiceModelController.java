@@ -2,6 +2,7 @@ package com.example.YICcapstone.domain.voicemodel.controller;
 
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
 import com.example.YICcapstone.domain.voicemodel.dto.response.VoiceModelResponse;
+import com.example.YICcapstone.domain.voicemodel.service.VoiceModelPreferenceService;
 import com.example.YICcapstone.domain.voicemodel.service.VoiceModelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +17,8 @@ import javax.validation.Valid;
 public class VoiceModelController {
     @Autowired
     private VoiceModelService voiceModelService;
-
+    @Autowired
+    private VoiceModelPreferenceService voiceModelPreferenceService;
     @GetMapping("/{voiceModelId}")
     public VoiceModelResponse getVoiceModel(@PathVariable Long voiceModelId) {
         return voiceModelService.getVoiceModel(voiceModelId);
@@ -76,6 +78,17 @@ public class VoiceModelController {
     public ResponseEntity<String> createVoiceModel(@RequestBody @Valid VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.createVoiceModel(voiceModelCreationRequest);
         return ResponseEntity.status(200).body("VoiceModel created successfully");
+    }
+
+    @PostMapping("/{voiceModelId}/preference")
+    public ResponseEntity<Integer> createVoiceModelPreference(@PathVariable Long voiceModelId) {
+        Integer preferenceCount = voiceModelPreferenceService.preferVoiceModel(voiceModelId);
+        return ResponseEntity.status(200).body(preferenceCount);
+    }
+
+    @PostMapping("/{voiceModelId}/preference/verify")
+    public Boolean preferenceVerify(@PathVariable Long voiceModelId){
+        return voiceModelPreferenceService.preferenceVerify(voiceModelId);
     }
 
     @PutMapping("/{voiceModelId}")

@@ -28,4 +28,9 @@ public class EbookWish {
 
     @Column
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    public EbookWish(Member member, Ebook ebook){
+        this.member = member;
+        this.ebook = ebook;
+    }
 }

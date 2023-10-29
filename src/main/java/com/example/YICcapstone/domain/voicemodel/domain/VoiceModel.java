@@ -32,7 +32,6 @@ public class VoiceModel {
     private String sampleUrl;
     private int viewCount = 0;
     private int purchaseCount = 0;
-    private int preferenceCount = 0;
     private LocalDateTime uploadedAt = LocalDateTime.now();
 
     public VoiceModel(VoiceModelCreationRequest voiceModelCreationRequest){

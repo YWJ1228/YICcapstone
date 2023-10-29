@@ -22,4 +22,9 @@ public class VoiceModelPreference {
     @ManyToOne
     @JoinColumn(name = "voice_model_id")
     private VoiceModel voiceModel;
+
+    public VoiceModelPreference(Member member, VoiceModel voiceModel){
+        this.member = member;
+        this.voiceModel = voiceModel;
+    }
 }
