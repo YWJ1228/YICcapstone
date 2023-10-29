@@ -13,6 +13,7 @@ import Footer from '../Component/Footer/Footer';
 
 import classes from './HomePage.module.css';
 import {getCookies} from '../Component/Cookies/LoginCookie';
+import DetailStyle1 from './Detail/DetailStyle1';
 
 export default function HomePage() {
     const [bestSellerBook, setBestSellerBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
@@ -73,6 +74,9 @@ export default function HomePage() {
                 <VoicePreview
                     {...PageConfig.HOMEPAGE_TITLES[1]}
                     voices={bestSellerVoice} />
+            </div>
+            <div className = {classes['book-preview']}>
+                <DetailStyle1 books = {bestSellerBook}/>
             </div>
             <Footer />
         </>
