@@ -120,6 +120,13 @@ public class MemberServiceImpl implements MemberService {
         member.updatePassword(passwordEncoder, updateNewPasswordDto.changePassword());
     }
 
+    public MemberInfoDto userInfo(String username) { // 내 서재 회원정보 불러오기 서비스
+        Member member = memberRepository.findByUsername(username)
+                .orElseThrow(() -> new MemberNotExistException());
+
+        return new MemberInfoDto(member);
+    }
+
     public List<Member> index() { // 회원가입 되어 있는 모든 사용자 불러오기
         return memberRepository.findAll();
     }
