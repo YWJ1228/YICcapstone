@@ -1,12 +1,9 @@
 package com.example.YICcapstone.domain.voicemodel.service;
 
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
-import com.example.YICcapstone.domain.voicemodel.domain.VoiceModelCategory;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
 import com.example.YICcapstone.domain.voicemodel.dto.response.VoiceModelResponse;
-import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelCategoryNotFoundException;
 import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelNotFoundException;
-import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelCategoryRepository;
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,16 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class VoiceModelService {
     @Autowired
     private VoiceModelRepository voiceModelRepository;
-    @Autowired
-    private VoiceModelCategoryRepository voiceModelCategoryRepository;
 
     @Transactional
     public void createVoiceModel(VoiceModelCreationRequest voiceModelCreationRequest) {
         VoiceModel voiceModel = new VoiceModel(voiceModelCreationRequest);
-        VoiceModelCategory voiceModelCategory = voiceModelCategoryRepository.findByJob(voiceModelCreationRequest.getJob()).orElseThrow(
-                VoiceModelCategoryNotFoundException::new
-        );
-        voiceModel.setVoiceModelCategory(voiceModelCategory);
         voiceModelRepository.save(voiceModel);
     }
 
@@ -36,10 +27,6 @@ public class VoiceModelService {
         VoiceModel voiceModel = voiceModelRepository.findById(voiceModelId).orElseThrow(
                 VoiceModelNotFoundException::new
         );
-        VoiceModelCategory voiceModelCategory = voiceModelCategoryRepository.findByJob(voiceModelCreationRequest.getJob()).orElseThrow(
-                VoiceModelCategoryNotFoundException::new
-        );
-        voiceModel.setVoiceModelCategory(voiceModelCategory);
         voiceModel.update(voiceModelCreationRequest);
         voiceModelRepository.save(voiceModel);
     }
@@ -68,23 +55,23 @@ public class VoiceModelService {
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModelResponse> getVoiceModelListByCategory(String job, int page, int size) {
-        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    public Page<VoiceModelResponse> getVoiceModelListByCategory(String category, int page, int size) {
+        return voiceModelRepository.findAllByCategoryOrderByUploadedAtDesc(category, PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByScoreAndUploadedAtDesc(String job, int page, int size) {
-        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByScoreAndUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByScoreAndUploadedAtDesc(String category, int page, int size) {
+        return voiceModelRepository.findAllByCategoryOrderByScoreAndUploadedAtDesc(category, PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByPriceDesc(String job, int page, int size) {
-        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByPriceDescUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByPriceDesc(String category, int page, int size) {
+        return voiceModelRepository.findAllByCategoryOrderByPriceDescUploadedAtDesc(category, PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByPriceAsc(String job, int page, int size) {
-        return voiceModelRepository.findAllByVoiceModelCategory_JobOrderByPriceAscUploadedAtDesc(job, PageRequest.of(page, size)).map(VoiceModelResponse::new);
+    public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByPriceAsc(String category, int page, int size) {
+        return voiceModelRepository.findAllByCategoryOrderByPriceAscUploadedAtDesc(category, PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
     @Transactional(readOnly = true)
@@ -108,7 +95,7 @@ public class VoiceModelService {
     }
 
     @Transactional(readOnly = true)
-    public int getTotalPageByCategory(String job, int size) {
-        return (int) Math.ceil((double) voiceModelRepository.countByVoiceModelCategory_Job(job) / size);
+    public int getTotalPageByCategory(String category, int size) {
+        return (int) Math.ceil((double) voiceModelRepository.countByCategory(category) / size);
     }
 }

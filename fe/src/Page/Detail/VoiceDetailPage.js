@@ -26,7 +26,7 @@ export default function VoiceDetailPage() {
     ];
     const [voiceInfo, setVoiceInfo] = useState({
         name: "default",
-        job: "default",
+        category: "default",
         jobDescription: "default",
         image: "default",
         updatedDate: "default",
@@ -47,7 +47,7 @@ export default function VoiceDetailPage() {
                 setVoiceInfo({
                     id : response.data.id,
                     name: response.data.celebrityName,
-                    job: response.data.job,
+                    category: response.data.category,
                     jobDescription: response.data.comment,
                     image: response.data.imageUrl,
                     updatedDate: response.data.uploadedAt,

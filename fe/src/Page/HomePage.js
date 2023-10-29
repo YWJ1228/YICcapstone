@@ -41,7 +41,7 @@ export default function HomePage() {
                     id: voice.id,
                     image: voice.imageUrl,
                     name: voice.celebrityName,
-                    job: voice.job,
+                    category: voice.category,
                     description: voice.comment,
                     price: voice.price
                 }));

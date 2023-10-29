@@ -1,12 +1,9 @@
 package com.example.YICcapstone.domain.ebook.service;
 
 import com.example.YICcapstone.domain.ebook.domain.Ebook;
-import com.example.YICcapstone.domain.ebook.domain.EbookCategory;
 import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
 import com.example.YICcapstone.domain.ebook.dto.response.EbookResponse;
-import com.example.YICcapstone.domain.ebook.repository.EbookCategoryRepository;
 import com.example.YICcapstone.domain.ebook.repository.EbookRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,20 +18,9 @@ class EbookServiceTest {
     EbookService ebookService;
     @Autowired
     EbookRepository ebookRepository;
-    @Autowired
-    EbookCategoryRepository ebookCategoryRepository;
 
     @BeforeEach
     void before() {
-        ebookCategoryRepository.save(
-                new EbookCategory("novel")
-        );
-        ebookCategoryRepository.save(
-                new EbookCategory("essay")
-        );
-        ebookCategoryRepository.save(
-                new EbookCategory("poem")
-        );
     }
 
     @Test
@@ -58,7 +44,7 @@ class EbookServiceTest {
         assertEquals("image", ebookRepository.findAll().get(0).getImageUrl());
         assertEquals("comment", ebookRepository.findAll().get(0).getComment());
         assertEquals("content", ebookRepository.findAll().get(0).getContent());
-        assertEquals("novel", ebookRepository.findAll().get(0).getEbookCategory().getClassification());
+        assertEquals("novel", ebookRepository.findAll().get(0).getCategory());
     }
 
     @Test
@@ -88,7 +74,7 @@ class EbookServiceTest {
         assertEquals("image2", ebookRepository.findAll().get(0).getImageUrl());
         assertEquals("comment2", ebookRepository.findAll().get(0).getComment());
         assertEquals("content2", ebookRepository.findAll().get(0).getContent());
-        assertEquals("essay", ebookRepository.findAll().get(0).getEbookCategory().getClassification());
+        assertEquals("essay", ebookRepository.findAll().get(0).getCategory());
     }
 
     @Test
@@ -132,7 +118,7 @@ class EbookServiceTest {
         assertEquals("image", ebookDetail.getImageUrl());
         assertEquals("comment", ebookDetail.getComment());
         assertEquals("content", ebookDetail.getContent());
-        assertEquals("novel", ebookDetail.getEbookCategory());
+        assertEquals("novel", ebookDetail.getCategory());
     }
 
     @Test

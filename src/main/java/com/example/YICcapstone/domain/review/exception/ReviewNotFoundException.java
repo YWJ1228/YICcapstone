@@ -5,6 +5,6 @@ import com.example.YICcapstone.global.error.exception.ErrorCode;
 
 public class ReviewNotFoundException extends BusinessException {
     public ReviewNotFoundException() {
-        super(ErrorCode.REVIEW_NOT_FOUND);
+        super(ErrorCode.HANDLE_ACCESS_DENIED); //:TODO ErrorCode 수정
     }
 }

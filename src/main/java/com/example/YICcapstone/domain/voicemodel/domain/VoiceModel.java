@@ -9,6 +9,8 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -19,12 +21,9 @@ public class VoiceModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "voice_model_category_id")
-    private VoiceModelCategory voiceModelCategory;
-
     @Column
     private String voiceModelUrl;
+    private String category;
     private String celebrityName;
     private int price;
     private String imageUrl;
@@ -34,8 +33,12 @@ public class VoiceModel {
     private int purchaseCount = 0;
     private LocalDateTime uploadedAt = LocalDateTime.now();
 
+    @OneToMany(mappedBy = "voiceModel")
+    private List<VoiceModelPreference> voiceModelPreferenceList = new ArrayList<>();
+
     public VoiceModel(VoiceModelCreationRequest voiceModelCreationRequest){
         this.voiceModelUrl = voiceModelCreationRequest.getVoiceModelUrl();
+        this.category = voiceModelCreationRequest.getCategory();
         this.celebrityName = voiceModelCreationRequest.getCelebrityName();
         this.price = voiceModelCreationRequest.getPrice();
         this.imageUrl = voiceModelCreationRequest.getImageUrl();
@@ -44,6 +47,7 @@ public class VoiceModel {
     }
     public void update(VoiceModelCreationRequest voiceModelCreationRequest){
         this.voiceModelUrl = voiceModelCreationRequest.getVoiceModelUrl();
+        this.category = voiceModelCreationRequest.getCategory();
         this.celebrityName = voiceModelCreationRequest.getCelebrityName();
         this.price = voiceModelCreationRequest.getPrice();
         this.imageUrl = voiceModelCreationRequest.getImageUrl();

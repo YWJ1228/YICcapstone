@@ -18,11 +18,9 @@ public enum ErrorCode {
 
     // Ebook
     EBOOK_NOT_FOUND(400, "E001", "해당 Ebook을 찾을 수 없습니다."),
-    EBOOK_CATEGORY_NOT_FOUND(400, "E002", "해당 EbookCategory를 찾을 수 없습니다."),
 
     // VoiceModel
     VOICE_MODEL_NOT_FOUND(400, "V001", "해당 VoiceModel을 찾을 수 없습니다."),
-    VOICE_MODEL_CATEGORY_NOT_FOUND(400, "V002", "해당 VoiceModelCategory를 찾을 수 없습니다."),
 
     // Member
     MEMBER_USERNAME_DUPLICATED(409, "M001", "이미 사용중인 이메일입니다."),

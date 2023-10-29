@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -19,11 +16,12 @@ public class Ebook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "ebook_category_id")
-    private EbookCategory ebookCategory;
     @Column
+    @Lob
+    private String content;
+
+    @Column
+    private String category;
     private String ebookName;
     private String author;
     private int pages;
@@ -31,7 +29,6 @@ public class Ebook {
     private int price;
     private String imageUrl;
     private String comment;
-    private String content;
     private int viewCount = 0;
     private int purchaseCount = 0;
     private int rating = 0;
@@ -40,6 +37,7 @@ public class Ebook {
 
     public Ebook(EbookCreationRequest ebookCreationRequest) {
         this.ebookName = ebookCreationRequest.getEbookName();
+        this.category = ebookCreationRequest.getCategory();
         this.author = ebookCreationRequest.getAuthor();
         this.pages = ebookCreationRequest.getPages();
         this.publisher = ebookCreationRequest.getPublisher();
@@ -51,6 +49,7 @@ public class Ebook {
 
     public void update(EbookCreationRequest ebookCreationRequest) {
         this.ebookName = ebookCreationRequest.getEbookName();
+        this.category = ebookCreationRequest.getCategory();
         this.author = ebookCreationRequest.getAuthor();
         this.pages = ebookCreationRequest.getPages();
         this.publisher = ebookCreationRequest.getPublisher();

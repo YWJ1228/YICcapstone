@@ -13,5 +13,5 @@ public interface VoiceModelPreferenceRepository extends JpaRepository<VoiceModel
     Optional<VoiceModelPreference> findByMemberIdAndVoiceModelId(Member memberId, VoiceModel voiceModelId);
     Boolean existsByMemberIdAndVoiceModelId(Member memberId, Long voiceModelId);
     // voicemodel Id에 해당하는 preference count
-    Integer countByVoiceModelId(Long voiceModelId);
+    Optional<Integer> countByVoiceModelId(Long voiceModelId);
 }
