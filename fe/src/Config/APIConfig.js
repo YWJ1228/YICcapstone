@@ -10,6 +10,7 @@ export const API = {
     // GET
     VERIFY_EMAIL:           `${BASE_URL}/api/sign-up/username`,
     CHECK_NICKNAME:         `${BASE_URL}/api/sign-up/nickname`,
+    USER_INFO :             `${BASE_URL}/api/user/info`,
 
     // POST
     REGISTER_USER:          `${BASE_URL}/api/sign-up`,
@@ -23,6 +24,7 @@ export const API = {
     // PATCH
     CHANGE_PWD:             `${BASE_URL}/api/user/password`,
     CHANGE_NICKNAME:        `${BASE_URL}/api/user/nickname`,
+
 
 
     // #########  태훈 API  #############

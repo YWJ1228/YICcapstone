@@ -21,6 +21,7 @@ import AdminPage from './Page/Admin/AdminPage';
 
 import BookDetailPage from './Page/Detail/BookDetailPage';
 import VoiceDetailPage from './Page/Detail/VoiceDetailPage';
+import ChangePwd from './Page/Login/ChangePwd';
 
 // 작업 to-do list
 // 1. 배너 Item을 api로 가져오는 것 구현해야함
@@ -43,6 +44,7 @@ function App() {
             <Route path="/mypage" element={<MyPage />} />
             <Route path="/changeinfo" element={<ChangeInfoPage />} />
             <Route path="/search-pwd" element={<SearchPwd />} />
+            <Route path="/change-pwd" element={<ChangePwd/>}/>
             <Route path="/search-id" element={<SearchID />} />
             <Route path="/bookShop" element={<BookShopPage />} />
             <Route path="/voiceShop" element={<VoiceShopPage />} />

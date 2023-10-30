@@ -1,3 +1,8 @@
+import {useState, useEffect} from 'react';
+import { PageConfig } from '../../Config/Config';
+import { API } from '../../Config/APIConfig';
+import { getCookies } from '../../Component/Cookies/LoginCookie';
+import axios from 'axios';
 import Tab from 'react-bootstrap/Tab';
 
 import Nav from 'react-bootstrap/Nav';
@@ -9,6 +14,8 @@ import MyPageReview from './MyPageReview';
 import classes from './MyPageMenu.module.css';
 
 export default function MyPageMenu() {
+    const [myBookList, setMyBookList] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE])
+
     return (
         <Tab.Container className={classes.tab} defaultActiveKey="first">
             <Nav className = {classes['nav-wrapper']}>

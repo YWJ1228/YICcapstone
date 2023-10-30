@@ -1,4 +1,9 @@
 import { useState ,useEffect} from 'react';
+
+import { API } from '../../Config/APIConfig';
+import { getCookies } from '../../Component/Cookies/LoginCookie';
+
+import axios from 'axios';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -14,6 +19,13 @@ export default function MyPageBanner(props) {
     const [userName, setUserName] = useState("oo");
 
     useEffect(()=>{
+        axios.all([
+            axios.get(`${API.USER_INFO}`
+            ,{headers : {Authorization : `Bearer ${getCookies('accessToken')}`}})
+        ]).then(axios.spread((res1)=>{
+            setUserName(res1.data.name);
+            // 적용중인 TTS 목록가져오기 필요
+        }))
         
     },[])
 
