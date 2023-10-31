@@ -14,8 +14,8 @@ public interface VoiceModelRepository extends JpaRepository<VoiceModel, Long> {
             "FROM VoiceModel vm " +
             "LEFT JOIN VoiceModelPreference vmp ON vm.id = vmp.voiceModel.id " +
             "GROUP BY vm " +
-            "ORDER BY popularity DESC")
-    Page<VoiceModel> findAllByOrderByScoreAndUploadedAtDesc(Pageable pageable);
+            "ORDER BY popularity DESC, vm.uploadedAt DESC")
+    Page<Object[]> findAllByOrderByScoreAndUploadedAtDesc(Pageable pageable);
     Page<VoiceModel> findAllByOrderByPriceDescUploadedAtDesc(Pageable pageable);
     Page<VoiceModel> findAllByOrderByPriceAscUploadedAtDesc(Pageable pageable);
 
@@ -26,8 +26,8 @@ public interface VoiceModelRepository extends JpaRepository<VoiceModel, Long> {
             "LEFT JOIN VoiceModelPreference vmp ON vm.id = vmp.voiceModel.id " +
             "WHERE vm.category = :category " +
             "GROUP BY vm " +
-            "ORDER BY popularity DESC")
-    Page<VoiceModel> findAllByCategoryOrderByScoreAndUploadedAtDesc(String category, Pageable pageable);
+            "ORDER BY popularity DESC, vm.uploadedAt DESC")
+    Page<Object[]> findAllByCategoryOrderByScoreAndUploadedAtDesc(String category, Pageable pageable);
     Page<VoiceModel> findAllByCategoryOrderByPriceDescUploadedAtDesc(String category, Pageable pageable);
     Page<VoiceModel> findAllByCategoryOrderByPriceAscUploadedAtDesc(String category, Pageable pageable);
     Integer countByCategory(String category);

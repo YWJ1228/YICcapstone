@@ -26,7 +26,18 @@ public enum ErrorCode {
     MEMBER_USERNAME_DUPLICATED(409, "M001", "이미 사용중인 이메일입니다."),
     MEMBER_NICKNAME_DUPLICATED(409, "M002", "이미 사용중인 닉네임입니다."),
     MEMBER_PASSWORD_INCORRETED(400, "M003", "비밀번호가 일치하지 않습니다."),
-    MEMBER_NOT_EXIST(404, "M004", "존재하지 않는 회원입니다.");
+    MEMBER_NOT_EXIST(404, "M004", "존재하지 않는 회원입니다."),
+
+    // Purchase
+    VOICE_MODEL_PURCHASE_NOT_FOUND(400, "P001", "해당 음성모델을 구매하지 않았습니다."),
+    EBOOK_PURCHASE_NOT_FOUND(400, "P002", "해당 Ebook을 구매하지 않았습니다."),
+
+    // Review
+    REVIEW_NOT_FOUND(400, "R001", "해당 리뷰를 찾을 수 없습니다."),
+    REVIEW_ALREADY_WRITTEN(400, "R002", "이미 리뷰를 작성하였습니다."),
+    REVIEW_NOT_WRITTEN(400, "R003", "리뷰를 작성하지 않았습니다."),
+    REVIEW_NOT_WRITTEN_BY_MEMBER(400, "R004", "해당 리뷰를 작성한 회원이 아닙니다.");
+
 
     private final int status;
     private final String code;
