@@ -4,6 +4,8 @@ const BASE_URL = "http://localhost:8080";
 
 const EBOOK_URL = `${BASE_URL}/ebook`;
 const VOICE_URL = `${BASE_URL}/voice-model`;
+const PURCHASE_URL = `${BASE_URL}/purchase`;
+const REVIEW_URL = `${BASE_URL}/review`;
 
 export const API = {
     // #########  우준 API  ########
@@ -67,10 +69,26 @@ export const API = {
     LOAD_CATEGORY_VOICE_SORTBY_LOW_PRICE :      `${VOICE_URL}/list/category/price/asc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
     LOAD_CATEGORY_VOICE_SORTBY_HIGH_PRICE :     `${VOICE_URL}/list/category/price/desc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
 
-    
-
     NUM_PAGES_VOICELIST:                `${VOICE_URL}/list/total?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
     NUM_PAGES_CATEGORY_VOICELIST:       `${VOICE_URL}/list/total/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
+
+    // Purchase
+    // POST
+    PURCHASE_EBOOK:                     `${PURCHASE_URL}/ebook`,
+    PURCHASE_VOICE:                     `${PURCHASE_URL}/voice-model`,
+    // GET
+    LOAD_PURCHASED_EBOOKS:              `${PURCHASE_URL}/ebook?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=`,
+    LOAD_PURCHASED_VOICES:              `${PURCHASE_URL}/voice-model?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
+
+    NUM_PAGES_PURCHASED_EBOOKS:         `${PURCHASE_URL}/ebook/total?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`,
+    NUM_PAGES_PURCHASED_VOICES:         `${PURCHASE_URL}/voice-model/total?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
+
+    // Review
+    // POST
+
+    // GET
+
+
 
 
 }

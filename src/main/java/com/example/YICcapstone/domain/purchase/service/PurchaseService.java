@@ -9,6 +9,7 @@ import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.domain.purchase.domain.VoiceModelPurchase;
 import com.example.YICcapstone.domain.purchase.dto.request.PurchaseRequest;
 import com.example.YICcapstone.domain.purchase.dto.request.ReviewRequest;
+import com.example.YICcapstone.domain.purchase.dto.response.PurchaseResponse;
 import com.example.YICcapstone.domain.purchase.exception.VoiceModelPurchaseNotFoundException;
 import com.example.YICcapstone.domain.purchase.repository.EbookPurchaseRepository;
 import com.example.YICcapstone.domain.purchase.repository.VoiceModelPurchaseRepository;
@@ -17,6 +18,8 @@ import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelNotFoundExc
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelRepository;
 import com.example.YICcapstone.global.util.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,6 +50,32 @@ public class PurchaseService {
         Ebook savedEbook = ebookRepository.findById(purchaseRequest.getItemId())
                 .orElseThrow(EbookNotFoundException::new);
         ebookPurchaseRepository.save(purchaseRequest.toEbookPurchase(savedEbook, member));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PurchaseResponse> getVoiceModelPurchaseList(int page, int size) {
+        Member member = verifyMember();
+        return voiceModelPurchaseRepository.findAllByMemberIdOrderByPurchasedAtDesc(member.getId(), PageRequest.of(page, size))
+                .map(PurchaseResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<PurchaseResponse> getEbookPurchaseList(int page, int size) {
+        Member member = verifyMember();
+        return ebookPurchaseRepository.findAllByMemberIdOrderByPurchasedAtDesc(member.getId(), PageRequest.of(page, size))
+                .map(PurchaseResponse::new);
+    }
+
+    @Transactional(readOnly = true)
+    public int getVoiceModelTotalPage(int size) {
+        Member member = verifyMember();
+        return voiceModelPurchaseRepository.findAllByMemberIdOrderByPurchasedAtDesc(member.getId(), PageRequest.of(0, size)).getTotalPages();
+    }
+
+    @Transactional(readOnly = true)
+    public int getEbookTotalPage(int size) {
+        Member member = verifyMember();
+        return ebookPurchaseRepository.findAllByMemberIdOrderByPurchasedAtDesc(member.getId(), PageRequest.of(0, size)).getTotalPages();
     }
 
     public Member verifyMember() {

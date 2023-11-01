@@ -1,8 +1,10 @@
 package com.example.YICcapstone.domain.purchase.controller;
 
 import com.example.YICcapstone.domain.purchase.dto.request.ReviewRequest;
+import com.example.YICcapstone.domain.purchase.dto.response.ReviewResponse;
 import com.example.YICcapstone.domain.purchase.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,5 +51,15 @@ public class ReviewController {
     public ResponseEntity<String> deleteEbookReview(@RequestParam Long purchaseId) {
         reviewService.deleteEbookReview(purchaseId);
         return ResponseEntity.status(200).body("Ebook 리뷰 삭제 성공");
+    }
+
+    @GetMapping("/voice-model")
+    public Page<ReviewResponse> getVoiceModelReviewList(@RequestParam Long voiceModelId, @RequestParam int page, @RequestParam int size) {
+        return reviewService.getVoiceModelReviewList(voiceModelId, page, size);
+    }
+
+    @GetMapping("/ebook")
+    public Page<ReviewResponse> getEbookReviewList(@RequestParam Long ebookId, @RequestParam int page, @RequestParam int size) {
+        return reviewService.getEbookReviewList(ebookId, page, size);
     }
 }

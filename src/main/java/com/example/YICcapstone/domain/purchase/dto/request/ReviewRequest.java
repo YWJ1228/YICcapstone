@@ -7,7 +7,8 @@ import lombok.Getter;
 
 @Getter
 public class ReviewRequest {
-    private Long itemId;
+    @NotNull(message = "구매 아이디를 입력해주세요.")
+    private Long purchaseId;
     @NotBlank(message = "리뷰 내용을 입력해주세요.")
     @Size(max = 300)
     private String content;
