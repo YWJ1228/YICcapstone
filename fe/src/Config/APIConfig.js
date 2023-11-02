@@ -28,8 +28,8 @@ export const API = {
 
 
     // #########  태훈 API  #############
-    // GET
     // EBOOK
+    // GET
     LOAD_EBOOK:                         `${EBOOK_URL}`,
     LOAD_BANNER_EBOOKS:                 `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_EBOOKS}&page=0`,            //배너
     LOAD_RECENT_EBOOKS:                 `${EBOOK_URL}/list?size=${PageConfig.NUM_RECENT_EBOOKS}&page=0`, // 최신 업로드
@@ -52,6 +52,7 @@ export const API = {
 
 
     // VOICE
+    // GET
     LOAD_VOICE:                         `${VOICE_URL}`,
     LOAD_BANNER_VOICES:                 `${VOICE_URL}/list?size=${PageConfig.NUM_BANNER_VOICES}&page=0`,   // 배너
     LOAD_RECENT_VOICES:                 `${VOICE_URL}/list?size=${PageConfig.NUM_RECENT_VOICES}&page=0`,  // 최신 업로드
@@ -85,10 +86,14 @@ export const API = {
 
     // Review
     // POST
-
+    REVIEW_EBOOK:                      `${REVIEW_URL}/ebook`,
+    REVIEW_VOICE:                      `${REVIEW_URL}/voice-model`,
     // GET
+    LOAD_REVIEW_EBOOKS:              `${REVIEW_URL}/ebook?ebookId=&size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=`,
+    LOAD_REVIEW_VOICES:              `${REVIEW_URL}/voice-model?voiceModelId=&size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
 
-
+    NUM_PAGES_REVIEW_EBOOKS:         `${REVIEW_URL}/ebook/total?ebookId=&size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`,
+    NUM_PAGES_REVIEW_VOICES:         `${REVIEW_URL}/voice-model/total?voiceModelId=&size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
 
 
 }

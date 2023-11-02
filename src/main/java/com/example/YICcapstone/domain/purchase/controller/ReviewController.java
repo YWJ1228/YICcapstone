@@ -62,4 +62,14 @@ public class ReviewController {
     public Page<ReviewResponse> getEbookReviewList(@RequestParam Long ebookId, @RequestParam int page, @RequestParam int size) {
         return reviewService.getEbookReviewList(ebookId, page, size);
     }
+
+    @GetMapping("/voice-model/total")
+    public int getVoiceModelReviewTotalPage(@RequestParam Long voiceModelId, @RequestParam int size) {
+        return reviewService.getVoiceModelReviewTotalPage(voiceModelId, size);
+    }
+
+    @GetMapping("/ebook/total")
+    public int getEbookReviewTotalPage(@RequestParam Long ebookId, @RequestParam int size) {
+        return reviewService.getEbookReviewTotalPage(ebookId, size);
+    }
 }
