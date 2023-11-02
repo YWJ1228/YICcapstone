@@ -17,7 +17,7 @@ public class PurchaseResponse {
 
     public PurchaseResponse(VoiceModelPurchase voiceModelPurchase) {
         this.purchaseId = voiceModelPurchase.getId();
-        this.purchasedAt = timeFormat(voiceModelPurchase.getPurchaseAt());
+        this.purchasedAt = timeFormat(voiceModelPurchase.getPurchasedAt());
         this.orderId = voiceModelPurchase.getOrderId();
         this.ebook = Optional.empty();
         this.voiceModel = Optional.of(new VoiceModelResponse(voiceModelPurchase.getVoiceModel()));
@@ -25,7 +25,7 @@ public class PurchaseResponse {
 
     public PurchaseResponse(EbookPurchase ebookPurchase) {
         this.purchaseId = ebookPurchase.getId();
-        this.purchasedAt = timeFormat(ebookPurchase.getPurchaseAt());
+        this.purchasedAt = timeFormat(ebookPurchase.getPurchasedAt());
         this.orderId = ebookPurchase.getOrderId();
         this.ebook = Optional.of(new EbookResponse(ebookPurchase.getEbook()));
         this.voiceModel = Optional.empty();

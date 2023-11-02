@@ -30,7 +30,7 @@ public class EbookPurchase {
 
     @Column(name = "order_id")
     private Long orderId;
-    private LocalDateTime purchaseAt = LocalDateTime.now();
+    private LocalDateTime purchasedAt = LocalDateTime.now();
 
     @Size(max = 300)
     private String content = null;
