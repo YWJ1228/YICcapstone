@@ -16,12 +16,8 @@ import { getCookies } from "../Component/Cookies/LoginCookie";
 import DetailStyle1 from "./Detail/DetailStyle1";
 
 export default function HomePage() {
-  const [bestSellerBook, setBestSellerBook] = useState([
-    PageConfig.EBOOK_PAGE_DEFAULT_STATE,
-  ]);
-  const [bestSellerVoice, setBestSellerVoice] = useState([
-    PageConfig.VOICE_PAGE_DEFAULT_STATE,
-  ]);
+  const [bestSellerBook, setBestSellerBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
+  const [bestSellerVoice, setBestSellerVoice] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
 
   useEffect(() => {
     console.log(getCookies("accessToken"));
@@ -55,10 +51,7 @@ export default function HomePage() {
           }));
           setBestSellerVoice(resData2);
           // 디버깅
-          DebuggingMode(
-            ["배너", "이 달의 책", "이 달의 TTS"],
-            [null, resData1, resData2]
-          );
+          DebuggingMode(["배너", "이 달의 책", "이 달의 TTS"], [null, resData1, resData2]);
         })
       )
       .catch((err) => console.log(err));
@@ -70,40 +63,22 @@ export default function HomePage() {
       <div className={classes["banner-wrapper"]}>
         <Carousel indicators={false}>
           <Carousel.Item>
-            <BannerCard
-              imagePath="./logo192.png"
-              title="어린왕자"
-              description="생텍쥐페리 작가의 희대의 명작!"
-              price="900원"
-              salesDescription="(~9월 24일 까지)"
-            />
+            <BannerCard imagePath="./logo192.png" title="어린왕자" description="생텍쥐페리 작가의 희대의 명작!" price="900원" salesDescription="(~9월 24일 까지)" />
           </Carousel.Item>
           <Carousel.Item>
-            <BannerCard
-              imagePath="./logo192.png"
-              title="어린왕자"
-              description="생텍쥐페리 작가의 희대의 명작!"
-              price="900원"
-              salesDescription="(~9월 24일 까지)"
-            />
+            <BannerCard imagePath="./logo192.png" title="어린왕자" description="생텍쥐페리 작가의 희대의 명작!" price="900원" salesDescription="(~9월 24일 까지)" />
           </Carousel.Item>
         </Carousel>
       </div>
       <div className={classes["book-preview"]}>
-        <BookPreview
-          {...PageConfig.HOMEPAGE_TITLES[0]}
-          images={bestSellerBook}
-        />
+        <BookPreview {...PageConfig.HOMEPAGE_TITLES[0]} images={bestSellerBook} />
       </div>
       <div className={classes["book-preview"]}>
-        <VoicePreview
-          {...PageConfig.HOMEPAGE_TITLES[1]}
-          voices={bestSellerVoice}
-        />
+        <VoicePreview {...PageConfig.HOMEPAGE_TITLES[1]} voices={bestSellerVoice} />
       </div>
-      <div className={classes["book-preview"]}>
+      {/* <div className={classes["book-preview"]}>
         <DetailStyle1 books={bestSellerBook} />
-      </div>
+      </div> */}
       <Footer />
     </>
   );

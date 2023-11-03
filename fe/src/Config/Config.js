@@ -52,8 +52,10 @@ export const PageConfig = {
         image : "default",
         name : "default",
         job : "default",
-        price : "default",
-        description : "default"
+        price : 0,
+        description : "default",
+        demoUrl : "default",
+        voiceUrl  :"default"
     },
     VOICE_CATERGORY_LIST : ["all","singer","actor"],
     VOICE_PRODUCT_PER_PAGE : 2,

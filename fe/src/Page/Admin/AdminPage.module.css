@@ -1,23 +1,18 @@
-.tab-wrapper{
-    border : 2px solid #7B8EF5;
-    border-radius : 0.7rem;
-    margin : 5%;
+.tab-wrapper {
+  border: 2px solid #7b8ef5;
+  border-radius: 0.7rem;
+  margin: 5%;
+  
 }
-.nav-wrapper{
-    border-bottom : 2px solid #7B8EF5;
+.nav-wrapper {
+  border-bottom: 2px   solid #7b8ef5;
 }
-.nav-link{
-    width : 10rem;
-    text-align: center;
-    background-color: white;
-    color : black
-}
-.nav-link:focus{
-    color: white;
-    background-color: #7B8EF5;
+.nav-link {
+  width : 20%;
+  text-align: center;
+  background-color: white;
+  color: black;
+  font-size : 1.1rem;
 
-    border-right : 2px solid #7B8EF5;
-    border-left : 2px solid #7B8EF5;
-    border-top-left-radius: 0.5rem;
-    border-top-right-radius: 0.5rem;
 }
+

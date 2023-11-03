@@ -64,9 +64,9 @@ export default function () {
       )
       .catch((err) => console.log(err));
   }, []);
-  const bannerList = bannerBook.map((book) => {
+  const bannerList = bannerBook.map((book, idx) => {
     return (
-      <Carousel.Item>
+      <Carousel.Item key = {idx}>
         <BannerCard
           id={book.id}
           imagePath={book.image}
