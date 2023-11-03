@@ -1,32 +1,27 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Box from "@mui/material/Box";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import { FixedSizeList } from "react-window";
-
-function renderRow(props) {
-  const { index, style } = props;
-
-  return (
-    <ListItem style={style} key={index} component="div" disablePadding>
-      <ListItemButton>
-        <ListItemText primary={`Item ${index + 1}`} />
-      </ListItemButton>
-    </ListItem>
-  );
-}
-
+import { useState, useEffect } from "react";
+import ListGroup from "react-bootstrap/ListGroup";
+import Button from "react-bootstrap/Button";
+import classes from "./AdminListPanel.module.css";
 export default function AdminListPanel(props) {
-  const { value, index } = props;
-  const [list, setList] = useState([]);
-  useEffect(() => {});
+  const ItemClickhandler = props.clickHandler;
+  const products = props.listOfVoice.map((prd) => {
+    return (
+      <ListGroup.Item className={classes.list}>
+        <Button
+          type="submit"
+          className={classes.btn}
+          onClick={() => {
+            ItemClickhandler(prd);
+          }}
+        >
+          {prd.name}
+        </Button>
+      </ListGroup.Item>
+    );
+  });
   return (
-    <Box sx={{ width: "100%", height: "100%", maxWidth: 240, bgcolor: "background.paper" }}>
-      <FixedSizeList height={700} width={240} itemSize={46} itemCount={200} overscanCount={5}>
-        {renderRow}
-      </FixedSizeList>
-    </Box>
+    <>
+      <ListGroup className={classes.scrollbar}>{products}</ListGroup>
+    </>
   );
 }

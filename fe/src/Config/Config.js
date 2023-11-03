@@ -38,7 +38,7 @@ export const PageConfig = {
     EBOOK_PRODUCT_PER_PAGE : 3,
     
     NUM_BANNER_EBOOKS : 4,
-    NUM_POPULAR_EBOOKS : 3,
+    NUM_POPULAR_EBOOKS : 5,
     NUM_RECENT_EBOOKS : 5,
 
 

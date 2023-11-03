@@ -82,6 +82,12 @@ export const API = {
     LOAD_MYPAGE_LIKELIST :              `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_EBOOKS}&page=0`,
 
     //Admin API
-    ADMIN_ADD_VOICE :                         `${VOICE_URL}`,
+    ADMIN_ADD_VOICE :                   `${VOICE_URL}`,
+    ADMIN_LOAD_VOICELIST :              `${VOICE_URL}/list?size=${PageConfig.NUM_BANNER_VOICES}&page=0`, // DUMMY
+    ADMIN_ADD_EBOOK:                    `${EBOOK_URL}`,
+    ADMIN_LOAD_EBOOKLIST:              `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_VOICES}&page=0`,
+    ADMIN_ADD_USER:                     ``,
+    ADMIN_LOAD_USERLIST :               ``
+
 
 }

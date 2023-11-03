@@ -4,16 +4,17 @@ import { PageConfig, DebuggingMode } from "../Config/Config";
 
 import axios from "axios";
 
-import Carousel from "react-bootstrap/Carousel";
+
 import NavigationBar from "../Component/NavigationBar/NavigationBar";
-import BannerCard from "../Component/Card/BannerCard";
+import Stack from "react-bootstrap/Stack";
 import BookPreview from "../Component/Preview/BookPreview";
 import VoicePreview from "../Component/Preview/VoicePreview";
 import Footer from "../Component/Footer/Footer";
 
 import classes from "./HomePage.module.css";
 import { getCookies } from "../Component/Cookies/LoginCookie";
-import DetailStyle1 from "./Detail/DetailStyle1";
+
+import BannerCarousel from "../Component/Carousel/BannerCarousel";
 
 export default function HomePage() {
   const [bestSellerBook, setBestSellerBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
@@ -60,15 +61,9 @@ export default function HomePage() {
     <>
       <NavigationBar img_src="logo.png" />
       <div style={{ width: "100%", height: "6rem" }} />
-      <div className={classes["banner-wrapper"]}>
-        <Carousel indicators={false}>
-          <Carousel.Item>
-            <BannerCard imagePath="./logo192.png" title="어린왕자" description="생텍쥐페리 작가의 희대의 명작!" price="900원" salesDescription="(~9월 24일 까지)" />
-          </Carousel.Item>
-          <Carousel.Item>
-            <BannerCard imagePath="./logo192.png" title="어린왕자" description="생텍쥐페리 작가의 희대의 명작!" price="900원" salesDescription="(~9월 24일 까지)" />
-          </Carousel.Item>
-        </Carousel>
+      <Stack>
+      <div className={classes.carousel} >
+        <BannerCarousel />
       </div>
       <div className={classes["book-preview"]}>
         <BookPreview {...PageConfig.HOMEPAGE_TITLES[0]} images={bestSellerBook} />
@@ -76,9 +71,8 @@ export default function HomePage() {
       <div className={classes["book-preview"]}>
         <VoicePreview {...PageConfig.HOMEPAGE_TITLES[1]} voices={bestSellerVoice} />
       </div>
-      {/* <div className={classes["book-preview"]}>
-        <DetailStyle1 books={bestSellerBook} />
-      </div> */}
+      </Stack>
+
       <Footer />
     </>
   );

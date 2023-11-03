@@ -1,48 +1,78 @@
-import { useContext, useState } from "react";
-import { VoiceContext } from "../../Component/Context/AdminContext";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { API } from "../../Config/APIConfig";
-import Button from "react-bootstrap/esm/Button";
+import { PageConfig } from "../../Config/Config";
 
 import Form from "react-bootstrap/Form";
+import Stack from "@mui/material/Stack";
+import axios from "axios";
 
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-export default function AdminFormPanel() {
-  const { voice, setVoice } = useContext(VoiceContext);
+import AdminListPanel from "./AdminListPanel";
+import AdminVoiceForm from "./Form/AdminVoiceForm";
+import AdminEbookForm from "./Form/AdminEbookForm";
+import AdminUserForm from "./Form/AdminUserForm";
+
+export default function AdminFormPanel(props) {
   const [task, setTask] = useState(0);
+  const [curProduct, setCurProduct] = useState(PageConfig.VOICE_PAGE_DEFAULT_STATE);
+  const [listProduct, setListProduct] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
+  useEffect(() => {
+    if (props.type === "voice") {
+      axios.get(`${API.ADMIN_LOAD_VOICELIST}`).then((res) => {
+        const resData = res.data.content.map((voice) => ({
+          voiceUrl: voice.voiceModelUrl,
+          name: voice.celebrityName,
+          price: voice.price,
+          image: voice.imageUrl,
+          description: voice.comment,
+          demoUrl: voice.sampleUrl,
+          job: voice.category,
+        }));
+        setListProduct(resData);
+      });
+    }
+    else if(props.type === "ebook"){
+      axios.get(`${API.ADMIN_LOAD_EBOOKLIST}`).then((res) => {
+        const resData = res.data.content.map((book) => ({
+
+        }));
+        setListProduct(resData);
+      });
+    }
+    else if(props.type === "user"){
+      axios.get(`${API.ADMIN_LOAD_EBOOKLIST}`).then((res) => {
+        const resData = res.data.content.map((book) => ({
+
+        }));
+        setListProduct(resData);
+      });
+    }
+  }, [task]);
+
   function submitHandler(event) {
     event.preventDefault();
     switch (task) {
-      case 0:
-        addVoiceHandler(event.target);
-        break;
-      case 1:
-        changeVoiceHandler(event.target);
-        break;
-      case 2:
-        deleteVoiceHandler(event.target);
-        break;
-      case 3:
-        initFormHandler(event.target);
-        break;
-      case 4:
-        loadVoiceHandler(event.target);
-        break;
+      case 0:addProductHandler(event.target);break;
+      case 1:changeProductHandler(event.target);break;
+      case 2:deleteProductHandler(event.target);break;
+      case 3:initFormHandler(event.target);break;
+      case 4:loadProductHandler(event.target);break;
     }
   }
-  function loadVoiceHandler(form) {
-    form.id.value = voice.id;
-    form.name.value = voice.name;
-    form.price.value = voice.price;
-    form.comment.value = voice.description;
-    form.category.value = voice.job;
-    form.imageUrl.value = voice.image;
-    form.voiceUrl.value = voice.voiceUrl;
-    form.demoUrl.value = voice.demoUrl;
+
+  function loadProductHandler(form) {
+    if (props.type === "voice") {
+      form.id.value = curProduct.id;
+      form.name.value = curProduct.name;
+      form.price.value = curProduct.price;
+      form.comment.value = curProduct.description;
+      form.category.value = curProduct.job;
+      form.imageUrl.value = curProduct.image;
+      form.voiceUrl.value = curProduct.voiceUrl;
+      form.demoUrl.value = curProduct.demoUrl;
+    } else if (props.type === "user") {
+    }
   }
-  function addVoiceHandler(form) {
+  function addProductHandler(form) {
     axios
       .post(`${API.ADMIN_ADD_VOICE}`, {
         voiceModelUrl: form.voiceUrl.value.trim(),
@@ -63,9 +93,9 @@ export default function AdminFormPanel() {
       });
   }
 
-  function changeVoiceHandler(form) {
+  function changeProductHandler(form) {
     axios
-      .put(`${API.ADMIN_ADD_VOICE}/${voice.id}`, {
+      .put(`${API.ADMIN_ADD_VOICE}/${curProduct.id}`, {
         voiceModelUrl: form.voiceUrl.value.trim(),
         celebrityName: form.name.value.trim(),
         price: form.price.value,
@@ -83,9 +113,9 @@ export default function AdminFormPanel() {
         console.log(err);
       });
   }
-  function deleteVoiceHandler(form) {
+  function deleteProductHandler(form) {
     axios
-      .delete(`${API.ADMIN_ADD_VOICE}/${voice.id}`)
+      .delete(`${API.ADMIN_ADD_VOICE}/${curProduct.id}`)
       .then((res) => {
         console.log(res);
         console.log("삭제 완료");
@@ -96,50 +126,33 @@ export default function AdminFormPanel() {
       });
   }
   function initFormHandler(form) {
-    form.id.value = "";
-    form.name.value = "";
-    form.price.value = "";
-    form.comment.value = "";
-    form.category.value = "";
-    form.imageUrl.value = "";
-    form.voiceUrl.value = "";
-    form.demoUrl.value = "";
+    Array.from(form.elements).forEach((input) => {
+      if (input.type == "text" || input.type == "number") {
+        input.value = "";
+      }
+    });
+  }
+  function ItemClickHandler(prd) {
+    setCurProduct(prd);
+    setTask(4);
+  }
+  function FormType(type){
+    if(type === 'voice'){
+      return <AdminVoiceForm setTask = {setTask}/>
+    }
+    else if(type === 'ebook'){
+      return <AdminEbookForm setTask = {setTask}/>
+    }
+    else if(type ==='user'){
+      return <AdminUserForm setTask = {setTask}/>
+    }
   }
   return (
     <Form onSubmit={submitHandler}>
-      <Form.Group className="mb-3" controlId="form">
-        <Form.Label>상품 번호</Form.Label>
-        <Form.Control type="text" name="id" placeholder="" disabled />
-        <Form.Label>연예인 이름</Form.Label>
-        <Form.Control type="text" name="name" placeholder="" />
-        <Form.Label>가격</Form.Label>
-        <Form.Control type="number" name="price" placeholder="" />
-        <Form.Label>상세설명</Form.Label>
-        <Form.Control type="text" name="comment" placeholder="" />
-        <Form.Label>카테고리</Form.Label>
-        <Form.Control type="text" name="category" placeholder="" />
-        <Form.Label>이미지 위치</Form.Label>
-        <Form.Control type="text" name="imageUrl" placeholder="" />
-        <Form.Label>음성모델 위치</Form.Label>
-        <Form.Control type="text" name="voiceUrl" placeholder="" />
-        <Form.Label>데모 위치</Form.Label>
-        <Form.Control type="text" name="demoUrl" placeholder="" />
-        <Button type="submit" onClick={() => setTask(0)}>
-          생성
-        </Button>
-        <Button type="submit" onClick={() => setTask(1)}>
-          수정
-        </Button>
-        <Button type="submit" onClick={() => setTask(2)}>
-          삭제
-        </Button>
-        <Button type="submit" onClick={() => setTask(3)}>
-          초기화
-        </Button>
-        <Button type="submit" onClick={() => setTask(4)}>
-          불러오기
-        </Button>
-      </Form.Group>
+      <Stack direction="row" spacing={5}>
+        {FormType(props.type)}
+        <AdminListPanel clickHandler={ItemClickHandler} listOfVoice={listProduct} />
+      </Stack>
     </Form>
   );
 }

@@ -1,13 +1,6 @@
-.banner-wrapper{
-    margin : auto;
-    width : 100%;
-    padding : 1rem;
 
-    background-color : magenta;
-}
 .book-preview{
     margin : auto;
-    margin-top : 3rem;
     width : 100%;
 }
 .home-wrapper{

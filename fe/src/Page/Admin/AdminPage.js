@@ -1,20 +1,23 @@
 import { useState } from "react";
 import { PageConfig } from "../../Config/Config";
-import { VoiceContext } from "../../Component/Context/AdminContext";
+
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 
 import classes from "./AdminPage.module.css";
-import AdminListPanel from "./AdminListPanel";
 import AdminFormPanel from "./AdminFormPanel";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminPage() {
   const [value, setValue] = useState(0);
-  const [voice, setVoice] = useState(PageConfig.VOICE_PAGE_DEFAULT_STATE);
+  const homeNavigate = useNavigate();
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    if(newValue === 4){
+      homeNavigate('/');
+    }
   };
   return (
     <Box className={classes["tab-wrapper"]}>
@@ -27,19 +30,10 @@ export default function AdminPage() {
           <Tab className={classes["nav-link"]} label="종료" />
         </Tabs>
       </Box>
-      {value === 0 && <AdminListPanel />}
-      {value === 1 && (
-        <Stack direction="row" spacing={2}>
-          <VoiceContext.Provider value={{voice,setVoice}}>
-            <AdminListPanel />
-            <AdminFormPanel />
-          </VoiceContext.Provider>
-        </Stack>
-      )}
-      
-      {value === 2 && <AdminListPanel />}
-      {value === 3 && <AdminListPanel />}
-      {value === 4 && <AdminListPanel />}
+      {value === 0 && <div></div>}
+      {value === 1 && <AdminFormPanel type ="voice"/>}
+      {value === 2 && <AdminFormPanel type ="ebook"/>}
+      {value === 3 && <AdminFormPanel type ="user"/>}
     </Box>
   );
 }
