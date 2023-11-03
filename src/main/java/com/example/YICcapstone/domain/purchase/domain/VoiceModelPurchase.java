@@ -4,6 +4,7 @@ package com.example.YICcapstone.domain.purchase.domain;
 import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.purchase.dto.request.ReviewRequest;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -35,7 +36,7 @@ public class VoiceModelPurchase {
 
     @Size(max = 300)
     private String content = null;
-    private int grade;
+    private Integer grade = null;
     private LocalDateTime createdAt = null;
     private LocalDateTime updatedAt = null;
     private Boolean isDeleted = false;

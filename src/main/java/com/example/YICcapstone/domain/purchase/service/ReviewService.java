@@ -75,7 +75,7 @@ public class ReviewService {
         Member member = verifyMember();
         VoiceModelPurchase savedVoiceModelPurchase = voiceModelPurchaseRepository.findById(purchaseId)
                 .orElseThrow(VoiceModelPurchaseNotFoundException::new);
-        if(savedVoiceModelPurchase.getCreatedAt() != null)
+        if(savedVoiceModelPurchase.getCreatedAt() == null)
             throw new ReviewNotWrittenException();
         savedVoiceModelPurchase.deleteReview();
     }
@@ -85,7 +85,7 @@ public class ReviewService {
         Member member = verifyMember();
         EbookPurchase savedEbookPurchase = ebookPurchaseRepository.findById(purchaseId)
                 .orElseThrow(EbookPurchaseNotFoundException::new);
-        if(savedEbookPurchase.getCreatedAt() != null)
+        if(savedEbookPurchase.getCreatedAt() == null)
             throw new ReviewNotWrittenException();
         savedEbookPurchase.deleteReview();
     }
