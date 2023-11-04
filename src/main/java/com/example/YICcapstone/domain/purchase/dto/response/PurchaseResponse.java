@@ -4,10 +4,12 @@ import com.example.YICcapstone.domain.ebook.dto.response.EbookResponse;
 import com.example.YICcapstone.domain.purchase.domain.EbookPurchase;
 import com.example.YICcapstone.domain.purchase.domain.VoiceModelPurchase;
 import com.example.YICcapstone.domain.voicemodel.dto.response.VoiceModelResponse;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+@Getter
 public class PurchaseResponse {
     private Long purchaseId;
     private String purchasedAt;

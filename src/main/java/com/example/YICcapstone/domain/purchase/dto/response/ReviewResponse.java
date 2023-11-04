@@ -2,9 +2,11 @@ package com.example.YICcapstone.domain.purchase.dto.response;
 
 import com.example.YICcapstone.domain.purchase.domain.EbookPurchase;
 import com.example.YICcapstone.domain.purchase.domain.VoiceModelPurchase;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
+@Getter
 public class ReviewResponse {
     private String userName;
     private String content;

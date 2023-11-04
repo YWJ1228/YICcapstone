@@ -39,6 +39,16 @@ public class PurchaseController {
         return purchaseService.getEbookPurchaseList(page, size);
     }
 
+    @GetMapping("/voice-model/verify")
+    public Boolean verifyVoiceModelPurchase(@RequestParam Long voiceModelId) {
+        return purchaseService.isVoiceModelPurchased(voiceModelId);
+    }
+
+    @GetMapping("/ebook/verify")
+    public Boolean verifyEbookPurchase(@RequestParam Long ebookId) {
+        return purchaseService.isEbookPurchased(ebookId);
+    }
+
     @GetMapping("/voice-model/total")
     public int getVoiceModelTotalPage(@RequestParam int size) {
         return purchaseService.getVoiceModelTotalPage(size);
