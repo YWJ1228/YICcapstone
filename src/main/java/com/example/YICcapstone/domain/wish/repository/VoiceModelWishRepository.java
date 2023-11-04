@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface VoiceModelWishRepository extends JpaRepository<VoiceModelWish, Long> {
-    Optional<VoiceModelWish> findByMemberIdAndVoiceModelId(Member memberId, VoiceModel voiceModelId);
-    Page<VoiceModelWish> findAllByMemberIdOrderByCreatedAtDesc(Member member, Pageable pageable);
-    Boolean existsByMemberIdAndVoiceModelId(Member member, Long voiceModelId);
+    Optional<VoiceModelWish> findByMemberIdAndVoiceModelId(Long memberId, Long voiceModelId);
+    Page<VoiceModelWish> findAllByMemberIdOrderByCreatedAtDesc(Long memberId, Pageable pageable);
+    Boolean existsByMemberIdAndVoiceModelId(Long memberId, Long voiceModelId);
 }

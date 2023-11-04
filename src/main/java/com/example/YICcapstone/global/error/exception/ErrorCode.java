@@ -31,6 +31,8 @@ public enum ErrorCode {
     // Purchase
     VOICE_MODEL_PURCHASE_NOT_FOUND(400, "P001", "해당 음성모델을 구매하지 않았습니다."),
     EBOOK_PURCHASE_NOT_FOUND(400, "P002", "해당 Ebook을 구매하지 않았습니다."),
+    VOICE_MODEL_PURCHASE_ALREADY_EXIST(400, "P003", "이미 구매한 음성모델입니다."),
+    EBOOK_PURCHASE_ALREADY_EXIST(400, "P004", "이미 구매한 Ebook입니다."),
 
     // Review
     REVIEW_NOT_FOUND(400, "R001", "해당 리뷰를 찾을 수 없습니다."),

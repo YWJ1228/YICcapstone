@@ -9,30 +9,31 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping("/wish")
+@CrossOrigin(origins = "*")
 @RestController
 public class WishController {
     @Autowired
     private WishService wishService;
 
-    @PostMapping("/ebook/{ebookId}")
-    public ResponseEntity<String> wishEbook(Long ebookId) {
+    @PostMapping("/ebook")
+    public ResponseEntity<String> wishEbook(@RequestParam Long ebookId) {
         wishService.wishEbook(ebookId);
         return ResponseEntity.status(200).body("success");
     }
 
-    @PostMapping("/voice-model/{voiceModelId}")
-    public ResponseEntity<String> wishVoiceModel(Long voiceModelId) {
+    @PostMapping("/voice-model")
+    public ResponseEntity<String> wishVoiceModel(@RequestParam Long voiceModelId) {
         wishService.wishVoiceModel(voiceModelId);
         return ResponseEntity.status(200).body("success");
     }
 
     @PostMapping("/ebook/{ebookId}/verify")
-    public Boolean ebookWishVerify(Long ebookId) {
+    public Boolean ebookWishVerify(@PathVariable Long ebookId) {
         return wishService.ebookWishVerify(ebookId);
     }
 
     @PostMapping("/voice-model/{voiceModelId}/verify")
-    public Boolean voiceModelWishVerify(Long voiceModelId) {
+    public Boolean voiceModelWishVerify(@PathVariable Long voiceModelId) {
         return wishService.voiceModelWishVerify(voiceModelId);
     }
 
