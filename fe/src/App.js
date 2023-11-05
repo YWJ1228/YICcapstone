@@ -18,6 +18,7 @@ import AdminPage from "./Page/Admin/AdminPage";
 
 import BookDetailPage from "./Page/Detail/BookDetailPage";
 import VoiceDetailPage from "./Page/Detail/VoiceDetailPage";
+import AudioBookPlayer from "./Component/Modal/AudioPlayer/AudioBookPlayer";
 
 // 작업 to-do list
 // 1. 배너 Item을 api로 가져오는 것 구현해야함
@@ -39,6 +40,7 @@ function App() {
           <Route path="/voiceShop" element={<VoiceShopPage />} />
           <Route path="/bookDetail/:ebookID" element={<BookDetailPage />} />
           <Route path="/voiceDetail/:voiceID" element={<VoiceDetailPage />} />
+          <Route path="/player" element = {<AudioBookPlayer/>}/>
         </Routes>
       </BrowserRouter>
     </>

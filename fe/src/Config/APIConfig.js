@@ -4,6 +4,7 @@ const BASE_URL = "http://localhost:8080";
 
 const EBOOK_URL = `${BASE_URL}/ebook`;
 const VOICE_URL = `${BASE_URL}/voice-model`;
+const AUDIOBOOK_URL = `${BASE_URL}`;
 
 export const API = {
     // #########  우준 API  ########
@@ -87,7 +88,13 @@ export const API = {
     ADMIN_ADD_EBOOK:                    `${EBOOK_URL}`,
     ADMIN_LOAD_EBOOKLIST:              `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_VOICES}&page=0`,
     ADMIN_ADD_USER:                     ``,
-    ADMIN_LOAD_USERLIST :               ``
+    ADMIN_LOAD_USERLIST :               ``,
 
+
+
+    //DUMMY API
+    PLAYER_LOAD_LAST_PLAYEDBOOK :       `${AUDIOBOOK_URL}`,
+    PLAYER_LOAD_PLAYLIST :              `${AUDIOBOOK_URL}`,
+    
 
 }

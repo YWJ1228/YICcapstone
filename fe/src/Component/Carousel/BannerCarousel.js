@@ -1,7 +1,6 @@
 import Paper from "@mui/material/Paper";
 import Carousel from "react-material-ui-carousel";
 import classes from "./BannerCarousel.module.css";
-import { Container } from "@mui/material";
 export default function BannerCarousel() {
   const bannerAPI = ["/Image/Banner_Image/Banner001_img.png", "/Image/Banner_Image/Banner002_img.png", "/Image/Banner_Image/Banner003_img.png"];
   const bannerCarouselItem = bannerAPI.map((banner) => {

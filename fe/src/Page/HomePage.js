@@ -72,7 +72,6 @@ export default function HomePage() {
         <VoicePreview {...PageConfig.HOMEPAGE_TITLES[1]} voices={bestSellerVoice} />
       </div>
       </Stack>
-
       <Footer />
     </>
   );

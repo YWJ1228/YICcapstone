@@ -11,6 +11,11 @@
     color :#7B8EF5;
     border-color: #7B8EF5;
 }
+.verify-button:active{
+    background-color : white !important;
+    color :#7B8EF5 !important;
+    border-color: #7B8EF5 !important;
+}
 .submit{
     width : 50rem;
     background-color : #7B8EF5;
@@ -20,6 +25,11 @@
     background-color : white;
     color :#7B8EF5;
     border-color: #7B8EF5;
+}
+.submit:active{
+    background-color : white !important;
+    color :#7B8EF5 !important;
+    border-color: #7B8EF5 !important;
 }
 .inputBox:focus{
     box-shadow: none;

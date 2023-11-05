@@ -8,11 +8,11 @@ import { DebuggingMode } from "../../Config/Config.js";
 import axios from "axios";
 import NavigationBar from "../../Component/NavigationBar/NavigationBar.js";
 
-import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import DetailBanner from "../../Component/ProductDetail/DetailBanner.js.js";
 import DetailDescription from "../../Component/ProductDetail/DetailDescription.js";
 import DetailReviews from "../../Component/ProductDetail/DetailReviews.js";
+import PlayerModal from "../../Component/Modal/AudioPlayer/DemoPlayer.js";
 
 import classes from "./VoiceDetailPage.module.css";
 
@@ -56,10 +56,6 @@ export default function VoiceDetailPage() {
     reviews: dummyReviews,
   });
 
-  const [show, setShow] = useState(false);
-  const handlerClose = () => setShow(false);
-  const handlerShow = () => setShow(true);
-
   useEffect(() => {
     axios
       .get(`${API.LOAD_VOICE}/${voiceID}`)
@@ -83,22 +79,14 @@ export default function VoiceDetailPage() {
         console.log("Voice detail loading error");
       });
   }, []);
+  const [show, setShow] = useState(false);
+  const handlerClose = () => setShow(false);
+  const handlerShow = () => setShow(true);
 
   return (
     <>
-      <Modal show={show} onHide={handlerClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>데모 듣기</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <audio src="/1.wav" controls></audio>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handlerClose}>
-            닫기
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <PlayerModal func = {{handlerClose, show}}/>
+
       <NavigationBar img_src="logo.png" />
       <div style={{ width: "100%", height: "6rem" }} />
       <div className={classes["banner-wrapper"]}>
@@ -106,10 +94,7 @@ export default function VoiceDetailPage() {
       </div>
       <div className={classes.divider}></div>
       <div className={classes["description-wrapper"]}>
-        <DetailDescription
-          title="TTS 소개"
-          description={voiceInfo.description}
-        />
+        <DetailDescription title="TTS 소개" description={voiceInfo.description} />
       </div>
       <div className={classes["reviews-wrapper"]}>
         <DetailReviews title="후기" reviews={voiceInfo.reviews} />
