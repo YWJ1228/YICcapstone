@@ -149,7 +149,7 @@ class VoiceModelServiceTest {
         voiceModelService.createVoiceModel(voiceModelCreationRequest2);
         voiceModelService.createVoiceModel(voiceModelCreationRequest3);
         // 2. 실제 데이터
-        Page<VoiceModelResponse> savedVoiceModelList = voiceModelService.getVoiceModelList(0, 10);
+        Page<VoiceModelResponse> savedVoiceModelList = voiceModelService.getVoiceModelListByPopularity(0, 10);
         // 3. 비교 및 검증
         assertEquals(3, savedVoiceModelList.getTotalElements());
 
