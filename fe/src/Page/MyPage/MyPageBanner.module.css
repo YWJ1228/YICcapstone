@@ -10,9 +10,19 @@
     margin-top : 0rem;
     margin-left : 3rem;
     background-color: #7B8EF5;
-    border : none;
+    border : 1px solid transparent;
     border-radius: 1rem;
     width : 8rem;
+}
+.changeInfo-btn:hover{
+    background-color: white;
+    border : 1px solid #7B8EF5;
+    color : #7B8EF5;
+}
+.changeInfo-btn:active{
+    background-color: white !important;
+    border : 1px solid #7B8EF5 !important;
+    color : #7B8EF5 !important;
 }
 .selected-text {
     margin: 1rem;

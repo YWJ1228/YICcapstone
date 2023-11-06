@@ -1,4 +1,4 @@
-export const IS_DEBUGGING = false; // 디버깅 모드 선택 가능
+export const IS_DEBUGGING = true; // 디버깅 모드 선택 가능
 export const DebuggingMode = (description, data) =>{
     if(IS_DEBUGGING){
         description.map((text, idx)=>{
@@ -38,7 +38,7 @@ export const PageConfig = {
     EBOOK_PRODUCT_PER_PAGE : 3,
     
     NUM_BANNER_EBOOKS : 4,
-    NUM_POPULAR_EBOOKS : 3,
+    NUM_POPULAR_EBOOKS : 5,
     NUM_RECENT_EBOOKS : 5,
 
 
@@ -52,8 +52,10 @@ export const PageConfig = {
         image : "default",
         name : "default",
         job : "default",
-        price : "default",
-        description : "default"
+        price : 0,
+        description : "default",
+        demoUrl : "default",
+        voiceUrl  :"default"
     },
     VOICE_CATERGORY_LIST : ["all","singer","actor"],
     VOICE_PRODUCT_PER_PAGE : 2,

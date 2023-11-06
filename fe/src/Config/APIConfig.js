@@ -4,6 +4,7 @@ const BASE_URL = "http://localhost:8080";
 
 const EBOOK_URL = `${BASE_URL}/ebook`;
 const VOICE_URL = `${BASE_URL}/voice-model`;
+const AUDIOBOOK_URL = `${BASE_URL}`;
 const PURCHASE_URL = `${BASE_URL}/purchase`;
 const REVIEW_URL = `${BASE_URL}/review`;
 const WISH_URL = `${BASE_URL}/wish`;
@@ -13,6 +14,7 @@ export const API = {
     // GET
     VERIFY_EMAIL:           `${BASE_URL}/api/sign-up/username`,
     CHECK_NICKNAME:         `${BASE_URL}/api/sign-up/nickname`,
+    USER_INFO :             `${BASE_URL}/api/user/info`,
 
     // POST
     REGISTER_USER:          `${BASE_URL}/api/sign-up`,
@@ -26,6 +28,7 @@ export const API = {
     // PATCH
     CHANGE_PWD:             `${BASE_URL}/api/user/password`,
     CHANGE_NICKNAME:        `${BASE_URL}/api/user/nickname`,
+
 
 
     // #########  태훈 API  #############
@@ -94,6 +97,28 @@ export const API = {
     NUM_PAGES_VOICELIST:                `${VOICE_URL}/list/total?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
     NUM_PAGES_CATEGORY_VOICELIST:       `${VOICE_URL}/list/total/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
 
+
+    // 내 서재 API
+    // 더미 API
+    LOAD_MYPAGE_BOOKLIST :              `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_EBOOKS}&page=0`,
+    LOAD_MYPAGE_VOICELIST :             `${VOICE_URL}/list?size=${PageConfig.NUM_BANNER_EBOOKS}&page=0`,
+    LOAD_MYPAGE_REVIEWLIST :            `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_EBOOKS}&page=0`,
+    LOAD_MYPAGE_LIKELIST :              `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_EBOOKS}&page=0`,
+
+    //Admin API
+    ADMIN_ADD_VOICE :                   `${VOICE_URL}`,
+    ADMIN_LOAD_VOICELIST :              `${VOICE_URL}/list?size=${PageConfig.NUM_BANNER_VOICES}&page=0`, // DUMMY
+    ADMIN_ADD_EBOOK:                    `${EBOOK_URL}`,
+    ADMIN_LOAD_EBOOKLIST:              `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_VOICES}&page=0`,
+    ADMIN_ADD_USER:                     ``,
+    ADMIN_LOAD_USERLIST :               ``,
+
+
+
+    //DUMMY API
+    PLAYER_LOAD_LAST_PLAYEDBOOK :       `${AUDIOBOOK_URL}`,
+    PLAYER_LOAD_PLAYLIST :              `${AUDIOBOOK_URL}`,
+    
     // Purchase
     // POST
     PURCHASE_EBOOK:                     `${PURCHASE_URL}/ebook`,
@@ -135,5 +160,6 @@ export const API = {
     // GET
     LOAD_WISH_EBOOKS:              `${WISH_URL}/ebook?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=`,
     LOAD_WISH_VOICES:              `${WISH_URL}/voice-model?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
+
 
 }
