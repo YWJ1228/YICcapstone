@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @Repository
 public interface EbookWishRepository extends JpaRepository<EbookWish, Long> {
-    Optional<EbookWish> findByMemberIdAndEbookId(Member memberId, Ebook ebookId);
-    Page<EbookWish> findAllByMemberIdOrderByCreatedAtDesc(Member member, Pageable pageable);
-    Boolean existsByMemberIdAndEbookId(Member member, Long ebookId);
+    Optional<EbookWish> findByMemberIdAndEbookId(Long memberId, Long ebookId);
+    Page<EbookWish> findAllByMemberIdOrderByCreatedAtDesc(Long memberId, Pageable pageable);
+    Boolean existsByMemberIdAndEbookId(Long memberId, Long ebookId);
 }

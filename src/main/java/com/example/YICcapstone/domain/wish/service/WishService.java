@@ -40,7 +40,7 @@ public class WishService {
         Member member = verifyMember();
         Ebook savedEbook = ebookRepository.findById(ebookId)
                 .orElseThrow(EbookNotFoundException::new);
-        EbookWish savedEbookWish = ebookWishRepository.findByMemberIdAndEbookId(member, savedEbook)
+        EbookWish savedEbookWish = ebookWishRepository.findByMemberIdAndEbookId(member.getId(), savedEbook.getId())
                 .orElse(null);
         if (savedEbookWish == null) {
             EbookWish createEbookWish = new EbookWish(member, savedEbook);
@@ -55,7 +55,7 @@ public class WishService {
         Member member = verifyMember();
         VoiceModel savedVoiceModel = voiceModelRepository.findById(voiceModelId)
                 .orElseThrow(VoiceModelNotFoundException::new);
-        VoiceModelWish savedVoiceModelWish = voiceModelWishRepository.findByMemberIdAndVoiceModelId(member, savedVoiceModel)
+        VoiceModelWish savedVoiceModelWish = voiceModelWishRepository.findByMemberIdAndVoiceModelId(member.getId(), savedVoiceModel.getId())
                 .orElse(null);
         if (savedVoiceModelWish == null) {
             VoiceModelWish createVoiceModelWish = new VoiceModelWish(member, savedVoiceModel);
@@ -68,7 +68,7 @@ public class WishService {
     @Transactional(readOnly = true)
     public Page<EbookWishResponse> getEbookWishList(int page, int size) {
         Member member = verifyMember();
-        Page<EbookWish> savedEbookWishList = ebookWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, size));
+        Page<EbookWish> savedEbookWishList = ebookWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member.getId(), PageRequest.of(page, size));
         return savedEbookWishList.map(
                 ebookWish -> new EbookWishResponse(ebookWish.getId(), ebookWish.getEbook())
         );
@@ -77,7 +77,7 @@ public class WishService {
     @Transactional(readOnly = true)
     public Page<VoiceModelWishResponse> getVoiceModelWishList(int page, int size) {
         Member member = verifyMember();
-        Page<VoiceModelWish> savedVoiceModelList = voiceModelWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member, PageRequest.of(page, size));
+        Page<VoiceModelWish> savedVoiceModelList = voiceModelWishRepository.findAllByMemberIdOrderByCreatedAtDesc(member.getId(), PageRequest.of(page, size));
         return savedVoiceModelList.map(
                 voiceModelWish -> new VoiceModelWishResponse(voiceModelWish.getId(), voiceModelWish.getVoiceModel())
         );
@@ -85,12 +85,12 @@ public class WishService {
 
     public Boolean ebookWishVerify(Long ebookId) {
         Member member = verifyMember();
-        return ebookWishRepository.existsByMemberIdAndEbookId(member, ebookId);
+        return ebookWishRepository.existsByMemberIdAndEbookId(member.getId(), ebookId);
     }
 
     public Boolean voiceModelWishVerify(Long voiceModelId) {
         Member member = verifyMember();
-        return voiceModelWishRepository.existsByMemberIdAndVoiceModelId(member, voiceModelId);
+        return voiceModelWishRepository.existsByMemberIdAndVoiceModelId(member.getId(), voiceModelId);
     }
 
     public Member verifyMember() {
