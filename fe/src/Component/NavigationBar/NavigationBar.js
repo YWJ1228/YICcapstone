@@ -13,7 +13,7 @@ function NavigationBar(props) {
           <Navbar.Brand href="/" className={classes.brand}>
             <img
               alt=""
-              src={props.img_src}
+              src="/logo.png"
               width="30"
               height="30"
               className="d-inline-block align-top"

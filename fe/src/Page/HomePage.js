@@ -59,7 +59,7 @@ export default function HomePage() {
   }, []);
   return (
     <>
-      <NavigationBar img_src="logo.png" />
+      <NavigationBar />
       <div style={{ width: "100%", height: "6rem" }} />
       <Stack>
       <div className={classes.carousel} >

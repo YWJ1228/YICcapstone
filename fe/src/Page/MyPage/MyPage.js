@@ -6,7 +6,7 @@ import classes from "./MyPage.module.css";
 export default function MyPage() {
   return (
     <>
-      <NavigationBar img_src="logo.png" />
+      <NavigationBar />
       <div style={{ width: "100%", height: "6rem" }} />
       <MyPageBanner />
       <div className={classes.menu}>

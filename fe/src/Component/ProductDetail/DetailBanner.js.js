@@ -49,7 +49,7 @@ export default function DetailBanner(props) {
                         <Row className={classes.detail}>저자 : {props.book.author}</Row>
                         <Row className={classes.detail}>페이지 : {props.book.numPages}</Row>
                         <Row className={classes.detail}>평점 : {props.book.numLikes}</Row>
-                        <Row className={classes.detail}>업데이트 날짜 : {props.book.updatedDate}</Row>
+                        <Row className={classes.detail}>업로드 날짜 : {props.book.updatedDate}</Row>
                         <Row>
                             <Button className={classes['price-button']} onClick={creditClickHandler}>{props.book.price} 원</Button>
                         </Row>
@@ -61,7 +61,7 @@ export default function DetailBanner(props) {
                         </Row>
                         <Row className={classes.detail}>{props.book.job} ( {props.book.jobDescription} )</Row>
                         <Row className={classes.detail}>좋아요 : {props.book.rating}</Row>
-                        <Row className={classes.detail}>업데이트 날짜 : {props.book.updatedDate}</Row>
+                        <Row className={classes.detail}>업로드 날짜 : {props.book.updatedDate}</Row>
                         <Row className={classes['price-wrapper']}>
                             <Button className={classes['price-button']} onClick={creditClickHandler}>{props.book.price} 원</Button>
                         </Row>

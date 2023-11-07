@@ -1,16 +1,16 @@
 import { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import { API } from "../../Config/APIConfig";
 import axios from "axios";
 import { getCookies, removeCookies } from "../../Component/Cookies/LoginCookie";
 import NavigationBar from "../../Component/NavigationBar/NavigationBar";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
+import {Col,Row,Form,Button} from "react-bootstrap/";
+
 
 import classes from "./ChangeInfoPage.module.css";
 
 export default function ChangeInfoPage() {
+  const homeNavigate = useNavigate();
   const [changeForm, setChangeForm] = useState({
     password: "",
   });
@@ -121,10 +121,16 @@ export default function ChangeInfoPage() {
   function userWithdrawalClickHandler(event) {
     event.preventDefault();
     axios
-      .delete(`${API.DELETE_USER}`)
+      .delete(`${API.DELETE_USER}`,{
+        headers : {
+          Authorization : `Bearer ${getCookies('accessToken')}`
+        }
+      },{
+        checkPassword : "default"
+      })
       .then(function (response) {
         removeCookies("accessToken");
-        removeCookies("refreshToken");
+        homeNavigate('./');
       })
       .catch((err) => {
         console.log(err.data);
@@ -133,7 +139,7 @@ export default function ChangeInfoPage() {
 
   return (
     <>
-      <NavigationBar img_src="logo.png" />
+      <NavigationBar />
       <div style={{ width: "100%", height: "6rem" }} />
       <div className={classes.wrapper}>
         <Form onSubmit={nicknameSubmitHandler}>
