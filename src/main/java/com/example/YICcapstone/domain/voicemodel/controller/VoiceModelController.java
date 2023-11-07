@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
-@RequestMapping("/voice-model")
 @CrossOrigin(origins = "*")
 @RestController
 public class VoiceModelController {
@@ -19,85 +18,85 @@ public class VoiceModelController {
     private VoiceModelService voiceModelService;
     @Autowired
     private VoiceModelPreferenceService voiceModelPreferenceService;
-    @GetMapping("/{voiceModelId}")
+    @GetMapping("/voice-model/{voiceModelId}")
     public VoiceModelResponse getVoiceModel(@PathVariable Long voiceModelId) {
         return voiceModelService.getVoiceModel(voiceModelId);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/voice-model/list")
     public Page<VoiceModelResponse> getVoiceModelList(@RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelList(page, size);
     }
 
-    @GetMapping("/list/category")
+    @GetMapping("/voice-model/list/category")
     public Page<VoiceModelResponse> getVoiceModelListByCategory(@RequestParam String category, @RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByCategory(category, page, size);
     }
 
-    @GetMapping("/list/category/popularity")
+    @GetMapping("/voice-model/list/category/popularity")
     public Page<VoiceModelResponse> getVoiceModelListByScoreAndUploadedAtDesc(@RequestParam String category, @RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByCategorySortedByScoreAndUploadedAtDesc(category, page, size);
     }
 
-    @GetMapping("/list/category/price/desc")
+    @GetMapping("/voice-model/list/category/price/desc")
     public Page<VoiceModelResponse> getVoiceModelListByPriceDesc(@RequestParam String category, @RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByCategorySortedByPriceDesc(category, page, size);
     }
 
-    @GetMapping("/list/category/price/asc")
+    @GetMapping("/voice-model/list/category/price/asc")
     public Page<VoiceModelResponse> getVoiceModelListByPriceAsc(@RequestParam String category, @RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByCategorySortedByPriceAsc(category, page, size);
     }
 
-    @GetMapping("/list/popularity")
+    @GetMapping("/voice-model/list/popularity")
     public Page<VoiceModelResponse> getVoiceModelListByPopularity(@RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByPopularity(page, size);
     }
 
-    @GetMapping("/list/price/desc")
+    @GetMapping("/voice-model/list/price/desc")
     public Page<VoiceModelResponse> getVoiceModelListByPriceDesc(@RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByPriceDesc(page, size);
     }
 
-    @GetMapping("/list/price/asc")
+    @GetMapping("/voice-model/list/price/asc")
     public Page<VoiceModelResponse> getVoiceModelListByPriceAsc(@RequestParam int page, @RequestParam int size) {
         return voiceModelService.getVoiceModelListByPriceAsc(page, size);
     }
 
-    @GetMapping("/list/total")
+    @GetMapping("/voice-model/list/total")
     public int getTotalPage(@RequestParam int size) {
         return voiceModelService.getTotalPage(size);
     }
 
-    @GetMapping("/list/total/category")
+    @GetMapping("/voice-model/list/total/category")
     public int getTotalPageByCategory(@RequestParam String category, @RequestParam int size) {
         return voiceModelService.getTotalPageByCategory(category, size);
     }
 
-    @PostMapping
+    @PostMapping("/api/admin/voice-model")
     public ResponseEntity<String> createVoiceModel(@RequestBody @Valid VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.createVoiceModel(voiceModelCreationRequest);
         return ResponseEntity.status(200).body("VoiceModel created successfully");
     }
 
-    @PostMapping("/{voiceModelId}/preference")
+    @PostMapping("/api/voice-model/{voiceModelId}/preference")
     public ResponseEntity<Integer> createVoiceModelPreference(@PathVariable Long voiceModelId) {
         Integer preferenceCount = voiceModelPreferenceService.preferVoiceModel(voiceModelId);
         return ResponseEntity.status(200).body(preferenceCount);
     }
 
-    @PostMapping("/{voiceModelId}/preference/verify")
+    @PostMapping("/api/voice-model/{voiceModelId}/preference/verify")
     public Boolean preferenceVerify(@PathVariable Long voiceModelId){
         return voiceModelPreferenceService.preferenceVerify(voiceModelId);
     }
 
-    @PutMapping("/{voiceModelId}")
+    @PutMapping("/api/admin/voice-model/{voiceModelId}")
     public ResponseEntity<String> updateVoiceModel(@PathVariable Long voiceModelId, @RequestBody @Valid VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.updateVoiceModel(voiceModelId, voiceModelCreationRequest);
         return ResponseEntity.status(200).body("VoiceModel updated successfully");
     }
 
-    @DeleteMapping("/{voiceModelId}")
+    @DeleteMapping("/api/admin/voice-model/{voiceModelId}")
     public ResponseEntity<String> deleteVoiceModel(@PathVariable Long voiceModelId) {
         voiceModelService.deleteVoiceModel(voiceModelId);
         return ResponseEntity.status(200).body("VoiceModel deleted successfully");
