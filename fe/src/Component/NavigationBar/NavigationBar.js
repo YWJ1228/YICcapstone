@@ -1,8 +1,6 @@
 import { getCookies, removeCookies } from "../Cookies/LoginCookie";
-import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
-import Nav from "react-bootstrap/Nav";
-import Button from "react-bootstrap/Button";
+import { Container, Navbar, Nav, Button } from "react-bootstrap";
+
 import classes from "./NavigationBar.module.css";
 
 function NavigationBar(props) {
@@ -11,14 +9,7 @@ function NavigationBar(props) {
       <Navbar className="bg-body-tertiary">
         <Container>
           <Navbar.Brand href="/" className={classes.brand}>
-            <img
-              alt=""
-              src="/logo.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{" "}
-            최애의 보이스
+            <img alt="" src="/logo.png" width="30" height="30" className="d-inline-block align-top" /> 최애의 보이스
           </Navbar.Brand>
         </Container>
         <Nav>
@@ -33,12 +24,7 @@ function NavigationBar(props) {
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link
-              href={
-                getCookies("accessToken") === undefined ? "/login" : "/mypage"
-              }
-              className={classes.menu}
-            >
+            <Nav.Link href={getCookies("accessToken") === undefined ? "/login" : "/mypage"} className={classes.menu}>
               내 서재
             </Nav.Link>
           </Nav.Item>
@@ -49,11 +35,7 @@ function NavigationBar(props) {
           </Button>
         )}
         {getCookies("accessToken") !== undefined && (
-          <Button
-            href="/"
-            className={classes["login-button"]}
-            onClick={() => removeCookies("accessToken")}
-          >
+          <Button href="/" className={classes["login-button"]} onClick={() => removeCookies("accessToken")}>
             <div className={classes.menu}>로그아웃</div>
           </Button>
         )}

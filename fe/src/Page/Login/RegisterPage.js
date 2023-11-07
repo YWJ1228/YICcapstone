@@ -20,6 +20,7 @@ export default function RegisterPage() {
   const [message, setMessage] = useState();
   const showModal = () => {setShow(true)};
   const closeModal = () => {setShow(false)};
+  const [navigateType , setNavigateType] = useState();
 
   const [userForm, setUserForm] = useState({
     // 서버로 보내는 데이터
@@ -35,6 +36,7 @@ export default function RegisterPage() {
     guideEmailText: "",
     guidePwdText: "숫자, 알파벳과 특수문자를 섞어서 8~12자로 작성해주세요",
     guideEqualPwdText: "",
+    guideNicknameText : ""
   });
 
   const [validForm, setValidForm] = useState({
@@ -93,12 +95,12 @@ export default function RegisterPage() {
     event.preventDefault();
     // 회원가입 요청 유효성 검사
     if (validForm.verifyText === event.target.verifyText.value && validForm.verifyNickname && validForm.verifyPwd && validForm.verifyEqualPwd) {
-      console.log("Login Succeeded");
       axios
         .post(`${API.REGISTER_USER}`, userForm)
         .then(function (response) {
-          // 로그인 성공
-          navigate("/login");
+          setMessage("회원가입 성공!");
+          setNavigateType('login');
+          showModal();
         })
         .catch(function (error) {
           console.log(error);
@@ -174,7 +176,7 @@ export default function RegisterPage() {
 
   return (
     <>
-    <AlertModal func = {closeModal} value =  {{show,message}}/>
+    <AlertModal func = {closeModal} value =  {{show,message}} navigateType = {navigateType}/>
       <NavigationBar/>
       <div style={{ width: "100%", height: "6rem" }} />
       <div className={classes.wrapper}>

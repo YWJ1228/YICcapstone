@@ -5,7 +5,7 @@ const BASE_URL = "http://localhost:8080";
 const EBOOK_URL = `${BASE_URL}/ebook`;
 const VOICE_URL = `${BASE_URL}/voice-model`;
 const AUDIOBOOK_URL = `${BASE_URL}`;
-const PURCHASE_URL = `${BASE_URL}/purchase`;
+const PURCHASE_URL = `${BASE_URL}/api/purchase`;
 const REVIEW_URL = `${BASE_URL}/review`;
 const WISH_URL = `${BASE_URL}/wish`;
 
@@ -121,7 +121,7 @@ export const API = {
     
     // Purchase
     // POST
-    PURCHASE_EBOOK:                     `${PURCHASE_URL}/ebook`,
+    PURCHASE_EBOOK:                     `${PURCHASE_URL}/ebook?size=${PageConfig.NUM_EBOOK_PURCHASED}&page=`,
     PURCHASE_VOICE:                     `${PURCHASE_URL}/voice-model`,
     // GET
     LOAD_PURCHASED_EBOOKS:              `${PURCHASE_URL}/ebook?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=`,
@@ -132,7 +132,7 @@ export const API = {
 
     // Review
     // POST
-    REVIEW_EBOOK:                      `${REVIEW_URL}/ebook`,
+    REVIEW_EBOOK:                      `${REVIEW_URL}/ebook?size=${PageConfig.NUM_EBOOK_REVIEWS}&ebookId=`,
     REVIEW_VOICE:                      `${REVIEW_URL}/voice-model`,
 
     // PUT

@@ -40,6 +40,8 @@ export const PageConfig = {
     NUM_BANNER_EBOOKS : 4,
     NUM_POPULAR_EBOOKS : 5,
     NUM_RECENT_EBOOKS : 5,
+    NUM_EBOOK_REVIEWS : 5,
+    NUM_EBOOK_PURCHASED : 5,
 
 
     // Voice Shop Config
