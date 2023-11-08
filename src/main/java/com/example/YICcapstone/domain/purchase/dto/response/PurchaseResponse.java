@@ -14,12 +14,16 @@ public class PurchaseResponse {
     private Long purchaseId;
     private String purchasedAt;
     private Long orderId;
+    private String paymentMethod;
+    private Integer price;
     private Optional<EbookResponse> ebook;
     private Optional<VoiceModelResponse> voiceModel;
 
     public PurchaseResponse(VoiceModelPurchase voiceModelPurchase) {
         this.purchaseId = voiceModelPurchase.getId();
         this.purchasedAt = timeFormat(voiceModelPurchase.getPurchasedAt());
+        this.paymentMethod = voiceModelPurchase.getPaymentMethod();
+        this.price = voiceModelPurchase.getPrice();
         this.orderId = voiceModelPurchase.getOrderId();
         this.ebook = Optional.empty();
         this.voiceModel = Optional.of(new VoiceModelResponse(voiceModelPurchase.getVoiceModel()));
@@ -28,6 +32,8 @@ public class PurchaseResponse {
     public PurchaseResponse(EbookPurchase ebookPurchase) {
         this.purchaseId = ebookPurchase.getId();
         this.purchasedAt = timeFormat(ebookPurchase.getPurchasedAt());
+        this.paymentMethod = ebookPurchase.getPaymentMethod();
+        this.price = ebookPurchase.getPrice();
         this.orderId = ebookPurchase.getOrderId();
         this.ebook = Optional.of(new EbookResponse(ebookPurchase.getEbook()));
         this.voiceModel = Optional.empty();

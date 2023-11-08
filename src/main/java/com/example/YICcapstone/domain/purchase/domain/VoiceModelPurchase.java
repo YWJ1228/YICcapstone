@@ -32,6 +32,9 @@ public class VoiceModelPurchase {
 
     @Column(name = "order_id")
     private Long orderId;
+    @Column(name = "payment_method")
+    private String paymentMethod;
+    private Integer price = null;
     private LocalDateTime purchasedAt = LocalDateTime.now();
 
     @Size(max = 300)
@@ -41,10 +44,12 @@ public class VoiceModelPurchase {
     private LocalDateTime updatedAt = null;
     private Boolean isDeleted = false;
 
-    public VoiceModelPurchase(VoiceModel voiceModel, Member member, Long orderId) {
+    public VoiceModelPurchase(VoiceModel voiceModel, Member member, Long orderId, String paymentMethod, Integer price) {
         this.voiceModel = voiceModel;
         this.member = member;
         this.orderId = orderId;
+        this.paymentMethod = paymentMethod;
+        this.price = price;
     }
 
     public void createReview(ReviewRequest reviewRequest) {

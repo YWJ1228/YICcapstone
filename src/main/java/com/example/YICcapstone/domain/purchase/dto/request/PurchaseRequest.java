@@ -11,12 +11,14 @@ import lombok.Getter;
 public class PurchaseRequest {
     private Long itemId;
     private Long orderId;
+    private String paymentMethod;
+    private Integer price;
 
     public VoiceModelPurchase toVoiceModelPurchase(VoiceModel voiceModel, Member member) {
-        return new VoiceModelPurchase(voiceModel, member, orderId);
+        return new VoiceModelPurchase(voiceModel, member, orderId, paymentMethod, price);
     }
 
     public EbookPurchase toEbookPurchase(Ebook savedEbook, Member member) {
-        return new EbookPurchase(savedEbook, member, orderId);
+        return new EbookPurchase(savedEbook, member, orderId, paymentMethod, price);
     }
 }
