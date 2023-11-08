@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class ReviewResponse {
     private String userName;
     private String content;
-    private int grade;
+    private Integer grade;
     private String time;
 
     public ReviewResponse(VoiceModelPurchase voiceModelPurchase) {
@@ -28,7 +28,9 @@ public class ReviewResponse {
     }
 
     public String timeFormat(LocalDateTime createdAt, LocalDateTime updatedAt) {
-        if (updatedAt == null) {
+        if(createdAt == null && updatedAt == null)
+            return null;
+        else if (updatedAt == null) {
             String year = createdAt.toString().substring(0, 4);
             String month = createdAt.toString().substring(5, 7);
             String day = createdAt.toString().substring(8, 10);

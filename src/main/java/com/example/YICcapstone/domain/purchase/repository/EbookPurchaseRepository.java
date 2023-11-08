@@ -15,6 +15,12 @@ public interface EbookPurchaseRepository extends JpaRepository<EbookPurchase, Lo
     // 구매 리스트 조회
     Page<EbookPurchase> findAllByMemberIdOrderByPurchasedAtDesc(Long memberId, Pageable pageable);
 
+    // 리뷰 작성하지 않은 구매 리스트 조회
+    Page<EbookPurchase> findAllByMemberIdAndContentIsNullOrderByPurchasedAtDesc(Long memberId, Pageable pageable);
+
+    // 리뷰 작성한 구매 리스트 조회
+    Page<EbookPurchase> findAllByMemberIdAndContentIsNotNullOrderByPurchasedAtDesc(Long memberId, Pageable pageable);
+
     // 리뷰 리스트 조회
-    Page<EbookPurchase> findAllByEbookIdAndContentIsNotNullAndIsDeletedIsFalseOrderByCreatedAtDesc(Long ebookId, Pageable pageable);
+    Page<EbookPurchase> findAllByEbookIdAndContentIsNotNullOrderByCreatedAtDesc(Long ebookId, Pageable pageable);
 }

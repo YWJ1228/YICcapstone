@@ -41,7 +41,6 @@ public class EbookPurchase {
     private Integer grade = null;
     private LocalDateTime createdAt = null;
     private LocalDateTime updatedAt = null;
-    private Boolean isDeleted = false;
 
     public EbookPurchase(Ebook ebook, Member member, Long orderId, String paymentMethod, Integer price) {
         this.ebook = ebook;
@@ -64,6 +63,9 @@ public class EbookPurchase {
     }
 
     public void deleteReview() {
-        this.isDeleted = true;
+        this.content = null;
+        this.grade = null;
+        this.createdAt = null;
+        this.updatedAt = null;
     }
 }
