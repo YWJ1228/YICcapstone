@@ -72,18 +72,6 @@ public class PurchaseService {
     }
 
     @Transactional(readOnly = true)
-    public int getVoiceModelTotalPage(int size) {
-        Member member = verifyMember();
-        return voiceModelPurchaseRepository.findAllByMemberIdOrderByPurchasedAtDesc(member.getId(), PageRequest.of(0, size)).getTotalPages();
-    }
-
-    @Transactional(readOnly = true)
-    public int getEbookTotalPage(int size) {
-        Member member = verifyMember();
-        return ebookPurchaseRepository.findAllByMemberIdOrderByPurchasedAtDesc(member.getId(), PageRequest.of(0, size)).getTotalPages();
-    }
-
-    @Transactional(readOnly = true)
     public Boolean isVoiceModelPurchased(Long voiceModelId) {
         Member member = verifyMember();
         return voiceModelPurchaseRepository.findByVoiceModelIdAndMemberId(voiceModelId, member.getId()).isPresent();

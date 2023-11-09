@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/api/purchase")
 @CrossOrigin("*")
-@RequestMapping("/purchase")
 public class PurchaseController {
     @Autowired
     private PurchaseService purchaseService;
@@ -47,16 +47,6 @@ public class PurchaseController {
     @GetMapping("/ebook/verify")
     public Boolean verifyEbookPurchase(@RequestParam Long ebookId) {
         return purchaseService.isEbookPurchased(ebookId);
-    }
-
-    @GetMapping("/voice-model/total")
-    public int getVoiceModelTotalPage(@RequestParam int size) {
-        return purchaseService.getVoiceModelTotalPage(size);
-    }
-
-    @GetMapping("/ebook/total")
-    public int getEbookTotalPage(@RequestParam int size) {
-        return purchaseService.getEbookTotalPage(size);
     }
 
 }

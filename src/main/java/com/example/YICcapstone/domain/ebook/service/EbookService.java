@@ -89,16 +89,4 @@ public class EbookService {
         return ebookRepository.findAllByOrderByPriceAscUploadedAtDesc(PageRequest.of(page, size)).map(EbookResponse::new);
     }
 
-    @Transactional(readOnly = true)
-    public int getTotalPage(int size) {
-        return (int) Math.ceil((double) ebookRepository.count() / size);
-    }
-
-    // category별로 총 페이지 가져오기
-    @Transactional(readOnly = true)
-    public int getTotalPageByCategory(String category, int size) {
-        return (int) Math.ceil((double) ebookRepository.countByCategory(category) / size);
-    }
-
-
 }

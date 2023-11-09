@@ -29,8 +29,8 @@ public enum ErrorCode {
     MEMBER_NOT_EXIST(404, "M004", "존재하지 않는 회원입니다."),
 
     // Purchase
-    VOICE_MODEL_PURCHASE_NOT_FOUND(400, "P001", "해당 음성모델을 구매하지 않았습니다."),
-    EBOOK_PURCHASE_NOT_FOUND(400, "P002", "해당 Ebook을 구매하지 않았습니다."),
+    VOICE_MODEL_PURCHASE_NOT_FOUND(400, "P001", "해당 음성모델 구매내역이 존재하지 않습니다."),
+    EBOOK_PURCHASE_NOT_FOUND(400, "P002", "해당 Ebook 구매내역이 존재하지 않습니다."),
     VOICE_MODEL_PURCHASE_ALREADY_EXIST(400, "P003", "이미 구매한 음성모델입니다."),
     EBOOK_PURCHASE_ALREADY_EXIST(400, "P004", "이미 구매한 Ebook입니다."),
 

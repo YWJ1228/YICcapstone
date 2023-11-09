@@ -31,6 +31,9 @@ public class EbookPurchase {
 
     @Column(name = "order_id")
     private Long orderId;
+    @Column(name = "payment_method")
+    private String paymentMethod;
+    private Integer price = null;
     private LocalDateTime purchasedAt = LocalDateTime.now();
 
     @Size(max = 300)
@@ -38,12 +41,13 @@ public class EbookPurchase {
     private Integer grade = null;
     private LocalDateTime createdAt = null;
     private LocalDateTime updatedAt = null;
-    private Boolean isDeleted = false;
 
-    public EbookPurchase(Ebook ebook, Member member, Long orderId) {
+    public EbookPurchase(Ebook ebook, Member member, Long orderId, String paymentMethod, Integer price) {
         this.ebook = ebook;
         this.member = member;
         this.orderId = orderId;
+        this.paymentMethod = paymentMethod;
+        this.price = price;
     }
 
     public void createReview(ReviewRequest reviewRequest) {
@@ -59,6 +63,9 @@ public class EbookPurchase {
     }
 
     public void deleteReview() {
-        this.isDeleted = true;
+        this.content = null;
+        this.grade = null;
+        this.createdAt = null;
+        this.updatedAt = null;
     }
 }
