@@ -61,16 +61,6 @@ public class EbookController {
         return ebookService.getEbookListSortedByPriceAsc(page, size);
     }
 
-    @GetMapping("/ebook/list/total")
-    public int getTotalPage(@RequestParam int size) {
-        return ebookService.getTotalPage(size);
-    }
-
-    @GetMapping("/ebook/list/total/category")
-    public int getTotalPageByCategory(@RequestParam String category, @RequestParam int size) {
-        return ebookService.getTotalPageByCategory(category, size);
-    }
-
     @PostMapping("/api/admin/ebook")
     public ResponseEntity<String> createEbook(@RequestBody @Valid EbookCreationRequest ebookCreationRequest) {
         ebookService.createEbook(ebookCreationRequest);

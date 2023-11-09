@@ -133,18 +133,6 @@ public class ReviewService {
                 .map(ReviewWrittenResponse::new);
     }
 
-    @Transactional(readOnly = true)
-    public int getVoiceModelReviewTotalPage(Long voiceModelId, int size) {
-        return voiceModelPurchaseRepository.findAllByVoiceModelIdAndContentIsNotNullOrderByCreatedAtDesc(voiceModelId, PageRequest.of(0, size))
-                .getTotalPages();
-    }
-
-    @Transactional(readOnly = true)
-    public int getEbookReviewTotalPage(Long ebookId, int size) {
-        return ebookPurchaseRepository.findAllByEbookIdAndContentIsNotNullOrderByCreatedAtDesc(ebookId, PageRequest.of(0, size))
-                .getTotalPages();
-    }
-
     public Member verifyMember() {
         return memberRepository.findByUsername(SecurityUtil.getLoginUsername())
                 .orElseThrow(() -> new MemberNotExistException());

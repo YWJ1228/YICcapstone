@@ -49,14 +49,4 @@ public class PurchaseController {
         return purchaseService.isEbookPurchased(ebookId);
     }
 
-    @GetMapping("/voice-model/total")
-    public int getVoiceModelTotalPage(@RequestParam int size) {
-        return purchaseService.getVoiceModelTotalPage(size);
-    }
-
-    @GetMapping("/ebook/total")
-    public int getEbookTotalPage(@RequestParam int size) {
-        return purchaseService.getEbookTotalPage(size);
-    }
-
 }

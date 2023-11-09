@@ -63,16 +63,6 @@ public class VoiceModelController {
         return voiceModelService.getVoiceModelListByPriceAsc(page, size);
     }
 
-    @GetMapping("/voice-model/list/total")
-    public int getTotalPage(@RequestParam int size) {
-        return voiceModelService.getTotalPage(size);
-    }
-
-    @GetMapping("/voice-model/list/total/category")
-    public int getTotalPageByCategory(@RequestParam String category, @RequestParam int size) {
-        return voiceModelService.getTotalPageByCategory(category, size);
-    }
-
     @PostMapping("/api/admin/voice-model")
     public ResponseEntity<String> createVoiceModel(@RequestBody @Valid VoiceModelCreationRequest voiceModelCreationRequest) {
         voiceModelService.createVoiceModel(voiceModelCreationRequest);

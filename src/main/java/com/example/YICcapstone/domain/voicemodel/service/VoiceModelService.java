@@ -91,13 +91,4 @@ public class VoiceModelService {
         return voiceModelRepository.findAllByOrderByPriceAscUploadedAtDesc(PageRequest.of(page, size)).map(VoiceModelResponse::new);
     }
 
-    @Transactional(readOnly = true)
-    public int getTotalPage(int size) {
-        return (int) Math.ceil((double) voiceModelRepository.count() / size);
-    }
-
-    @Transactional(readOnly = true)
-    public int getTotalPageByCategory(String category, int size) {
-        return (int) Math.ceil((double) voiceModelRepository.countByCategory(category) / size);
-    }
 }
