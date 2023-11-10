@@ -18,17 +18,15 @@ export default function WithdrawalAccount() {
           headers: {
             Authorization: `Bearer ${getCookies("accessToken")}`,
           },
-        },
-        {
-          checkPassword: event.target.curPwd.value.trim(),
+          data : {checkPassword: event.target.curPwd.value.trim()}
         }
       )
       .then(function (response) {
         removeCookies("accessToken");
-        homeNavigate("./");
+        homeNavigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        err.response.data.message !== undefined ? setValidSubmit(err.response.data.message) : setValidSubmit(err.response.data.detail);
       });
   }
   return (
@@ -37,7 +35,7 @@ export default function WithdrawalAccount() {
         <Form.Group className="mb-3" controlId="formCheckPwd">
           <Form.Label>현재 비밀번호 확인</Form.Label>
           <Form.Control type="password" name="curPwd" />
-          <Form.Text>{validSubmit}</Form.Text>
+          <Form.Text className = {classes.warning}>{validSubmit}</Form.Text>
         </Form.Group>
         <Button type="submit" className={classes["submit"]}>
           회원 탈퇴

@@ -92,7 +92,7 @@ export default function () {
   return (
     <>
       <NavigationBar />
-      <div style={{ width: "100%", height: "6rem" }} />
+      <div style={{ width: "100%", height: "8rem" }} />
       <div className={classes["banner-wrapper"]}>
         <Carousel indicators={false}>{BannerList}</Carousel>
       </div>

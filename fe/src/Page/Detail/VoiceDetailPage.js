@@ -88,7 +88,7 @@ export default function VoiceDetailPage() {
       <PlayerModal func = {{handlerClose, show}}/>
 
       <NavigationBar img_src="logo.png" />
-      <div style={{ width: "100%", height: "6rem" }} />
+      <div style={{ width: "100%", height: "8rem" }} />
       <div className={classes["banner-wrapper"]}>
         <DetailBanner book={voiceInfo} type="voice" demoFn={handlerShow} />
       </div>

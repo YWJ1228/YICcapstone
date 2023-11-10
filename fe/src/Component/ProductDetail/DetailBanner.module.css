@@ -30,6 +30,11 @@
     color: black;
     border-color: rgb(192, 192, 21);
 }
+.price-button:active {
+    background-color: rgb(231, 231, 33) !important;
+    color: black  !important;
+    border-color: rgb(192, 192, 21)  !important;
+}
 
 .demo-button {
     width: 7rem;
@@ -41,6 +46,11 @@
     background-color: white;
     border-color: #7B8EF5;
     color: #7B8EF5;
+}
+.demo-button:active {
+    background-color: white !important;
+    border-color: #7B8EF5  !important;
+    color: #7B8EF5  !important;
 }
 
 .price-wrapper {

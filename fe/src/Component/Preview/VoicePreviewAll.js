@@ -44,12 +44,8 @@ export default function VoicePreviewAll(props) {
                 case '3': api = `${API.LOAD_CATEGORY_VOICE_SORTBY_HIGH_PRICE}${currentCategory}&page=${currentPage - 1}`; break;
             }
         }
-        axios.all([
-            axios.get(api),
-            axios.get(currentCategory === 'all'
-                ? `${API.NUM_PAGES_VOICELIST}`
-                : `${API.NUM_PAGES_CATEGORY_VOICELIST}${currentCategory}`)])
-            .then(axios.spread((res1, res2) => {
+        axios.get(api)
+            .then((res1) => {
                 const resData = (res1.data.content).map((voice) => ({
                     id: voice.id,
                     image: voice.imageUrl,
@@ -58,9 +54,9 @@ export default function VoicePreviewAll(props) {
                     price: voice.price
                 }));
                 setEntireVoice(resData);
-                setPageCnt(res2.data);
-                DebuggingMode([`${currentCategory} 페이지 `, `${currentCategory} 페이지 수`], [resData, res2.data]);
-            })).catch((err) => { console.log(err) });;
+                setPageCnt(res1.data.totalPages);
+                DebuggingMode([`${currentCategory} 페이지 `, `${currentCategory} 페이지 수`], [resData, res1.data.totalPages]);
+            }).catch((err) => { console.log(err) });
     }, [currentPage, currentCategory, sortType]);
 
     // category 변경하면 항상 첫페이지로 넘어가도록

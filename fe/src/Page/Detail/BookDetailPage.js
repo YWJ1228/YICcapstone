@@ -33,10 +33,10 @@ export default function BookDetailPage() {
     description: "default",
     reviews: reviews,
   });
-
+  console.log(`${API.REVIEW_EBOOK}${ebookID}&page=0`)
   useEffect(() => {
     axios
-      .all([axios.get(`${API.LOAD_EBOOK}/${ebookID}`), axios.get(`${API.REVIEW_EBOOK}${ebookID}&page=0`)])
+      .all([axios.get(`${API.LOAD_EBOOK}/${ebookID}`), axios.get(`http://localhost:8080/review/ebook?ebookId=1&page=0&size=5`)])
       .then(
         axios.spread((res1, res2) => {
           console.log(res2);
@@ -69,7 +69,7 @@ export default function BookDetailPage() {
   return (
     <>
       <NavigationBar img_src="logo.png" />
-      <div style={{ width: "100%", height: "6rem" }} />
+      <div style={{ width: "100%", height: "8rem" }} />
       <div className={classes["banner-wrapper"]}>
         <DetailBanner book={bookInfo} type="book" />
       </div>

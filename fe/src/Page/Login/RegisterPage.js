@@ -179,6 +179,7 @@ export default function RegisterPage() {
     <AlertModal func = {closeModal} value =  {{show,message}} navigateType = {navigateType}/>
       <NavigationBar/>
       <div style={{ width: "100%", height: "6rem" }} />
+      <div className={classes['register-title']}>회원가입</div>
       <div className={classes.wrapper}>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formGridCheckEmail">
@@ -252,7 +253,6 @@ export default function RegisterPage() {
             회원가입 완료
           </Button>
         </Form>
-        {/* <SexBtn/> */}
       </div>
     </>
   );

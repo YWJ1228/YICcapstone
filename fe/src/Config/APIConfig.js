@@ -29,6 +29,8 @@ export const API = {
     CHANGE_PWD:             `${BASE_URL}/api/user/password`,
     CHANGE_NICKNAME:        `${BASE_URL}/api/user/nickname`,
 
+    SEARCH_EBOOK :          `${EBOOK_URL}/search/name?keyword=`,
+
 
 
     // #########  태훈 API  #############
@@ -60,10 +62,6 @@ export const API = {
     LOAD_CATEGORY_EBOOKS_SORTBY_HIGH_PRICE :     `${EBOOK_URL}/list/category/price/desc?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&category=`,
 
 
-    NUM_PAGES_EBOOKLIST:                `${EBOOK_URL}/list/total?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}`,
-    NUM_PAGES_CATEGORY_EBOOKLIST:       `${EBOOK_URL}/list/total/category?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&category=`,
-
-
     // VOICE
     // POST
     UPLOAD_VOICE:                       `${VOICE_URL}`,
@@ -93,10 +91,6 @@ export const API = {
     LOAD_CATEGORY_VOICE_SORTBY_POPULARITY :     `${VOICE_URL}/list/category/popularity?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
     LOAD_CATEGORY_VOICE_SORTBY_LOW_PRICE :      `${VOICE_URL}/list/category/price/asc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
     LOAD_CATEGORY_VOICE_SORTBY_HIGH_PRICE :     `${VOICE_URL}/list/category/price/desc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
-
-    NUM_PAGES_VOICELIST:                `${VOICE_URL}/list/total?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}`,
-    NUM_PAGES_CATEGORY_VOICELIST:       `${VOICE_URL}/list/total/category?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
-
 
     // 내 서재 API
     // 더미 API
