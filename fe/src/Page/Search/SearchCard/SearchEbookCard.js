@@ -6,8 +6,8 @@ import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import IconButton from "@mui/material/IconButton";
 
-import classes from "./SearchCard.module.css";
-export default function SearchCard(props) {
+import classes from "./SearchEbookCard.module.css";
+export default function SearchEbookCard(props) {
   var stars = new Array();
   for (let i = 0; i < 5; i++) {
     if (props.prd.rating > i) {

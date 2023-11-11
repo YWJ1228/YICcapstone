@@ -14,6 +14,8 @@ export const creditConfig = {
 export const categoryDict = {
   'poem': "시",
   'novel': "소설",
+  'singer' : '가수',
+  'actor' : '배우'
 };
 
 export const PageConfig = {

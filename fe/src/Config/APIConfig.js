@@ -29,7 +29,10 @@ export const API = {
     CHANGE_PWD:             `${BASE_URL}/api/user/password`,
     CHANGE_NICKNAME:        `${BASE_URL}/api/user/nickname`,
 
-    SEARCH_EBOOK :          `${EBOOK_URL}/search/name?keyword=`,
+    SEARCH_EBOOK_NAME :          `${EBOOK_URL}/search/name?keyword=`,
+    SEARCH_EBOOK_AUTHOR :        `${EBOOK_URL}/search/author?keyword=`,
+    SEARCH_EBOOK_PUBLISHER :     `${EBOOK_URL}/search/publisher?keyword=`,
+    SEARCH_VOICE :               `${VOICE_URL}/search/name?keyword=`,
 
 
 
