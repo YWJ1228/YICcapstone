@@ -6,6 +6,8 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import { Button, FormControl, Typography } from "@mui/material";
 
+import classes from './SearchMenuCard.module.css';
+
 export default function SearchMenuCard(props) {
   const setMenuForm = props.setMenu;
   function submitHandler(event){
@@ -22,8 +24,9 @@ export default function SearchMenuCard(props) {
         <Typography>상품 카테고리</Typography>
         <hr />
         <FormControlLabel control={<Checkbox defaultChecked />} name="ebook" label="E-Book" />
+        <br/>
         <FormControlLabel control={<Checkbox defaultChecked />} name="tts" label="TTS" />
-        <br />
+        <br /><br/>
         <Typography>검색기준</Typography>
         <hr />
         <RadioGroup aria-labelledby="demo-radio-buttons-group-label" defaultValue={'title'} name="searchStd">
@@ -32,7 +35,7 @@ export default function SearchMenuCard(props) {
           <FormControlLabel value='publisher' control={<Radio />} label="출판사" />
         </RadioGroup>
         <br />
-        <Button type="submit">검색</Button>
+        <Button type="submit" className = {classes['search-btn']}>검색</Button>
       </form>
     </>
   );

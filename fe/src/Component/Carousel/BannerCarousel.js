@@ -11,7 +11,7 @@ export default function BannerCarousel() {
     );
   });
   return (
-    <Carousel className={classes.carousel} animation="slide" duration = {600} navButtonsAlwaysInvisible={true} indicators={false}>
+    <Carousel className={classes.carousel} animation="slide" duration = {600} navButtonsAlwaysvisible={false} indicators={false}>
       {bannerCarouselItem}
     </Carousel>
   );
