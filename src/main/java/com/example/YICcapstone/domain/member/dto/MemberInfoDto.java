@@ -10,12 +10,16 @@ import lombok.Data;
 public class MemberInfoDto {
     private final String username;
     private final String name;
+    private final String familyName;
+    private final String givenName;
     private final String nickname;
 
     @Builder
     public MemberInfoDto(Member member) {
         this.username = member.getUsername();
         this.name = member.getName();
+        this.familyName = member.getFamilyName();
+        this.givenName = member.getGivenName();
         this.nickname = member.getNickname();
     }
 }
