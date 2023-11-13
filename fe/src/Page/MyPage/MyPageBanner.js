@@ -26,7 +26,7 @@ export default function MyPageBanner(props) {
       ])
       .then(
         axios.spread((res1, res2) => {
-          setUserName(res1.data.name);
+          setUserName(res1.data.givenName);
           const resData2 = res2.data.content.map((voice) => ({
             name: voice.celebrityName,
           }));
@@ -51,7 +51,7 @@ export default function MyPageBanner(props) {
             <img src="/logo192.png" className={classes.image} />
           </Col>
           <Col>
-            <Row className={classes.greeting}>반갑습니다! {userName}님!</Row>
+            <Row className={classes.greeting}>{userName}님 반갑습니다!</Row>
             <Row>
               <Button href="/changeinfo" className={classes["changeInfo-btn"]}>
                 개인정보수정

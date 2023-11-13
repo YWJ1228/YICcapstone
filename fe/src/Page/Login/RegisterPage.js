@@ -26,7 +26,8 @@ export default function RegisterPage() {
     // 서버로 보내는 데이터
     username: "defaultUser",
     password: "defaultPassword",
-    name: "defaultName",
+    familyName: "defaultName",
+    givenName : "defaultName",
     nickname: "defaultNickName",
     birth: "defaultBirth",
     sex: 0,
@@ -111,7 +112,8 @@ export default function RegisterPage() {
       validForm.verifyText === event.target.verifyText.value, // 인증번호
       validForm.verifyPwd, // 비밀번호
       validForm.verifyEqualPwd, // 비밀번호 확인
-      event.target.name.value !== "", // 이름
+      event.target.familyName.value !== "", // 이름
+      event.target.givenName.value !=="",
       validForm.verifyNickname, // 닉네임
       event.target.birth.value !== "", // 생년월일
     ];
@@ -214,7 +216,10 @@ export default function RegisterPage() {
             <Row>
               <Form.Label>개인정보</Form.Label>
               <Col>
-                <Form.Control name="name" onChange={formChangeHandler} placeholder="성명" className={classes.inputBox} ref={(el) => (myRef.current[4] = el)} />
+                <Form.Control name="familyName" onChange={formChangeHandler} placeholder="성" className={classes.inputBox} ref={(el) => (myRef.current[4] = el)} />
+              </Col>
+              <Col>
+                <Form.Control name="givenName" onChange={formChangeHandler} placeholder="이름" className={classes.inputBox} ref={(el) => (myRef.current[5] = el)} />
               </Col>
 
               <Col xs={3} className={classes["input-wrapper"]}>
@@ -232,7 +237,7 @@ export default function RegisterPage() {
           <Form.Group className="mb-3" controlId="formGridNickname">
             <Row>
               <Col>
-                <Form.Control type="text" name="nickname" onChange={formChangeHandler} placeholder="닉네임" className={classes.inputBox} ref={(el) => (myRef.current[5] = el)} />
+                <Form.Control type="text" name="nickname" onChange={formChangeHandler} placeholder="닉네임" className={classes.inputBox} ref={(el) => (myRef.current[6] = el)} />
               </Col>
               <Col xs={3} className={classes["input-wrapper"]}>
                 <Button className={classes["verify-button"]} type="button" name="verifyNickname" onClick={validNicknameHandler}>
@@ -244,7 +249,7 @@ export default function RegisterPage() {
           <FormGroup>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formBirth">
-                <Form.Control type="number" name="birth" onChange={formChangeHandler} placeholder="YYMMDD" className={classes.inputBox} ref={(el) => (myRef.current[6] = el)} />
+                <Form.Control type="number" name="birth" onChange={formChangeHandler} placeholder="YYMMDD" className={classes.inputBox} ref={(el) => (myRef.current[7] = el)} />
               </Form.Group>
             </Row>
           </FormGroup>
