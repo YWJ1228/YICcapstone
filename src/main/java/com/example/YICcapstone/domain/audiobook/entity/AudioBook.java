@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
+@Setter
 @Builder
 public class AudioBook {
     @Id
@@ -18,11 +19,11 @@ public class AudioBook {
 
     @ManyToOne // AudioBook:many, Ebook:one (외래키)
     @JoinColumn
-    private Ebook ebookId;
+    private Ebook ebook;
 
     @ManyToOne // AudioBook:many, VoiceModel:one (외래키)
     @JoinColumn
-    private VoiceModel voiceModelId;
+    private VoiceModel voiceModel;
 
     // 외래키의 관리는 Many 측에서 관리하는 것이 좋다 -> insert 또는 update 시, 쿼리문 개수를 줄일 수 있음
     // 단방향 참조는 Many 측에서 @ManyToOne을 사용해주면 끝, 양방향 참조 목적은 one 측에서도 @OneToMany를 선언해주어야 함
@@ -31,11 +32,14 @@ public class AudioBook {
     @Column(length = 255, nullable = false, unique = true)
     private String audioBookLink;
 
-    public void setEbookId (Ebook ebookId) {
-        this.ebookId = ebookId;
+    /*
+    public void setEbookId (Ebook ebook) {
+        this.ebook = ebook;
     }
-    public void setVoiceModelId (VoiceModel voiceModelId) {
-        this.voiceModelId = voiceModelId;
+    public void setVoiceModelId (VoiceModel voiceModel) {
+        this.voiceModel = voiceModel;
     }
+     */
+
     // 해당 오디오북이 어떤 Ebook과 어떤 VoiceModel의 합성 결과물인지 포함하기 위한 외래키 설정 (setEbookId, setVoiceModelId)
 }

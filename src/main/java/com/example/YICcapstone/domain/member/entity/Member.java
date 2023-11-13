@@ -23,6 +23,12 @@ public class Member extends BaseTimeEntity {
     @Column(length = 100, nullable = false)
     private String name;
 
+    @Column(length = 100, nullable = false)
+    private String familyName;
+
+    @Column(length = 100, nullable = false)
+    private String givenName;
+
     @Column(length = 255, nullable = false, unique = true)
     private String nickname;
 
@@ -40,6 +46,7 @@ public class Member extends BaseTimeEntity {
     @Column(length = 1000)
     private String refreshToken;
 
+    public void addName(String familyName, String givenName) {this.name = familyName + givenName; }
     public void addRole() { this.role = Role.USER; } // 회원 가입 시, 자동으로 USER 등급의 권한 부여하도록 설정
     public void encodePassword(PasswordEncoder passwordEncoder){ // 회원 가입 시, 비밀번호는 DB에 암호화하여 저장
         this.password = passwordEncoder.encode(password);

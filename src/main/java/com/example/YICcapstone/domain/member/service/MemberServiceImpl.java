@@ -29,6 +29,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void signUp(MemberSignUpDto memberSignUpDto) { // 회원가입 서비스
         Member newMember = memberSignUpDto.toEntity(); // 회원가입 요청으로 보낸 정보를 DB에 저장할 수 있도록 엔티티화
+        newMember.addName(memberSignUpDto.familyName(), memberSignUpDto.givenName());
         newMember.addRole(); // 회원가입 요청을 통한 회원 등록은 무조건 USER 등급의 역할 부여. ADMIN 등급은 별도의 경로로 설정하도록 구현
         newMember.encodePassword(passwordEncoder); // 회원가입 요청을 통한 회원 정보 중에서 비밀번호 정보는 암호화하여 DB에 저장하기 위함
 
