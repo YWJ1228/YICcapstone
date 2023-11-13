@@ -1,6 +1,10 @@
 .wrapper{
     margin : auto;
     width : 50rem;
+    border : 1px solid #7B8EF5;
+    padding : 3rem;
+    border-radius  :1rem;
+
 }
 .verify-button{
     background-color : #7B8EF5;
@@ -17,7 +21,7 @@
     border-color: #7B8EF5 !important;
 }
 .submit{
-    width : 50rem;
+    width : 100%;
     background-color : #7B8EF5;
     border-color: white;
 }
@@ -49,4 +53,9 @@
 .input-wrapper{
     text-align:left;
 }
-
+.register-title{
+    margin : auto;
+    text-align: center;
+    font-size : 3rem;
+    padding-bottom : 3rem;
+}

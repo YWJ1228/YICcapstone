@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { getCookies } from "../../Component/Cookies/LoginCookie.js";
 
 import { API } from "../../Config/APIConfig.js";
 import NavigationBar from "../../Component/NavigationBar/NavigationBar.js";
@@ -17,32 +16,12 @@ import { DebuggingMode } from "../../Config/Config.js";
 
 export default function BookDetailPage() {
   const { ebookID } = useParams();
-  const dummyReviews = [
-    {
-      id: 1,
-      nickname: "username1",
-      uploadDate: "23.08.10",
-      text: "어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.",
-    },
-    {
-      id: 2,
-      nickname: "usname22",
-      uploadDate: "23.08.10",
-      text: "어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.",
-    },
-    {
-      id: 3,
-      nickname: "usernme1333",
-      uploadDate: "23.08.10",
-      text: "어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.",
-    },
-    {
-      id: 4,
-      nickname: "usernme144",
-      uploadDate: "23.08.10",
-      text: "어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.어린왕자 후기 1번입니다.",
-    },
-  ];
+  const [reviews, setReview] = useState([{
+    userName : "default",
+    content : "default",
+    grade : 0,
+    time : "default"
+  }]);
   const [bookInfo, setBookInfo] = useState({
     title: "default",
     author: "default",
@@ -52,28 +31,35 @@ export default function BookDetailPage() {
     updatedDate: "default",
     price: 0,
     description: "default",
-    reviews: dummyReviews,
+    reviews: reviews,
   });
-
+  console.log(`${API.REVIEW_EBOOK}${ebookID}&page=0`)
   useEffect(() => {
     axios
-      .get(`${API.LOAD_EBOOK}/${ebookID}`)
-      .then(function (response) {
-        setBookInfo({
-          id: response.data.id,
-          title: response.data.ebookName,
-          author: response.data.author,
-          image: response.data.imageUrl,
-          numPages: response.data.pages,
-          numLikes: response.data.rating,
-          updatedDate: response.data.uploadedAt,
-          price: response.data.price,
-          description: response.data.content,
-          reviews: dummyReviews,
-        });
+      .all([axios.get(`${API.LOAD_EBOOK}/${ebookID}`), axios.get(`http://localhost:8080/review/ebook?ebookId=1&page=0&size=5`)])
+      .then(
+        axios.spread((res1, res2) => {
+          console.log(res2);
+          res2.data.content.map((review)=>{
+            setReview(review);
+            
+          })
+          setBookInfo({
+            id: res1.data.id,
+            title: res1.data.ebookName,
+            author: res1.data.author,
+            image: res1.data.imageUrl,
+            numPages: res1.data.pages,
+            numLikes: res1.data.rating,
+            updatedDate: res1.data.uploadedAt,
+            price: res1.data.price,
+            description: res1.data.content,
+            reviews: reviews,
+          });
 
-        DebuggingMode(["책 정보"], [response.data]);
-      })
+          DebuggingMode(["책 정보"], [res1.data]);
+        })
+      )
       .catch(function (error) {
         console.log(error);
         console.log("Book Detail loading error");
@@ -83,7 +69,7 @@ export default function BookDetailPage() {
   return (
     <>
       <NavigationBar img_src="logo.png" />
-      <div style={{ width: "100%", height: "6rem" }} />
+      <div style={{ width: "100%", height: "8rem" }} />
       <div className={classes["banner-wrapper"]}>
         <DetailBanner book={bookInfo} type="book" />
       </div>

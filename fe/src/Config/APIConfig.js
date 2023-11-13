@@ -34,6 +34,11 @@ export const API = {
     CHANGE_PWD:             `${BASE_URL}/api/user/password`,
     CHANGE_NICKNAME:        `${BASE_URL}/api/user/nickname`,
 
+    SEARCH_EBOOK_NAME :          `${EBOOK_URL}/search/name?keyword=`,
+    SEARCH_EBOOK_AUTHOR :        `${EBOOK_URL}/search/author?keyword=`,
+    SEARCH_EBOOK_PUBLISHER :     `${EBOOK_URL}/search/publisher?keyword=`,
+    SEARCH_VOICE :               `${VOICE_URL}/search/name?keyword=`,
+
 
 
     // #########  태훈 API  #############
@@ -95,7 +100,6 @@ export const API = {
     LOAD_CATEGORY_VOICE_SORTBY_LOW_PRICE :      `${VOICE_URL}/list/category/price/asc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
     LOAD_CATEGORY_VOICE_SORTBY_HIGH_PRICE :     `${VOICE_URL}/list/category/price/desc?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&category=`,
 
-
     // 내 서재 API
     // 더미 API
     LOAD_MYPAGE_BOOKLIST :              `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_EBOOKS}&page=0`,
@@ -132,6 +136,7 @@ export const API = {
     // POST
     REVIEW_EBOOK:                      `${REVIEW_API_URL}/ebook`,
     REVIEW_VOICE:                      `${REVIEW_API_URL}/voice-model`,
+
 
     // PUT
     UPDATE_REVIEW_EBOOK:               `${REVIEW_API_URL}/ebook`,

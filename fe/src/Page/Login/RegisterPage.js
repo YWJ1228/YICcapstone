@@ -1,29 +1,26 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { API } from "../../Config/APIConfig";
-
-import NavigationBar from "../../Component/NavigationBar/NavigationBar";
 import axios from "axios";
 
-import classes from "./RegisterPage.module.css";
+import NavigationBar from "../../Component/NavigationBar/NavigationBar";
 import StyleChangeRef from "../../Ref/StyleChangeRef";
+import AlertModal from "../../Component/Modal/AlertModal/AlertModal";
 
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import ToggleButton from "react-bootstrap/ToggleButton";
-import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
+import classes from "./RegisterPage.module.css";
 
+import {Button,Col,Row,Form,ToggleButton,ToggleButtonGroup} from "react-bootstrap/";
 import FormGroup from "react-bootstrap/esm/FormGroup";
 
 export default function RegisterPage() {
   const myRef = useRef([]); // css의 변경을 위한 코드
   const navigate = useNavigate(); // 로그인 성공 후에 넘어갈 navigate를 위한 코드
 
-  // ######################################################
-  // ################ 데이터를 저장한 State ################
-  // ######################################################
+  const [show, setShow] = useState(false);
+  const [message, setMessage] = useState();
+  const showModal = () => {setShow(true)};
+  const closeModal = () => {setShow(false)};
+  const [navigateType , setNavigateType] = useState();
 
   const [userForm, setUserForm] = useState({
     // 서버로 보내는 데이터
@@ -39,6 +36,7 @@ export default function RegisterPage() {
     guideEmailText: "",
     guidePwdText: "숫자, 알파벳과 특수문자를 섞어서 8~12자로 작성해주세요",
     guideEqualPwdText: "",
+    guideNicknameText : ""
   });
 
   const [validForm, setValidForm] = useState({
@@ -71,6 +69,8 @@ export default function RegisterPage() {
       .then(function (response) {
         setValidForm({ ...validForm, verifyText: response.data }); // 정답 인증번호 저장
         setGuideMessage({ ...guideMessage, guideEmailText: "" });
+        setMessage('인증번호가 발송되었습니다!');
+        showModal();
       })
       .catch(function (error) {
         console.log(error);
@@ -81,8 +81,9 @@ export default function RegisterPage() {
     axios
       .get(`${API.CHECK_NICKNAME}/${userForm.nickname}`)
       .then(function (response) {
-        console.log("valid nickname");
+        setMessage('사용가능한 닉네임입니다!');
         setValidForm({ ...validForm, verifyNickname: true });
+        showModal();
       })
       .catch(function (error) {
         console.log(error);
@@ -93,18 +94,13 @@ export default function RegisterPage() {
   function submitHandler(event) {
     event.preventDefault();
     // 회원가입 요청 유효성 검사
-    if (
-      validForm.verifyText === event.target.verifyText.value &&
-      validForm.verifyNickname &&
-      validForm.verifyPwd &&
-      validForm.verifyEqualPwd
-    ) {
-      console.log("Login Succeeded");
+    if (validForm.verifyText === event.target.verifyText.value && validForm.verifyNickname && validForm.verifyPwd && validForm.verifyEqualPwd) {
       axios
         .post(`${API.REGISTER_USER}`, userForm)
         .then(function (response) {
-          // 로그인 성공
-          navigate("/login");
+          setMessage("회원가입 성공!");
+          setNavigateType('login');
+          showModal();
         })
         .catch(function (error) {
           console.log(error);
@@ -119,10 +115,16 @@ export default function RegisterPage() {
       validForm.verifyNickname, // 닉네임
       event.target.birth.value !== "", // 생년월일
     ];
-    conditions.map((cond, index) => {
-      // 유효성 검사 후 invalid field는 디자인 변경
-      StyleChangeRef(myRef, index, cond);
+    let condCount = 0;
+    conditions.map((cond) => {
+      condCount += cond;
     });
+    // 회원가입 폼 유효 판단 후 틀린 경우에 색깔로 표시
+    if (condCount !== conditions.length) {
+      conditions.map((cond, index) => {
+        StyleChangeRef(myRef, index, cond);
+      });
+    }
   }
 
   function pwdChangeHanlder(event) {
@@ -171,42 +173,28 @@ export default function RegisterPage() {
     }
   }
 
+
   return (
     <>
-      <NavigationBar img_src="logo.png" />
+    <AlertModal func = {closeModal} value =  {{show,message}} navigateType = {navigateType}/>
+      <NavigationBar/>
       <div style={{ width: "100%", height: "6rem" }} />
+      <div className={classes['register-title']}>회원가입</div>
       <div className={classes.wrapper}>
         <Form onSubmit={submitHandler}>
           <Form.Group className="mb-3" controlId="formGridCheckEmail">
             <Form.Label>아이디 생성</Form.Label>
-            <Form.Control
-              type="email"
-              name="username"
-              onChange={formChangeHandler}
-              placeholder="이메일"
-              className={classes.inputBox}
-              ref={(el) => (myRef.current[0] = el)}
-            />
+            <Form.Control type="email" name="username" onChange={formChangeHandler} placeholder="이메일" className={classes.inputBox} ref={(el) => (myRef.current[0] = el)} />
             <Form.Text>{guideMessage.guideEmailText}</Form.Text>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formVerify">
             <Row className="mb-3">
               <Col>
-                <Form.Control
-                  type="text"
-                  placeholder="인증번호"
-                  name="verifyText"
-                  className={classes.inputBox}
-                  ref={(el) => (myRef.current[1] = el)}
-                />
+                <Form.Control type="text" placeholder="인증번호" name="verifyText" className={classes.inputBox} ref={(el) => (myRef.current[1] = el)} />
               </Col>
               <Col xs={3} className={classes["input-wrapper"]}>
-                <Button
-                  className={classes["verify-button"]}
-                  type="button"
-                  onClick={validEmailHandler}
-                >
+                <Button className={classes["verify-button"]} type="button" onClick={validEmailHandler}>
                   이메일발송
                 </Button>
               </Col>
@@ -214,25 +202,11 @@ export default function RegisterPage() {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formPwd">
-            <Form.Control
-              type="password"
-              name="password"
-              onChange={pwdChangeHanlder}
-              placeholder="비밀번호"
-              className={classes.inputBox}
-              ref={(el) => (myRef.current[2] = el)}
-            />
+            <Form.Control type="password" name="password" onChange={pwdChangeHanlder} placeholder="비밀번호" className={classes.inputBox} ref={(el) => (myRef.current[2] = el)} />
             <Form.Text>{guideMessage.guidePwdText}</Form.Text>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formCheckPwd">
-            <Form.Control
-              type="password"
-              name="checkPassword"
-              onChange={equalPwdChangeHandler}
-              placeholder="비밀번호 확인"
-              className={classes.inputBox}
-              ref={(el) => (myRef.current[3] = el)}
-            />
+            <Form.Control type="password" name="checkPassword" onChange={equalPwdChangeHandler} placeholder="비밀번호 확인" className={classes.inputBox} ref={(el) => (myRef.current[3] = el)} />
             <Form.Text>{guideMessage.guideEqualPwdText}</Form.Text>
           </Form.Group>
 
@@ -240,35 +214,15 @@ export default function RegisterPage() {
             <Row>
               <Form.Label>개인정보</Form.Label>
               <Col>
-                <Form.Control
-                  name="name"
-                  onChange={formChangeHandler}
-                  placeholder="성명"
-                  className={classes.inputBox}
-                  ref={(el) => (myRef.current[4] = el)}
-                />
+                <Form.Control name="name" onChange={formChangeHandler} placeholder="성명" className={classes.inputBox} ref={(el) => (myRef.current[4] = el)} />
               </Col>
 
               <Col xs={3} className={classes["input-wrapper"]}>
                 <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                  <ToggleButton
-                    className={
-                      userForm.sex ? classes.gender : classes["gender-focus"]
-                    }
-                    id="tbg-radio-1"
-                    value={1}
-                    onClick={() => genderClickHandler(0)}
-                  >
+                  <ToggleButton className={userForm.sex ? classes.gender : classes["gender-focus"]} id="tbg-radio-1" value={1} onClick={() => genderClickHandler(0)}>
                     남성
                   </ToggleButton>
-                  <ToggleButton
-                    className={
-                      userForm.sex ? classes["gender-focus"] : classes.gender
-                    }
-                    id="tbg-radio-2"
-                    value={2}
-                    onClick={() => genderClickHandler(1)}
-                  >
+                  <ToggleButton className={userForm.sex ? classes["gender-focus"] : classes.gender} id="tbg-radio-2" value={2} onClick={() => genderClickHandler(1)}>
                     여성
                   </ToggleButton>
                 </ToggleButtonGroup>
@@ -278,22 +232,10 @@ export default function RegisterPage() {
           <Form.Group className="mb-3" controlId="formGridNickname">
             <Row>
               <Col>
-                <Form.Control
-                  type="text"
-                  name="nickname"
-                  onChange={formChangeHandler}
-                  placeholder="닉네임"
-                  className={classes.inputBox}
-                  ref={(el) => (myRef.current[5] = el)}
-                />
+                <Form.Control type="text" name="nickname" onChange={formChangeHandler} placeholder="닉네임" className={classes.inputBox} ref={(el) => (myRef.current[5] = el)} />
               </Col>
               <Col xs={3} className={classes["input-wrapper"]}>
-                <Button
-                  className={classes["verify-button"]}
-                  type="button"
-                  name="verifyNickname"
-                  onClick={validNicknameHandler}
-                >
+                <Button className={classes["verify-button"]} type="button" name="verifyNickname" onClick={validNicknameHandler}>
                   중복확인
                 </Button>
               </Col>
@@ -302,14 +244,7 @@ export default function RegisterPage() {
           <FormGroup>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formBirth">
-                <Form.Control
-                  type="number"
-                  name="birth"
-                  onChange={formChangeHandler}
-                  placeholder="생년월일"
-                  className={classes.inputBox}
-                  ref={(el) => (myRef.current[6] = el)}
-                />
+                <Form.Control type="number" name="birth" onChange={formChangeHandler} placeholder="YYMMDD" className={classes.inputBox} ref={(el) => (myRef.current[6] = el)} />
               </Form.Group>
             </Row>
           </FormGroup>
@@ -318,7 +253,6 @@ export default function RegisterPage() {
             회원가입 완료
           </Button>
         </Form>
-        {/* <SexBtn/> */}
       </div>
     </>
   );

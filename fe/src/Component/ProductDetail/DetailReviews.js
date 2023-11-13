@@ -21,12 +21,12 @@ export default function DetailReviews(props) {
     const reviewArr = (props.reviews).map((review) => {
 
         return (
-            <div className={classes['review-wrapper']} key = {review.id}>
+            <div className={classes['review-wrapper']} key = {review.userName}>
                 <Row>
                     <Col>
-                        <Row className={classes.userid}>{userMasking(review.nickname)}</Row>
-                        <Row className={classes.review}>{review.text}</Row>
-                        <Row className={classes['upload-date']}>Upload :  {review.uploadDate}</Row>
+                        <Row className={classes.userid}>{review.userName}</Row>
+                        <Row className={classes.review}>{review.content}</Row>
+                        <Row className={classes['upload-date']}>Upload :  {review.time}</Row>
                     </Col>
                 </Row>
             </div>

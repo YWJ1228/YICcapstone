@@ -1,0 +1,18 @@
+.search-title{
+    font-size : 1.3rem;
+    font-weight: bold;
+    padding : 2rem;
+    padding-left  : 7rem;
+    padding-right : 7rem;
+    white-space: nowrap;
+}
+.target{
+    color : rgb(107, 194, 197);
+}
+.no-result{
+    position : relative;
+    top : 5rem;
+    text-align: center;
+    color : gray;
+}
+

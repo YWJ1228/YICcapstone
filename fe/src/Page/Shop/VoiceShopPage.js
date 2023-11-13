@@ -91,8 +91,8 @@ export default function () {
   });
   return (
     <>
-      <NavigationBar img_src="logo.png" />
-      <div style={{ width: "100%", height: "6rem" }} />
+      <NavigationBar />
+      <div style={{ width: "100%", height: "8rem" }} />
       <div className={classes["banner-wrapper"]}>
         <Carousel indicators={false}>{BannerList}</Carousel>
       </div>
