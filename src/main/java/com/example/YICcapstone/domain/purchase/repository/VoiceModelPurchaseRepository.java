@@ -15,6 +15,12 @@ public interface VoiceModelPurchaseRepository extends JpaRepository<VoiceModelPu
     // 구매 리스트 조회
     Page<VoiceModelPurchase> findAllByMemberIdOrderByPurchasedAtDesc(Long memberId, Pageable pageable);
 
+    // 리뷰 작성하지 않은 구매 리스트 조회
+    Page<VoiceModelPurchase> findAllByMemberIdAndContentIsNullOrderByPurchasedAtDesc(Long memberId, Pageable pageable);
+
+    // 리뷰 작성한 구매 리스트 조회
+    Page<VoiceModelPurchase> findAllByMemberIdAndContentIsNotNullOrderByPurchasedAtDesc(Long memberId, Pageable pageable);
+
     // 리뷰 리스트 조회
-    Page<VoiceModelPurchase> findAllByVoiceModelIdAndContentIsNotNullAndIsDeletedIsFalseOrderByCreatedAtDesc(Long voiceModelId, Pageable pageable);
+    Page<VoiceModelPurchase> findAllByVoiceModelIdAndContentIsNotNullOrderByCreatedAtDesc(Long voiceModelId, Pageable pageable);
 }

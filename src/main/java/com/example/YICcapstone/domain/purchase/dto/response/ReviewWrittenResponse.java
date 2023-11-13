@@ -10,33 +10,49 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Getter
-public class PurchaseResponse {
+public class ReviewWrittenResponse {
     private Long purchaseId;
     private String purchasedAt;
-    private Long orderId;
-    private String paymentMethod;
-    private Integer price;
     private Optional<EbookResponse> ebook;
     private Optional<VoiceModelResponse> voiceModel;
+    private String content;
+    private Integer grade;
+    private String createdAt;
 
-    public PurchaseResponse(VoiceModelPurchase voiceModelPurchase) {
+    public ReviewWrittenResponse(VoiceModelPurchase voiceModelPurchase) {
         this.purchaseId = voiceModelPurchase.getId();
         this.purchasedAt = timeFormat(voiceModelPurchase.getPurchasedAt());
-        this.paymentMethod = voiceModelPurchase.getPaymentMethod();
-        this.price = voiceModelPurchase.getPrice();
-        this.orderId = voiceModelPurchase.getOrderId();
+        this.content = voiceModelPurchase.getContent();
+        this.grade = voiceModelPurchase.getGrade();
+        this.createdAt = timeFormat(voiceModelPurchase.getCreatedAt(), voiceModelPurchase.getUpdatedAt());
         this.ebook = Optional.empty();
         this.voiceModel = Optional.of(new VoiceModelResponse(voiceModelPurchase.getVoiceModel()));
     }
 
-    public PurchaseResponse(EbookPurchase ebookPurchase) {
+    public ReviewWrittenResponse(EbookPurchase ebookPurchase) {
         this.purchaseId = ebookPurchase.getId();
         this.purchasedAt = timeFormat(ebookPurchase.getPurchasedAt());
-        this.paymentMethod = ebookPurchase.getPaymentMethod();
-        this.price = ebookPurchase.getPrice();
-        this.orderId = ebookPurchase.getOrderId();
+        this.content = ebookPurchase.getContent();
+        this.grade = ebookPurchase.getGrade();
+        this.createdAt = timeFormat(ebookPurchase.getCreatedAt(), ebookPurchase.getUpdatedAt());
         this.ebook = Optional.of(new EbookResponse(ebookPurchase.getEbook()));
         this.voiceModel = Optional.empty();
+    }
+
+    public String timeFormat(LocalDateTime createdAt, LocalDateTime updatedAt) {
+        if (createdAt == null && updatedAt == null)
+            return null;
+        else if (updatedAt == null) {
+            String year = createdAt.toString().substring(0, 4);
+            String month = createdAt.toString().substring(5, 7);
+            String day = createdAt.toString().substring(8, 10);
+            return year + "-" + month + "-" + day;
+        } else {
+            String year = updatedAt.toString().substring(0, 4);
+            String month = updatedAt.toString().substring(5, 7);
+            String day = updatedAt.toString().substring(8, 10);
+            return year + "-" + month + "-" + day + " (수정됨)";
+        }
     }
 
     public String timeFormat(LocalDateTime purchasedAt) {

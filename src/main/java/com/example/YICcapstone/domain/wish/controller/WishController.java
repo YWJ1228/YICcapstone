@@ -8,7 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("/wish")
+@RequestMapping("/api/wish")
 @CrossOrigin(origins = "*")
 @RestController
 public class WishController {

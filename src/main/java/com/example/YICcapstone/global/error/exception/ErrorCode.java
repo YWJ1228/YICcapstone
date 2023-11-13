@@ -29,8 +29,8 @@ public enum ErrorCode {
     MEMBER_NOT_EXIST(404, "M004", "존재하지 않는 회원입니다."),
 
     // Purchase
-    VOICE_MODEL_PURCHASE_NOT_FOUND(400, "P001", "해당 음성모델을 구매하지 않았습니다."),
-    EBOOK_PURCHASE_NOT_FOUND(400, "P002", "해당 Ebook을 구매하지 않았습니다."),
+    VOICE_MODEL_PURCHASE_NOT_FOUND(400, "P001", "해당 음성모델 구매내역이 존재하지 않습니다."),
+    EBOOK_PURCHASE_NOT_FOUND(400, "P002", "해당 Ebook 구매내역이 존재하지 않습니다."),
     VOICE_MODEL_PURCHASE_ALREADY_EXIST(400, "P003", "이미 구매한 음성모델입니다."),
     EBOOK_PURCHASE_ALREADY_EXIST(400, "P004", "이미 구매한 Ebook입니다."),
 
@@ -38,7 +38,11 @@ public enum ErrorCode {
     REVIEW_NOT_FOUND(400, "R001", "해당 리뷰를 찾을 수 없습니다."),
     REVIEW_ALREADY_WRITTEN(400, "R002", "이미 리뷰를 작성하였습니다."),
     REVIEW_NOT_WRITTEN(400, "R003", "리뷰를 작성하지 않았습니다."),
-    REVIEW_NOT_WRITTEN_BY_MEMBER(400, "R004", "해당 리뷰를 작성한 회원이 아닙니다.");
+    REVIEW_NOT_WRITTEN_BY_MEMBER(400, "R004", "해당 리뷰를 작성한 회원이 아닙니다."),
+
+    // Shopping Basket
+    PRODUCT_ALREADY_PUT_INTO_BASKET(400, "S001", "장바구니에 이미 존재하는 상품입니다."),
+    PRODUCT_NOT_EXIST_INTO_BASKET(400, "S002", "장바구니에 삭제할 대상이 존재하지 않습니다.");
 
 
     private final int status;
