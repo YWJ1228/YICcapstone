@@ -20,12 +20,12 @@ export default function MyPageMenu() {
   };
 
   const [bookList, setBookList] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
-  const [reviewList, setReviewList] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
+  const [reviewList, setReviewList] = useState([]);
   const [likeList, setLikeList] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
 
   useEffect(() => {
     axios
-      .all([axios.get(API.LOAD_MYPAGE_BOOKLIST), axios.get(API.LOAD_MYPAGE_REVIEWLIST), axios.get(API.LOAD_MYPAGE_LIKELIST)])
+      .all([axios.get(API.LOAD_MYPAGE_BOOKLIST), axios.get(API.LOAD_REVIEW_NOT_WRITTEN_EBOOKS), axios.get(API.LOAD_MYPAGE_LIKELIST)])
       .then(
         axios.spread((res1, res2, res3) => {
           const resData1 = res1.data.content.map((book) => ({

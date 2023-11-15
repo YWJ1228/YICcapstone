@@ -37,9 +37,15 @@ export default function ChangePassword() {
       )
       .then((res) => {
         alert("비밀번호 변경 완료!");
-        validForm({ verifyEqualPwd: false, verifyPwd: false, verifySubmit: "" });
+        setValidForm({ verifyEqualPwd: false, verifyPwd: false, verifySubmit: "" });
         setChangeForm({ password: "" });
         setGuideMessage({ guidePwdText: "숫자와 알파벳을 섞어서 8~12자로 작성해주세요", guideEqualPwdText: "" });
+        Array.from(event.target.elements).forEach((input) => {
+          if (input.type === "password") {
+            input.value = "";
+          }
+        });
+        alert("로그인 해주세요!");
       })
       .catch((err) => {
         console.log(err);
@@ -112,7 +118,7 @@ export default function ChangePassword() {
           <Button type="submit" className={classes["submit"]}>
             비밀번호 변경
           </Button>
-          <Form.Text className = {classes.warning}>{validForm.verifySubmit}</Form.Text>
+          <Form.Text className={classes.warning}>{validForm.verifySubmit}</Form.Text>
         </Form.Group>
       </Form>
     </div>

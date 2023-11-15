@@ -1,4 +1,4 @@
-export const IS_DEBUGGING = true; // 디버깅 모드 선택 가능
+export const IS_DEBUGGING = false; // 디버깅 모드 선택 가능
 export const DebuggingMode = (description, data) => {
   if (IS_DEBUGGING) {
     description.map((text, idx) => {
@@ -47,6 +47,8 @@ export const PageConfig = {
   NUM_RECENT_EBOOKS: 5,
   NUM_EBOOK_REVIEWS: 5,
   NUM_EBOOK_PURCHASED: 5,
+  NUM_REVIEWS_FOR_EBOOK : 5,
+  NUM_REVIEWS_FOR_VOICE : 5,
 
   // Voice Shop Config
   VOICE_SHOP_TITLES: [

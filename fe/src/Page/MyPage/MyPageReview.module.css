@@ -1,6 +1,7 @@
 .image{
-    margin : 2ren;
-    width : 10rem;
+    margin : 2rem;
+    width : 7rem;
+    border-radius: 1rem;
 }
 .title{
     margin : 0.5rem;
@@ -17,6 +18,7 @@
     margin : 0.5rem;
     margin-left : 1rem;
     align-items: center;
+    height : 7rem;
  
     border : 2px solid #7B8EF5;
     border-radius : 1rem;
@@ -27,6 +29,8 @@
     outline : none;
 }
 .review-btn{
+    position : absolute;
+    right : 0rem;
     margin : 1rem;
     width : 5rem;
     background-color: #7B8EF5;
@@ -36,4 +40,7 @@
     color: #7B8EF5;
     background-color: white;
     border-color:#7B8EF5;
+}
+.btn-wrapper{
+    position : relative;
 }
