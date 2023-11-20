@@ -59,7 +59,7 @@ export default function HomePage() {
   }, []);
   return (
     <>
-      <NavigationBar />
+      <NavigationBar showMenuBar = {true}/>
       <div style={{ width: "100%", height: "8rem" }} />
       <Stack>
       <div className={classes.carousel} >

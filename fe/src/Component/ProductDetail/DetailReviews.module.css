@@ -36,3 +36,38 @@
     border-radius: 1rem;
     
 }
+.no-review{
+    margin : 1rem;
+    text-align: center;
+    color:gray;
+}
+.page-button{
+    background-color: #7B8EF5;
+    border-color : #7B8EF5;
+}
+.page-button:hover{
+    background-color: white;
+    color :#7B8EF5;
+    border-color : #7B8EF5;
+}
+.page-button:active{
+    background-color: white !important;
+    color :#7B8EF5 !important;
+    border-color : #7B8EF5 !important;
+}
+.page-button-focus{
+    background-color: #6374c9;
+    border-color : #7B8EF5 !important;
+}
+.page-button-focus:hover{
+    background-color: #6374c9;
+    border-color : #7B8EF5 !important;
+}
+.page-button-focus:active{
+    background-color: #6374c9!important;
+    border-color : #7B8EF5 !important;
+}
+.button-wrapper{
+    padding : 2rem;
+    text-align: center;
+}

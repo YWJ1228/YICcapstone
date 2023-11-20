@@ -64,6 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function NavigationBar(props) {
+  const showMenuBarState = props.showMenuBar;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -113,7 +114,7 @@ function NavigationBar(props) {
 
   const navigateHome = useNavigate();
   const [searchText, setSearchText] = useState();
-  const [showMenu, setShowMenu] = useState(false);
+  const [showMenu, setShowMenu] = useState(showMenuBarState);
   const menuHandler = () => {
     setShowMenu(!showMenu);
   };

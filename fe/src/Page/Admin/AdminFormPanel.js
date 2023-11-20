@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { API } from "../../Config/APIConfig";
 import { PageConfig } from "../../Config/Config";
+import { getCookies } from "../../Component/Cookies/LoginCookie";
 
 import Form from "react-bootstrap/Form";
 import Stack from "@mui/material/Stack";
@@ -15,34 +16,39 @@ export default function AdminFormPanel(props) {
   const [task, setTask] = useState(0);
   const [curProduct, setCurProduct] = useState(PageConfig.VOICE_PAGE_DEFAULT_STATE);
   const [listProduct, setListProduct] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
+  const [curEbook, setCurEbook] = useState();
   useEffect(() => {
-    if (props.type === "voice") {
-      axios.get(`${API.ADMIN_LOAD_VOICELIST}`).then((res) => {
-        const resData = res.data.content.map((voice) => ({
-          voiceUrl: voice.voiceModelUrl,
-          name: voice.celebrityName,
-          price: voice.price,
-          image: voice.imageUrl,
-          description: voice.comment,
-          demoUrl: voice.sampleUrl,
-          job: voice.category,
-        }));
-        setListProduct(resData);
-      });
+    if(props.type ==='audiobook'){
+      
     }
-    else if(props.type === "ebook"){
-      axios.get(`${API.ADMIN_LOAD_EBOOKLIST}`).then((res) => {
-        const resData = res.data.content.map((book) => ({
-
-        }));
-        setListProduct(resData);
+    else if (props.type === "voice") {
+      // get page size
+      axios.get(`${API.ADMIN_LOAD_VOICELIST_SIZE}`).then((res) => {
+        axios.get(`${API.ADMIN_LOAD_VOICELIST}${res.data.totalElements}`).then((res2) => {
+          const resData = res2.data.content.map((voice) => ({
+            id : voice.id,
+            voiceUrl: voice.voiceModelUrl,
+            name: voice.celebrityName,
+            price: voice.price,
+            image: voice.imageUrl,
+            description: voice.comment,
+            demoUrl: voice.sampleUrl,
+            job: voice.category,
+          }));
+          setListProduct(resData);
+        });
       });
-    }
-    else if(props.type === "user"){
-      axios.get(`${API.ADMIN_LOAD_EBOOKLIST}`).then((res) => {
-        const resData = res.data.content.map((book) => ({
+    } else if (props.type === "ebook") {
+      //get page size
+      axios.get(`${API.ADMIN_LOAD_EBOOKLIST_SIZE}`).then((res) => {
+          axios.get(`${API.ADMIN_LOAD_EBOOKLIST}${res.data.totalElements}`).then((res2) => {
+            setListProduct(res2.data.content);
+          });
 
-        }));
+      });
+    } else if (props.type === "user") {
+      axios.get(`${API.ADMIN_LOAD_EBOOKLIST}`).then((res) => {
+        const resData = res.data.content.map((book) => ({}));
         setListProduct(resData);
       });
     }
@@ -51,11 +57,21 @@ export default function AdminFormPanel(props) {
   function submitHandler(event) {
     event.preventDefault();
     switch (task) {
-      case 0:addProductHandler(event.target);break;
-      case 1:changeProductHandler(event.target);break;
-      case 2:deleteProductHandler(event.target);break;
-      case 3:initFormHandler(event.target);break;
-      case 4:loadProductHandler(event.target);break;
+      case 0:
+        addProductHandler(event.target);
+        break;
+      case 1:
+        changeProductHandler(event.target);
+        break;
+      case 2:
+        deleteProductHandler(event.target);
+        break;
+      case 3:
+        initFormHandler(event.target);
+        break;
+      case 4:
+        loadProductHandler(event.target);
+        break;
     }
   }
 
@@ -69,20 +85,41 @@ export default function AdminFormPanel(props) {
       form.imageUrl.value = curProduct.image;
       form.voiceUrl.value = curProduct.voiceUrl;
       form.demoUrl.value = curProduct.demoUrl;
-    } else if (props.type === "user") {
+    } else if (props.type === "ebook") {
+      form.id.value = curEbook.id;
+      form.category.value = curEbook.category;
+      form.name.value = curEbook.ebookName;
+      form.author.value = curEbook.author;
+      form.publisher.value = curEbook.publisher;
+      form.pages.value = curEbook.pages;
+      form.comment.value = curEbook.commnet;
+      form.content.value = curEbook.content;
+      form.viewCount.value = curEbook.viewCount;
+      form.purchaseCount.value = curEbook.purchaseCount;
+      form.rating.value = curEbook.rating;
+      form.imageUrl.value = curEbook.imageUrl;
+      form.price.value = curEbook.price;
     }
   }
   function addProductHandler(form) {
     axios
-      .post(`${API.ADMIN_ADD_VOICE}`, {
-        voiceModelUrl: form.voiceUrl.value.trim(),
-        celebrityName: form.name.value.trim(),
-        price: form.price.value,
-        imageUrl: form.imageUrl.value.trim(),
-        comment: form.comment.value.trim(),
-        sampleUrl: form.demoUrl.value.trim(),
-        category: form.category.value.trim(),
-      })
+      .post(
+        `${API.ADMIN_ADD_VOICE}`,
+        {
+          voiceModelUrl: form.voiceUrl.value.trim(),
+          celebrityName: form.name.value.trim(),
+          price: form.price.value,
+          imageUrl: form.imageUrl.value.trim(),
+          comment: form.comment.value.trim(),
+          sampleUrl: form.demoUrl.value.trim(),
+          category: form.category.value.trim(),
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookies("accessToken")}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
         console.log("추가 완료");
@@ -132,26 +169,25 @@ export default function AdminFormPanel(props) {
       }
     });
   }
-  function ItemClickHandler(prd) {
-    setCurProduct(prd);
+  function ItemClickHandler(prd, type) {
+    if(type === 'voice'){setCurProduct(prd);}
+    else if (type === 'ebook'){setCurEbook(prd);}
     setTask(4);
   }
-  function FormType(type){
-    if(type === 'voice'){
-      return <AdminVoiceForm setTask = {setTask}/>
-    }
-    else if(type === 'ebook'){
-      return <AdminEbookForm setTask = {setTask}/>
-    }
-    else if(type ==='user'){
-      return <AdminUserForm setTask = {setTask}/>
+  function FormType(type) {
+    if (type === "voice") {
+      return <AdminVoiceForm setTask={setTask} />;
+    } else if (type === "ebook") {
+      return <AdminEbookForm setTask={setTask} />;
+    } else if (type === "user") {
+      return <AdminUserForm setTask={setTask} />;
     }
   }
   return (
     <Form onSubmit={submitHandler}>
       <Stack direction="row" spacing={5}>
         {FormType(props.type)}
-        <AdminListPanel clickHandler={ItemClickHandler} listOfVoice={listProduct} />
+        <AdminListPanel clickHandler={ItemClickHandler} listOfVoice={listProduct} type={props.type} />
       </Stack>
     </Form>
   );

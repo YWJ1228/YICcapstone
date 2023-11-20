@@ -1,25 +1,13 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Container,Row,Col,Button} from 'react-bootstrap';
 
 import classes from './DetailReviews.module.css';
 
-// id를 마스킹 해주는 함수
-function userMasking(user) {
-    var maskedStart = user.substr(0, 3);
-    const maskedLength = user.length - (3 + user.length / 3);
-    // 마스킹 길이가 2보다 작을 경우 2로 설정
-    if (maskedLength < 2) { maskedLength = 2; }
-    var maskedLast = user.substr(-maskedLength,)
-
-    maskedStart += '*'.repeat(maskedLength);
-    maskedStart += maskedLast;
-    return maskedStart;
-}
 
 export default function DetailReviews(props) {
+    const currentPage = props.curReviewPage;
+    const pageCnt = props.totalPages;
+    const setCurrentPage = props.setCurPage;
     const reviewArr = (props.reviews).map((review) => {
-
         return (
             <div className={classes['review-wrapper']} key = {review.userName}>
                 <Row>
@@ -32,6 +20,19 @@ export default function DetailReviews(props) {
             </div>
         );
     })
+    const buttonArr = Array.from({ length: pageCnt }, (v, i) => i + 1).map((pageNum, idx) => {
+        return (
+          <Button
+            key={idx}
+            className={pageNum === currentPage + 1 ? classes["page-button-focus"] : classes["page-button"]}
+            onClick={() => {
+              setCurrentPage(pageNum);
+            }}
+          >
+            {pageNum}
+          </Button>
+        );
+      });
     return (
         <>
 
@@ -41,8 +42,11 @@ export default function DetailReviews(props) {
                 </Row>
                 <Row>
                     <Col>
-                        {reviewArr}
+                        {props.reviews.length === 0  ?  <div className = {classes['no-review']}>책을 구매하고 리뷰를 작성해주세요!</div>:reviewArr}
                     </Col>
+                </Row>
+                <Row>
+                    <Col className = {classes['button-wrapper']}>{buttonArr}</Col>
                 </Row>
             </Container>
         </>

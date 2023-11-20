@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-
 import { API } from "../../Config/APIConfig.js";
 import NavigationBar from "../../Component/NavigationBar/NavigationBar.js";
 
@@ -16,12 +15,9 @@ import { DebuggingMode } from "../../Config/Config.js";
 
 export default function BookDetailPage() {
   const { ebookID } = useParams();
-  const [reviews, setReview] = useState([{
-    userName : "default",
-    content : "default",
-    grade : 0,
-    time : "default"
-  }]);
+  const [reviews, setReview] = useState([]);
+  const [reviewPages, setReviewPages] = useState(1);
+  const [curReviewPage, setCurReviewPage] = useState(0);
   const [bookInfo, setBookInfo] = useState({
     title: "default",
     author: "default",
@@ -31,19 +27,14 @@ export default function BookDetailPage() {
     updatedDate: "default",
     price: 0,
     description: "default",
-    reviews: reviews,
   });
-  console.log(`${API.REVIEW_EBOOK}${ebookID}&page=0`)
   useEffect(() => {
     axios
-      .all([axios.get(`${API.LOAD_EBOOK}/${ebookID}`), axios.get(`http://localhost:8080/review/ebook?ebookId=1&page=0&size=5`)])
+      .all([axios.get(`${API.LOAD_EBOOK}/${ebookID}`), axios.get(`${API.LOAD_REVIEW_EBOOKS}${ebookID}&page=${curReviewPage}`)])
       .then(
         axios.spread((res1, res2) => {
-          console.log(res2);
-          res2.data.content.map((review)=>{
-            setReview(review);
-            
-          })
+          setReview(res2.data.content);
+          setReviewPages(res2.data.totalPages);
           setBookInfo({
             id: res1.data.id,
             title: res1.data.ebookName,
@@ -54,7 +45,6 @@ export default function BookDetailPage() {
             updatedDate: res1.data.uploadedAt,
             price: res1.data.price,
             description: res1.data.content,
-            reviews: reviews,
           });
 
           DebuggingMode(["책 정보"], [res1.data]);
@@ -78,7 +68,7 @@ export default function BookDetailPage() {
         <DetailDescription title="책 소개" description={bookInfo.description} />
       </div>
       <div className={classes["reviews-wrapper"]}>
-        <DetailReviews title="후기" reviews={bookInfo.reviews} />
+        <DetailReviews title="후기" reviews={reviews} totalPages = {reviewPages} curReviewPage = {curReviewPage} setCurPage = {setCurReviewPage}/>
       </div>
     </>
   );

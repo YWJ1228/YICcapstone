@@ -4,24 +4,27 @@ import Button from "react-bootstrap/Button";
 import classes from "./AdminListPanel.module.css";
 export default function AdminListPanel(props) {
   const ItemClickhandler = props.clickHandler;
-  const products = props.listOfVoice.map((prd) => {
+  const type = props.type;
+  const products = props.listOfVoice.map((prd, idx) => {
     return (
-      <ListGroup.Item className={classes.list}>
+      <ListGroup.Item className={classes.list} key = {idx}>
         <Button
           type="submit"
           className={classes.btn}
           onClick={() => {
-            ItemClickhandler(prd);
+            ItemClickhandler(prd, type);
           }}
         >
-          {prd.name}
+          {type === 'voice' && prd.name}
+          {type === 'ebook' && prd.ebookName}
+          {type === 'user' && prd.username}
         </Button>
       </ListGroup.Item>
     );
   });
   return (
     <>
-      <ListGroup className={classes.scrollbar}>{products}</ListGroup>
+      <ListGroup className={classes.scrollbar} >{products}</ListGroup>
     </>
   );
 }

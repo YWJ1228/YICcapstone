@@ -6,10 +6,11 @@ import { Modal, Button } from "react-bootstrap";
 export default function DemoPlayer(props) {
   const { handlerClose, show } = props.func;
   const voice = props.voiceInfo;
+  const demoUrl = props.demoUrl
 
   return (
     <Modal show={show} onHide={handlerClose}>
-      <AudioPlayer src="/1.wav" onPlay={(e) => console.log("onPlay")} />
+      <AudioPlayer src={demoUrl} onPlay={(e) => console.log("onPlay")} />
       <Button variant="secondary" onClick={handlerClose}>
         닫기
       </Button>
