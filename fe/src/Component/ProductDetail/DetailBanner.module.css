@@ -3,7 +3,12 @@
     display: block;
     margin: auto;
 }
-
+.voice-image{
+    width : 10rem;
+    display : block;
+    margin : auto;
+    border-radius:  50%;
+}
 .title {
     padding-bottom: 1rem;
     font-size: 2rem;

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { PageConfig } from "../../Config/Config";
+import { getCookies } from "../../Component/Cookies/LoginCookie";
 import { API } from "../../Config/APIConfig";
-import axios from 'axios'
+import axios from "axios";
 
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -25,23 +26,32 @@ export default function MyPageMenu() {
 
   useEffect(() => {
     axios
-      .all([axios.get(API.LOAD_MYPAGE_BOOKLIST), axios.get(API.LOAD_REVIEW_NOT_WRITTEN_EBOOKS), axios.get(API.LOAD_MYPAGE_LIKELIST)])
+      .all([
+        axios.get(API.LOAD_PURCHASED_EBOOKS, {
+          headers: { Authorization: `Bearer ${getCookies("accessToken")}` },
+        }),
+        axios.get(API.LOAD_REVIEW_NOT_WRITTEN_EBOOKS, {
+          headers: { Authorization: `Bearer ${getCookies("accessToken")}` },
+        }),
+        axios.get(API.LOAD_MYPAGE_LIKELIST),
+      ])
       .then(
         axios.spread((res1, res2, res3) => {
+          console.log(res1, res2);
           const resData1 = res1.data.content.map((book) => ({
-            id: book.id,
-            image: book.imageUrl,
-            name: book.ebookName,
-            author: book.author,
-            price: book.price,
+            id: book.purchaseId,
+            image: book.ebook.imageUrl,
+            name: book.ebook.ebookName,
+            author: book.ebook.author,
+            price: book.ebook.price,
           }));
           setBookList(resData1);
           const resData2 = res2.data.content.map((book) => ({
-            id: book.id,
-            image: book.imageUrl,
-            name: book.ebookName,
-            author: book.author,
-            price: book.price,
+            id: book.purchaseId,
+            image: book.ebook.imageUrl,
+            name: book.ebook.ebookName,
+            author: book.ebook.author,
+            price: book.ebook.price,
           }));
           setReviewList(resData2);
           const resData3 = res3.data.content.map((book) => ({
@@ -65,9 +75,9 @@ export default function MyPageMenu() {
           <Tab className={classes["nav-link"]} label="찜목록" />
         </Tabs>
       </Box>
-      {value === 0 && <PurchaseBook books = {bookList}/>}
-      {value === 1 && <MyPageReview reviews = {reviewList}/>}
-      {value === 2 && <LikeList likes = {likeList}/>}
+      {value === 0 && <PurchaseBook books={bookList} />}
+      {value === 1 && <MyPageReview reviews={reviewList} />}
+      {value === 2 && <LikeList likes={likeList} />}
     </Box>
   );
 }

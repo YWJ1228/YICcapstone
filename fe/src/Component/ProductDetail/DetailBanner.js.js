@@ -49,7 +49,7 @@ export default function DetailBanner(props) {
       <Row>
         <Col xs={1}></Col>
         <Col xs={4}>
-          <img src={props.book.image} className={classes.image} />
+          <img src={props.book.image} className={props.type === 'book' ? classes.image : classes['voice-image']} />
         </Col>
         <Col xs={1}></Col>
         {/* // 책 배너와 TTS 배너 */}

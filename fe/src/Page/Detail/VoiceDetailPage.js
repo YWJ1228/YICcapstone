@@ -25,6 +25,7 @@ export default function VoiceDetailPage() {
     jobDescription: "default",
     image: "default",
     updatedDate: "default",
+    sampleUrl : "default",
     rating: 0.0,
     price: 0,
     description: "default",
@@ -45,6 +46,7 @@ export default function VoiceDetailPage() {
             image: res1.data.imageUrl,
             updatedDate: res1.data.uploadedAt,
             rating: res1.data.preferenceCount,
+            sampleUrl : res1.data.sampleUrl,
             price: res1.data.price,
             description: res1.data.comment,
           });
@@ -62,7 +64,7 @@ export default function VoiceDetailPage() {
 
   return (
     <>
-      <PlayerModal func={{ handlerClose, show }} />
+      <PlayerModal func={{ handlerClose, show }} demoUrl = {voiceInfo.sampleUrl}/>
 
       <NavigationBar img_src="logo.png" />
       <div style={{ width: "100%", height: "8rem" }} />

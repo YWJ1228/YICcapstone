@@ -29,8 +29,7 @@
     outline : none;
 }
 .review-btn{
-    position : absolute;
-    right : 0rem;
+    float : right;
     margin : 1rem;
     width : 5rem;
     background-color: #7B8EF5;

@@ -13,7 +13,7 @@ export default function AdminEbookForm(props) {
       <Form.Label>책 이름</Form.Label>
       <Form.Control type="text" name="name" placeholder="" />
       <Form.Label>작가</Form.Label>
-      <Form.Control type="number" name="author" placeholder="" />
+      <Form.Control type="text" name="author" placeholder="" />
       <Form.Label>출판사</Form.Label>
       <Form.Control type="text" name="publisher" placeholder="" />
       <Form.Label>페이지</Form.Label>

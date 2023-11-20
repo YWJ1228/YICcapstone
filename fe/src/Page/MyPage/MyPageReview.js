@@ -49,10 +49,12 @@ export default function MyPageReview(props) {
                 <Row>
                   <textarea className={classes["review-text"]} name="review" placeholder="리뷰를 입력하세요"></textarea>
                 </Row>
-                <Row className={classes["btn-wrapper"]}>
+                <Row >
+                  <Col className={classes["btn-wrapper"]}>
                   <Button type="submit" name="btn" className={classes["review-btn"]} value={idList[idx]}>
                     작성
                   </Button>
+                  </Col>
                 </Row>
               </form>
             </Col>
