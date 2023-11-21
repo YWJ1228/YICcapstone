@@ -136,6 +136,9 @@ function NavigationBar(props) {
   function registerHandler() {
     navigateHome("/register");
   }
+  function inquiryHandler(){
+    navigateHome("/inquiry");
+  }
 
   return (
     <>
