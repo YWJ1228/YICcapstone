@@ -25,6 +25,7 @@ export default function DetailBanner(props) {
     buyer_postcode: "01181",
   };
   function creditClickHandler() {
+    if(props.book.price !== 0){
     axios
       .get(`${props.type === "book" ? API.LOAD_EBOOK : API.LOAD_VOICE}/${props.book.id}`, { headers: { Authorization: getCookies("accessToken") } })
       .then((response) => {
@@ -38,6 +39,25 @@ export default function DetailBanner(props) {
       .catch((err) => {
         console.log(err);
       });
+    }
+    else{
+      // 구매 추가
+      axios.post(`${API.PURCHASE_VOICE}`,{
+        itenId : props.book.id,
+        orderId : 0,
+        paymentMethod : "CreditCard",
+        price : 0
+      },{
+        headers:{
+          Authorization : `Bearer ${getCookies('accessToken')}`
+        }
+      }).then((res)=>{
+        console.log('결제 생성')
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    }
   }
   const [message, setMessage] = useState('로그인이 필요합니다!');
   const [show, setShow] = useState(false);
@@ -91,7 +111,7 @@ export default function DetailBanner(props) {
                   getCookies("accessToken") === undefined ? showModal() : creditClickHandler();
                 }}
               >
-                {props.book.price} 원
+                {props.book.price === 0 ? '무료' : `${props.book.price}원`} 
               </Button>
             </Row>
             <Row className={classes["demo-wrapper"]}>
