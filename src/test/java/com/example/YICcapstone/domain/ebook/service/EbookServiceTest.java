@@ -108,8 +108,8 @@ class EbookServiceTest {
         EbookResponse ebookDetail = ebookService.getEbook(createEbook.getId());
         // 3. 비교 및 검증
         assertEquals(1, ebookDetail.getViewCount());
-        assertEquals(0, ebookDetail.getPurchaseCount());
-        assertEquals(0, ebookDetail.getRating());
+        assertEquals(1, ebookDetail.getPurchaseCount());
+        assertEquals(5.0, ebookDetail.getRating());
         assertEquals("title", ebookDetail.getEbookName());
         assertEquals("author", ebookDetail.getAuthor());
         assertEquals(300, ebookDetail.getPages());

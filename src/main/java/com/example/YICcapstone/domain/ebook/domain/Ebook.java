@@ -1,12 +1,15 @@
 package com.example.YICcapstone.domain.ebook.domain;
 
 import com.example.YICcapstone.domain.ebook.dto.request.EbookCreationRequest;
+import com.example.YICcapstone.domain.purchase.domain.EbookPurchase;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -30,9 +33,10 @@ public class Ebook {
     private String imageUrl;
     private String comment;
     private int viewCount = 0;
-    private int purchaseCount = 0;
-    private int rating = 0;
     private LocalDateTime uploadedAt = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "ebook")
+    private List<EbookPurchase> ebookPurchaseList = new ArrayList<>();
 
 
     public Ebook(EbookCreationRequest ebookCreationRequest) {
@@ -58,4 +62,5 @@ public class Ebook {
         this.comment = ebookCreationRequest.getComment();
         this.content = ebookCreationRequest.getContent();
     }
+
 }
