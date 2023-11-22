@@ -23,8 +23,8 @@ public class VoiceModelResponse {
     private String comment;
     private String sampleUrl;
     private int viewCount;
-    private int purchaseCount;
-    private int preferenceCount;
+    private Integer purchaseCount;
+    private Integer preferenceCount;
     private String uploadedAt;
 
     public VoiceModelResponse(VoiceModel voiceModel) {
@@ -37,7 +37,7 @@ public class VoiceModelResponse {
         comment = voiceModel.getComment();
         sampleUrl = voiceModel.getSampleUrl();
         viewCount = voiceModel.getViewCount();
-        purchaseCount = voiceModel.getPurchaseCount();
+        purchaseCount = voiceModel.getVoiceModelPurchaseList().size();
         preferenceCount = voiceModel.getVoiceModelPreferenceList().size();
         uploadedAt = timeFormat(voiceModel.getUploadedAt());
     }
