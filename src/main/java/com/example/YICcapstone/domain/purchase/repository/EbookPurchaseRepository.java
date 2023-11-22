@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface EbookPurchaseRepository extends JpaRepository<EbookPurchase, Long> {
     Optional<EbookPurchase> findByEbookIdAndMemberId(Long ebookId, Long memberId);
-    Optional<EbookPurchase> findByIdAndMemberId(Long purchaseId, Long memberId);
 
     // 구매 리스트 조회
     Page<EbookPurchase> findAllByMemberIdOrderByPurchasedAtDesc(Long memberId, Pageable pageable);

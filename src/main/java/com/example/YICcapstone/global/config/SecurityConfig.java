@@ -65,8 +65,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request
                         //.requestMatchers("/api/user/**").hasRole("USER") // /api/user/ 로 시작하는 모든 URL은 "USER" 권한만 요청 가능
                         //.requestMatchers("/api/admin/**").hasRole("ADMIN") // /api/admin/ 로 시작하는 모든 URL은 "ADMIN" 권한만 요청 가능
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN") // 해당 요청은 ADMIN 권한만 요청이 가능하며 나머지는 거부
-                        // UDATE member SET role = 'ADMIN' WHERE id = member's primary key 로 바꾸어주어야 "/api/admin/**" 요청이 승인
                         .requestMatchers(HttpMethod.POST, "/api/sign-up/**").permitAll() // 회원가입 요청 시큐리티 차단 X
                         .requestMatchers(HttpMethod.GET, "/api/sign-up/**").permitAll() // 회원가입 요청(닉네임, 이메일 관련) 시큐리티 차단 X
                         .requestMatchers(HttpMethod.POST, "/api/find/**").permitAll() // 아이디, 비밀번호 찾기 시큐리티 차단 X

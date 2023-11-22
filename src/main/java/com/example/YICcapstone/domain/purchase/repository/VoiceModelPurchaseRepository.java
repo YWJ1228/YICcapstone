@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface VoiceModelPurchaseRepository extends JpaRepository<VoiceModelPurchase, Long> {
     Optional<VoiceModelPurchase> findByVoiceModelIdAndMemberId(Long voiceModelId, Long memberId);
-    Optional<VoiceModelPurchase> findByIdAndMemberId(Long purchaseId, Long memberId);
 
     // 구매 리스트 조회
     Page<VoiceModelPurchase> findAllByMemberIdOrderByPurchasedAtDesc(Long memberId, Pageable pageable);

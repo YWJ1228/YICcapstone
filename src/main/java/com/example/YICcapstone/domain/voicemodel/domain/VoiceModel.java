@@ -1,6 +1,5 @@
 package com.example.YICcapstone.domain.voicemodel.domain;
 
-import com.example.YICcapstone.domain.purchase.domain.VoiceModelPurchase;
 import com.example.YICcapstone.domain.voicemodel.dto.request.VoiceModelCreationRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -31,13 +30,11 @@ public class VoiceModel {
     private String comment;
     private String sampleUrl;
     private int viewCount = 0;
+    private int purchaseCount = 0;
     private LocalDateTime uploadedAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "voiceModel")
     private List<VoiceModelPreference> voiceModelPreferenceList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "voiceModel")
-    private List<VoiceModelPurchase> voiceModelPurchaseList = new ArrayList<>();
 
     public VoiceModel(VoiceModelCreationRequest voiceModelCreationRequest){
         this.voiceModelUrl = voiceModelCreationRequest.getVoiceModelUrl();

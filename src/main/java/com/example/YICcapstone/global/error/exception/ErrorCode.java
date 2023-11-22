@@ -42,10 +42,7 @@ public enum ErrorCode {
 
     // Shopping Basket
     PRODUCT_ALREADY_PUT_INTO_BASKET(400, "S001", "장바구니에 이미 존재하는 상품입니다."),
-    PRODUCT_NOT_EXIST_INTO_BASKET(400, "S002", "장바구니에 삭제할 대상이 존재하지 않습니다."),
-
-    // AudioBook
-    AUDIO_BOOK_NOT_FOUND(400, "A001", "존재하지 않는 오디오북입니다.");
+    PRODUCT_NOT_EXIST_INTO_BASKET(400, "S002", "장바구니에 삭제할 대상이 존재하지 않습니다.");
 
 
     private final int status;
