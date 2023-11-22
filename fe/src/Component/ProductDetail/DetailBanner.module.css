@@ -66,3 +66,13 @@
 .demo-wrapper {
     margin-top : 1rem;
 }
+.cart-icon{
+    background-color: #7B8EF5 !important;
+    border : 2px solid #7B8EF5 !important;
+    color : white !important;
+}
+.cart-icon:hover{
+    background-color: white !important;
+    border : 2px solid #7B8EF5 !important;
+    color : #7B8EF5 !important;
+}

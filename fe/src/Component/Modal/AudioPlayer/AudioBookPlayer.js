@@ -20,8 +20,7 @@ export default function AudioBookPlayer() {
   };
 
   const [curPlay, setCurPlay] = useState(dummyCurPlay);
-  const defaultTTS = [{ name: "기본 남성 1" }, { name: "기본 여성 1" }];
-  const [purchasedTTS, setPurchasedTTS] = useState([]);
+  const [purchasedTTS, setPurchasedTTS] = useState([{name : '해당없음'}]);
   const [selectedTTS, setSelectedTTS] = useState(0);
   const [bookList, setBookList] = useState([]);
 
@@ -38,7 +37,7 @@ export default function AudioBookPlayer() {
       </ListGroup.Item>
     );
   });
-  const dropItem = defaultTTS.concat(purchasedTTS).map((item, idx) => {
+  const dropItem = purchasedTTS.map((item, idx) => {
     return (
       <Dropdown.Item eventKey={idx} className={classes["dropdown-item"]} key={idx}>
         {item.name}
@@ -83,7 +82,7 @@ export default function AudioBookPlayer() {
             <div className= {classes['selected-tts']}>적용된 TTS</div>
             <Dropdown align="end" onSelect={setSelectedTTS}>
               <Button className={classes["dropdown-content"]} disabled>
-                {defaultTTS.concat(purchasedTTS)[selectedTTS].name}
+                {purchasedTTS[selectedTTS].name}
               </Button>
               <Dropdown.Toggle split className={classes["dropdown-btn"]}></Dropdown.Toggle>
               <Dropdown.Menu className={classes["dropdown-menu"]}>{dropItem}</Dropdown.Menu>

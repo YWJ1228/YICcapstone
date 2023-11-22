@@ -20,6 +20,7 @@ import BookDetailPage from "./Page/Detail/BookDetailPage";
 import VoiceDetailPage from "./Page/Detail/VoiceDetailPage";
 import AudioBookPlayer from "./Component/Modal/AudioPlayer/AudioBookPlayer";
 import SearchPage from "./Page/Search/SearchPage";
+import InquiryPage from "./Page/Inquiry/InquiryPage";
 
 // 작업 to-do list
 // 1. 배너 Item을 api로 가져오는 것 구현해야함
@@ -43,6 +44,7 @@ function App() {
           <Route path="/voiceDetail/:voiceID" element={<VoiceDetailPage />} />
           <Route path="/player" element = {<AudioBookPlayer/>}/>
           <Route path="/search-result" element = {<SearchPage/>}/>
+          <Route path="/inquiry" element = {<InquiryPage/>}/>
         </Routes>
       </BrowserRouter>
     </>
