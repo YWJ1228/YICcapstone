@@ -8,7 +8,7 @@ import classes from "./MyPageReview.module.css";
 
 export default function MyPageReview(props) {
   const idList = props.reviews.map((book) => {
-    return book.purchaseId;
+    return book.id;
   });
   function reviewRequestClickHandler(event) {
     event.preventDefault();
@@ -59,5 +59,5 @@ export default function MyPageReview(props) {
       </Row>
     );
   });
-  return <Container>{requiredReviewBooks}</Container>;
+  return <Container>{props.reviews.length !== 0 ? requiredReviewBooks : <div className = {classes['no-item']}>리뷰를 작성할 상품이 없습니다</div>}</Container>;
 }

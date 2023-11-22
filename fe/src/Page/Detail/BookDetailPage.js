@@ -33,6 +33,7 @@ export default function BookDetailPage() {
       .all([axios.get(`${API.LOAD_EBOOK}/${ebookID}`), axios.get(`${API.LOAD_REVIEW_EBOOKS}${ebookID}&page=${curReviewPage}`)])
       .then(
         axios.spread((res1, res2) => {
+          console.log(res2);
           setReview(res2.data.content);
           setReviewPages(res2.data.totalPages);
           setBookInfo({
@@ -55,20 +56,20 @@ export default function BookDetailPage() {
         console.log("Book Detail loading error");
       });
   }, []);
-
+  console.log(reviews)
   return (
     <>
       <NavigationBar img_src="logo.png" />
       <div style={{ width: "100%", height: "8rem" }} />
       <div className={classes["banner-wrapper"]}>
-        <DetailBanner book={bookInfo} type="book" />
+        <DetailBanner book={bookInfo} type="book" prdId = {ebookID}/>
       </div>
       <div className={classes.divider}></div>
       <div className={classes["description-wrapper"]}>
         <DetailDescription title="책 소개" description={bookInfo.description} />
       </div>
       <div className={classes["reviews-wrapper"]}>
-        <DetailReviews title="후기" reviews={reviews} totalPages = {reviewPages} curReviewPage = {curReviewPage} setCurPage = {setCurReviewPage}/>
+        <DetailReviews title="후기" type = "book" reviews={reviews} totalPages = {reviewPages} curReviewPage = {curReviewPage} setCurPage = {setCurReviewPage} id = {ebookID}/>
       </div>
     </>
   );

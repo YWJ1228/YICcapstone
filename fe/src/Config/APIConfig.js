@@ -12,7 +12,6 @@ const ADMIN_URL = `${BASE_URL}/api/admin`;
 // base url
 const EBOOK_URL = `${BASE_URL}/ebook`;
 const VOICE_URL = `${BASE_URL}/voice-model`;
-const AUDIOBOOK_URL = `${BASE_URL}`;
 const REVIEW_URL = `${BASE_URL}/review`;
 
 // api url
@@ -65,6 +64,9 @@ export const API = {
     ADD_VOICEITEM_CART :              `${API_URL}/user/basket/voice-model`,
     DELETE_EBOOKITEM_CART :           `${API_URL}/user/basket/e-book`,
     DELETE_VOICEITEM_CART :           `${API_URL}/user/basket/voice-model`,
+
+    // 오디오 북 api
+    LOAD_AUDIOBOOK_PATH :               `${API_URL}/user/audio-book/play`,
 
 
 
@@ -146,10 +148,6 @@ export const API = {
     ADMIN_LOAD_USERLIST :               ``,
 
 
-
-    //DUMMY API
-    PLAYER_LOAD_LAST_PLAYEDBOOK :       `${AUDIOBOOK_URL}`,
-    PLAYER_LOAD_PLAYLIST :              `${AUDIOBOOK_URL}`,
     
     // Purchase
     // POST
@@ -183,8 +181,8 @@ export const API = {
     LOAD_REVIEW_NOT_WRITTEN_VOICES:  `${REVIEW_API_URL}/voice-model/not-written?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
 
     // DELETE
-    DELETE_REVIEW_EBOOK:              `${REVIEW_API_URL}/ebook`,
-    DELETE_REVIEW_VOICE:              `${REVIEW_API_URL}/voice-model`,
+    DELETE_REVIEW_EBOOK:              `${REVIEW_API_URL}/ebook?purchaseId=`,
+    DELETE_REVIEW_VOICE:              `${REVIEW_API_URL}/voice-model?purchaseId=`,
 
     // Wish
     // POST
@@ -194,7 +192,9 @@ export const API = {
     WISH_VERIFY_VOICE:              `${WISH_API_URL}/voice-model`,
 
     // GET
-    LOAD_WISH_EBOOKS:              `${WISH_API_URL}/ebook?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=`,
-    LOAD_WISH_VOICES:              `${WISH_API_URL}/voice-model?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
+    LOAD_WISH_EBOOKS:                   `${WISH_API_URL}/ebook?page=0&size=`,
+    LOAD_WISH_EBOOKS_SIZE:              `${WISH_API_URL}/ebook?size=1&page=0`,
+    LOAD_WISH_VOICES:                   `${WISH_API_URL}/voice-model?page=0&size=`,
+    LOAD_WISH_VOICES_SIZE:                   `${WISH_API_URL}/voice-model?size=1&page=0`,
 
 }

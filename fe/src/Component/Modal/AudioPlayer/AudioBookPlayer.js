@@ -11,6 +11,7 @@ import classes from "./AudioBookPlayer.module.css";
 import { getCookies } from "../../Cookies/LoginCookie";
 export default function AudioBookPlayer() {
   const dummyCurPlay = {
+    id : 0,
     ebookName: "책을 선택해주세요",
     imageUrl: "/Image/Novel_Image/Novel004_img.png",
     audioUrl: "/1.wav",
@@ -20,7 +21,7 @@ export default function AudioBookPlayer() {
   };
 
   const [curPlay, setCurPlay] = useState(dummyCurPlay);
-  const [purchasedTTS, setPurchasedTTS] = useState([{name : '해당없음'}]);
+  const [purchasedTTS, setPurchasedTTS] = useState([{id : -1, name : '해당없음'}]);
   const [selectedTTS, setSelectedTTS] = useState(0);
   const [bookList, setBookList] = useState([]);
 
@@ -52,18 +53,32 @@ export default function AudioBookPlayer() {
         axios.get(`${API.LOAD_PURCHASED_EBOOKS_SIZE}`, { headers: { Authorization: `Bearer ${getCookies("accessToken")}` } }),
       ])
       .then(
-        axios.spread((size1, size2) => {
+        axios.spread((size1, size2, audioRes) => {
           axios.get(`${API.LOAD_PURCHASED_VOICES}${size1.data.totalElements}`, { headers: { Authorization: `Bearer ${getCookies("accessToken")}` } }).then((res) => {
             const resData = res.data.content.map((voice) => ({
+              id : voice.voiceModel.id,
               name: voice.voiceModel.celebrityName,
             }));
+            
             setPurchasedTTS(resData);
           });
           axios.get(`${API.LOAD_PURCHASED_EBOOKS}${size2.data.totalElements}`, { headers: { Authorization: `Bearer ${getCookies("accessToken")}` } }).then((res) => {
             setBookList(res.data.content);
           });
         })
-      );
+      ).catch((err)=>{
+        console.log(err)
+      })
+      console.log(curPlay.id)
+      console.log( purchasedTTS[selectedTTS].id);
+      axios.get(`${API.LOAD_AUDIOBOOK_PATH}`,{ headers: { Authorization: `Bearer ${getCookies("accessToken")}` }},{
+        params : {
+        ebookId : curPlay.id,
+        voiceId : purchasedTTS[selectedTTS].id,
+        }
+      }).then((res)=>{
+        console.log(res);
+      }).catch((err)=>{console.log(err)})
   }, [selectedTTS, curPlay]);
 
   return (
@@ -91,7 +106,10 @@ export default function AudioBookPlayer() {
           {playlistBlock}
         </ListGroup>
       </Stack>
-      <AudioPlayer className={classes["playing-bar"]} src={curPlay.audioUrl} onPlay={(e) => console.log("onPlay")} />
+      <AudioPlayer 
+      autoPlay
+      className={classes["playing-bar"]}
+       src={curPlay.audioUrl} onPlay={(e) => {console.log(e)}}/>
     </>
   );
 }

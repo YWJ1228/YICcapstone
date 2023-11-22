@@ -43,3 +43,8 @@
 .btn-wrapper{
     position : relative;
 }
+.no-item{
+    color : gray;
+    text-align: center;
+    padding : 1rem;
+}

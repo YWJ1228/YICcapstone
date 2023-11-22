@@ -19,6 +19,7 @@ export default function InquiryPage() {
     },[])
     function submitHandler(event){
         event.preventDefault();
+        console.log(event.target.title.value)
         axios.post(`${API.CREATE_FEEDBACK}`,{
             title : event.target.title.value.trim(),
             detail : event.target.detail.value.trim()
@@ -27,10 +28,12 @@ export default function InquiryPage() {
                 Authorization  : `Bearer ${getCookies('accessToken')}`
             }
         }).then((res)=>{
+          console.log(res);
             showModal();
             setMessage(res.response.data.message);
         }).catch((err)=>{
             //에러 출력
+            console.log(err);
         })
     }
   return (
