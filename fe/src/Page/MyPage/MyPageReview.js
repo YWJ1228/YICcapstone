@@ -8,13 +8,10 @@ import classes from "./MyPageReview.module.css";
 
 export default function MyPageReview(props) {
   const idList = props.reviews.map((book) => {
-    return book.id;
+    return book.purchaseId;
   });
-  console.log(idList);
   function reviewRequestClickHandler(event) {
     event.preventDefault();
-    console.log("리뷰 전송");
-    console.log(event.target.btn.value);
     axios.post(
       `${API.REVIEW_EBOOK}`,
       {
@@ -28,7 +25,6 @@ export default function MyPageReview(props) {
         },
       }
     ).then((res)=>{
-      console.log('리뷰 전송');
       console.log(res);
     }).catch((err)=>{
       console.log(err);

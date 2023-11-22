@@ -1,0 +1,29 @@
+.card {
+    width : 70%;
+    margin : auto;
+    border-color :  #7B8EF5;
+}
+.title{
+    padding : 1rem;
+    font-size : 2rem;
+    font-weight : bold;
+    margin: auto;
+    width : 70%;
+}
+.textarea{
+    resize : none;
+}
+.submit-button{
+    background-color : #7B8EF5 !important;
+    border-color : #7B8EF5 !important;
+}
+.submit-button:hover{
+    background-color : white !important;
+    border-color : #7B8EF5 !important;
+    color : #7B8EF5 !important;
+}
+.submit-button:active{
+    background-color : white !important;
+    border-color : #7B8EF5 !important;
+    color : #7B8EF5 !important;
+}

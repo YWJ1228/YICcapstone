@@ -53,6 +53,20 @@ export const API = {
     SEARCH_EBOOK_PUBLISHER :     `${EBOOK_URL}/search/publisher?keyword=`,
     SEARCH_VOICE :               `${VOICE_URL}/search/name?keyword=`,
 
+    // 피드백 api
+    CREATE_FEEDBACK :           `${API_URL}/user/feedback`,
+    READ_FEEDBACK :             `${ADMIN_URL}/feedback?page=0&size=10`,
+    DELETE_FEEDBACK:            `${ADMIN_URL}/feedback`,
+
+    // 장바구니 api
+    READ_EBOOK_CART :                 `${API_URL}/user/basket/e-book`,
+    READ_VOICE_CART :                 `${API_URL}/user/basket/voice-model`,
+    ADD_EBOOKITEM_CART :              `${API_URL}/user/basket/e-book`,
+    ADD_VOICEITEM_CART :              `${API_URL}/user/basket/voice-model`,
+    DELETE_EBOOKITEM_CART :           `${API_URL}/user/basket/e-book`,
+    DELETE_VOICEITEM_CART :           `${API_URL}/user/basket/voice-model`,
+
+
 
 
     // #########  태훈 API  #############
@@ -176,8 +190,8 @@ export const API = {
     // POST
     WISH_EBOOK:                      `${WISH_API_URL}/ebook?ebookId=`,
     WISH_VOICE:                      `${WISH_API_URL}/voice-model?voiceModelId=`,
-    WISH_VERIFY_EBOOK:              `${WISH_API_URL}/ebook/{ebookId}/verify`,
-    WISH_VERIFY_VOICE:              `${WISH_API_URL}/voice-model/{voiceModelId}/verify`,
+    WISH_VERIFY_EBOOK:              `${WISH_API_URL}/ebook`,
+    WISH_VERIFY_VOICE:              `${WISH_API_URL}/voice-model`,
 
     // GET
     LOAD_WISH_EBOOKS:              `${WISH_API_URL}/ebook?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=`,
