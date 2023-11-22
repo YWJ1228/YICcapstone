@@ -20,11 +20,11 @@ public class EbookResponse {
     private String comment;
     private String content;
     private int viewCount;
-    private Integer purchaseCount;
+    private int purchaseCount;
     private double rating;
     private String uploadedAt;
 
-    public EbookResponse(Ebook ebook) {
+    public EbookResponse(Ebook ebook){
         id = ebook.getId();
         category = ebook.getCategory();
         ebookName = ebook.getEbookName();
@@ -36,16 +36,15 @@ public class EbookResponse {
         comment = ebook.getComment();
         content = ebook.getContent();
         viewCount = ebook.getViewCount();
-        purchaseCount = ebook.getEbookPurchaseList().size();
-        rating = ebook.getEbookPurchaseList().stream().filter(ebookPurchase -> ebookPurchase.getGrade() != null)
-                .mapToDouble(ebookPurchase -> ebookPurchase.getGrade()).average().orElse(0);
+        purchaseCount = ebook.getPurchaseCount();
+        rating = ebook.getRating();
         uploadedAt = timeFormat(ebook.getUploadedAt());
     }
 
     public String timeFormat(LocalDateTime time) {
-        String year = time.toString().substring(0, 4);
-        String month = time.toString().substring(5, 7);
-        String day = time.toString().substring(8, 10);
+        String year = time.toString().substring(0,4);
+        String month = time.toString().substring(5,7);
+        String day = time.toString().substring(8,10);
         return year + "년 " + month + "월 " + day + "일";
     }
 }

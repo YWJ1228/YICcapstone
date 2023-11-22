@@ -62,7 +62,7 @@ public class VoiceModelService {
     @Transactional(readOnly = true)
     public Page<VoiceModelResponse> getVoiceModelListByCategorySortedByScoreAndUploadedAtDesc(String category, int page, int size) {
         return voiceModelRepository.findAllByCategoryOrderByScoreAndUploadedAtDesc(category, PageRequest.of(page, size))
-                .map(VoiceModelResponse::new);
+                .map(objects -> new VoiceModelResponse((VoiceModel) objects[0]));
     }
 
     @Transactional(readOnly = true)
@@ -78,7 +78,7 @@ public class VoiceModelService {
     @Transactional(readOnly = true)
     public Page<VoiceModelResponse> getVoiceModelListByPopularity(int page, int size){
         return voiceModelRepository.findAllByOrderByScoreAndUploadedAtDesc(PageRequest.of(page,size))
-                .map(VoiceModelResponse::new);
+                .map(objects -> new VoiceModelResponse((VoiceModel) objects[0]));
     }
 
     @Transactional(readOnly = true)
