@@ -7,6 +7,7 @@ import { Row, Col, Container, Button, Stack } from "react-bootstrap";
 import classes from "./MyCart.module.css";
 import { createChainedFunction } from "@mui/material";
 import AlertModal from "../../Component/Modal/AlertModal/AlertModal";
+import AlertModal2 from "../../Component/Modal/AlertModal/AlertModal2";
 export default function MyCart(props) {
   const [selectedPrd, setSelectedPrd] = useState({
     id: -1,
@@ -30,6 +31,20 @@ export default function MyCart(props) {
   const hideModal = () => {
     setShow(false);
   };
+  const [message2, setMessage2] = useState("정말로 삭제하시겠습니까?");
+  const [show2, setShow2] = useState(false);
+  const showModal2 = () => {
+    if (selectedPrd.id === -1) {
+      setMessage("선택된 상품이 없습니다!");
+      setShow(true);
+    } else {
+      setShow2(true);
+    }
+  };
+  const hideModal2 = () => {
+    setShow2(false);
+  };
+  let totalPrice = 0;
   const renderFunc = props.renderFunc;
   const renderVal = props.renderVal;
   const ebookCart = props.cartEbooks;
@@ -37,6 +52,7 @@ export default function MyCart(props) {
   const renderEbooks =
     ebookCart !== undefined &&
     ebookCart.map((book, idx) => {
+      totalPrice += book.price;
       return (
         <div
           key={idx}
@@ -53,6 +69,7 @@ export default function MyCart(props) {
   const renderVoices =
     voiceCart !== undefined &&
     voiceCart.map((voice, idx) => {
+      totalPrice += voice.price;
       return (
         <div
           key={idx}
@@ -82,7 +99,7 @@ export default function MyCart(props) {
   }
   function buyProducts() {
     if (ebookCart.length + voiceCart.length === 0) {
-        showModal();
+      showModal();
     } else {
       ebookCart.map((book) => {
         creditInfo.price += book.price;
@@ -101,7 +118,8 @@ export default function MyCart(props) {
   }
   return (
     <Container>
-        <AlertModal value={{ show, message }} func={hideModal} />
+      <AlertModal value={{ show, message }} func={hideModal} />
+      <AlertModal2 value={{ show2, message2,selectedPrd }} func={hideModal2} activeFunc={deletePrdFromCart} initSelected = {setSelectedPrd}/>
       <Row>
         <Col className={classes.title}>E-Book</Col>
       </Row>
@@ -119,11 +137,20 @@ export default function MyCart(props) {
         </Stack>
       </Row>
       <Row>
-        <Col>
-          <Button onClick={buyProducts}>모두 구매</Button>
+        <Col className={classes["price-guide"]}>
+          총 주문 금액 : <span style={{ color: "red" }}>{totalPrice}</span>원
         </Col>
-        <Col>
-          <Button onClick={deletePrdFromCart}>선택 삭제</Button>
+      </Row>
+      <Row>
+        <Col className={classes["button-wrapper"]}>
+          <Button className={classes.btn} onClick={showModal2}>
+            선택 삭제
+          </Button>
+        </Col>
+        <Col className={classes["button-wrapper"]}>
+          <Button className={classes.btn} onClick={buyProducts}>
+            모두 구매
+          </Button>
         </Col>
       </Row>
     </Container>

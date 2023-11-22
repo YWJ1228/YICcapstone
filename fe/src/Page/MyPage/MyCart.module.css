@@ -42,3 +42,28 @@
     outline : solid 3px rgba(0,0,255,0.3);
     border-radius: 2rem;
 }
+.btn{
+    margin :auto;
+    background-color: #7B8EF5;
+    border-color : #7B8EF5;
+    color : white;
+    margin : 1rem;
+}
+.btn:hover{
+    background-color: white !important;
+    border-color : #7B8EF5 !important;
+    color : #7B8EF5 !important;
+}
+.btn:active{
+    background-color: white !important;
+    border-color : #7B8EF5 !important;
+    color : #7B8EF5 !important;
+}
+.button-wrapper{
+    text-align: center;
+}
+.price-guide{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}

@@ -14,7 +14,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import IconButton from "@mui/material/IconButton";
 
 export default function DetailBanner(props) {
-  console.log(props);
+  const prdId  = props.prdId;
   const navigateHome = useNavigate();
   const [message, setMessage] = useState("로그인이 필요합니다!");
   const [show, setShow] = useState(false);
@@ -35,7 +35,7 @@ export default function DetailBanner(props) {
     buyer_postcode: "01181",
   };
   function addCartHandler() {
-    axios.post(`${props.type === "book" ? API.ADD_EBOOKITEM_CART: API.ADD_VOICEITEM_CART}/${props.book.id}`,{},{
+    axios.post(`${props.type === "book" ? API.ADD_EBOOKITEM_CART: API.ADD_VOICEITEM_CART}/${prdId}`,{},{
       headers: {
         Authorization: `Bearer ${getCookies("accessToken")}`,
       },
@@ -52,7 +52,7 @@ export default function DetailBanner(props) {
     if (props.book.price !== 0) {
       setMessage("로그인이 필요합니다!");
       axios
-        .get(`${props.type === "book" ? API.LOAD_EBOOK : API.LOAD_VOICE}/${props.book.id}`, { headers: { Authorization: getCookies("accessToken") } })
+        .get(`${props.type === "book" ? API.LOAD_EBOOK : API.LOAD_VOICE}/${prdId}`, { headers: { Authorization: getCookies("accessToken") } })
         .then((response) => {
           onClickPayment({
             ...creditInfo,
@@ -70,7 +70,7 @@ export default function DetailBanner(props) {
         .post(
           `${props.type === "book" ? API.PURCHASE_EBOOK : API.PURCHASE_VOICE}`,
           {
-            itemId: props.book.id,
+            itemId: prdId,
             orderId: 0,
             paymentMethod: "CreditCard",
             price: 0,
@@ -105,7 +105,7 @@ export default function DetailBanner(props) {
             <Row className={classes.title}>
               <Col xs="auto">{props.book.title}</Col>
               <Col>
-                <HeartButton id={props.book.id} type = 'book'/>
+                <HeartButton id={prdId} type = 'book'/>
               </Col>
               <Col>
                 <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick = {addCartHandler}>
@@ -133,7 +133,7 @@ export default function DetailBanner(props) {
             <Row className={classes.title}>
               <Col xs="auto">{props.book.name}</Col>
               <Col>
-                <HeartButton id={props.book.id} type = 'voice' />
+                <HeartButton id={prdId} type = 'voice' />
               </Col>
               <Col>
                 <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick = {addCartHandler}>
