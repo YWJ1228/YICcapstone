@@ -1,7 +1,6 @@
 package com.example.YICcapstone.domain.audiobook.service;
 
 import com.example.YICcapstone.domain.audiobook.dto.AudioBookLinkDto;
-import com.example.YICcapstone.domain.audiobook.dto.EbookAndVoiceModelDto;
 import com.example.YICcapstone.domain.audiobook.entity.AudioBook;
 import com.example.YICcapstone.domain.audiobook.exception.AudioBookNotFoundException;
 import com.example.YICcapstone.domain.audiobook.repository.AudioBookRepository;
@@ -30,12 +29,12 @@ public class AudioBookServiceImpl implements AudioBookService {
     private final VoiceModelRepository voiceModelRepository;
 
     @Override
-    public AudioBookLinkDto findAudioBook(EbookAndVoiceModelDto ebookAndVoiceModelDto) { // E-Book과 음성모델에 매핑되는 오디오북 재생을 위한 URL 제공하기 (ebookId, voiceModelId)
+    public AudioBookLinkDto findAudioBook(Long ebookId, Long voiceModelId) { // E-Book과 음성모델에 매핑되는 오디오북 재생을 위한 URL 제공하기 (ebookId, voiceModelId)
         Member member = memberRepository.findByUsername(SecurityUtil.getLoginUsername())
                 .orElseThrow(() -> new MemberNotExistException());
-        Ebook ebook = ebookRepository.findById(ebookAndVoiceModelDto.ebookId())
+        Ebook ebook = ebookRepository.findById(ebookId)
                 .orElseThrow(() -> new EbookNotFoundException());
-        VoiceModel voiceModel = voiceModelRepository.findById(ebookAndVoiceModelDto.voiceModelId())
+        VoiceModel voiceModel = voiceModelRepository.findById(voiceModelId)
                 .orElseThrow(() -> new VoiceModelNotFoundException());
 
         AudioBook findAudioBook
