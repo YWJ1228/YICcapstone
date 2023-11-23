@@ -56,7 +56,7 @@ public class ReviewService {
     @Transactional
     public void updateVoiceModelReview(ReviewRequest reviewRequest) {
         Member member = verifyMember();
-        VoiceModelPurchase savedVoiceModelPurchase = voiceModelPurchaseRepository.findByVoiceModelIdAndMemberId(reviewRequest.getPurchaseId(), member.getId())
+        VoiceModelPurchase savedVoiceModelPurchase = voiceModelPurchaseRepository.findByIdAndMemberId(reviewRequest.getPurchaseId(), member.getId())
                 .orElseThrow(VoiceModelPurchaseNotFoundException::new);
         if (savedVoiceModelPurchase.getCreatedAt() == null)
             throw new ReviewNotWrittenException();
@@ -66,7 +66,7 @@ public class ReviewService {
     @Transactional
     public void updateEbookReview(ReviewRequest reviewRequest) {
         Member member = verifyMember();
-        EbookPurchase savedEbookPurchase = ebookPurchaseRepository.findByEbookIdAndMemberId(reviewRequest.getPurchaseId(), member.getId())
+        EbookPurchase savedEbookPurchase = ebookPurchaseRepository.findByIdAndMemberId(reviewRequest.getPurchaseId(), member.getId())
                 .orElseThrow(EbookPurchaseNotFoundException::new);
         if (savedEbookPurchase.getCreatedAt() == null)
             throw new ReviewNotWrittenException();

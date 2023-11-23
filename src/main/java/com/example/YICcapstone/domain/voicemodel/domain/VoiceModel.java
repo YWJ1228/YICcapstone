@@ -31,7 +31,6 @@ public class VoiceModel {
     private String comment;
     private String sampleUrl;
     private int viewCount = 0;
-    private int purchaseCount = 0;
     private LocalDateTime uploadedAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "voiceModel")
