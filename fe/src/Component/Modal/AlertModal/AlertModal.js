@@ -19,7 +19,6 @@ export default function AlertModal(props) {
           navigator("/login");
           break;
         default:
-          console.log("Navigate 주소 입력 오류");
           break;
       }
     }

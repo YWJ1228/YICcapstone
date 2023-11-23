@@ -136,6 +136,9 @@ function NavigationBar(props) {
   function registerHandler() {
     navigateHome("/register");
   }
+  function inquiryHandler(){
+    navigateHome("/inquiry");
+  }
 
   return (
     <>
@@ -212,6 +215,14 @@ function NavigationBar(props) {
                   }}
                 >
                   음성모델
+                </Typography>
+                <Typography
+                  className={classes.menu}
+                  onClick={() => {
+                    navigateHome("/inquiry");
+                  }}
+                >
+                  문의
                 </Typography>
               </Stack>
             </Box>

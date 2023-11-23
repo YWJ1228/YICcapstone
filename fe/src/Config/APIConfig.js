@@ -12,7 +12,6 @@ const ADMIN_URL = `${BASE_URL}/api/admin`;
 // base url
 const EBOOK_URL = `${BASE_URL}/ebook`;
 const VOICE_URL = `${BASE_URL}/voice-model`;
-const AUDIOBOOK_URL = `${BASE_URL}`;
 const REVIEW_URL = `${BASE_URL}/review`;
 
 // api url
@@ -52,6 +51,23 @@ export const API = {
     SEARCH_EBOOK_AUTHOR :        `${EBOOK_URL}/search/author?keyword=`,
     SEARCH_EBOOK_PUBLISHER :     `${EBOOK_URL}/search/publisher?keyword=`,
     SEARCH_VOICE :               `${VOICE_URL}/search/name?keyword=`,
+
+    // 피드백 api
+    CREATE_FEEDBACK :           `${API_URL}/user/feedback`,
+    READ_FEEDBACK :             `${ADMIN_URL}/feedback?page=0&size=10`,
+    DELETE_FEEDBACK:            `${ADMIN_URL}/feedback`,
+
+    // 장바구니 api
+    READ_EBOOK_CART :                 `${API_URL}/user/basket/e-book`,
+    READ_VOICE_CART :                 `${API_URL}/user/basket/voice-model`,
+    ADD_EBOOKITEM_CART :              `${API_URL}/user/basket/e-book`,
+    ADD_VOICEITEM_CART :              `${API_URL}/user/basket/voice-model`,
+    DELETE_EBOOKITEM_CART :           `${API_URL}/user/basket/e-book`,
+    DELETE_VOICEITEM_CART :           `${API_URL}/user/basket/voice-model`,
+
+    // 오디오 북 api
+    LOAD_AUDIOBOOK_PATH :               `${API_URL}/user/audio-book/play`,
+
 
 
 
@@ -132,10 +148,6 @@ export const API = {
     ADMIN_LOAD_USERLIST :               ``,
 
 
-
-    //DUMMY API
-    PLAYER_LOAD_LAST_PLAYEDBOOK :       `${AUDIOBOOK_URL}`,
-    PLAYER_LOAD_PLAYLIST :              `${AUDIOBOOK_URL}`,
     
     // Purchase
     // POST
@@ -169,18 +181,20 @@ export const API = {
     LOAD_REVIEW_NOT_WRITTEN_VOICES:  `${REVIEW_API_URL}/voice-model/not-written?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
 
     // DELETE
-    DELETE_REVIEW_EBOOK:              `${REVIEW_API_URL}/ebook`,
-    DELETE_REVIEW_VOICE:              `${REVIEW_API_URL}/voice-model`,
+    DELETE_REVIEW_EBOOK:              `${REVIEW_API_URL}/ebook?purchaseId=`,
+    DELETE_REVIEW_VOICE:              `${REVIEW_API_URL}/voice-model?purchaseId=`,
 
     // Wish
     // POST
     WISH_EBOOK:                      `${WISH_API_URL}/ebook?ebookId=`,
     WISH_VOICE:                      `${WISH_API_URL}/voice-model?voiceModelId=`,
-    WISH_VERIFY_EBOOK:              `${WISH_API_URL}/ebook/{ebookId}/verify`,
-    WISH_VERIFY_VOICE:              `${WISH_API_URL}/voice-model/{voiceModelId}/verify`,
+    WISH_VERIFY_EBOOK:              `${WISH_API_URL}/ebook`,
+    WISH_VERIFY_VOICE:              `${WISH_API_URL}/voice-model`,
 
     // GET
-    LOAD_WISH_EBOOKS:              `${WISH_API_URL}/ebook?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=`,
-    LOAD_WISH_VOICES:              `${WISH_API_URL}/voice-model?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
+    LOAD_WISH_EBOOKS:                   `${WISH_API_URL}/ebook?page=0&size=`,
+    LOAD_WISH_EBOOKS_SIZE:              `${WISH_API_URL}/ebook?size=1&page=0`,
+    LOAD_WISH_VOICES:                   `${WISH_API_URL}/voice-model?page=0&size=`,
+    LOAD_WISH_VOICES_SIZE:                   `${WISH_API_URL}/voice-model?size=1&page=0`,
 
 }

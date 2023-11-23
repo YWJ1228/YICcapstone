@@ -10,11 +10,8 @@ export default function MyPageReview(props) {
   const idList = props.reviews.map((book) => {
     return book.id;
   });
-  console.log(idList);
   function reviewRequestClickHandler(event) {
     event.preventDefault();
-    console.log("리뷰 전송");
-    console.log(event.target.btn.value);
     axios.post(
       `${API.REVIEW_EBOOK}`,
       {
@@ -28,7 +25,6 @@ export default function MyPageReview(props) {
         },
       }
     ).then((res)=>{
-      console.log('리뷰 전송');
       console.log(res);
     }).catch((err)=>{
       console.log(err);
@@ -63,5 +59,5 @@ export default function MyPageReview(props) {
       </Row>
     );
   });
-  return <Container>{requiredReviewBooks}</Container>;
+  return <Container>{props.reviews.length !== 0 ? requiredReviewBooks : <div className = {classes['no-item']}>리뷰를 작성할 상품이 없습니다</div>}</Container>;
 }

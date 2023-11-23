@@ -71,3 +71,18 @@
     padding : 2rem;
     text-align: center;
 }
+.review-modify{
+    color : gray;
+    font-size : 0.6rem;
+    white-space: nowrap;
+    padding-left : 0.11rem;
+}
+.review-modify:hover{
+    text-decoration: underline;
+    cursor : pointer;
+}
+.review-modify-wrapper{
+    overflow : hidden;
+    display: flex;
+    justify-content: space-between;
+}

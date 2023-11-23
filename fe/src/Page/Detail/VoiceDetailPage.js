@@ -69,14 +69,14 @@ export default function VoiceDetailPage() {
       <NavigationBar img_src="logo.png" />
       <div style={{ width: "100%", height: "8rem" }} />
       <div className={classes["banner-wrapper"]}>
-        <DetailBanner book={voiceInfo} type="voice" demoFn={handlerShow} />
+        <DetailBanner book={voiceInfo} type="voice" demoFn={handlerShow} prdId = {voiceID}/>
       </div>
       <div className={classes.divider}></div>
       <div className={classes["description-wrapper"]}>
         <DetailDescription title="TTS 소개" description={voiceInfo.description} />
       </div>
       <div className={classes["reviews-wrapper"]}>
-        <DetailReviews title="후기" reviews={reviews} curReviewPage = {curReviewPage} totalPages={numTotalReviewPage} setCurPage={setCurReviewPage}/>
+        <DetailReviews title="후기" type = "voice" reviews={reviews} curReviewPage = {curReviewPage} totalPages={numTotalReviewPage} setCurPage={setCurReviewPage} id = {voiceID}/>
       </div>
     </>
   );

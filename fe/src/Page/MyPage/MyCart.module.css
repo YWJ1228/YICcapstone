@@ -1,0 +1,69 @@
+.title{
+    font-size : 2rem;
+    font-weight : bold;
+}
+.book-image{
+    width : 10rem;
+    border-radius: 2rem;
+    padding  :1rem;
+    margin : auto;
+}
+.voice-image{
+    border-radius: 50%;
+    width : 10rem;
+    margin : auto;
+}
+.book-name{
+    text-align: center;
+    font-weight : bold;
+}
+.no-item{
+    margin : auto;
+    text-align : center;
+    color : gray;
+}
+.stack{
+    overflow : hidden;
+}
+.selected-item{
+    background-color: rgb(230, 230, 230);
+    margin : 1rem;
+    border-radius : 1rem;
+}
+.card-wrapper{
+    margin : 1rem;
+}
+.card-wrapper:hover{
+    outline : solid 3px rgba(0,0,255,0.3);
+    border-radius: 2rem;
+    cursor:pointer;
+}
+.card-wrapper:focus{
+    outline : solid 3px rgba(0,0,255,0.3);
+    border-radius: 2rem;
+}
+.btn{
+    margin :auto;
+    background-color: #7B8EF5;
+    border-color : #7B8EF5;
+    color : white;
+    margin : 1rem;
+}
+.btn:hover{
+    background-color: white !important;
+    border-color : #7B8EF5 !important;
+    color : #7B8EF5 !important;
+}
+.btn:active{
+    background-color: white !important;
+    border-color : #7B8EF5 !important;
+    color : #7B8EF5 !important;
+}
+.button-wrapper{
+    text-align: center;
+}
+.price-guide{
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+}

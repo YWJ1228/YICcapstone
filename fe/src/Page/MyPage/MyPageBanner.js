@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { API } from "../../Config/APIConfig";
-import { getCookies } from "../../Component/Cookies/LoginCookie";
+import { getCookies,removeCookies } from "../../Component/Cookies/LoginCookie";
 
 import axios from "axios";
 import Container from "react-bootstrap/Container";
@@ -13,13 +13,24 @@ import classes from "./MyPageBanner.module.css";
 
 export default function MyPageBanner() {
   const [userName, setUserName] = useState("oo");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.all([axios.get(`${API.USER_INFO}`, { headers: { Authorization: `Bearer ${getCookies("accessToken")}` } })]).then(
+    axios.all([axios.get(`${API.USER_INFO}`,{
+      headers : {
+        Authorization : `Bearer ${getCookies('accessToken')}`
+      }
+    })]).then(
       axios.spread((res1) => {
         setUserName(res1.data.givenName);
       })
-    );
+    ).catch((err)=>{
+      if(err.response.status === 403){
+        alert('로그인이 만료되었습니다!');
+        removeCookies('accessToken');
+        navigate('/');
+      }
+    });
   }, []);
 
   return (
