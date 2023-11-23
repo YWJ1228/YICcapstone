@@ -2,10 +2,7 @@ package com.example.YICcapstone.domain.member.service;
 
 import com.example.YICcapstone.domain.member.dto.*;
 import com.example.YICcapstone.domain.member.entity.Member;
-import com.example.YICcapstone.domain.member.exception.MemberNicknameDuplicatedException;
-import com.example.YICcapstone.domain.member.exception.MemberNotExistException;
-import com.example.YICcapstone.domain.member.exception.MemberPasswordIncorrectedException;
-import com.example.YICcapstone.domain.member.exception.MemberUsernameDuplicatedException;
+import com.example.YICcapstone.domain.member.exception.*;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.global.util.security.SecurityUtil;
 import jakarta.validation.Valid;
@@ -76,6 +73,10 @@ public class MemberServiceImpl implements MemberService {
 
         if(!member.matchPassword(passwordEncoder, checkPassword)) {
             throw new MemberPasswordIncorrectedException();
+        }
+
+        if(changePassword.equals(checkPassword)) {
+            throw new MemberChangedSamePasswordException();
         }
 
         member.updatePassword(passwordEncoder, changePassword);
