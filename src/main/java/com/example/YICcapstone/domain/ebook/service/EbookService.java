@@ -75,17 +75,17 @@ public class EbookService {
     }
 
     @Transactional(readOnly = true)
-    public Page<EbookResponse> getEbookListByPopularity(int page, int size){
+    public Page<EbookResponse> getEbookListByPopularity(int page, int size) {
         return ebookRepository.findAllByOrderByScore(PageRequest.of(page, size)).map(EbookResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public Page<EbookResponse> getEbookListSortedByPriceDesc(int page, int size){
+    public Page<EbookResponse> getEbookListSortedByPriceDesc(int page, int size) {
         return ebookRepository.findAllByOrderByPriceDescUploadedAtDesc(PageRequest.of(page, size)).map(EbookResponse::new);
     }
 
     @Transactional(readOnly = true)
-    public Page<EbookResponse> getEbookListSortedByPriceAsc(int page, int size){
+    public Page<EbookResponse> getEbookListSortedByPriceAsc(int page, int size) {
         return ebookRepository.findAllByOrderByPriceAscUploadedAtDesc(PageRequest.of(page, size)).map(EbookResponse::new);
     }
 
