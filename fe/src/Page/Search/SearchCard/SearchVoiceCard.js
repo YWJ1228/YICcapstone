@@ -8,7 +8,6 @@ import IconButton from "@mui/material/IconButton";
 
 import classes from "./SearchVoiceCard.module.css";
 export default function SearchVoiceCard(props) {
-
     return (
         <>
             <Row className={classes.wrapper} md={12} xs={12}>

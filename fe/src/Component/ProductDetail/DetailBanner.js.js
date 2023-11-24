@@ -7,14 +7,15 @@ import { onClickPayment } from "../../Page/Credit/Credit";
 
 import classes from "./DetailBanner.module.css";
 import { getCookies } from "../Cookies/LoginCookie";
-import { HeartButton } from "../Button/HeartButton";
+import { KeepButton } from "../Button/KeepButton";
 import { useNavigate } from "react-router-dom";
 import AlertModal from "../Modal/AlertModal/AlertModal";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import IconButton from "@mui/material/IconButton";
+import { LikeButton } from "../Button/LikeButton";
 
 export default function DetailBanner(props) {
-  const prdId  = props.prdId;
+  const prdId = props.prdId;
   const navigateHome = useNavigate();
   const [message, setMessage] = useState("로그인이 필요합니다!");
   const [show, setShow] = useState(false);
@@ -35,18 +36,28 @@ export default function DetailBanner(props) {
     buyer_postcode: "01181",
   };
   function addCartHandler() {
-    axios.post(`${props.type === "book" ? API.ADD_EBOOKITEM_CART: API.ADD_VOICEITEM_CART}/${prdId}`,{},{
-      headers: {
-        Authorization: `Bearer ${getCookies("accessToken")}`,
-      },
-    })
-    .then((res)=>{
-      setMessage(res.data);
-      showModal();
-    }).catch((err)=>{
-      setMessage(err.response.data.message);
-      showModal();
-    });
+    axios
+      .post(
+        `${props.type === "book" ? API.ADD_EBOOKITEM_CART : API.ADD_VOICEITEM_CART}/${prdId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${getCookies("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        setMessage(res.data);
+        showModal();
+      })
+      .catch((err) => {
+        if (err.response.status === 403) {
+          setMessage("로그인이 필요합니다!");
+        } else {
+          setMessage(err.response.data.message);
+        }
+        showModal();
+      });
   }
   function creditClickHandler() {
     if (props.book.price !== 0) {
@@ -105,10 +116,10 @@ export default function DetailBanner(props) {
             <Row className={classes.title}>
               <Col xs="auto">{props.book.title}</Col>
               <Col>
-                <HeartButton id={prdId} type = 'book'/>
+                <KeepButton id={prdId} type="book" />
               </Col>
               <Col>
-                <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick = {addCartHandler}>
+                <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick={addCartHandler}>
                   <ShoppingCartOutlinedIcon />
                 </IconButton>
               </Col>
@@ -133,10 +144,13 @@ export default function DetailBanner(props) {
             <Row className={classes.title}>
               <Col xs="auto">{props.book.name}</Col>
               <Col>
-                <HeartButton id={prdId} type = 'voice' />
+                <KeepButton id={prdId} type="voice" />
               </Col>
               <Col>
-                <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick = {addCartHandler}>
+                <LikeButton id = {prdId}/>
+              </Col>
+              <Col>
+                <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick={addCartHandler}>
                   <ShoppingCartOutlinedIcon />
                 </IconButton>
               </Col>

@@ -25,7 +25,6 @@ export default function SearchPage(props) {
   var api = `${API.SEARCH_EBOOK_NAME}`;
   useEffect(() => {
     // baseAPI setting
-    console.log(menuForm);
     switch (menuForm.searchStd) {
       case 'title': api = (API.SEARCH_EBOOK_NAME); break;
       case 'author': api = (API.SEARCH_EBOOK_AUTHOR); break;
@@ -35,11 +34,11 @@ export default function SearchPage(props) {
     
 
     if (menuForm.selectedEbook) {
-      console.log(api);
       axios
         .get(`${api}${searchKeyword}`)
         .then((res) => {
           setSearchedProducts(res.data.content);
+          console.log(res);
         })
         .catch((err) => {
           console.log(err);
@@ -54,28 +53,29 @@ export default function SearchPage(props) {
       axios.get(`${API.SEARCH_VOICE}${searchKeyword}`)
       .then((res)=>{
         setSearchedTTS(res.data.content);
+        console.log(res);
       })
     }
   }, [searchKeyword, menuForm]);
-  const ebookCard = searchedProducts.map((book, idx) => {
+  const ebookCard = (searchedProducts!== undefined && searchedProducts.map((book, idx) => {
     return (
       <SearchEbookCard key={idx} prd={book}>
         {book.ebookName}
       </SearchEbookCard>
     );
-  });
-  const voiceCard = searchedTTS.map((voice, idx)=>{
+  }));
+  const voiceCard = (searchedTTS!== undefined && searchedTTS.map((voice, idx)=>{
     return(
       <SearchVoiceCard key = {idx} prd = {voice}>
         </SearchVoiceCard>
     )
-  })
+  }));
   return (
     <>
       <NavigationBar keyword = {searchKeyword} />
       <div style={{ width: "100%", height: "6rem" }} />
       <div className={classes["search-title"]}>
-        '<span className={classes.target}>{searchKeyword}</span>'에 대한 {searchedProducts.length}개의 검색결과
+        '<span className={classes.target}>{searchKeyword}</span>'에 대한 {searchedProducts !== undefined ? searchedProducts.length : 0}개의 검색결과
       </div>
       <Container>
         <Row>

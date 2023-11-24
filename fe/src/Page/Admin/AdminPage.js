@@ -27,17 +27,15 @@ export default function AdminPage() {
       <Box className={classes["tab-wrapper"]}>
         <Box sx={{ borderBottom: 1, borderColor: "divider" }} className={classes["nav-wrapper"]}>
           <Tabs value={value} aria-label="basic tabs example" onChange={handleChange}>
-            <Tab className={classes["nav-link"]} label="오디오북 관리" />
             <Tab className={classes["nav-link"]} label="음성모델 관리" />
             <Tab className={classes["nav-link"]} label="Ebook 관리" />
-            <Tab className={classes["nav-link"]} label="회원관리" />
+            <Tab className={classes["nav-link"]} label="건의 관리" />
             <Tab className={classes["nav-link"]} label="종료" />
           </Tabs>
         </Box>
-        {value === 0 && <div></div>}
-        {value === 1 && <AdminFormPanel type="voice" />}
-        {value === 2 && <AdminFormPanel type="ebook" />}
-        {value === 3 && <AdminFormPanel type="user" />}
+        {value === 0 && <AdminFormPanel type="voice" />}
+        {value === 1 && <AdminFormPanel type="ebook" />}
+        {value === 2 && <AdminFormPanel type="inquiry" />}
       </Box>
     </>
   );

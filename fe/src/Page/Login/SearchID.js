@@ -28,7 +28,7 @@ export default function SearchID() {
         DebuggingMode(["검색된 아이디"], [res.data]);
       })
       .catch(function (err) {
-        console.log(err);
+        alert(err)
         // 404 존재하지 않는 회원
       });
   }

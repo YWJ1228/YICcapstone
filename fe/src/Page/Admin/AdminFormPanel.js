@@ -10,23 +10,21 @@ import axios from "axios";
 import AdminListPanel from "./AdminListPanel";
 import AdminVoiceForm from "./Form/AdminVoiceForm";
 import AdminEbookForm from "./Form/AdminEbookForm";
-import AdminUserForm from "./Form/AdminUserForm";
+import AdminInquiryForm from "./Form/AdminInquiryForm";
 
 export default function AdminFormPanel(props) {
   const [task, setTask] = useState(0);
-  const [curProduct, setCurProduct] = useState(PageConfig.VOICE_PAGE_DEFAULT_STATE);
   const [listProduct, setListProduct] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
+  const [curProduct, setCurProduct] = useState(PageConfig.VOICE_PAGE_DEFAULT_STATE);
   const [curEbook, setCurEbook] = useState();
+  const [curInquiry, setCurInquiry] = useState();
   useEffect(() => {
-    if(props.type ==='audiobook'){
-      
-    }
-    else if (props.type === "voice") {
+    if (props.type === "voice") {
       // get page size
       axios.get(`${API.ADMIN_LOAD_VOICELIST_SIZE}`).then((res) => {
         axios.get(`${API.ADMIN_LOAD_VOICELIST}${res.data.totalElements}`).then((res2) => {
           const resData = res2.data.content.map((voice) => ({
-            id : voice.id,
+            id: voice.id,
             voiceUrl: voice.voiceModelUrl,
             name: voice.celebrityName,
             price: voice.price,
@@ -41,16 +39,18 @@ export default function AdminFormPanel(props) {
     } else if (props.type === "ebook") {
       //get page size
       axios.get(`${API.ADMIN_LOAD_EBOOKLIST_SIZE}`).then((res) => {
-          axios.get(`${API.ADMIN_LOAD_EBOOKLIST}${res.data.totalElements}`).then((res2) => {
-            setListProduct(res2.data.content);
-          });
-
+        axios.get(`${API.ADMIN_LOAD_EBOOKLIST}${res.data.totalElements}`).then((res2) => {
+          setListProduct(res2.data.content);
+        });
       });
-    } else if (props.type === "user") {
-      axios.get(`${API.ADMIN_LOAD_EBOOKLIST}`).then((res) => {
-        const resData = res.data.content.map((book) => ({}));
-        setListProduct(resData);
-      });
+    } else if (props.type === "inquiry") {
+      axios.get(`${API.ADMIN_LOAD_FEEDBACK_LIST_SIZE}`,{
+        headers : {Authorization : `Bearer ${getCookies('accessToken')}`}
+      }).then((res)=>{
+        axios.get(`${API.ADMIN_LOAD_FEEDBACK_LIST}${res.data.totalElements}`).then((res2)=>{
+          setListProduct(res2.data.content);
+        })
+      })
     }
   }, [task]);
 
@@ -99,6 +99,13 @@ export default function AdminFormPanel(props) {
       form.rating.value = curEbook.rating;
       form.imageUrl.value = curEbook.imageUrl;
       form.price.value = curEbook.price;
+    }
+    else if(props.type === 'inquiry'){
+      form.id.value = curInquiry.id;
+      form.username.value = curInquiry.username;
+      form.title.value = curInquiry.title;
+      form.detail.value = curInquiry.detail;
+      form.uploadAt.value = curInquiry.uploadAt;
     }
   }
   function addProductHandler(form) {
@@ -170,8 +177,13 @@ export default function AdminFormPanel(props) {
     });
   }
   function ItemClickHandler(prd, type) {
-    if(type === 'voice'){setCurProduct(prd);}
-    else if (type === 'ebook'){setCurEbook(prd);}
+    if (type === "voice") {
+      setCurProduct(prd);
+    } else if (type === "ebook") {
+      setCurEbook(prd);
+    }else if(type === 'inquiry'){
+      setCurInquiry(prd);
+    }
     setTask(4);
   }
   function FormType(type) {
@@ -179,8 +191,8 @@ export default function AdminFormPanel(props) {
       return <AdminVoiceForm setTask={setTask} />;
     } else if (type === "ebook") {
       return <AdminEbookForm setTask={setTask} />;
-    } else if (type === "user") {
-      return <AdminUserForm setTask={setTask} />;
+    } else if (type === "inquiry") {
+      return <AdminInquiryForm setTask={setTask} />;
     }
   }
   return (
