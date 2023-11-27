@@ -14,6 +14,11 @@ import com.example.YICcapstone.domain.ebook.repository.EbookRepository;
 import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.member.exception.MemberNotExistException;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
+import com.example.YICcapstone.domain.purchase.domain.EbookPurchase;
+import com.example.YICcapstone.domain.purchase.exception.EbookPurchaseAlreadyExistException;
+import com.example.YICcapstone.domain.purchase.exception.VoiceModelPurchaseAlreadyExistException;
+import com.example.YICcapstone.domain.purchase.repository.EbookPurchaseRepository;
+import com.example.YICcapstone.domain.purchase.repository.VoiceModelPurchaseRepository;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
 import com.example.YICcapstone.domain.voicemodel.exception.VoiceModelNotFoundException;
 import com.example.YICcapstone.domain.voicemodel.repository.VoiceModelRepository;
@@ -37,6 +42,9 @@ public class BasketServiceImpl implements BasketService {
     private final VoiceModelBasketRepository voiceModelBasketRepository;
 
     private final MemberRepository memberRepository;
+
+    private final EbookPurchaseRepository ebookPurchaseRepository;
+    private final VoiceModelPurchaseRepository voiceModelPurchaseRepository;
 
     @Override
     public List<EbookBasketDto> showEbookBasket() { // 유저의 장바구니 불러오기 (E-Book)
@@ -68,6 +76,9 @@ public class BasketServiceImpl implements BasketService {
         Ebook ebook = ebookRepository.findById(id)
                 .orElseThrow(() -> new EbookNotFoundException());
 
+        ebookPurchaseRepository.findByEbookIdAndMemberId(ebook.getId(), member.getId())
+                .orElseThrow(() -> new EbookPurchaseAlreadyExistException());
+
         EbookBasket ebookBasket = EbookBasket.builder()
                 .ebook(ebook).member(member).build();
 
@@ -82,6 +93,9 @@ public class BasketServiceImpl implements BasketService {
                 .orElseThrow(() -> new MemberNotExistException());
         VoiceModel voiceModel = voiceModelRepository.findById(id)
                 .orElseThrow(() -> new VoiceModelNotFoundException());
+
+        voiceModelPurchaseRepository.findByVoiceModelIdAndMemberId(voiceModel.getId(), member.getId())
+                .orElseThrow(() -> new VoiceModelPurchaseAlreadyExistException());
 
         VoiceModelBasket voiceModelBasket = VoiceModelBasket.builder()
                         .voiceModel(voiceModel).member(member).build();
