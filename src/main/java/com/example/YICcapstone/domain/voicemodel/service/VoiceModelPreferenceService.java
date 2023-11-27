@@ -27,7 +27,7 @@ public class VoiceModelPreferenceService {
         Member member = verifyMember();
         VoiceModel savedVoiceModel = voiceModelRepository.findById(voiceModelId)
                 .orElseThrow(VoiceModelNotFoundException::new);
-        VoiceModelPreference preference = preferenceRepository.findByMemberIdAndVoiceModelId(member, savedVoiceModel)
+        VoiceModelPreference preference = preferenceRepository.findByMemberIdAndVoiceModelId(member.getId(), savedVoiceModel.getId())
                 .orElse(null);
 
         if (preference == null) {
@@ -36,18 +36,12 @@ public class VoiceModelPreferenceService {
         } else {
             preferenceRepository.delete(preference);
         }
-        return getPreferenceCount(voiceModelId);
-    }
-
-    public Integer getPreferenceCount(Long voiceModelId) {
-        VoiceModel voiceModel = voiceModelRepository.findById(voiceModelId)
-                .orElseThrow(VoiceModelNotFoundException::new);
-        return preferenceRepository.countByVoiceModelId(voiceModelId).orElse(0);
+        return savedVoiceModel.getVoiceModelPreferenceList().size();
     }
 
     public Boolean preferenceVerify(Long voiceModelId) {
         Member member = verifyMember();
-        return preferenceRepository.existsByMemberIdAndVoiceModelId(member, voiceModelId);
+        return preferenceRepository.existsByMemberIdAndVoiceModelId(member.getId(), voiceModelId);
     }
 
     public Member verifyMember() {
