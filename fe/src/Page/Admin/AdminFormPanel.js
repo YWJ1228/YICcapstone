@@ -44,13 +44,25 @@ export default function AdminFormPanel(props) {
         });
       });
     } else if (props.type === "inquiry") {
-      axios.get(`${API.ADMIN_LOAD_FEEDBACK_LIST_SIZE}`,{
-        headers : {Authorization : `Bearer ${getCookies('accessToken')}`}
-      }).then((res)=>{
-        axios.get(`${API.ADMIN_LOAD_FEEDBACK_LIST}${res.data.totalElements}`).then((res2)=>{
-          setListProduct(res2.data.content);
+      axios
+        .get(`${API.ADMIN_LOAD_FEEDBACK_LIST_SIZE}`, {
+          headers: { Authorization: `Bearer ${getCookies("accessToken")}` },
         })
-      })
+        .then((res) => {
+          console.log(`${API.ADMIN_LOAD_FEEDBACK_LIST}${res.data.totalElements}`);
+          if (res.data.totalElements !== 0) {
+            axios
+              .get(`${API.ADMIN_LOAD_FEEDBACK_LIST}${res.data.totalElements}`, {
+                headers: { Authorization: `Bearer ${getCookies("accessToken")}` },
+              })
+              .then((res2) => {
+                setListProduct(res2.data.content);
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, [task]);
 
@@ -99,8 +111,7 @@ export default function AdminFormPanel(props) {
       form.rating.value = curEbook.rating;
       form.imageUrl.value = curEbook.imageUrl;
       form.price.value = curEbook.price;
-    }
-    else if(props.type === 'inquiry'){
+    } else if (props.type === "inquiry") {
       form.id.value = curInquiry.id;
       form.username.value = curInquiry.username;
       form.title.value = curInquiry.title;
@@ -109,65 +120,175 @@ export default function AdminFormPanel(props) {
     }
   }
   function addProductHandler(form) {
-    axios
-      .post(
-        `${API.ADMIN_ADD_VOICE}`,
-        {
-          voiceModelUrl: form.voiceUrl.value.trim(),
-          celebrityName: form.name.value.trim(),
-          price: form.price.value,
-          imageUrl: form.imageUrl.value.trim(),
-          comment: form.comment.value.trim(),
-          sampleUrl: form.demoUrl.value.trim(),
-          category: form.category.value.trim(),
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookies("accessToken")}`,
+    if (props.type === "voice") {
+      axios
+        .post(
+          `${API.ADMIN_ADD_VOICE}`,
+          {
+            voiceModelUrl: form.voiceUrl.value.trim(),
+            celebrityName: form.name.value.trim(),
+            price: form.price.value.trim,
+            imageUrl: form.imageUrl.value.trim(),
+            comment: form.comment.value.trim(),
+            sampleUrl: form.demoUrl.value.trim(),
+            category: form.category.value.trim(),
           },
-        }
-      )
-      .then((res) => {
-        console.log(res);
-        console.log("추가 완료");
-        initFormHandler(form);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+          {
+            headers: {
+              Authorization: `Bearer ${getCookies("accessToken")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          console.log("추가 완료");
+          initFormHandler(form);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .post(
+          `${API.ADMIN_ADD_EBOOK}`,
+          {
+            ebookName: form.name.value.trim(),
+            author: form.author.value.trim(),
+            pages: form.pages.value.trim(),
+            publisher: form.publisher.value.trim(),
+            price: form.name.value.trim(),
+            imageUrl: form.name.value.trim(),
+            comment: form.comment.value.trim(),
+            content: form.content.value.trim(),
+            category: form.category.value.trim(),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${getCookies("accessToken")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          console.log("추가 완료");
+          initFormHandler(form);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   function changeProductHandler(form) {
-    axios
-      .put(`${API.ADMIN_ADD_VOICE}/${curProduct.id}`, {
-        voiceModelUrl: form.voiceUrl.value.trim(),
-        celebrityName: form.name.value.trim(),
-        price: form.price.value,
-        imageUrl: form.imageUrl.value.trim(),
-        comment: form.comment.value.trim(),
-        sampleUrl: form.demoUrl.value.trim(),
-        category: form.category.value.trim(),
-      })
-      .then((res) => {
-        console.log(res);
-        console.log("수정완료");
-        initFormHandler(form);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (props.type === "voice") {
+      axios
+        .put(
+          `${API.ADMIN_UPDATE_VOICE}${curProduct.id}`,
+          {
+            voiceModelUrl: form.voiceUrl.value.trim(),
+            celebrityName: form.name.value.trim(),
+            price: form.price.value,
+            imageUrl: form.imageUrl.value.trim(),
+            comment: form.comment.value.trim(),
+            sampleUrl: form.demoUrl.value.trim(),
+            category: form.category.value.trim(),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${getCookies("accessToken")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          console.log("수정완료");
+          initFormHandler(form);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .put(
+          `${API.ADMIN_UPDATE_EBOOK}${curEbook.id}`,
+          {
+            ebookName: form.name.value.trim(),
+            author: form.author.value.trim(),
+            pages: form.pages.value.trim(),
+            publisher: form.publisher.value.trim(),
+            price: form.name.value.trim(),
+            imageUrl: form.name.value.trim(),
+            comment: form.comment.value.trim(),
+            content: form.content.value.trim(),
+            category: form.category.value.trim(),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${getCookies("accessToken")}`,
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          console.log("수정완료");
+          initFormHandler(form);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
   function deleteProductHandler(form) {
-    axios
-      .delete(`${API.ADMIN_ADD_VOICE}/${curProduct.id}`)
-      .then((res) => {
-        console.log(res);
-        console.log("삭제 완료");
-        initFormHandler(form);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (props.type === "voice") {
+      axios
+        .delete(`${API.ADMIN_DELETE_VOICE}${curProduct.id}`, {
+          headers: {
+            Authorization: `Bearer ${getCookies("accessToken")}`,
+          },
+          data: {},
+        })
+        .then((res) => {
+          console.log(res);
+          console.log("삭제 완료");
+          initFormHandler(form);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if(props.type === 'ebook'){
+      axios
+        .delete(`${API.ADMIN_DELETE_EBOOK}${curEbook.id}`, {
+          headers: {
+            Authorization: `Bearer ${getCookies("accessToken")}`,
+          },
+          data: {},
+        })
+        .then((res) => {
+          console.log(res);
+          console.log("삭제 완료");
+          initFormHandler(form);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    else{
+      axios
+        .delete(`${API.ADMIN_DELETE_EBOOK}${curInquiry.id}`, {
+          headers: {
+            Authorization: `Bearer ${getCookies("accessToken")}`,
+          },
+          data: {},
+        })
+        .then((res) => {
+          console.log(res);
+          console.log("삭제 완료");
+          initFormHandler(form);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
   function initFormHandler(form) {
     Array.from(form.elements).forEach((input) => {
@@ -181,7 +302,7 @@ export default function AdminFormPanel(props) {
       setCurProduct(prd);
     } else if (type === "ebook") {
       setCurEbook(prd);
-    }else if(type === 'inquiry'){
+    } else if (type === "inquiry") {
       setCurInquiry(prd);
     }
     setTask(4);

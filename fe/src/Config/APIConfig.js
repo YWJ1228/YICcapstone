@@ -139,12 +139,19 @@ export const API = {
     LOAD_MYPAGE_LIKELIST :              `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_EBOOKS}&page=0`,
 
     //Admin API
-    ADMIN_ADD_VOICE :                   `${VOICE_ADMIN_URL}`,
+    ADMIN_ADD_VOICE :                   `${ADMIN_URL}/voice-model`,
+    ADMIN_UPDATE_VOICE :                `${ADMIN_URL}/voice-model/`,
+    ADMIN_DELETE_VOICE :                `${ADMIN_URL}/voice-model/`,
     ADMIN_LOAD_VOICELIST :              `${VOICE_URL}/list?&page=0&size=`, // for totalPages
     ADMIN_LOAD_VOICELIST_SIZE :         `${VOICE_URL}/list?size=1&page=0`,
-    ADMIN_ADD_EBOOK:                    `${EBOOK_URL}`,
+
+    ADMIN_ADD_EBOOK:                    `${ADMIN_URL}/ebook`,
+    ADMIN_UPDATE_EBOOK :                `${ADMIN_URL}/ebook/`,
+    ADMIN_DELETE_EBOOK :                `${ADMIN_URL}/ebook`,
     ADMIN_LOAD_EBOOKLIST:               `${EBOOK_URL}/list?page=0&size=`,
     ADMIN_LOAD_EBOOKLIST_SIZE:          `${EBOOK_URL}/list?size=1&page=0`,
+
+    ADMIN_DELETE_FEEDBACK :             `${ADMIN_URL}/feedback/`,
     ADMIN_LOAD_FEEDBACK_LIST:           `${ADMIN_URL}/feedback?page=0&size=`,
     ADMIN_LOAD_FEEDBACK_LIST_SIZE :     `${ADMIN_URL}/feedback?page=0&size=1`,
 

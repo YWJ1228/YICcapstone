@@ -4,8 +4,6 @@ import { API } from "../../Config/APIConfig";
 import { getCookies } from "../../Component/Cookies/LoginCookie";
 import axios from "axios";
 
-import IconButton from "@mui/material/IconButton";
-
 import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
 import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 
@@ -18,6 +16,7 @@ export default function MyPageReview(props) {
   });
   function reviewRequestClickHandler(event) {
     event.preventDefault();
+    console.log(rateState)
     axios
       .post(
         `${API.REVIEW_EBOOK}`,
@@ -47,7 +46,7 @@ export default function MyPageReview(props) {
         {
           purchaseId: event.target.btn.value,
           content: event.target.review.value.trim(),
-          grade: 0,
+          grade: 0, // ????
         },
         {
           headers: {

@@ -11,20 +11,13 @@ import Dropdown from "react-bootstrap/Dropdown";
 import classes from "./AudioBookPlayer.module.css";
 import { getCookies } from "../../Cookies/LoginCookie";
 export default function AudioBookPlayer() {
-  const dummyCurPlay = {
-    id: -1,
-    ebookName: "책을 선택해주세요",
-    imageUrl: "/Image/Novel_Image/Novel004_img.png",
-    audioUrl: "default",
-    author: "author1",
-    content: "content1",
-    curTime: 0,
-  };
-
-  const [curPlay, setCurPlay] = useState(dummyCurPlay);
+  const [curPlay, setCurPlay] = useState("");
   const [purchasedTTS, setPurchasedTTS] = useState([{ id: -1, name: "해당없음" }]);
   const [selectedTTS, setSelectedTTS] = useState(0);
-  const [bookList, setBookList] = useState([]);
+  const [bookList, setBookList] = useState([{ ebook: { name: "해당없음" } }]);
+  const [selectedBook, setSelectedBook] = useState(0);
+
+
 
   const playlistBlock = bookList.map((audioBook, idx) => {
     return (
@@ -32,7 +25,7 @@ export default function AudioBookPlayer() {
         key={idx}
         className={classes["list-item"]}
         onClick={() => {
-          setCurPlay(audioBook.ebook);
+          setSelectedBook(idx);
         }}
       >
         <div>{audioBook.ebook.ebookName}</div>
@@ -60,7 +53,6 @@ export default function AudioBookPlayer() {
               id: voice.voiceModel.id,
               name: voice.voiceModel.celebrityName,
             }));
-
             setPurchasedTTS(resData);
           });
           axios.get(`${API.LOAD_PURCHASED_EBOOKS}${size2.data.totalElements}`, { headers: { Authorization: `Bearer ${getCookies("accessToken")}` } }).then((res) => {
@@ -71,45 +63,44 @@ export default function AudioBookPlayer() {
       .catch((err) => {
         console.log(err);
       });
-
-    if (selectedTTS.id !== -1) {
-      axios
-        .get(
-          `${API.LOAD_AUDIOBOOK_PATH}/${curPlay.id}/${purchasedTTS[selectedTTS].id}`,
-          { headers: { Authorization: `Bearer ${getCookies("accessToken")}` } },
-          {
-            params: {
-              ebookId: curPlay.id,
-              voiceId: purchasedTTS[selectedTTS].id,
-            },
-          }
-        )
-        .then((res) => {
-          setCurPlay({ ...curPlay, audioUrl: res.data.audioBookLink });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, [selectedTTS]);
-
+  }, [selectedTTS, selectedBook]);
+  axios
+    .get(
+      `${API.LOAD_AUDIOBOOK_PATH}/${bookList[selectedBook].ebook.id}/${purchasedTTS[selectedTTS].id}`,
+      { headers: { Authorization: `Bearer ${getCookies("accessToken")}` } },
+      {
+        params: {
+          ebookId: bookList[selectedBook].ebook.id,
+          voiceId: purchasedTTS[selectedTTS].id,
+        },
+      }
+    )
+    .then((res) => {
+      setCurPlay(res.data.audioBookLink);
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   return (
     <>
-      <img src={curPlay.imageUrl} className={classes["background-image"]} />
+      <img src={bookList[selectedBook].ebook.imageUrl} className={classes["background-image"]} />
       <Stack direction="horizontal" gap={5}>
         <div className={classes["now-playing"]}>
           <Stack>
-            <div className={classes.bookName}>{curPlay.ebookName}</div>
-            <div className={classes.author}>{curPlay.author}</div>
-            <div className={classes.content}>{curPlay.content}</div>
+            <div className={classes.bookName}>{bookList[selectedBook].ebook.ebookName}</div>
+            <div className={classes.author}>{bookList[selectedBook].ebook.author}</div>
+            <div className={classes.content}>{bookList[selectedBook].ebook.content}</div>
           </Stack>
         </div>
         <div className={classes.playlist}>
           <Container>
             <Row>
-              <Col className={classes["selected-tts"]} xs = {2} md = {2}>적용된 TTS</Col>
+              <Col className={classes["selected-tts"]} xs={2} md={2}>
+                적용된 TTS
+              </Col>
               <Col>
-                  <Row>
+                <Row>
                   <Dropdown align="end" onSelect={setSelectedTTS}>
                     <Button className={classes["dropdown-content"]} disabled>
                       {purchasedTTS[selectedTTS].name}
@@ -117,16 +108,14 @@ export default function AudioBookPlayer() {
                     <Dropdown.Toggle split className={classes["dropdown-btn"]}></Dropdown.Toggle>
                     <Dropdown.Menu className={classes["dropdown-menu"]}>{dropItem}</Dropdown.Menu>
                   </Dropdown>
-                  </Row>
-                  <Row>
-                  <ListGroup className={classes["list"]}>
-                  {playlistBlock}
-                </ListGroup>
+                </Row>
+                <Row>
+                  <ListGroup className={classes["list"]}>{playlistBlock}</ListGroup>
                 </Row>
               </Col>
-              <Col xs = {1} md = {1}>
-                <a href = "/">
-                <HomeOutlinedIcon className={classes["home-btn"]} />
+              <Col xs={1} md={1}>
+                <a href="/">
+                  <HomeOutlinedIcon className={classes["home-btn"]} />
                 </a>
               </Col>
             </Row>
@@ -134,9 +123,9 @@ export default function AudioBookPlayer() {
         </div>
       </Stack>
       <AudioPlayer
-        autoPlay
+        autoPlayAfterSrcChange = {false}
         className={classes["playing-bar"]}
-        src={curPlay.audioUrl}
+        src={curPlay}
         onPlay={(e) => {
           console.log(e);
         }}
