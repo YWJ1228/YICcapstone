@@ -34,6 +34,7 @@ public class VoiceModelPreferenceService {
             preference = new VoiceModelPreference(member, savedVoiceModel);
             preferenceRepository.save(preference);
         } else {
+            savedVoiceModel.getVoiceModelPreferenceList().remove(preference);
             preferenceRepository.delete(preference);
         }
         return savedVoiceModel.getVoiceModelPreferenceList().size();
