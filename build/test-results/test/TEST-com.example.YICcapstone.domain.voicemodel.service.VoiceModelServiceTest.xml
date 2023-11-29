@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.YICcapstone.domain.voicemodel.service.VoiceModelServiceTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-11-21T12:27:47" hostname="imtaehun-ui-MacBookAir.local" time="0.437">
+  <properties/>
+  <testcase name="모델_리스트()" classname="com.example.YICcapstone.domain.voicemodel.service.VoiceModelServiceTest" time="0.437">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;3&gt; but was: &lt;7&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;3&gt; but was: &lt;7&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:166)
+	at app//org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:161)
+	at app//org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:629)
+	at app//com.example.YICcapstone.domain.voicemodel.service.VoiceModelServiceTest.모델_리스트(VoiceModelServiceTest.java:154)
+	at java.base@19.0.2/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base@19.0.2/java.lang.reflect.Method.invoke(Method.java:578)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@19.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@19.0.2/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:107)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:88)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:54)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:67)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:52)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at app//org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:110)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:90)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:85)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+	at java.base@19.0.2/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base@19.0.2/java.lang.reflect.Method.invoke(Method.java:578)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:113)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:65)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <system-out><![CDATA[21:27:38.953 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [VoiceModelServiceTest]: using SpringBootContextLoader
+21:27:38.962 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.example.YICcapstone.domain.voicemodel.service.VoiceModelServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+21:27:38.963 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.example.YICcapstone.domain.voicemodel.service.VoiceModelServiceTest]: VoiceModelServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+21:27:38.999 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using ContextCustomizers for test class [VoiceModelServiceTest]: [DisableObservabilityContextCustomizer, PropertyMappingContextCustomizer, Customizer, ExcludeFilterContextCustomizer, DuplicateJsonObjectContextCustomizer, MockitoContextCustomizer, TestRestTemplateContextCustomizer]
+21:27:39.154 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [/Users/imtaehun/Documents/GitHub/YICcapstone/build/classes/java/main/com/example/YICcapstone/YiCcapstoneApplication.class]
+21:27:39.157 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.example.YICcapstone.YiCcapstoneApplication for test class com.example.YICcapstone.domain.voicemodel.service.VoiceModelServiceTest
+21:27:39.243 [Test worker] DEBUG org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Using TestExecutionListeners for test class [VoiceModelServiceTest]: [ServletTestExecutionListener, DirtiesContextBeforeModesTestExecutionListener, ApplicationEventsTestExecutionListener, MockitoTestExecutionListener, DependencyInjectionTestExecutionListener, DirtiesContextTestExecutionListener, TransactionalTestExecutionListener, SqlScriptsTestExecutionListener, WithSecurityContextTestExecutionListener, EventPublishingTestExecutionListener, ReactorContextTestExecutionListener, RestDocsTestExecutionListener, MockRestServiceServerResetTestExecutionListener, MockMvcPrintOnlyOnFailureTestExecutionListener, WebDriverTestExecutionListener, MockWebServiceServerTestExecutionListener, ResetMocksTestExecutionListener]
+21:27:39.245 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: class [VoiceModelServiceTest], class annotated with @DirtiesContext [false] with mode [null]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.2)
+
+2023-11-21T21:27:39.666+09:00  INFO 66237 --- [    Test worker] c.e.Y.d.v.service.VoiceModelServiceTest  : Starting VoiceModelServiceTest using Java 19.0.2 with PID 66237 (started by imtaehun in /Users/imtaehun/Documents/GitHub/YICcapstone)
+2023-11-21T21:27:39.669+09:00  INFO 66237 --- [    Test worker] c.e.Y.d.v.service.VoiceModelServiceTest  : The following 1 profile is active: "jwt"
+2023-11-21T21:27:40.938+09:00  INFO 66237 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-11-21T21:27:41.091+09:00  INFO 66237 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 147 ms. Found 14 JPA repository interfaces.
+2023-11-21T21:27:41.961+09:00  INFO 66237 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-11-21T21:27:41.993+09:00  INFO 66237 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-11-21T21:27:42.167+09:00  WARN 66237 --- [    Test worker] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-11-21T21:27:42.260+09:00  INFO 66237 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-11-21T21:27:42.591+09:00  INFO 66237 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@13dc6649
+2023-11-21T21:27:42.593+09:00  INFO 66237 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-11-21T21:27:42.636+09:00  INFO 66237 --- [    Test worker] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-11-21T21:27:44.282+09:00  INFO 66237 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-11-21T21:27:44.292+09:00  INFO 66237 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-11-21T21:27:46.538+09:00  WARN 66237 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-11-21T21:27:46.917+09:00  INFO 66237 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure Or [Mvc [pattern='/api/**']] with [org.springframework.security.web.session.DisableEncodeUrlFilter@20c4be8d, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@590182a6, org.springframework.security.web.context.SecurityContextHolderFilter@65dff28b, org.springframework.security.web.header.HeaderWriterFilter@da8853c, org.springframework.web.filter.CorsFilter@6af6a3b, com.example.YICcapstone.global.jwt.filter.JwtAuthenticationProcessingFilter@48186ba8, org.springframework.security.web.authentication.logout.LogoutFilter@3ec8c874, com.example.YICcapstone.global.login.filter.JsonUsernamePasswordAuthenticationFilter@65f1bf2c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@13f6395d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@f1f41b5, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@16ea56ab, org.springframework.security.web.session.SessionManagementFilter@275860e9, org.springframework.security.web.access.ExceptionTranslationFilter@f64f47a, org.springframework.security.web.access.intercept.AuthorizationFilter@105d2c27]
+2023-11-21T21:27:47.434+09:00  INFO 66237 --- [    Test worker] c.e.Y.d.v.service.VoiceModelServiceTest  : Started VoiceModelServiceTest in 8.15 seconds (process running for 9.679)
+Hibernate: insert into voice_model (category, celebrity_name, comment, image_url, price, sample_url, uploaded_at, view_count, voice_model_url) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into voice_model (category, celebrity_name, comment, image_url, price, sample_url, uploaded_at, view_count, voice_model_url) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: insert into voice_model (category, celebrity_name, comment, image_url, price, sample_url, uploaded_at, view_count, voice_model_url) values (?, ?, ?, ?, ?, ?, ?, ?, ?)
+Hibernate: select v1_0.id,v1_0.category,v1_0.celebrity_name,v1_0.comment,v1_0.image_url,v1_0.price,v1_0.sample_url,v1_0.uploaded_at,v1_0.view_count,v1_0.voice_model_url from voice_model v1_0 left join voice_model_purchase v2_0 on v1_0.id=v2_0.voice_model_id left join voice_model_preference v3_0 on v1_0.id=v3_0.voice_model_id group by v1_0.id order by ((v1_0.view_count+(count(v2_0.id)*10))+(count(v3_0.id)*5)) desc,v1_0.uploaded_at desc limit ?,?
+Hibernate: select v1_0.voice_model_id,v1_0.id,v1_0.content,v1_0.created_at,v1_0.grade,m1_0.id,m1_0.birth,m1_0.created_at,m1_0.family_name,m1_0.given_name,m1_0.name,m1_0.nickname,m1_0.password,m1_0.refresh_token,m1_0.role,m1_0.sex,m1_0.username,v1_0.order_id,v1_0.payment_method,v1_0.price,v1_0.purchased_at,v1_0.updated_at from voice_model_purchase v1_0 left join member m1_0 on m1_0.id=v1_0.member_id where v1_0.voice_model_id=?
+Hibernate: select v1_0.voice_model_id,v1_0.id,m1_0.id,m1_0.birth,m1_0.created_at,m1_0.family_name,m1_0.given_name,m1_0.name,m1_0.nickname,m1_0.password,m1_0.refresh_token,m1_0.role,m1_0.sex,m1_0.username from voice_model_preference v1_0 left join member m1_0 on m1_0.id=v1_0.member_id where v1_0.voice_model_id=?
+Hibernate: select v1_0.voice_model_id,v1_0.id,v1_0.content,v1_0.created_at,v1_0.grade,m1_0.id,m1_0.birth,m1_0.created_at,m1_0.family_name,m1_0.given_name,m1_0.name,m1_0.nickname,m1_0.password,m1_0.refresh_token,m1_0.role,m1_0.sex,m1_0.username,v1_0.order_id,v1_0.payment_method,v1_0.price,v1_0.purchased_at,v1_0.updated_at from voice_model_purchase v1_0 left join member m1_0 on m1_0.id=v1_0.member_id where v1_0.voice_model_id=?
+Hibernate: select v1_0.voice_model_id,v1_0.id,m1_0.id,m1_0.birth,m1_0.created_at,m1_0.family_name,m1_0.given_name,m1_0.name,m1_0.nickname,m1_0.password,m1_0.refresh_token,m1_0.role,m1_0.sex,m1_0.username from voice_model_preference v1_0 left join member m1_0 on m1_0.id=v1_0.member_id where v1_0.voice_model_id=?
+Hibernate: select v1_0.voice_model_id,v1_0.id,v1_0.content,v1_0.created_at,v1_0.grade,m1_0.id,m1_0.birth,m1_0.created_at,m1_0.family_name,m1_0.given_name,m1_0.name,m1_0.nickname,m1_0.password,m1_0.refresh_token,m1_0.role,m1_0.sex,m1_0.username,v1_0.order_id,v1_0.payment_method,v1_0.price,v1_0.purchased_at,v1_0.updated_at from voice_model_purchase v1_0 left join member m1_0 on m1_0.id=v1_0.member_id where v1_0.voice_model_id=?
+Hibernate: select v1_0.voice_model_id,v1_0.id,m1_0.id,m1_0.birth,m1_0.created_at,m1_0.family_name,m1_0.given_name,m1_0.name,m1_0.nickname,m1_0.password,m1_0.refresh_token,m1_0.role,m1_0.sex,m1_0.username from voice_model_preference v1_0 left join member m1_0 on m1_0.id=v1_0.member_id where v1_0.voice_model_id=?
+Hibernate: select v1_0.voice_model_id,v1_0.id,v1_0.content,v1_0.created_at,v1_0.grade,m1_0.id,m1_0.birth,m1_0.created_at,m1_0.family_name,m1_0.given_name,m1_0.name,m1_0.nickname,m1_0.password,m1_0.refresh_token,m1_0.role,m1_0.sex,m1_0.username,v1_0.order_id,v1_0.payment_method,v1_0.price,v1_0.purchased_at,v1_0.updated_at from voice_model_purchase v1_0 left join member m1_0 on m1_0.id=v1_0.member_id where v1_0.voice_model_id=?
+Hibernate: select v1_0.voice_model_id,v1_0.id,m1_0.id,m1_0.birth,m1_0.created_at,m1_0.family_name,m1_0.given_name,m1_0.name,m1_0.nickname,m1_0.password,m1_0.refresh_token,m1_0.role,m1_0.sex,m1_0.username from voice_model_preference v1_0 left join member m1_0 on m1_0.id=v1_0.member_id where v1_0.voice_model_id=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

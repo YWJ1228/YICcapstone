@@ -10,8 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface VoiceModelPreferenceRepository extends JpaRepository<VoiceModelPreference, Long> {
-    Optional<VoiceModelPreference> findByMemberIdAndVoiceModelId(Member memberId, VoiceModel voiceModelId);
-    Boolean existsByMemberIdAndVoiceModelId(Member memberId, Long voiceModelId);
-    // voicemodel Id에 해당하는 preference count
-    Optional<Integer> countByVoiceModelId(Long voiceModelId);
+    Optional<VoiceModelPreference> findByMemberIdAndVoiceModelId(Long memberId, Long voiceModelId);
+    Boolean existsByMemberIdAndVoiceModelId(Long memberId, Long voiceModelId);
 }
