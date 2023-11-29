@@ -1,6 +1,7 @@
 package com.example.YICcapstone.domain.purchase.controller;
 
-import com.example.YICcapstone.domain.purchase.dto.request.ReviewRequest;
+import com.example.YICcapstone.domain.purchase.dto.request.EbookReviewRequest;
+import com.example.YICcapstone.domain.purchase.dto.request.VoiceModelReviewRequest;
 import com.example.YICcapstone.domain.purchase.dto.response.ReviewNotWrittenResponse;
 import com.example.YICcapstone.domain.purchase.dto.response.ReviewResponse;
 import com.example.YICcapstone.domain.purchase.dto.response.ReviewWrittenResponse;
@@ -19,26 +20,26 @@ public class ReviewController {
     private ReviewService reviewService;
 
     @PostMapping("/api/review/voice-model")
-    public ResponseEntity<String> createVoiceModelReview(@RequestBody @Valid ReviewRequest reviewRequest) {
-        reviewService.createVoiceModelReview(reviewRequest);
+    public ResponseEntity<String> createVoiceModelReview(@RequestBody @Valid VoiceModelReviewRequest voiceModelReviewRequest) {
+        reviewService.createVoiceModelReview(voiceModelReviewRequest);
         return ResponseEntity.status(200).body("음성 모델 리뷰 작성 성공");
     }
 
     @PostMapping("/api/review/ebook")
-    public ResponseEntity<String> createEbookReview(@RequestBody @Valid ReviewRequest reviewRequest) {
-        reviewService.createEbookReview(reviewRequest);
+    public ResponseEntity<String> createEbookReview(@RequestBody @Valid EbookReviewRequest ebookReviewRequest) {
+        reviewService.createEbookReview(ebookReviewRequest);
         return ResponseEntity.status(200).body("Ebook 리뷰 작성 성공");
     }
 
     @PutMapping("/api/review/voice-model")
-    public ResponseEntity<String> updateVoiceModelReview(@RequestBody @Valid ReviewRequest reviewRequest) {
-        reviewService.updateVoiceModelReview(reviewRequest);
+    public ResponseEntity<String> updateVoiceModelReview(@RequestBody @Valid VoiceModelReviewRequest voiceModelReviewRequest) {
+        reviewService.updateVoiceModelReview(voiceModelReviewRequest);
         return ResponseEntity.status(200).body("음성 모델 리뷰 수정 성공");
     }
 
     @PutMapping("/api/review/ebook")
-    public ResponseEntity<String> updateEbookReview(@RequestBody @Valid ReviewRequest reviewRequest) {
-        reviewService.updateEbookReview(reviewRequest);
+    public ResponseEntity<String> updateEbookReview(@RequestBody @Valid EbookReviewRequest ebookReviewRequest) {
+        reviewService.updateEbookReview(ebookReviewRequest);
         return ResponseEntity.status(200).body("Ebook 리뷰 수정 성공");
     }
 

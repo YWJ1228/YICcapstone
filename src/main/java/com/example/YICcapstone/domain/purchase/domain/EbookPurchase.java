@@ -2,8 +2,7 @@ package com.example.YICcapstone.domain.purchase.domain;
 
 import com.example.YICcapstone.domain.ebook.domain.Ebook;
 import com.example.YICcapstone.domain.member.entity.Member;
-import com.example.YICcapstone.domain.purchase.dto.request.ReviewRequest;
-import jakarta.annotation.Nullable;
+import com.example.YICcapstone.domain.purchase.dto.request.EbookReviewRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -50,15 +49,15 @@ public class EbookPurchase {
         this.price = price;
     }
 
-    public void createReview(ReviewRequest reviewRequest) {
-        this.content = reviewRequest.getContent();
-        this.grade = reviewRequest.getGrade();
+    public void createReview(EbookReviewRequest ebookReviewRequest) {
+        this.content = ebookReviewRequest.getContent();
+        this.grade = ebookReviewRequest.getGrade();
         this.createdAt = LocalDateTime.now();
     }
 
-    public void updateReview(ReviewRequest reviewRequest) {
-        this.content = reviewRequest.getContent();
-        this.grade = reviewRequest.getGrade();
+    public void updateReview(EbookReviewRequest ebookReviewRequest) {
+        this.content = ebookReviewRequest.getContent();
+        this.grade = ebookReviewRequest.getGrade();
         this.updatedAt = LocalDateTime.now();
     }
 

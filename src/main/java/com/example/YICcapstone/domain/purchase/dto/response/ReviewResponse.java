@@ -16,7 +16,7 @@ public class ReviewResponse {
     public ReviewResponse(VoiceModelPurchase voiceModelPurchase) {
         this.userName = voiceModelPurchase.getMember().getName();
         this.content = voiceModelPurchase.getContent();
-        this.grade = voiceModelPurchase.getGrade();
+        this.grade = null;
         this.time = timeFormat(voiceModelPurchase.getCreatedAt(), voiceModelPurchase.getUpdatedAt());
     }
 

@@ -2,9 +2,9 @@ package com.example.YICcapstone.domain.purchase.domain;
 
 
 import com.example.YICcapstone.domain.member.entity.Member;
-import com.example.YICcapstone.domain.purchase.dto.request.ReviewRequest;
+import com.example.YICcapstone.domain.purchase.dto.request.EbookReviewRequest;
+import com.example.YICcapstone.domain.purchase.dto.request.VoiceModelReviewRequest;
 import com.example.YICcapstone.domain.voicemodel.domain.VoiceModel;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -39,7 +39,6 @@ public class VoiceModelPurchase {
 
     @Size(max = 300)
     private String content = null;
-    private Integer grade = null;
     private LocalDateTime createdAt = null;
     private LocalDateTime updatedAt = null;
 
@@ -51,21 +50,18 @@ public class VoiceModelPurchase {
         this.price = price;
     }
 
-    public void createReview(ReviewRequest reviewRequest) {
-        this.content = reviewRequest.getContent();
-        this.grade = reviewRequest.getGrade();
+    public void createReview(VoiceModelReviewRequest voiceModelReviewRequest) {
+        this.content = voiceModelReviewRequest.getContent();
         this.createdAt = LocalDateTime.now();
     }
 
-    public void updateReview(ReviewRequest reviewRequest) {
-        this.content = reviewRequest.getContent();
-        this.grade = reviewRequest.getGrade();
+    public void updateReview(VoiceModelReviewRequest voiceModelReviewRequest) {
+        this.content = voiceModelReviewRequest.getContent();
         this.updatedAt = LocalDateTime.now();
     }
 
     public void deleteReview() {
         this.content = null;
-        this.grade = null;
         this.createdAt = null;
         this.updatedAt = null;
     }

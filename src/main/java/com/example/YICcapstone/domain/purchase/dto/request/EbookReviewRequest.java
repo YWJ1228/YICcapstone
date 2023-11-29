@@ -4,10 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-public class ReviewRequest {
+public class EbookReviewRequest {
     @NotNull(message = "구매 아이디를 입력해주세요.")
     private Long purchaseId;
     @NotBlank(message = "리뷰 내용을 입력해주세요.")
