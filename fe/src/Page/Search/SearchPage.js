@@ -35,7 +35,7 @@ export default function SearchPage(props) {
 
     if (menuForm.selectedEbook) {
       axios
-        .get(`${api}${searchKeyword}`)
+        .get(`${API.SEARCH_EBOOK_NAME}${searchKeyword}`)
         .then((res) => {
           setSearchedProducts(res.data.content);
           console.log(res);

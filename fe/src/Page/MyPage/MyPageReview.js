@@ -45,8 +45,7 @@ export default function MyPageReview(props) {
         `${API.REVIEW_VOICE}`,
         {
           purchaseId: event.target.btn.value,
-          content: event.target.review.value.trim(),
-          grade: 0, // ????
+          content: event.target.review.value.trim()
         },
         {
           headers: {
