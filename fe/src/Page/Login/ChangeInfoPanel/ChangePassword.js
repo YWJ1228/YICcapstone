@@ -22,35 +22,38 @@ export default function ChangePassword() {
   });
   function passwordSubmitHandler(event) {
     event.preventDefault();
-    axios
-      .patch(
-        `${API.CHANGE_PWD}`,
-        {
-          checkPassword: event.target.curPwd.value,
-          changePassword: changeForm.password,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${getCookies("accessToken")}`,
+    if (event.target.curPwd.value.trim() === event.target.newPwd.value.trim()) {
+      alert("변경할 비밀번호가 현재 비밀번호와 동일합니다!");
+    } else {
+      axios
+        .patch(
+          `${API.CHANGE_PWD}`,
+          {
+            checkPassword: event.target.curPwd.value,
+            changePassword: changeForm.password,
           },
-        }
-      )
-      .then((res) => {
-        alert("비밀번호 변경 완료!");
-        setValidForm({ verifyEqualPwd: false, verifyPwd: false, verifySubmit: "" });
-        setChangeForm({ password: "" });
-        setGuideMessage({ guidePwdText: "숫자와 알파벳을 섞어서 8~12자로 작성해주세요", guideEqualPwdText: "" });
-        Array.from(event.target.elements).forEach((input) => {
-          if (input.type === "password") {
-            input.value = "";
+          {
+            headers: {
+              Authorization: `Bearer ${getCookies("accessToken")}`,
+            },
           }
+        )
+        .then((res) => {
+          alert("비밀번호 변경 완료!");
+          setValidForm({ verifyEqualPwd: false, verifyPwd: false, verifySubmit: "" });
+          setChangeForm({ password: "" });
+          setGuideMessage({ guidePwdText: "숫자와 알파벳을 섞어서 8~12자로 작성해주세요", guideEqualPwdText: "" });
+          Array.from(event.target.elements).forEach((input) => {
+            if (input.type === "password") {
+              input.value = "";
+            }
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          err.response.data.message === undefined ? setValidForm({ ...validForm, verifySubmit: err.response.data.detail }) : setValidForm({ ...validForm, verifySubmit: err.response.data.message });
         });
-        alert("로그인 해주세요!");
-      })
-      .catch((err) => {
-        console.log(err);
-        err.response.data.message === undefined ? setValidForm({ ...validForm, verifySubmit: err.response.data.detail }) : setValidForm({ ...validForm, verifySubmit: err.response.data.message });
-      });
+    }
   }
   function pwdChangeHanlder(event) {
     // 비밀번호 규칙 확인
@@ -106,7 +109,7 @@ export default function ChangePassword() {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formPwd">
           <Form.Label>새 비밀번호</Form.Label>
-          <Form.Control type="password" onChange={pwdChangeHanlder} />
+          <Form.Control type="password" onChange={pwdChangeHanlder} name="newPwd" />
           <Form.Text>{guideMessage.guidePwdText}</Form.Text>
         </Form.Group>
         <Form.Group className="mb-3" controlId="formCheckPwd">

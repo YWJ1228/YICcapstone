@@ -10,7 +10,6 @@ export default function DetailReviews(props) {
   const setCurrentPage = props.setCurPage;
   const type = props.type;
   const prdId = props.id;
-  console.log(prdId)
   function changeReview(){
 
   }

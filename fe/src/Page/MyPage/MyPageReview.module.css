@@ -48,3 +48,9 @@
     text-align: center;
     padding : 1rem;
 }
+.stars{
+    color : #7B8EF5;
+}
+.stars:hover{
+    cursor : pointer;
+}

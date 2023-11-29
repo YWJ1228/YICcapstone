@@ -8,6 +8,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import classes from "./MyPageBanner.module.css";
 
@@ -38,7 +39,7 @@ export default function MyPageBanner() {
       <Container>
         <Row>
           <Col xs={4}>
-            <img src="/logo192.png" className={classes.image} />
+            <AccountCircleIcon className = {classes.image}/>
           </Col>
           <Col>
             <Row className={classes.greeting}>{userName}님 반갑습니다!</Row>

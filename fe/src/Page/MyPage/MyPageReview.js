@@ -1,34 +1,65 @@
 import { Container, Row, Col, Button, Stack } from "react-bootstrap";
 import { useState } from "react";
 import { API } from "../../Config/APIConfig";
-import {getCookies}from "../../Component/Cookies/LoginCookie";
+import { getCookies } from "../../Component/Cookies/LoginCookie";
 import axios from "axios";
+
+import StarRateRoundedIcon from "@mui/icons-material/StarRateRounded";
+import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 
 import classes from "./MyPageReview.module.css";
 
 export default function MyPageReview(props) {
+  const [rateState, setRateState] = useState(0);
   const idList = props.reviews.map((book) => {
     return book.id;
   });
   function reviewRequestClickHandler(event) {
     event.preventDefault();
-    axios.post(
-      `${API.REVIEW_EBOOK}`,
-      {
-        purchaseId: event.target.btn.value,
-        content: event.target.review.value.trim(),
-        grade: 5,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${getCookies("accessToken")}`,
+    console.log(rateState)
+    axios
+      .post(
+        `${API.REVIEW_EBOOK}`,
+        {
+          purchaseId: event.target.btn.value,
+          content: event.target.review.value.trim(),
+          grade: rateState,
         },
-      }
-    ).then((res)=>{
-      console.log(res);
-    }).catch((err)=>{
-      console.log(err);
-    })
+        {
+          headers: {
+            Authorization: `Bearer ${getCookies("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function reviewRequestVoiceClickHandler(event) {
+    event.preventDefault();
+    axios
+      .post(
+        `${API.REVIEW_VOICE}`,
+        {
+          purchaseId: event.target.btn.value,
+          content: event.target.review.value.trim(),
+          grade: 0, // ????
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookies("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   const requiredReviewBooks = props.reviews.map((book, idx) => {
     return (
@@ -45,11 +76,90 @@ export default function MyPageReview(props) {
                 <Row>
                   <textarea className={classes["review-text"]} name="review" placeholder="리뷰를 입력하세요"></textarea>
                 </Row>
-                <Row >
+                <Row>
+                  <Col>
+                    <Stack direction="horizontal" gap={3}>
+                      {rateState > 0 ? (
+                        <StarRateRoundedIcon
+                          onClick={() => {
+                            setRateState(1);
+                          }}
+                          className={classes.stars}
+                        />
+                      ) : (
+                        <StarBorderRoundedIcon
+                          onClick={() => {
+                            setRateState(1);
+                          }}
+                          className={classes.stars}
+                        />
+                      )}
+                      {rateState > 1 ? (
+                        <StarRateRoundedIcon
+                          onClick={() => {
+                            setRateState(2);
+                          }}
+                          className={classes.stars}
+                        />
+                      ) : (
+                        <StarBorderRoundedIcon
+                          onClick={() => {
+                            setRateState(2);
+                          }}
+                          className={classes.stars}
+                        />
+                      )}
+                      {rateState > 2 ? (
+                        <StarRateRoundedIcon
+                          onClick={() => {
+                            setRateState(3);
+                          }}
+                          className={classes.stars}
+                        />
+                      ) : (
+                        <StarBorderRoundedIcon
+                          onClick={() => {
+                            setRateState(3);
+                          }}
+                          className={classes.stars}
+                        />
+                      )}
+                      {rateState > 3 ? (
+                        <StarRateRoundedIcon
+                          onClick={() => {
+                            setRateState(4);
+                          }}
+                          className={classes.stars}
+                        />
+                      ) : (
+                        <StarBorderRoundedIcon
+                          onClick={() => {
+                            setRateState(4);
+                          }}
+                          className={classes.stars}
+                        />
+                      )}
+                      {rateState > 4 ? (
+                        <StarRateRoundedIcon
+                          onClick={() => {
+                            setRateState(5);
+                          }}
+                          className={classes.stars}
+                        />
+                      ) : (
+                        <StarBorderRoundedIcon
+                          onClick={() => {
+                            setRateState(5);
+                          }}
+                          className={classes.stars}
+                        />
+                      )}
+                    </Stack>
+                  </Col>
                   <Col className={classes["btn-wrapper"]}>
-                  <Button type="submit" name="btn" className={classes["review-btn"]} value={idList[idx]}>
-                    작성
-                  </Button>
+                    <Button type="submit" name="btn" className={classes["review-btn"]} value={idList[idx]}>
+                      작성
+                    </Button>
                   </Col>
                 </Row>
               </form>
@@ -59,5 +169,34 @@ export default function MyPageReview(props) {
       </Row>
     );
   });
-  return <Container>{props.reviews.length !== 0 ? requiredReviewBooks : <div className = {classes['no-item']}>리뷰를 작성할 상품이 없습니다</div>}</Container>;
+  const requiredReviewVoices = props.voiceReview.map((voice, idx) => {
+    return (
+      <Row key={idx}>
+        <Col xs="auto">
+          <img src={voice.voiceModel.imageUrl} className={classes.image} />
+        </Col>
+        <Col xs={8}>
+          <Row className={classes.title}>{voice.voiceModel.celebrityName}</Row>
+          <Row>
+            <Col>
+              <form onSubmit={reviewRequestVoiceClickHandler}>
+                <Row>
+                  <textarea className={classes["review-text"]} name="review" placeholder="리뷰를 입력하세요"></textarea>
+                </Row>
+                <Row>
+                  <Col className={classes["btn-wrapper"]}>
+                    <Button type="submit" name="btn" className={classes["review-btn"]} value={idList[idx]}>
+                      작성
+                    </Button>
+                  </Col>
+                </Row>
+              </form>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    );
+  });
+  return <Container>{props.reviews.length !== 0 ? requiredReviewBooks : <div className={classes["no-item"]}>리뷰를 작성할 상품이 없습니다</div>}
+  {props.reviews.length !== 0 ? requiredReviewVoices : <div className={classes["no-item"]}>리뷰를 작성할 상품이 없습니다</div>}</Container>;
 }

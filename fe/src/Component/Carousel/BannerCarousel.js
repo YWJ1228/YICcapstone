@@ -3,9 +3,9 @@ import Carousel from "react-material-ui-carousel";
 import classes from "./BannerCarousel.module.css";
 export default function BannerCarousel() {
   const bannerAPI = ["/Image/Banner_Image/Banner001_img.png", "/Image/Banner_Image/Banner002_img.png", "/Image/Banner_Image/Banner003_img.png"];
-  const bannerCarouselItem = bannerAPI.map((banner) => {
+  const bannerCarouselItem = bannerAPI.map((banner, idx) => {
     return (
-      <Paper className={classes["img-wrapper"]}>
+      <Paper className={classes["img-wrapper"]} key = {idx}>
         <img src={banner} className={classes.img}></img>
       </Paper>
     );

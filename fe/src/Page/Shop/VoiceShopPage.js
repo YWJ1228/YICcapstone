@@ -73,6 +73,7 @@ export default function () {
           imagePath={voice.image}
           title={voice.name}
           description={voice.description}
+          link={`/voiceDetail/${voice.id}`}
         />
       </Carousel.Item>
     );

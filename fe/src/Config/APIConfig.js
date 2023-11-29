@@ -105,6 +105,7 @@ export const API = {
     UPLOAD_VOICE:                       `${VOICE_ADMIN_URL}`,
     PREFERENCE_VOICE:                   `${VOICE_API_URL}/{voiceModelId}/preference`,
     PREFERENCE_VERIFY_VOICE:            `${VOICE_API_URL}/{voiceModelId}/preference/verify`,
+    LIKE_BUTTON :                           `${VOICE_API_URL}`,
 
     // PUT
     UPDATE_VOICE:                       `${VOICE_ADMIN_URL}/{voiceModelId}`,
@@ -138,14 +139,21 @@ export const API = {
     LOAD_MYPAGE_LIKELIST :              `${EBOOK_URL}/list?size=${PageConfig.NUM_BANNER_EBOOKS}&page=0`,
 
     //Admin API
-    ADMIN_ADD_VOICE :                   `${VOICE_ADMIN_URL}`,
+    ADMIN_ADD_VOICE :                   `${ADMIN_URL}/voice-model`,
+    ADMIN_UPDATE_VOICE :                `${ADMIN_URL}/voice-model/`,
+    ADMIN_DELETE_VOICE :                `${ADMIN_URL}/voice-model/`,
     ADMIN_LOAD_VOICELIST :              `${VOICE_URL}/list?&page=0&size=`, // for totalPages
     ADMIN_LOAD_VOICELIST_SIZE :         `${VOICE_URL}/list?size=1&page=0`,
-    ADMIN_ADD_EBOOK:                    `${EBOOK_URL}`,
+
+    ADMIN_ADD_EBOOK:                    `${ADMIN_URL}/ebook`,
+    ADMIN_UPDATE_EBOOK :                `${ADMIN_URL}/ebook/`,
+    ADMIN_DELETE_EBOOK :                `${ADMIN_URL}/ebook`,
     ADMIN_LOAD_EBOOKLIST:               `${EBOOK_URL}/list?page=0&size=`,
     ADMIN_LOAD_EBOOKLIST_SIZE:          `${EBOOK_URL}/list?size=1&page=0`,
-    ADMIN_ADD_USER:                     ``,
-    ADMIN_LOAD_USERLIST :               ``,
+
+    ADMIN_DELETE_FEEDBACK :             `${ADMIN_URL}/feedback/`,
+    ADMIN_LOAD_FEEDBACK_LIST:           `${ADMIN_URL}/feedback?page=0&size=`,
+    ADMIN_LOAD_FEEDBACK_LIST_SIZE :     `${ADMIN_URL}/feedback?page=0&size=1`,
 
 
     
@@ -177,8 +185,10 @@ export const API = {
     LOAD_REVIEW_VOICES:              `${REVIEW_URL}/voice-model?size=${PageConfig.NUM_REVIEWS_FOR_VOICE}&voiceModelId=`,
     LOAD_REVIEW_WRITTEN_EBOOKS:      `${REVIEW_API_URL}/ebook/written?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=`,
     LOAD_REVIEW_WRITTEN_VOICES:      `${REVIEW_API_URL}/voice-model/written?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
-    LOAD_REVIEW_NOT_WRITTEN_EBOOKS:  `${REVIEW_API_URL}/ebook/not-written?size=${PageConfig.EBOOK_PRODUCT_PER_PAGE}&page=0`,
-    LOAD_REVIEW_NOT_WRITTEN_VOICES:  `${REVIEW_API_URL}/voice-model/not-written?size=${PageConfig.VOICE_PRODUCT_PER_PAGE}&page=`,
+    LOAD_REVIEW_NOT_WRITTEN_EBOOKS:  `${REVIEW_API_URL}/ebook/not-written?page=0&size=`,
+    LOAD_REVIEW_NOT_WRITTEN_VOICES:  `${REVIEW_API_URL}/voice-model/not-written?page=0&size=`,
+    LOAD_REVIEW_NOT_WRITTEN_EBOOKS_SIZE:  `${REVIEW_API_URL}/ebook/not-written?size=1&page=0`,
+    LOAD_REVIEW_NOT_WRITTEN_VOICES_SIZE:  `${REVIEW_API_URL}/voice-model/not-written?size=1&page=0`,
 
     // DELETE
     DELETE_REVIEW_EBOOK:              `${REVIEW_API_URL}/ebook?purchaseId=`,
