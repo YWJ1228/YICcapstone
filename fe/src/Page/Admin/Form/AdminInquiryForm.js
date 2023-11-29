@@ -14,7 +14,7 @@ export default function AdminInquiryForm(props) {
       <Form.Label>문의내용</Form.Label>
       <Form.Control type="text" name="detail" placeholder="" />
       <Form.Label>업로드 시간</Form.Label>
-      <Form.Control type="text" name="createAt" placeholder="" />
+      <Form.Control type="text" name="createdAt" placeholder="" />
 
       <Button type="submit" onClick={() => setTask(2)}>
         삭제

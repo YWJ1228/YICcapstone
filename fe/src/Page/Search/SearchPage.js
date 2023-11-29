@@ -75,7 +75,7 @@ export default function SearchPage(props) {
       <NavigationBar keyword={searchKeyword} />
       <div style={{ width: "100%", height: "6rem" }} />
       <div className={classes["search-title"]}>
-        '<span className={classes.target}>{searchKeyword}</span>'에 대한{` A`}
+        '<span className={classes.target}>{searchKeyword}</span>'에 대한{` `}
         {(searchedProducts === undefined && searchedTTS === undefined) && 0}
         {(searchedProducts !== undefined && searchedTTS === undefined) && searchedProducts.length}
         {(searchedProducts === undefined && searchedTTS !== undefined) && searchedTTS.length}

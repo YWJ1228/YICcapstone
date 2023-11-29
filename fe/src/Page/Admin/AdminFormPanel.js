@@ -116,7 +116,7 @@ export default function AdminFormPanel(props) {
       form.username.value = curInquiry.username;
       form.title.value = curInquiry.title;
       form.detail.value = curInquiry.detail;
-      form.createAt.value = curInquiry.createAt;
+      form.createdAt.value = curInquiry.createdAt;
     }
   }
   function addProductHandler(form) {
@@ -127,7 +127,7 @@ export default function AdminFormPanel(props) {
           {
             voiceModelUrl: form.voiceUrl.value.trim(),
             celebrityName: form.name.value.trim(),
-            price: form.price.value.trim,
+            price: Number(form.price.value),
             imageUrl: form.imageUrl.value.trim(),
             comment: form.comment.value.trim(),
             sampleUrl: form.demoUrl.value.trim(),
@@ -154,10 +154,10 @@ export default function AdminFormPanel(props) {
           {
             ebookName: form.name.value.trim(),
             author: form.author.value.trim(),
-            pages: form.pages.value.trim(),
+            pages: Number(form.pages.value),
             publisher: form.publisher.value.trim(),
-            price: form.name.value.trim(),
-            imageUrl: form.name.value.trim(),
+            price: Number(form.price.value),
+            imageUrl: form.imageUrl.value.trim(),
             comment: form.comment.value.trim(),
             content: form.content.value.trim(),
             category: form.category.value.trim(),
@@ -187,7 +187,7 @@ export default function AdminFormPanel(props) {
           {
             voiceModelUrl: form.voiceUrl.value.trim(),
             celebrityName: form.name.value.trim(),
-            price: form.price.value,
+            price: Number(form.price.value),
             imageUrl: form.imageUrl.value.trim(),
             comment: form.comment.value.trim(),
             sampleUrl: form.demoUrl.value.trim(),
@@ -214,10 +214,10 @@ export default function AdminFormPanel(props) {
           {
             ebookName: form.name.value.trim(),
             author: form.author.value.trim(),
-            pages: form.pages.value.trim(),
+            pages: Number(form.pages.value),
             publisher: form.publisher.value.trim(),
-            price: form.name.value.trim(),
-            imageUrl: form.name.value.trim(),
+            price: Number(form.price.value),
+            imageUrl: form.imageUrl.value.trim(),
             comment: form.comment.value.trim(),
             content: form.content.value.trim(),
             category: form.category.value.trim(),
@@ -274,7 +274,7 @@ export default function AdminFormPanel(props) {
     }
     else{
       axios
-        .delete(`${API.ADMIN_DELETE_EBOOK}${curInquiry.id}`, {
+        .delete(`${API.ADMIN_DELETE_FEEDBACK}${curInquiry.id}`, {
           headers: {
             Authorization: `Bearer ${getCookies("accessToken")}`,
           },
