@@ -45,7 +45,7 @@ export default function RegisterPage() {
     verifyText: false, // 서버로부터 받은 인증번호를 저장할 state
     verifyNickname: false, // 닉네임 인증 여부
     verifyEqualPwd: false, // 비밀번호 일치 여부
-    verifyPwd: false, // 비밀번호 규칙 적합 여부
+    verifyPwd: false
   });
 
   function formChangeHandler(event) {
@@ -107,6 +107,7 @@ export default function RegisterPage() {
           console.log(error);
         });
     }
+    const birthRegexp = /[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])/;
     const conditions = [
       event.target.username.value !== "", // 이메일
       validForm.verifyText === event.target.verifyText.value, // 인증번호
@@ -115,7 +116,7 @@ export default function RegisterPage() {
       event.target.familyName.value !== "", // 이름
       event.target.givenName.value !=="",
       validForm.verifyNickname, // 닉네임
-      event.target.birth.value !== "", // 생년월일
+      (event.target.birth.value !== "" && birthRegexp.test(event.target.birth.value)), // 생년월일
     ];
     let condCount = 0;
     conditions.map((cond) => {

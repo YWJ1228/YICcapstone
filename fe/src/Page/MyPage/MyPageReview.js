@@ -10,6 +10,8 @@ import StarBorderRoundedIcon from "@mui/icons-material/StarBorderRounded";
 import classes from "./MyPageReview.module.css";
 
 export default function MyPageReview(props) {
+  const renderFunc = props.renderFunc;
+  const renderVal = props.renderVal;
   const [rateState, setRateState] = useState(0);
   const idList = props.reviews.map((book) => {
     return book.purchaseId;
@@ -35,7 +37,8 @@ export default function MyPageReview(props) {
         }
       )
       .then((res) => {
-        console.log(res);
+        alert('리뷰가 작성되었습니다!');
+        renderFunc(renderVal + 1);
       })
       .catch((err) => {
         console.log(err);
@@ -57,7 +60,8 @@ export default function MyPageReview(props) {
         }
       )
       .then((res) => {
-        console.log(res);
+        alert('리뷰가 작성되었습니다!');
+        renderFunc(renderVal + 1);
       })
       .catch((err) => {
         console.log(err);
