@@ -61,10 +61,10 @@ export default function MyPageMenu() {
               axios.get(`${API.LOAD_PURCHASED_EBOOKS}${res1.data.totalElements === 0 ? 1 : res1.data.totalElements}`, {
                 headers: { Authorization: `Bearer ${getCookies("accessToken")}` },
               }),
-              axios.get(`${API.LOAD_REVIEW_NOT_WRITTEN_EBOOKS}${res5.data.totalElements}`, {
+              axios.get(`${API.LOAD_REVIEW_NOT_WRITTEN_EBOOKS}${res5.data.totalElements=== 0 ? 1 : res5.data.totalElements}`, {
                 headers: { Authorization: `Bearer ${getCookies("accessToken")}` },
               }),
-              axios.get(`${API.LOAD_REVIEW_NOT_WRITTEN_VOICES}${res6.data.totalElements}`,{
+              axios.get(`${API.LOAD_REVIEW_NOT_WRITTEN_VOICES}${res6.data.totalElements === 0 ? 1 : res6.data.totalElements}`,{
                 headers: { Authorization: `Bearer ${getCookies("accessToken")}` },
               }),
               axios.get(API.READ_EBOOK_CART, {
