@@ -116,7 +116,7 @@ export default function AdminFormPanel(props) {
       form.username.value = curInquiry.username;
       form.title.value = curInquiry.title;
       form.detail.value = curInquiry.detail;
-      form.uploadAt.value = curInquiry.uploadAt;
+      form.createAt.value = curInquiry.createAt;
     }
   }
   function addProductHandler(form) {

@@ -28,9 +28,8 @@ export default function InquiryPage() {
                 Authorization  : `Bearer ${getCookies('accessToken')}`
             }
         }).then((res)=>{
-          console.log(res);
             showModal();
-            setMessage(res.response.data.message);
+            setMessage(res.data);
         }).catch((err)=>{
             //에러 출력
             console.log(err);

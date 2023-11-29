@@ -17,7 +17,7 @@ export default function AdminListPanel(props) {
         >
           {type === 'voice' && prd.name}
           {type === 'ebook' && prd.ebookName}
-          {type === 'user' && prd.username}
+          {type === 'inquiry' && prd.title}
         </Button>
       </ListGroup.Item>
     );
