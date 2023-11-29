@@ -150,7 +150,7 @@ export const API = {
 
     ADMIN_ADD_EBOOK:                    `${ADMIN_URL}/ebook`,
     ADMIN_UPDATE_EBOOK :                `${ADMIN_URL}/ebook/`,
-    ADMIN_DELETE_EBOOK :                `${ADMIN_URL}/ebook`,
+    ADMIN_DELETE_EBOOK :                `${ADMIN_URL}/ebook/`,
     ADMIN_LOAD_EBOOKLIST:               `${EBOOK_URL}/list?page=0&size=`,
     ADMIN_LOAD_EBOOKLIST_SIZE:          `${EBOOK_URL}/list?size=1&page=0`,
 
