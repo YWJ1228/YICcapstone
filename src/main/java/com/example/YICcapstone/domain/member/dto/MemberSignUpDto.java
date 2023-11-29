@@ -17,8 +17,8 @@ public record MemberSignUpDto (@Email(message = "이메일 형식을 확인해�
                                String familyName,
                                @NotBlank(message = "이름을 입력해주세요.")
                                String givenName,
-                               @NotBlank(message = "닉네임을 입력해주세요.(2~8 자릿수)")
-                               @Size(min=2, max=8, message = "닉네임은 2~8자 내외로 입력해주세요.")
+                               @NotBlank(message = "닉네임을 입력해주세요.(2~20 자릿수)")
+                               @Size(min=2, max=20, message = "닉네임은 2~20자 내외로 입력해주세요.")
                                @Pattern(regexp = "[A-Za-z0-9가-힣]+", message = "닉네임은 특수문자를 포함할 수 없습니다.")
                                String nickname,
                                @NotBlank(message = "생년월일을 입력해주세요. ex)230101")

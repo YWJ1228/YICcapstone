@@ -27,6 +27,7 @@ public enum ErrorCode {
     MEMBER_NICKNAME_DUPLICATED(409, "M002", "이미 사용중인 닉네임입니다."),
     MEMBER_PASSWORD_INCORRETED(400, "M003", "비밀번호가 일치하지 않습니다."),
     MEMBER_NOT_EXIST(404, "M004", "존재하지 않는 회원입니다."),
+    MEMBER_CHANGED_SAME_PASSWORD(400, "M005", "변경할 비밀번호가 기존 비밀번호와 같습니다."),
 
     // Purchase
     VOICE_MODEL_PURCHASE_NOT_FOUND(400, "P001", "해당 음성모델 구매내역이 존재하지 않습니다."),
