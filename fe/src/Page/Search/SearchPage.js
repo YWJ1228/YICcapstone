@@ -31,7 +31,7 @@ export default function SearchPage(props) {
       case 'publisher': api = (API.SEARCH_EBOOK_PUBLISHER); break;
       default: console.log('baseAPI setting 오류'); break;
     }
-    
+
 
     if (menuForm.selectedEbook) {
       axios
@@ -44,43 +44,48 @@ export default function SearchPage(props) {
           console.log(err);
         });
     }
-    else{
+    else {
       // Ebook 데이터 초기화
       setSearchedProducts([]);
     }
     if (menuForm.selectedTTS) {
       // TTS 검색기록
       axios.get(`${API.SEARCH_VOICE}${searchKeyword}`)
-      .then((res)=>{
-        setSearchedTTS(res.data.content);
-        console.log(res);
-      })
+        .then((res) => {
+          setSearchedTTS(res.data.content);
+          console.log(res);
+        })
     }
   }, [searchKeyword, menuForm]);
-  const ebookCard = (searchedProducts!== undefined && searchedProducts.map((book, idx) => {
+  const ebookCard = (searchedProducts !== undefined && searchedProducts.map((book, idx) => {
     return (
       <SearchEbookCard key={idx} prd={book}>
         {book.ebookName}
       </SearchEbookCard>
     );
   }));
-  const voiceCard = (searchedTTS!== undefined && searchedTTS.map((voice, idx)=>{
-    return(
-      <SearchVoiceCard key = {idx} prd = {voice}>
-        </SearchVoiceCard>
+  const voiceCard = (searchedTTS !== undefined && searchedTTS.map((voice, idx) => {
+    return (
+      <SearchVoiceCard key={idx} prd={voice}>
+      </SearchVoiceCard>
     )
   }));
   return (
     <>
-      <NavigationBar keyword = {searchKeyword} />
+      <NavigationBar keyword={searchKeyword} />
       <div style={{ width: "100%", height: "6rem" }} />
       <div className={classes["search-title"]}>
-        '<span className={classes.target}>{searchKeyword}</span>'에 대한 {searchedProducts !== undefined ? searchedProducts.length : 0}개의 검색결과
+        '<span className={classes.target}>{searchKeyword}</span>'에 대한{` A`}
+        {(searchedProducts === undefined && searchedTTS === undefined) && 0}
+        {(searchedProducts !== undefined && searchedTTS === undefined) && searchedProducts.length}
+        {(searchedProducts === undefined && searchedTTS !== undefined) && searchedTTS.length}
+        {(searchedProducts !== undefined && searchedTTS !== undefined) && searchedProducts.length + searchedTTS.length}
+        개의 검색결과
       </div>
       <Container>
         <Row>
           <Col><SearchMenuCard setMenu={setMenuForm} /></Col>
-          {(ebookCard.length === 0 && voiceCard.length === 0) ?<Col md = {9}><div className = {classes['no-result']}>검색된 결과가 없음</div></Col> : <Col md={9}>{ebookCard}{voiceCard}</Col> }
+          {(ebookCard.length === 0 && voiceCard.length === 0) ? <Col md={9}><div className={classes['no-result']}>검색된 결과가 없음</div></Col> : <Col md={9}>{ebookCard}{voiceCard}</Col>}
         </Row>
       </Container>
     </>

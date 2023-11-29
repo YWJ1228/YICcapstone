@@ -14,6 +14,9 @@ export default function MyPageReview(props) {
   const idList = props.reviews.map((book) => {
     return book.purchaseId;
   });
+  const voiceIdList = props.voiceReview.map((voice)=>{
+    return voice.purchaseId;
+  })
   function reviewRequestClickHandler(event) {
     event.preventDefault();
     console.log(rateState)
@@ -169,6 +172,7 @@ export default function MyPageReview(props) {
     );
   });
   const requiredReviewVoices = props.voiceReview.map((voice, idx) => {
+    console.log(voice);
     return (
       <Row key={idx}>
         <Col xs="auto">
@@ -184,7 +188,7 @@ export default function MyPageReview(props) {
                 </Row>
                 <Row>
                   <Col className={classes["btn-wrapper"]}>
-                    <Button type="submit" name="btn" className={classes["review-btn"]} value={idList[idx]}>
+                    <Button type="submit" name="btn" className={classes["review-btn"]} value={voiceIdList[idx]}>
                       작성
                     </Button>
                   </Col>
@@ -196,6 +200,6 @@ export default function MyPageReview(props) {
       </Row>
     );
   });
-  return <Container>{props.reviews.length !== 0 ? requiredReviewBooks : <div className={classes["no-item"]}>리뷰를 작성할 상품이 없습니다</div>}
-  {props.reviews.length !== 0 ? requiredReviewVoices : <div className={classes["no-item"]}>리뷰를 작성할 상품이 없습니다</div>}</Container>;
+  return <Container>{requiredReviewBooks.length !== 0 ? requiredReviewBooks : <div className={classes["no-item"]}>리뷰를 작성할 상품이 없습니다</div>}
+  {requiredReviewVoices.length!== 0 ? requiredReviewVoices : <div className={classes["no-item"]}>리뷰를 작성할 상품이 없습니다</div>}</Container>;
 }
