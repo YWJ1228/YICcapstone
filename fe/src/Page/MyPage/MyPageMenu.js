@@ -130,7 +130,7 @@ export default function MyPageMenu() {
         </Tabs>
       </Box>
       {value === 0 && <PurchaseBook books={bookList} voices={voiceList}/>}
-      {value === 1 && <MyPageReview reviews={reviewList} voiceReview={voiceReviewList}/>}
+      {value === 1 && <MyPageReview reviews={reviewList} voiceReview={voiceReviewList} renderFunc={setRenderItem} renderVal={renderItem}/>}
       {value === 2 && <LikeList bookLike={likeEbooks} voiceLike={likeVoices} />}
       {value === 3 && <MyCart cartEbooks={cartEbookList} cartVoices={cartVoiceList} renderFunc={setRenderItem} renderVal={renderItem} />}
     </Box>
