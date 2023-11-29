@@ -1,8 +1,18 @@
 package com.example.YICcapstone.domain.member.entity;
 
+import com.example.YICcapstone.domain.basket.entity.EbookBasket;
+import com.example.YICcapstone.domain.basket.entity.VoiceModelBasket;
+import com.example.YICcapstone.domain.purchase.domain.EbookPurchase;
+import com.example.YICcapstone.domain.purchase.domain.VoiceModelPurchase;
+import com.example.YICcapstone.domain.voicemodel.domain.VoiceModelPreference;
+import com.example.YICcapstone.domain.wish.domain.EbookWish;
+import com.example.YICcapstone.domain.wish.domain.VoiceModelWish;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,6 +55,28 @@ public class Member extends BaseTimeEntity {
 
     @Column(length = 1000)
     private String refreshToken;
+
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<VoiceModelPurchase> voiceModelPurchaseList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<EbookPurchase> ebookPurchaseList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<EbookBasket> ebookBasketList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<VoiceModelBasket> voiceModelBasketList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<VoiceModelPreference> voiceModelPreferenceList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<VoiceModelWish> voiceModelWishList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<EbookWish> ebookWishList = new ArrayList<>();
 
     public void addName(String familyName, String givenName) {this.name = familyName + givenName; }
     public void addRole() { this.role = Role.USER; } // 회원 가입 시, 자동으로 USER 등급의 권한 부여하도록 설정
