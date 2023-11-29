@@ -15,6 +15,7 @@ import com.example.YICcapstone.domain.member.entity.Member;
 import com.example.YICcapstone.domain.member.exception.MemberNotExistException;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.domain.purchase.domain.EbookPurchase;
+import com.example.YICcapstone.domain.purchase.domain.VoiceModelPurchase;
 import com.example.YICcapstone.domain.purchase.exception.EbookPurchaseAlreadyExistException;
 import com.example.YICcapstone.domain.purchase.exception.VoiceModelPurchaseAlreadyExistException;
 import com.example.YICcapstone.domain.purchase.repository.EbookPurchaseRepository;
@@ -28,6 +29,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -76,8 +78,11 @@ public class BasketServiceImpl implements BasketService {
         Ebook ebook = ebookRepository.findById(id)
                 .orElseThrow(() -> new EbookNotFoundException());
 
-        ebookPurchaseRepository.findByEbookIdAndMemberId(ebook.getId(), member.getId())
-                .orElseThrow(() -> new EbookPurchaseAlreadyExistException());
+        EbookPurchase ebookPurchase = ebookPurchaseRepository.findByEbookIdAndMemberId(id, member.getId())
+                .orElse(null);
+
+        if(ebookPurchase != null)
+            throw new EbookPurchaseAlreadyExistException();
 
         EbookBasket ebookBasket = EbookBasket.builder()
                 .ebook(ebook).member(member).build();
@@ -94,8 +99,11 @@ public class BasketServiceImpl implements BasketService {
         VoiceModel voiceModel = voiceModelRepository.findById(id)
                 .orElseThrow(() -> new VoiceModelNotFoundException());
 
-        voiceModelPurchaseRepository.findByVoiceModelIdAndMemberId(voiceModel.getId(), member.getId())
-                .orElseThrow(() -> new VoiceModelPurchaseAlreadyExistException());
+        VoiceModelPurchase voiceModelPurchase = voiceModelPurchaseRepository.findByVoiceModelIdAndMemberId(id, member.getId())
+                .orElse(null);
+
+        if(voiceModelPurchase != null)
+            throw new VoiceModelPurchaseAlreadyExistException();
 
         VoiceModelBasket voiceModelBasket = VoiceModelBasket.builder()
                         .voiceModel(voiceModel).member(member).build();
