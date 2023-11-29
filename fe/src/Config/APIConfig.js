@@ -54,8 +54,11 @@ export const API = {
 
     // 피드백 api
     CREATE_FEEDBACK :           `${API_URL}/user/feedback`,
-    READ_FEEDBACK :             `${ADMIN_URL}/feedback?page=0&size=10`,
-    DELETE_FEEDBACK:            `${ADMIN_URL}/feedback`,
+    ADMIN_DELETE_FEEDBACK :             `${ADMIN_URL}/feedback/`,
+    ADMIN_LOAD_FEEDBACK_LIST:           `${ADMIN_URL}/feedback?page=0&size=`,
+    ADMIN_LOAD_FEEDBACK_LIST_SIZE :     `${ADMIN_URL}/feedback?page=0&size=1`,
+
+
 
     // 장바구니 api
     READ_EBOOK_CART :                 `${API_URL}/user/basket/e-book`,
@@ -150,10 +153,6 @@ export const API = {
     ADMIN_DELETE_EBOOK :                `${ADMIN_URL}/ebook`,
     ADMIN_LOAD_EBOOKLIST:               `${EBOOK_URL}/list?page=0&size=`,
     ADMIN_LOAD_EBOOKLIST_SIZE:          `${EBOOK_URL}/list?size=1&page=0`,
-
-    ADMIN_DELETE_FEEDBACK :             `${ADMIN_URL}/feedback/`,
-    ADMIN_LOAD_FEEDBACK_LIST:           `${ADMIN_URL}/feedback?page=0&size=`,
-    ADMIN_LOAD_FEEDBACK_LIST_SIZE :     `${ADMIN_URL}/feedback?page=0&size=1`,
 
 
     
