@@ -12,7 +12,7 @@ import classes from "./MyPageReview.module.css";
 export default function MyPageReview(props) {
   const [rateState, setRateState] = useState(0);
   const idList = props.reviews.map((book) => {
-    return book.id;
+    return book.purchaseId;
   });
   function reviewRequestClickHandler(event) {
     event.preventDefault();
