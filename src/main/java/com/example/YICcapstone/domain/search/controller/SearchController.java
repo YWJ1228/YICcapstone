@@ -34,30 +34,30 @@ public class SearchController {
     private SearchVoiceModelRepository searchVoicemodelRepository;
 
     @GetMapping("/ebook/search/name") // E-Book 이름 오름차순으로 페이지 형식 검색 결과 불러오기
-    public ResponseEntity<Page<Ebook>> searchEbookName(@RequestParam String keyword,
+    public ResponseEntity<Page<EbookResponse>> searchEbookName(@RequestParam String keyword,
                                                   @PageableDefault(size = 10, sort = "ebookName", direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<Ebook> searchList = searchService.searchEbookName(keyword, pageable);
+        Page<EbookResponse> searchList = searchService.searchEbookName(keyword, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(searchList);
     }
 
     @GetMapping("/ebook/search/author") // E-Book 작가 오름차순으로 페이지 형식 검색 결과 불러오기
-    public ResponseEntity<Page<Ebook>> searchEbookAuthor(@RequestParam String keyword,
+    public ResponseEntity<Page<EbookResponse>> searchEbookAuthor(@RequestParam String keyword,
                                                    @PageableDefault(size = 10, sort = "author", direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<Ebook> searchList = searchService.searchEbookAuthor(keyword, pageable);
+        Page<EbookResponse> searchList = searchService.searchEbookAuthor(keyword, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(searchList);
     }
 
     @GetMapping("/ebook/search/publisher") // E-Book 출판사 오름차순으로 페이지 형식 검색 결과 불러오기
-    public ResponseEntity<Page<Ebook>> searchEbookPublisher(@RequestParam String keyword,
+    public ResponseEntity<Page<EbookResponse>> searchEbookPublisher(@RequestParam String keyword,
                                                          @PageableDefault(size = 10, sort = "publisher", direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<Ebook> searchList = searchService.searchEbookPublisher(keyword, pageable);
+        Page<EbookResponse> searchList = searchService.searchEbookPublisher(keyword, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(searchList);
     }
 
     @GetMapping("/voice-model/search/name") // voice-model 이름 오름차순으로 페이지 형식 검색 결과 불러오기
-    public ResponseEntity<Page<VoiceModel>> searchVoiceModelName(@RequestParam String keyword,
+    public ResponseEntity<Page<VoiceModelResponse>> searchVoiceModelName(@RequestParam String keyword,
                                                        @PageableDefault(size = 10, sort = "celebrityName", direction = Sort.Direction.ASC) Pageable pageable) {
-        Page<VoiceModel> searchList = searchService.searchVoiceModelName(keyword, pageable);
+        Page<VoiceModelResponse> searchList = searchService.searchVoiceModelName(keyword, pageable);
         return ResponseEntity.status(HttpStatus.OK).body(searchList);
     }
 }
