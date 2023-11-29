@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -29,6 +31,7 @@ public class FeedbackServiceImpl implements FeedbackService {
 
         Feedback newFeedback = feedbackDto.toEntity();
         newFeedback.addUsername(SecurityUtil.getLoginUsername());
+        newFeedback.setCreatedAt(LocalDateTime.now());
 
         feedbackRepository.save(newFeedback);
     }
