@@ -23,9 +23,9 @@ public class ReviewWrittenResponse {
         this.purchaseId = voiceModelPurchase.getId();
         this.purchasedAt = timeFormat(voiceModelPurchase.getPurchasedAt());
         this.content = voiceModelPurchase.getContent();
-        this.grade = voiceModelPurchase.getGrade();
         this.createdAt = timeFormat(voiceModelPurchase.getCreatedAt(), voiceModelPurchase.getUpdatedAt());
         this.ebook = Optional.empty();
+        this.grade = null;
         this.voiceModel = Optional.of(new VoiceModelResponse(voiceModelPurchase.getVoiceModel()));
     }
 

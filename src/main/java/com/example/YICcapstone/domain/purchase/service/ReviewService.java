@@ -5,7 +5,8 @@ import com.example.YICcapstone.domain.member.exception.MemberNotExistException;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.domain.purchase.domain.EbookPurchase;
 import com.example.YICcapstone.domain.purchase.domain.VoiceModelPurchase;
-import com.example.YICcapstone.domain.purchase.dto.request.ReviewRequest;
+import com.example.YICcapstone.domain.purchase.dto.request.EbookReviewRequest;
+import com.example.YICcapstone.domain.purchase.dto.request.VoiceModelReviewRequest;
 import com.example.YICcapstone.domain.purchase.dto.response.ReviewNotWrittenResponse;
 import com.example.YICcapstone.domain.purchase.dto.response.ReviewResponse;
 import com.example.YICcapstone.domain.purchase.dto.response.ReviewWrittenResponse;
@@ -34,43 +35,43 @@ public class ReviewService {
     private MemberRepository memberRepository;
 
     @Transactional
-    public void createVoiceModelReview(ReviewRequest reviewRequest) {
+    public void createVoiceModelReview(VoiceModelReviewRequest voiceModelReviewRequest) {
         Member member = verifyMember();
-        VoiceModelPurchase savedVoiceModelPurchase = voiceModelPurchaseRepository.findByIdAndMemberId(reviewRequest.getPurchaseId(), member.getId())
+        VoiceModelPurchase savedVoiceModelPurchase = voiceModelPurchaseRepository.findByIdAndMemberId(voiceModelReviewRequest.getPurchaseId(), member.getId())
                 .orElseThrow(VoiceModelPurchaseNotFoundException::new);
         if (savedVoiceModelPurchase.getCreatedAt() != null)
             throw new ReviewAlreadyWrittenException();
-        savedVoiceModelPurchase.createReview(reviewRequest);
+        savedVoiceModelPurchase.createReview(voiceModelReviewRequest);
     }
 
     @Transactional
-    public void createEbookReview(ReviewRequest reviewRequest) {
+    public void createEbookReview(EbookReviewRequest ebookReviewRequest) {
         Member member = verifyMember();
-        EbookPurchase savedEbookPurchase = ebookPurchaseRepository.findByIdAndMemberId(reviewRequest.getPurchaseId(), member.getId())
+        EbookPurchase savedEbookPurchase = ebookPurchaseRepository.findByIdAndMemberId(ebookReviewRequest.getPurchaseId(), member.getId())
                 .orElseThrow(EbookPurchaseNotFoundException::new);
         if (savedEbookPurchase.getCreatedAt() != null)
             throw new ReviewAlreadyWrittenException();
-        savedEbookPurchase.createReview(reviewRequest);
+        savedEbookPurchase.createReview(ebookReviewRequest);
     }
 
     @Transactional
-    public void updateVoiceModelReview(ReviewRequest reviewRequest) {
+    public void updateVoiceModelReview(VoiceModelReviewRequest voiceModelReviewRequest) {
         Member member = verifyMember();
-        VoiceModelPurchase savedVoiceModelPurchase = voiceModelPurchaseRepository.findByIdAndMemberId(reviewRequest.getPurchaseId(), member.getId())
+        VoiceModelPurchase savedVoiceModelPurchase = voiceModelPurchaseRepository.findByIdAndMemberId(voiceModelReviewRequest.getPurchaseId(), member.getId())
                 .orElseThrow(VoiceModelPurchaseNotFoundException::new);
         if (savedVoiceModelPurchase.getCreatedAt() == null)
             throw new ReviewNotWrittenException();
-        savedVoiceModelPurchase.updateReview(reviewRequest);
+        savedVoiceModelPurchase.updateReview(voiceModelReviewRequest);
     }
 
     @Transactional
-    public void updateEbookReview(ReviewRequest reviewRequest) {
+    public void updateEbookReview(EbookReviewRequest ebookReviewRequest) {
         Member member = verifyMember();
-        EbookPurchase savedEbookPurchase = ebookPurchaseRepository.findByIdAndMemberId(reviewRequest.getPurchaseId(), member.getId())
+        EbookPurchase savedEbookPurchase = ebookPurchaseRepository.findByIdAndMemberId(ebookReviewRequest.getPurchaseId(), member.getId())
                 .orElseThrow(EbookPurchaseNotFoundException::new);
         if (savedEbookPurchase.getCreatedAt() == null)
             throw new ReviewNotWrittenException();
-        savedEbookPurchase.updateReview(reviewRequest);
+        savedEbookPurchase.updateReview(ebookReviewRequest);
     }
 
     @Transactional
