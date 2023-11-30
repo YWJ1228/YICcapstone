@@ -5,23 +5,31 @@ import classes from "./AdminListPanel.module.css";
 export default function AdminListPanel(props) {
   const ItemClickhandler = props.clickHandler;
   const type = props.type;
-  const products = props.listOfVoice.map((prd, idx) => {
+  const task = props.render;
+  const products = (props.listOfVoice !== undefined && props.listOfVoice.map((prd, idx) => {
     return (
-      <ListGroup.Item className={classes.list} key = {idx}>
+      <>
+      {props.listOfVoice[0].id !== 'default' && (<ListGroup.Item className={classes.list} key = {idx}>
         <Button
           type="submit"
           className={classes.btn}
           onClick={() => {
             ItemClickhandler(prd, type);
           }}
-        >
+        >{`(${prd.id}) | `}
           {type === 'voice' && prd.name}
           {type === 'ebook' && prd.ebookName}
           {type === 'inquiry' && prd.title}
+          
         </Button>
-      </ListGroup.Item>
+      </ListGroup.Item>)}
+
+      </>
     );
-  });
+  }));
+  useEffect(()=>{
+
+  },[task])
   return (
     <>
       <ListGroup className={classes.scrollbar} >{products}</ListGroup>
