@@ -119,7 +119,7 @@ export default function DetailBanner(props) {
                 <KeepButton id={prdId} type="book" />
               </Col>
               <Col>
-                <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick={addCartHandler}>
+                <IconButton aria-label="add to shopping cart"className={props.book.price === 0 ? classes['disabled-cart-icon'] : classes["cart-icon"]}  onClick={addCartHandler} disabled={props.book.price === 0}>
                   <ShoppingCartOutlinedIcon />
                 </IconButton>
               </Col>
@@ -150,7 +150,7 @@ export default function DetailBanner(props) {
                 <LikeButton id = {prdId}/>
               </Col>
               <Col>
-                <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick={addCartHandler}>
+                <IconButton aria-label="add to shopping cart" className={props.book.price === 0 ? classes['disabled-cart-icon'] : classes["cart-icon"]} onClick={addCartHandler} disabled={props.book.price === 0}>
                   <ShoppingCartOutlinedIcon />
                 </IconButton>
               </Col>

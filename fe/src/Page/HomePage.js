@@ -62,7 +62,7 @@ export default function HomePage() {
       <div style={{ width: "100%", height: "8rem" }} />
       <Stack>
       <div className={classes.carousel} >
-        <BannerCarousel />
+        <BannerCarousel type='home' />
       </div>
       <div className={classes["book-preview"]}>
         <BookPreview {...PageConfig.HOMEPAGE_TITLES[0]} images={bestSellerBook} />

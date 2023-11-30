@@ -4,12 +4,11 @@ import { DebuggingMode, PageConfig } from "../../Config/Config";
 
 import axios from "axios";
 import NavigationBar from "../../Component/NavigationBar/NavigationBar";
-import Carousel from "react-bootstrap/Carousel";
-import BannerCard from "../../Component/Card/BannerCard";
 import BookPreview from "../../Component/Preview/BookPreview";
-
 import classes from "./BookShopPage.module.css";
 import BookPreviewAll from "../../Component/Preview/BookPreviewAll";
+import BannerCarousel from "../../Component/Carousel/BannerCarousel";
+import { Stack } from "react-bootstrap";
 
 export default function () {
   const [bannerBook, setBannerBook] = useState([
@@ -64,19 +63,7 @@ export default function () {
       )
       .catch((err) => console.log(err));
   }, []);
-  const bannerList = bannerBook.map((book, idx) => {
-    return (
-      <Carousel.Item key = {idx}>
-        <BannerCard
-          id={book.id}
-          imagePath={book.image}
-          title={book.name}
-          description={book.description}
-          link={"/bookDetail/" + book.id}
-        />
-      </Carousel.Item>
-    );
-  });
+
   const previewList = PageConfig.EBOOK_SHOP_TITLES.map((preview, idx) => {
     return (
       <div className={classes["book-preview"]} key={idx}>
@@ -90,14 +77,15 @@ export default function () {
   });
   return (
     <>
-      <NavigationBar/>
+      <NavigationBar showMenuBar = {true} page = 'book'/>
       <div style={{ width: "100%", height: "8rem" }} />
-      <div className={classes["banner-wrapper"]}>
-        <Carousel indicators={false}>{bannerList}</Carousel>
+      <Stack>
+      <div className={classes.carousel} >
+        <BannerCarousel type = 'book'/>
       </div>
-      {/* 리스트를 동적으로 가져옴 */}
       {previewList}
       <BookPreviewAll title="전체 페이지" subtitle="전체 목록" />
+      </Stack>
     </>
   );
 }

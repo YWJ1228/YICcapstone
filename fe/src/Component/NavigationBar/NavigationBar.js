@@ -64,6 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function NavigationBar(props) {
+  const pageType = props.page;
   const showMenuBarState = props.showMenuBar;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -201,7 +202,7 @@ function NavigationBar(props) {
               <Stack direction="row" spacing={15}>
                 <Typography className={classes.menu}> </Typography>
                 <Typography
-                  className={classes.menu}
+                  className={pageType==='book' ? classes['menu-focus']: classes.menu}
                   onClick={() => {
                     navigateHome("/bookShop");
                   }}
