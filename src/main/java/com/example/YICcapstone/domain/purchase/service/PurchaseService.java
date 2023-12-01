@@ -8,6 +8,7 @@ import com.example.YICcapstone.domain.member.exception.MemberNotExistException;
 import com.example.YICcapstone.domain.member.repository.MemberRepository;
 import com.example.YICcapstone.domain.purchase.dto.request.PurchaseRequest;
 import com.example.YICcapstone.domain.purchase.dto.response.PurchaseResponse;
+import com.example.YICcapstone.domain.purchase.exception.EbookPurchaseAlreadyExistException;
 import com.example.YICcapstone.domain.purchase.exception.VoiceModelPurchaseAlreadyExistException;
 import com.example.YICcapstone.domain.purchase.repository.EbookPurchaseRepository;
 import com.example.YICcapstone.domain.purchase.repository.VoiceModelPurchaseRepository;
@@ -50,7 +51,7 @@ public class PurchaseService {
         Ebook savedEbook = ebookRepository.findById(purchaseRequest.getItemId())
                 .orElseThrow(EbookNotFoundException::new);
         if (ebookPurchaseRepository.findByEbookIdAndMemberId(savedEbook.getId(), member.getId()).isPresent())
-            throw new VoiceModelPurchaseAlreadyExistException();
+            throw new EbookPurchaseAlreadyExistException();
         ebookPurchaseRepository.save(purchaseRequest.toEbookPurchase(savedEbook, member));
     }
 
