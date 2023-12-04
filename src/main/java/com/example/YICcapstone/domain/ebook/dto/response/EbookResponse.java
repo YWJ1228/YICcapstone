@@ -21,7 +21,7 @@ public class EbookResponse {
     private String content;
     private int viewCount;
     private Integer purchaseCount;
-    private double rating;
+    private String rating;
     private String uploadedAt;
 
     public EbookResponse(Ebook ebook) {
@@ -37,8 +37,8 @@ public class EbookResponse {
         content = ebook.getContent();
         viewCount = ebook.getViewCount();
         purchaseCount = ebook.getEbookPurchaseList().size();
-        rating = ebook.getEbookPurchaseList().stream().filter(ebookPurchase -> ebookPurchase.getGrade() != null)
-                .mapToDouble(ebookPurchase -> ebookPurchase.getGrade()).average().orElse(0);
+        rating = ratingFormat(ebook.getEbookPurchaseList().stream().filter(ebookPurchase -> ebookPurchase.getGrade() != null)
+                .mapToDouble(ebookPurchase -> ebookPurchase.getGrade()).average().orElse(0));
         uploadedAt = timeFormat(ebook.getUploadedAt());
     }
 
@@ -47,5 +47,12 @@ public class EbookResponse {
         String month = time.toString().substring(5, 7);
         String day = time.toString().substring(8, 10);
         return year + "년 " + month + "월 " + day + "일";
+    }
+
+    public String ratingFormat(double rating) {
+        if (rating == 0) {
+            return "아직 평점이 없어요.";
+        }
+        return String.format("%.1f", rating);
     }
 }
