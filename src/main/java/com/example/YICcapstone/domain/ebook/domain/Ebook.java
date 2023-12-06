@@ -22,6 +22,7 @@ public class Ebook {
     @Column
     @Lob
     private String content;
+    private String comment;
 
     @Column
     private String category;
@@ -31,7 +32,6 @@ public class Ebook {
     private String publisher;
     private int price;
     private String imageUrl;
-    private String comment;
     private int viewCount = 0;
     private LocalDateTime uploadedAt = LocalDateTime.now();
 
