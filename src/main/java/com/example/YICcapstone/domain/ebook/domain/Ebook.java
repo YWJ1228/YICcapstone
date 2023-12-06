@@ -19,9 +19,10 @@ public class Ebook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(columnDefinition = "LONGTEXT")
     @Lob
     private String content;
+    @Lob
     private String comment;
 
     @Column
