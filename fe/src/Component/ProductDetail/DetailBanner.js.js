@@ -156,7 +156,7 @@ export default function DetailBanner(props) {
               </Col>
             </Row>
             <Row className={classes.detail}>
-              {props.book.job} ( {props.book.jobDescription} )
+              {props.book.job}
             </Row>
             <Row className={classes.detail}>좋아요 : {props.book.rating}</Row>
             <Row className={classes.detail}>업로드 날짜 : {props.book.updatedDate}</Row>

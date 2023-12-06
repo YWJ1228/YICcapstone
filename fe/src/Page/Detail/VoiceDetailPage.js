@@ -42,7 +42,6 @@ export default function VoiceDetailPage() {
             id: res1.data.id,
             name: res1.data.celebrityName,
             category: res1.data.category,
-            jobDescription: res1.data.comment,
             image: res1.data.imageUrl,
             updatedDate: res1.data.uploadedAt,
             rating: res1.data.preferenceCount,
