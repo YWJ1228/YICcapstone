@@ -37,7 +37,7 @@ export default function SearchPwd() {
         });
       })
       .catch(function (err) {
-        console.log(err);
+        // console.log(err);
       });
   }
   function changePwdHandler(event) {
@@ -53,7 +53,7 @@ export default function SearchPwd() {
           navigate('/login');
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
     else{

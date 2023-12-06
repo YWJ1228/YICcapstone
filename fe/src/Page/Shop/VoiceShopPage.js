@@ -63,7 +63,9 @@ export default function () {
           );
         })
       )
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        // console.log(err)
+      });
   }, []);
   const BannerList = bannerVoice.map((voice, idx) => {
     // 배너 리스트 디자인

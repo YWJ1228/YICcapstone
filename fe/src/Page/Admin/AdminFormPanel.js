@@ -49,7 +49,7 @@ export default function AdminFormPanel(props) {
           headers: { Authorization: `Bearer ${getCookies("accessToken")}` },
         })
         .then((res) => {
-          console.log(`${API.ADMIN_LOAD_FEEDBACK_LIST}${res.data.totalElements}`);
+        
           if (res.data.totalElements !== 0) {
             axios
               .get(`${API.ADMIN_LOAD_FEEDBACK_LIST}${res.data.totalElements}`, {
@@ -61,7 +61,7 @@ export default function AdminFormPanel(props) {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
   }, [task]);
@@ -142,12 +142,11 @@ export default function AdminFormPanel(props) {
           }
         )
         .then((res) => {
-          console.log(res);
-          console.log("추가 완료");
+          // console.log("추가 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } else {
       axios
@@ -171,12 +170,11 @@ export default function AdminFormPanel(props) {
           }
         )
         .then((res) => {
-          console.log(res);
-          console.log("추가 완료");
+          // console.log("추가 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
   }
@@ -202,12 +200,11 @@ export default function AdminFormPanel(props) {
           }
         )
         .then((res) => {
-          console.log(res);
-          console.log("수정완료");
+          // console.log("수정완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } else {
       axios
@@ -231,12 +228,11 @@ export default function AdminFormPanel(props) {
           }
         )
         .then((res) => {
-          console.log(res);
-          console.log("수정완료");
+          // console.log("수정완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
   }
@@ -250,12 +246,11 @@ export default function AdminFormPanel(props) {
           data: {},
         })
         .then((res) => {
-          console.log(res);
-          console.log("삭제 완료");
+          // console.log("삭제 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } else if(props.type === 'ebook'){
       axios
@@ -266,12 +261,11 @@ export default function AdminFormPanel(props) {
           data: {},
         })
         .then((res) => {
-          console.log(res);
-          console.log("삭제 완료");
+          // console.log("삭제 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
     else{
@@ -284,12 +278,11 @@ export default function AdminFormPanel(props) {
           data: {},
         })
         .then((res) => {
-          console.log(res);
-          console.log("삭제 완료");
+          // console.log("삭제 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
   }

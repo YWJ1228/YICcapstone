@@ -54,7 +54,9 @@ export default function HomePage() {
           DebuggingMode(["배너", "이 달의 책", "이 달의 TTS"], [null, resData1, resData2]);
         })
       )
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        // console.log(err)
+      });
   }, []);
   return (
     <>

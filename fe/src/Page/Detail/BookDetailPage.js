@@ -33,7 +33,6 @@ export default function BookDetailPage() {
       .all([axios.get(`${API.LOAD_EBOOK}/${ebookID}`), axios.get(`${API.LOAD_REVIEW_EBOOKS}${ebookID}&page=${curReviewPage}`)])
       .then(
         axios.spread((res1, res2) => {
-          console.log(res2);
           setReview(res2.data.content);
           setReviewPages(res2.data.totalPages);
           setBookInfo({
@@ -52,11 +51,10 @@ export default function BookDetailPage() {
         })
       )
       .catch(function (error) {
-        console.log(error);
-        console.log("Book Detail loading error");
+        // console.log(error);
+        // console.log("Book Detail loading error");
       });
   }, []);
-  console.log(reviews)
   return (
     <>
       <NavigationBar img_src="logo.png" />

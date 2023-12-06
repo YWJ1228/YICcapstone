@@ -74,7 +74,7 @@ export default function RegisterPage() {
         showModal();
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   }
   function validNicknameHandler() {
@@ -87,7 +87,7 @@ export default function RegisterPage() {
         showModal();
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(error);
       });
   }
 
@@ -104,7 +104,7 @@ export default function RegisterPage() {
           showModal();
         })
         .catch(function (error) {
-          console.log(error);
+          // console.log(error);
         });
     }
     const birthRegexp = /[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1])/;

@@ -19,10 +19,11 @@ export default function DetailReviews(props) {
     })
     .then((res)=>{
       alert('삭제 성공')
-    }).catch((err)=>{console.log(err)})
+    }).catch((err)=>{
+      // console.log(err)
+    })
   }
   const reviewArr = props.reviews.map((review) => {
-    console.log(review);
     return (
       <div className={classes["review-wrapper"]} key={review.userName}>
         <Row>

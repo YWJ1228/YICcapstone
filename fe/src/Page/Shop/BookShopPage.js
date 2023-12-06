@@ -61,7 +61,9 @@ export default function () {
           );
         })
       )
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        // console.log(err)
+      });
   }, []);
 
   const previewList = PageConfig.EBOOK_SHOP_TITLES.map((preview, idx) => {

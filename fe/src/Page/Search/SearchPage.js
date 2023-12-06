@@ -29,7 +29,7 @@ export default function SearchPage(props) {
       case 'title': api = (API.SEARCH_EBOOK_NAME); break;
       case 'author': api = (API.SEARCH_EBOOK_AUTHOR); break;
       case 'publisher': api = (API.SEARCH_EBOOK_PUBLISHER); break;
-      default: console.log('baseAPI setting 오류'); break;
+      default:  break;
     }
 
 
@@ -38,10 +38,9 @@ export default function SearchPage(props) {
         .get(`${api}${searchKeyword}`)
         .then((res) => {
           setSearchedProducts(res.data.content);
-          console.log(res);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
     else {
@@ -53,7 +52,6 @@ export default function SearchPage(props) {
       axios.get(`${API.SEARCH_VOICE}${searchKeyword}`)
         .then((res) => {
           setSearchedTTS(res.data.content);
-          console.log(res);
         })
     }
   }, [searchKeyword, menuForm]);

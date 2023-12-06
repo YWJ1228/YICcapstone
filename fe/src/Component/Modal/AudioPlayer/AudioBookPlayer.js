@@ -61,7 +61,7 @@ export default function AudioBookPlayer() {
         })
       )
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [selectedTTS, selectedBook]);
   axios
@@ -77,10 +77,10 @@ export default function AudioBookPlayer() {
     )
     .then((res) => {
       setCurPlay(res.data.audioBookLink);
-      console.log(res);
+
     })
     .catch((err) => {
-      console.log(err);
+      // console.log(err);
     });
   return (
     <>
@@ -127,7 +127,7 @@ export default function AudioBookPlayer() {
         className={classes["playing-bar"]}
         src={curPlay}
         onPlay={(e) => {
-          console.log(e);
+          // console.log(e);
         }}
       />
     </>

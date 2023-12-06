@@ -10,7 +10,7 @@ export default function DemoPlayer(props) {
 
   return (
     <Modal show={show} onHide={handlerClose}>
-      <AudioPlayer src={demoUrl} onPlay={(e) => console.log("onPlay")} />
+      <AudioPlayer src={demoUrl} onPlay={(e) => console.log('')} />
       <Button variant="secondary" onClick={handlerClose}>
         닫기
       </Button>

@@ -53,8 +53,8 @@ export default function VoiceDetailPage() {
         })
       )
       .catch(function (err) {
-        console.log(err);
-        console.log("Voice detail loading error");
+        // console.log(err);
+        // console.log("Voice detail loading error");
       });
   }, []);
   const [show, setShow] = useState(false);

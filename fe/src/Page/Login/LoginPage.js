@@ -38,20 +38,18 @@ export default function LoginPage(props) {
     event.preventDefault();
     // api로 데이터 전송
     if (loginForm.password !== "") {
-      console.log(loginForm);
       axios
         .post(`${API.LOGIN_USER}`, loginForm)
         .then(function (response) {
-          console.log(response);
           setCookies("accessToken", response.headers.getAuthorization());
           navigateHome("/");
         })
         .catch(function (error) {
-          console.log(error);
+          // console.log(error);
           setLoginForm({ ...loginForm, loginSuccess: false });
         });
     } else if (loginForm.password === "") {
-      console.log("비밀번호를 입력해주세요");
+      alert("비밀번호를 입력해주세요");
     }
   }
   return (

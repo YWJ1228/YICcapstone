@@ -73,7 +73,7 @@ export default function DetailBanner(props) {
           });
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } else {
       // 무료 구매 추가
