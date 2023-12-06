@@ -29,10 +29,6 @@ export default function DetailReviews(props) {
           <Col>
             <Row className={classes.userid}>
               <Col>{review.userName}</Col>
-              <Col xs={2} md={1} className={classes["review-modify-wrapper"]}>
-                <div className={classes["review-modify"]} onClick = {changeReview}>수정</div>
-                <div className={classes["review-modify"]} onClick = {deleteReview}>삭제</div>
-              </Col>
             </Row>
             <Row className={classes.review}>
               <Col>{review.content}</Col>

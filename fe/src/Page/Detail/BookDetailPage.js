@@ -45,7 +45,7 @@ export default function BookDetailPage() {
             numLikes: res1.data.rating,
             updatedDate: res1.data.uploadedAt,
             price: res1.data.price,
-            description: res1.data.content,
+            description: res1.data.comment,
           });
 
           DebuggingMode(["책 정보"], [res1.data]);
