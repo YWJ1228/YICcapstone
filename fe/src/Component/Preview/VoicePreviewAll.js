@@ -19,7 +19,7 @@ import VoicePreview from './VoicePreview';
 
 
 export default function VoicePreviewAll(props) {
-    const [currentCategory, setCurrentCategory] = useState('all');
+    const [currentCategory, setCurrentCategory] = useState('전체');
     const [currentPage, setCurrentPage] = useState(1);
     const [pageCnt, setPageCnt] = useState(1);
     const [entireVoice, setEntireVoice] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
@@ -27,7 +27,7 @@ export default function VoicePreviewAll(props) {
 
     useEffect(() => {
         var api = `${API.LOAD_CATEGORY_VOICE_UPLOAD}${currentCategory}&page=${currentPage - 1}`;
-        if (currentCategory === 'all') {
+        if (currentCategory === '전체') {
             switch (sortType) {
                 case '0': api = `${API.LOAD_VOICE_SORTBY_UPLOAD}${currentPage - 1}`; break;
                 case '1': api = `${API.LOAD_VOICE_SORTBY_POPULARITY}${currentPage - 1}`; break;

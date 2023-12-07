@@ -12,10 +12,10 @@ export const creditConfig = {
 };
 
 export const categoryDict = {
-  'poem': "시",
-  'novel': "소설",
-  'singer' : '가수',
-  'actor' : '배우'
+  '시': "시",
+  '소설': "소설",
+  '가수' : '가수',
+  '배우' : '배우'
 };
 
 export const PageConfig = {
@@ -39,7 +39,7 @@ export const PageConfig = {
     description: "default",
     price: "default,",
   },
-  EBOOK_CATEGORY_LIST: ["all", "novel", "poem"],
+  EBOOK_CATEGORY_LIST: ["전체", "소설", "시"],
   EBOOK_PRODUCT_PER_PAGE: 3,
 
   NUM_BANNER_EBOOKS: 4,
@@ -65,7 +65,7 @@ export const PageConfig = {
     demoUrl: "default",
     voiceUrl: "default",
   },
-  VOICE_CATERGORY_LIST: ["all", "singer", "actor"],
+  VOICE_CATERGORY_LIST: ["전체", "가수", "배우"],
   VOICE_PRODUCT_PER_PAGE: 2,
 
   NUM_BANNER_VOICES: 4,

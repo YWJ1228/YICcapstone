@@ -12,14 +12,14 @@ import classes from "./BookPreviewAll.module.css";
 import BookPreview from "./BookPreview";
 
 export default function BookPreviewAll(props) {
-  const [currentCategory, setCurrentCategory] = useState("all");
+  const [currentCategory, setCurrentCategory] = useState("전체");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageCnt, setPageCnt] = useState(1);
   const [entireBook, setEntireBook] = useState([PageConfig.EBOOK_PAGE_DEFAULT_STATE]);
   const [sortType, setSortType] = useState("0");
   useEffect(() => {
     var api = `${API.LOAD_CATEGORY_EBOOKS_UPLOAD}${currentCategory}&page=${currentPage - 1}`;
-    if (currentCategory === "all") {
+    if (currentCategory === "전체") {
       switch (sortType) {
         case "0":
           api = `${API.LOAD_EBOOK_SORTBY_UPLOAD}${currentPage - 1}`;
