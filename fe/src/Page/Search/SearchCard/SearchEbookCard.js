@@ -74,7 +74,7 @@ export default function SearchEbookCard(props) {
           <Row className={classes.rating}>
             <Col>
               {renderStars}
-              <span className={classes["rating-num"]}>{props.prd.rating}.0</span>
+              <span className={classes["rating-num"]}>{props.prd.rating}</span>
             </Col>{" "}
           </Row>
         </Col>
