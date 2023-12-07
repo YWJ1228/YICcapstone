@@ -25,11 +25,11 @@ export default function DetailReviews(props) {
   }
   const reviewArr = props.reviews.map((review) => {
     return (
-      <div className={classes["review-wrapper"]} key={review.userName}>
+      <div className={classes["review-wrapper"]} key={review.nickName}>
         <Row>
           <Col>
             <Row className={classes.userid}>
-              <Col>{review.userName}</Col>
+              <Col>{review.nickName}</Col>
             </Row>
             <Row className={classes.review}>
               <Col>{review.content}</Col>
