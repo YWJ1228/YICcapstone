@@ -8,20 +8,20 @@ import java.time.LocalDateTime;
 
 @Getter
 public class ReviewResponse {
-    private String userName;
+    private String nickName;
     private String content;
     private Integer grade;
     private String time;
 
     public ReviewResponse(VoiceModelPurchase voiceModelPurchase) {
-        this.userName = voiceModelPurchase.getMember().getName();
+        this.nickName = voiceModelPurchase.getMember().getNickname();
         this.content = voiceModelPurchase.getContent();
         this.grade = null;
         this.time = timeFormat(voiceModelPurchase.getCreatedAt(), voiceModelPurchase.getUpdatedAt());
     }
 
     public ReviewResponse(EbookPurchase ebookPurchase) {
-        this.userName = ebookPurchase.getMember().getName();
+        this.nickName = ebookPurchase.getMember().getNickname();
         this.content = ebookPurchase.getContent();
         this.grade = ebookPurchase.getGrade();
         this.time = timeFormat(ebookPurchase.getCreatedAt(), ebookPurchase.getUpdatedAt());
