@@ -19,7 +19,6 @@ export default function InquiryPage() {
     },[])
     function submitHandler(event){
         event.preventDefault();
-        console.log(event.target.title.value)
         axios.post(`${API.CREATE_FEEDBACK}`,{
             title : event.target.title.value.trim(),
             detail : event.target.detail.value.trim()
@@ -32,7 +31,7 @@ export default function InquiryPage() {
             setMessage(res.data);
         }).catch((err)=>{
             //에러 출력
-            console.log(err);
+            // console.log(err);
         })
     }
   return (

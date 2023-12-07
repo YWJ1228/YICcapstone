@@ -24,10 +24,9 @@ export function LikeButton(props) {
       .then((res) => {
         // json 형식에 맞추어서 데이터 넣으면 됨
         setLikeState(res.data);
-        console.log(res,1);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
   function likeClickHandler() {
@@ -46,7 +45,7 @@ export function LikeButton(props) {
         // success
        })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }
 

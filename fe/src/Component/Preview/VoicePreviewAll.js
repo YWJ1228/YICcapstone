@@ -56,7 +56,9 @@ export default function VoicePreviewAll(props) {
                 setEntireVoice(resData);
                 setPageCnt(res1.data.totalPages);
                 DebuggingMode([`${currentCategory} 페이지 `, `${currentCategory} 페이지 수`], [resData, res1.data.totalPages]);
-            }).catch((err) => { console.log(err) });
+            }).catch((err) => { 
+                // console.log(err) 
+            });
     }, [currentPage, currentCategory, sortType]);
 
     // category 변경하면 항상 첫페이지로 넘어가도록

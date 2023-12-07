@@ -93,7 +93,7 @@ export default function MyCart(props) {
       })
       .then((res) => {})
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
     renderFunc(renderVal + 1);
   }

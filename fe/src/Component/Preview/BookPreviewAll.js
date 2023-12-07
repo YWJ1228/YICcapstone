@@ -65,7 +65,7 @@ export default function BookPreviewAll(props) {
         DebuggingMode([`${currentCategory} 페이지 `, `${currentCategory} 페이지 수`], [resData, res1.data.totalPages]);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [currentPage, currentCategory, sortType]);
 

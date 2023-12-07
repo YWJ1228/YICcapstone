@@ -54,7 +54,9 @@ export default function HomePage() {
           DebuggingMode(["배너", "이 달의 책", "이 달의 TTS"], [null, resData1, resData2]);
         })
       )
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        // console.log(err)
+      });
   }, []);
   return (
     <>
@@ -62,7 +64,7 @@ export default function HomePage() {
       <div style={{ width: "100%", height: "8rem" }} />
       <Stack>
       <div className={classes.carousel} >
-        <BannerCarousel />
+        <BannerCarousel type='home' />
       </div>
       <div className={classes["book-preview"]}>
         <BookPreview {...PageConfig.HOMEPAGE_TITLES[0]} images={bestSellerBook} />

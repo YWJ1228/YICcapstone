@@ -19,20 +19,17 @@ export default function DetailReviews(props) {
     })
     .then((res)=>{
       alert('삭제 성공')
-    }).catch((err)=>{console.log(err)})
+    }).catch((err)=>{
+      // console.log(err)
+    })
   }
   const reviewArr = props.reviews.map((review) => {
-    console.log(review);
     return (
       <div className={classes["review-wrapper"]} key={review.userName}>
         <Row>
           <Col>
             <Row className={classes.userid}>
               <Col>{review.userName}</Col>
-              <Col xs={2} md={1} className={classes["review-modify-wrapper"]}>
-                <div className={classes["review-modify"]} onClick = {changeReview}>수정</div>
-                <div className={classes["review-modify"]} onClick = {deleteReview}>삭제</div>
-              </Col>
             </Row>
             <Row className={classes.review}>
               <Col>{review.content}</Col>

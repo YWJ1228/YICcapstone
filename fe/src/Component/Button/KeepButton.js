@@ -23,7 +23,7 @@ export function KeepButton(props) {
         setKeepState(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, []);
   function keepClickHandler() {

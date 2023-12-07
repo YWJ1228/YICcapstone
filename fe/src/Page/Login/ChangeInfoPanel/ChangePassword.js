@@ -50,7 +50,7 @@ export default function ChangePassword() {
           });
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
           err.response.data.message === undefined ? setValidForm({ ...validForm, verifySubmit: err.response.data.detail }) : setValidForm({ ...validForm, verifySubmit: err.response.data.message });
         });
     }

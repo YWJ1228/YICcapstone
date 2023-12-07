@@ -2,7 +2,7 @@ export const IS_DEBUGGING = false; // 디버깅 모드 선택 가능
 export const DebuggingMode = (description, data) => {
   if (IS_DEBUGGING) {
     description.map((text, idx) => {
-      console.log(text, data[idx]);
+      // console.log(text, data[idx]);
     });
   }
 };

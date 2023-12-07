@@ -17,7 +17,7 @@ export default function ChangeNickname() {
         setCurrentNickname(res.data.nickname);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [currentNickname]);
   function nicknameSubmitHandler(event) {

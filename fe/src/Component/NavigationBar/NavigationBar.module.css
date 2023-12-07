@@ -23,7 +23,14 @@
     color : #7B8EF5;
     text-align: center;
 }
-
+.menu-focus{
+    color : #7B8EF5;
+    text-align: center;
+    padding : 1rem;
+    margin-left : 3rem;
+    margin-right : 3rem;
+    cursor : pointer;
+}
 
 
 

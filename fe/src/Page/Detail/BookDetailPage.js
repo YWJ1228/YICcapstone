@@ -33,7 +33,6 @@ export default function BookDetailPage() {
       .all([axios.get(`${API.LOAD_EBOOK}/${ebookID}`), axios.get(`${API.LOAD_REVIEW_EBOOKS}${ebookID}&page=${curReviewPage}`)])
       .then(
         axios.spread((res1, res2) => {
-          console.log(res2);
           setReview(res2.data.content);
           setReviewPages(res2.data.totalPages);
           setBookInfo({
@@ -45,18 +44,17 @@ export default function BookDetailPage() {
             numLikes: res1.data.rating,
             updatedDate: res1.data.uploadedAt,
             price: res1.data.price,
-            description: res1.data.content,
+            description: res1.data.comment,
           });
 
           DebuggingMode(["책 정보"], [res1.data]);
         })
       )
       .catch(function (error) {
-        console.log(error);
-        console.log("Book Detail loading error");
+        // console.log(error);
+        // console.log("Book Detail loading error");
       });
   }, []);
-  console.log(reviews)
   return (
     <>
       <NavigationBar img_src="logo.png" />

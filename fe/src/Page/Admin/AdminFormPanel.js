@@ -14,7 +14,7 @@ import AdminInquiryForm from "./Form/AdminInquiryForm";
 
 export default function AdminFormPanel(props) {
   const [task, setTask] = useState(0);
-  const [listProduct, setListProduct] = useState([PageConfig.VOICE_PAGE_DEFAULT_STATE]);
+  const [listProduct, setListProduct] = useState([]);
   const [curProduct, setCurProduct] = useState(PageConfig.VOICE_PAGE_DEFAULT_STATE);
   const [curEbook, setCurEbook] = useState();
   const [curInquiry, setCurInquiry] = useState();
@@ -49,7 +49,7 @@ export default function AdminFormPanel(props) {
           headers: { Authorization: `Bearer ${getCookies("accessToken")}` },
         })
         .then((res) => {
-          console.log(`${API.ADMIN_LOAD_FEEDBACK_LIST}${res.data.totalElements}`);
+        
           if (res.data.totalElements !== 0) {
             axios
               .get(`${API.ADMIN_LOAD_FEEDBACK_LIST}${res.data.totalElements}`, {
@@ -61,7 +61,7 @@ export default function AdminFormPanel(props) {
           }
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
   }, [task]);
@@ -104,7 +104,7 @@ export default function AdminFormPanel(props) {
       form.author.value = curEbook.author;
       form.publisher.value = curEbook.publisher;
       form.pages.value = curEbook.pages;
-      form.comment.value = curEbook.commnet;
+      form.comment.value = curEbook.comment;
       form.content.value = curEbook.content;
       form.viewCount.value = curEbook.viewCount;
       form.purchaseCount.value = curEbook.purchaseCount;
@@ -112,11 +112,13 @@ export default function AdminFormPanel(props) {
       form.imageUrl.value = curEbook.imageUrl;
       form.price.value = curEbook.price;
     } else if (props.type === "inquiry") {
+      if(curInquiry.id !== 'default'){
       form.id.value = curInquiry.id;
       form.username.value = curInquiry.username;
       form.title.value = curInquiry.title;
       form.detail.value = curInquiry.detail;
       form.createdAt.value = curInquiry.createdAt;
+      }
     }
   }
   function addProductHandler(form) {
@@ -140,12 +142,11 @@ export default function AdminFormPanel(props) {
           }
         )
         .then((res) => {
-          console.log(res);
-          console.log("추가 완료");
+          // console.log("추가 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } else {
       axios
@@ -169,12 +170,11 @@ export default function AdminFormPanel(props) {
           }
         )
         .then((res) => {
-          console.log(res);
-          console.log("추가 완료");
+          // console.log("추가 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
   }
@@ -200,12 +200,11 @@ export default function AdminFormPanel(props) {
           }
         )
         .then((res) => {
-          console.log(res);
-          console.log("수정완료");
+          // console.log("수정완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } else {
       axios
@@ -229,12 +228,11 @@ export default function AdminFormPanel(props) {
           }
         )
         .then((res) => {
-          console.log(res);
-          console.log("수정완료");
+          // console.log("수정완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
   }
@@ -248,12 +246,11 @@ export default function AdminFormPanel(props) {
           data: {},
         })
         .then((res) => {
-          console.log(res);
-          console.log("삭제 완료");
+          // console.log("삭제 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } else if(props.type === 'ebook'){
       axios
@@ -264,15 +261,15 @@ export default function AdminFormPanel(props) {
           data: {},
         })
         .then((res) => {
-          console.log(res);
-          console.log("삭제 완료");
+          // console.log("삭제 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
     else{
+      if(listProduct.length !== 0){
       axios
         .delete(`${API.ADMIN_DELETE_FEEDBACK}${curInquiry.id}`, {
           headers: {
@@ -281,14 +278,14 @@ export default function AdminFormPanel(props) {
           data: {},
         })
         .then((res) => {
-          console.log(res);
-          console.log("삭제 완료");
+          // console.log("삭제 완료");
           initFormHandler(form);
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     }
+  }
   }
   function initFormHandler(form) {
     Array.from(form.elements).forEach((input) => {
@@ -320,7 +317,7 @@ export default function AdminFormPanel(props) {
     <Form onSubmit={submitHandler}>
       <Stack direction="row" spacing={5}>
         {FormType(props.type)}
-        <AdminListPanel clickHandler={ItemClickHandler} listOfVoice={listProduct} type={props.type} />
+        <AdminListPanel clickHandler={ItemClickHandler} listOfVoice={listProduct} type={props.type} render={task}/>
       </Stack>
     </Form>
   );

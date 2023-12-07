@@ -21,7 +21,6 @@ export default function MyPageReview(props) {
   })
   function reviewRequestClickHandler(event) {
     event.preventDefault();
-    console.log(rateState)
     axios
       .post(
         `${API.REVIEW_EBOOK}`,
@@ -41,7 +40,7 @@ export default function MyPageReview(props) {
         renderFunc(renderVal + 1);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }
   function reviewRequestVoiceClickHandler(event) {
@@ -64,7 +63,7 @@ export default function MyPageReview(props) {
         renderFunc(renderVal + 1);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }
   const requiredReviewBooks = props.reviews.map((book, idx) => {
@@ -176,7 +175,6 @@ export default function MyPageReview(props) {
     );
   });
   const requiredReviewVoices = props.voiceReview.map((voice, idx) => {
-    console.log(voice);
     return (
       <Row key={idx}>
         <Col xs="auto">

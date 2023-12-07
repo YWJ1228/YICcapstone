@@ -73,7 +73,7 @@ export default function DetailBanner(props) {
           });
         })
         .catch((err) => {
-          console.log(err);
+          // console.log(err);
         });
     } else {
       // 무료 구매 추가
@@ -119,7 +119,7 @@ export default function DetailBanner(props) {
                 <KeepButton id={prdId} type="book" />
               </Col>
               <Col>
-                <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick={addCartHandler}>
+                <IconButton aria-label="add to shopping cart"className={props.book.price === 0 ? classes['disabled-cart-icon'] : classes["cart-icon"]}  onClick={addCartHandler} disabled={props.book.price === 0}>
                   <ShoppingCartOutlinedIcon />
                 </IconButton>
               </Col>
@@ -150,13 +150,13 @@ export default function DetailBanner(props) {
                 <LikeButton id = {prdId}/>
               </Col>
               <Col>
-                <IconButton aria-label="add to shopping cart" className={classes["cart-icon"]} onClick={addCartHandler}>
+                <IconButton aria-label="add to shopping cart" className={props.book.price === 0 ? classes['disabled-cart-icon'] : classes["cart-icon"]} onClick={addCartHandler} disabled={props.book.price === 0}>
                   <ShoppingCartOutlinedIcon />
                 </IconButton>
               </Col>
             </Row>
             <Row className={classes.detail}>
-              {props.book.job} ( {props.book.jobDescription} )
+              {props.book.job}
             </Row>
             <Row className={classes.detail}>좋아요 : {props.book.rating}</Row>
             <Row className={classes.detail}>업로드 날짜 : {props.book.updatedDate}</Row>
